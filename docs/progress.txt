@@ -1,0 +1,38 @@
+## Codebase Patterns
+- Next.js 16 with static export configured (output: 'export' in next.config.ts)
+- Tailwind CSS v4 with @import "tailwindcss" in globals.css
+- Dark mode uses class strategy: `.dark` class on html element
+- Theme script in layout.tsx for flash-free dark mode on initial load
+- Use neutral color palette for minimal design aesthetic
+- Geist font family loaded via next/font/google
+
+---
+
+## 2026-02-19 - US-001: Hero Section
+
+### What was implemented
+- Scaffolded Next.js 15+ project with TypeScript, Tailwind CSS v4, ESLint, App Router
+- Configured static export in next.config.ts (output: 'export', trailingSlash: true)
+- Created Hero Section with:
+  - Open Source badge
+  - Headline: "An Agent System for opencode"
+  - Subheadline: "57 specialized agents working together to build software"
+  - Primary CTA linking to #getting-started
+  - Secondary CTA with GitHub icon (placeholder # link)
+  - Stats row: 57 Agents, 16 Skills, 4 Primary Agents
+- Dark mode support via class strategy with system preference detection
+- Smooth color transitions between light/dark mode
+
+### Files changed
+- next.config.ts - Added static export configuration
+- src/app/globals.css - Updated for dark mode class strategy
+- src/app/layout.tsx - Added metadata, dark mode script, body classes
+- src/app/page.tsx - Created Hero Section component
+
+### Learnings for future iterations
+- Tailwind v4 uses @import "tailwindcss" not @tailwind directives
+- Dark mode class strategy requires script in <head> to prevent flash
+- Use suppressHydrationWarning on html element when injecting client scripts
+- Static export creates 'out/' directory with index.html
+
+---

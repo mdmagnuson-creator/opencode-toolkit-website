@@ -1,0 +1,80 @@
+{
+  "$schema": "https://opencode.ai/schemas/project.json",
+  
+  "name": "Toolkit Website",
+  "description": "Website explaining the AI toolkit system - primary agents, sub-agents, skills categorized with descriptions and counts, plus getting started instructions",
+  
+  "stack": {
+    "languages": ["typescript"],
+    "runtime": "node",
+    "packageManager": "npm"
+  },
+  
+  "apps": {
+    "web": {
+      "path": ".",
+      "framework": "nextjs",
+      "router": "app",
+      "entryPoint": "app/",
+      "devPort": 3000
+    }
+  },
+  
+  "styling": {
+    "framework": "tailwind",
+    "version": "4",
+    "darkMode": {
+      "enabled": true,
+      "strategy": "class"
+    }
+  },
+  
+  "testing": {
+    "unit": "jest",
+    "e2e": "playwright"
+  },
+  
+  "linting": {
+    "eslint": true,
+    "prettier": true
+  },
+  
+  "commands": {
+    "dev": "npm run dev",
+    "build": "npm run build",
+    "test": "npm test",
+    "lint": "npm run lint",
+    "typecheck": "npm run typecheck"
+  },
+  
+  "qualityGates": {
+    "preCommit": ["lint", "typecheck"],
+    "preMerge": ["test", "build"]
+  },
+  
+  "features": {
+    "authentication": false,
+    "multiTenant": false,
+    "payments": false,
+    "email": false,
+    "i18n": false,
+    "darkMode": true,
+    "marketing": true,
+    "api": false,
+    "realtime": false
+  },
+  
+  "agents": {
+    "gitWorkflow": "feature-branches",
+    "autoCommit": true,
+    "autoPush": true,
+    "browserVerification": true,
+    "prReviewRequired": false
+  },
+  
+  "context": {
+    "architecture": "docs/ARCHITECTURE.md",
+    "conventions": "docs/CONVENTIONS.md",
+    "designSystem": null
+  }
+}
