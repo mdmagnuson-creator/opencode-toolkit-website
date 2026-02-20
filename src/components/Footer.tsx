@@ -43,7 +43,7 @@ export function Footer() {
     <footer className="border-t border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900">
       <div className="mx-auto max-w-6xl px-6 py-12 sm:px-8 lg:px-12">
         {/* Footer Grid */}
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
           {Object.values(footerLinks).map((section) => (
             <div key={section.title}>
               <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">

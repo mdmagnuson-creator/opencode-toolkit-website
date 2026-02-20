@@ -141,7 +141,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-6 lg:flex">
           {siteNavigation.map((item) => {
             const hasDropdown = "dropdown" in item && item.dropdown;
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
@@ -197,7 +197,7 @@ export function Header() {
           {/* Search button - hidden on mobile, shown in hamburger menu */}
           <button
             onClick={openSearch}
-            className="hidden items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-sm text-neutral-500 transition-colors hover:border-neutral-300 hover:bg-neutral-100 md:flex dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:bg-neutral-700"
+            className="hidden items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-sm text-neutral-500 transition-colors hover:border-neutral-300 hover:bg-neutral-100 lg:flex dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:bg-neutral-700"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -209,7 +209,7 @@ export function Header() {
           </button>
 
           {/* Theme toggle - hidden on mobile, shown in hamburger menu */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <ThemeToggle />
           </div>
 
@@ -217,7 +217,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 md:hidden dark:text-neutral-400 dark:hover:bg-neutral-800"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 lg:hidden dark:text-neutral-400 dark:hover:bg-neutral-800"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
@@ -235,7 +235,7 @@ export function Header() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="border-t border-neutral-200 bg-white px-6 py-4 md:hidden dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="border-t border-neutral-200 bg-white px-6 py-4 lg:hidden dark:border-neutral-800 dark:bg-neutral-950">
           {/* Search and Theme Toggle */}
           <div className="mb-4 flex items-center gap-2 border-b border-neutral-200 pb-4 dark:border-neutral-800">
             <button
