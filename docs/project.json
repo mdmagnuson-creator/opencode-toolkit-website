@@ -52,7 +52,7 @@
     "preMerge": ["test", "build"]
   },
   
-  "features": {
+  "capabilities": {
     "authentication": false,
     "multiTenant": false,
     "payments": false,
@@ -62,6 +62,11 @@
     "marketing": true,
     "api": false,
     "realtime": false
+  },
+  
+  "workflows": {
+    "adhoc": ["build", "typecheck", "lint", "test", "critic", "commit"],
+    "prd": ["build", "critic", "tester", "typecheck", "lint", "test", "e2e", "commit"]
   },
   
   "agents": {
