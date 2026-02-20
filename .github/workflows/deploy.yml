@@ -40,6 +40,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Get toolkit commit SHA
+        id: toolkit-sha
+        run: |
+          SHA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/mdmagnuson-creator/ai-toolkit/commits/main" \
+            | jq -r '.sha[:7]')
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+          echo "Syncing toolkit at commit: $SHA"
+
+      - name: Generate toolkit manifest
+        run: npx tsx scripts/generate-manifest.ts --github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOOLKIT_REPO: mdmagnuson-creator/ai-toolkit
+
       - name: Build static site
         run: npm run build
 
