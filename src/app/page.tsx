@@ -368,18 +368,11 @@ export default function Home() {
                   Run the setup script
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  Open opencode and run the toolkit installer. It configures
-                  agents, skills, and scaffolds in your environment. After that,
-                   you&apos;re ready to start using{" "}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
-                    @builder
-                  </code>
-                  ,{" "}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
-                    @ralph
-                  </code>
-                  , and the rest of the system.
+                  Open a terminal and run the installer:
                 </p>
+                <div className="mt-3 rounded-lg bg-neutral-900 p-3 dark:bg-neutral-800">
+                  <pre className="text-xs sm:text-sm text-neutral-100 overflow-x-auto"><code>{`curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash`}</code></pre>
+                </div>
               </div>
             </div>
           </div>

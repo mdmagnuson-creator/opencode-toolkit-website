@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { manifest } from '@/data';
 
 export const metadata = {
   title: 'Getting Started | AI Toolkit',
@@ -21,156 +22,164 @@ export default function GettingStartedPage() {
             Getting Started
           </h1>
           <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-300">
-            Set up the AI Toolkit and start building with agentic development in minutes.
+            Get up and running in a few minutes.
           </p>
         </div>
 
-        {/* Prerequisites */}
+        {/* Steps - matches homepage exactly */}
+        <div className="space-y-8 mb-16">
+          {/* Step 1 */}
+          <div className="flex gap-6">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
+              1
+            </div>
+            <div className="pt-1">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                Download opencode
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                Get the opencode desktop app for your platform. It&apos;s the
+                AI-native code editor that powers the agent system.
+              </p>
+              <a
+                href="https://opencode.ai/download"
+                className="mt-4 inline-flex h-11 min-w-[44px] items-center justify-center rounded-lg bg-neutral-900 px-6 text-sm font-medium text-white transition-colors hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:ring-offset-neutral-900"
+              >
+                Download opencode
+              </a>
+            </div>
+          </div>
+
+          {/* Step 2 */}
+          <div className="flex gap-6">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
+              2
+            </div>
+            <div className="pt-1">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                Connect GitHub
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                Link your GitHub account to opencode. This enables agents to
+                read repositories, create branches, and manage pull requests
+                on your behalf.
+              </p>
+            </div>
+          </div>
+
+          {/* Step 3 */}
+          <div className="flex gap-6">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
+              3
+            </div>
+            <div className="pt-1">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                Upgrade to GitHub Copilot Pro+
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                For best results, upgrade to GitHub Copilot Pro+ (or use your
+                own API keys). This gives agents access to the most capable
+                models—critical for complex coding tasks.
+              </p>
+            </div>
+          </div>
+
+          {/* Step 4 */}
+          <div className="flex gap-6">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
+              4
+            </div>
+            <div className="pt-1">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                Run the setup script
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                Open a terminal and run the toolkit installer:
+              </p>
+              <div className="mt-4 rounded-lg bg-neutral-900 p-4 dark:bg-neutral-800">
+                <pre className="text-sm text-neutral-100 overflow-x-auto"><code>{`curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash`}</code></pre>
+              </div>
+              <p className="mt-4 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                This installs agents, skills, and scaffolds to{" "}
+                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                  ~/.config/opencode/
+                </code>
+                . After that, you&apos;re ready to start using{" "}
+                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                  @planner
+                </code>
+                ,{" "}
+                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                  @builder
+                </code>
+                , and the rest of the agent system.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-neutral-200 dark:border-neutral-800 mb-16" />
+
+        {/* Starting Your First Project */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
-            Prerequisites
+            Starting Your First Project
           </h2>
-          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-800 dark:bg-neutral-900">
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">✓</span>
-                <div>
-                  <span className="font-medium text-neutral-900 dark:text-white">OpenCode CLI</span>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">The AI-powered development environment. Install from <a href="https://opencode.ai" className="text-blue-600 hover:underline dark:text-blue-400">opencode.ai</a></p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">✓</span>
-                <div>
-                  <span className="font-medium text-neutral-900 dark:text-white">Git</span>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Version control for your projects</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">✓</span>
-                <div>
-                  <span className="font-medium text-neutral-900 dark:text-white">Node.js 18+</span>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Required for the toolkit scripts and most web projects</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
+          <p className="text-neutral-600 dark:text-neutral-300 mb-6">
+            Once the toolkit is installed, you can bootstrap any project to work with the agent system.
+          </p>
 
-        {/* Step 1 */}
-        <section className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">1</span>
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-              Install the AI Toolkit
-            </h2>
-          </div>
-          <div className="ml-14">
-            <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-              Clone the AI Toolkit repository to your local config directory:
-            </p>
-            <div className="rounded-lg bg-neutral-900 p-4 dark:bg-neutral-800">
-              <pre className="text-sm text-neutral-100 overflow-x-auto"><code>{`git clone https://github.com/opencode-ai/ai-toolkit.git ~/.config/opencode`}</code></pre>
-            </div>
-            <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
-              This installs the agents, skills, scaffolds, and configuration files that power the toolkit.
-            </p>
-          </div>
-        </section>
-
-        {/* Step 2 */}
-        <section className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">2</span>
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-              Bootstrap Your First Project
-            </h2>
-          </div>
-          <div className="ml-14">
-            <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-              Navigate to your project directory and use the project-bootstrap skill to set up agent system integration:
-            </p>
-            <div className="rounded-lg bg-neutral-900 p-4 dark:bg-neutral-800">
-              <pre className="text-sm text-neutral-100 overflow-x-auto"><code>{`cd ~/code/my-project
+          <div className="space-y-8">
+            {/* Bootstrap step */}
+            <div>
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
+                Bootstrap an existing project
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
+                Navigate to your project directory and open opencode:
+              </p>
+              <div className="rounded-lg bg-neutral-900 p-4 dark:bg-neutral-800 mb-4">
+                <pre className="text-sm text-neutral-100 overflow-x-auto"><code>{`cd ~/code/my-project
 opencode`}</code></pre>
-            </div>
-            <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-              Then tell the agent:
-            </p>
-            <div className="mt-2 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950">
-              <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
-                &quot;Bootstrap this project&quot;
+              </div>
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
+                Then tell the agent:
               </p>
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950">
+                <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
+                  &quot;Bootstrap this project&quot;
+                </p>
+              </div>
+              <p className="mt-4 text-neutral-600 dark:text-neutral-300">
+                The agent will:
+              </p>
+              <ul className="mt-2 ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
+                <li>Auto-detect your tech stack (framework, database, testing, etc.)</li>
+                <li>Ask clarifying questions for anything it can&apos;t detect</li>
+                <li>Generate <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/project.json</code> with your configuration</li>
+                <li>Create <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/CONVENTIONS.md</code> with coding patterns</li>
+                <li>Set up the PRD registry for tracking features</li>
+              </ul>
             </div>
-            <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-              The agent will:
-            </p>
-            <ul className="mt-2 ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
-              <li>Auto-detect your tech stack (framework, database, testing, etc.)</li>
-              <li>Ask clarifying questions for anything it can&apos;t detect</li>
-              <li>Generate <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/project.json</code> with your configuration</li>
-              <li>Create <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/CONVENTIONS.md</code> with coding patterns</li>
-              <li>Set up the PRD registry for tracking features</li>
-            </ul>
-          </div>
-        </section>
 
-        {/* Step 3 */}
-        <section className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">3</span>
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-              Create Your First PRD
-            </h2>
-          </div>
-          <div className="ml-14">
-            <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-              PRDs (Product Requirements Documents) are how you communicate what you want to build. Create one by telling the agent:
-            </p>
-            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950">
-              <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
-                &quot;Create a PRD for user authentication with email/password login&quot;
+            {/* Or start fresh */}
+            <div>
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
+                Or start a new project from a scaffold
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
+                Use a scaffold to generate a complete project template with best practices baked in:
+              </p>
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950 mb-4">
+                <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
+                  &quot;Scaffold a new project using nextjs-supabase&quot;
+                </p>
+              </div>
+              <p className="text-neutral-600 dark:text-neutral-300">
+                Check out the <Link href="/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">available scaffolds</Link> to see what&apos;s included.
               </p>
             </div>
-            <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-              The agent will use the <Link href="/skills/prd" className="text-blue-600 hover:underline dark:text-blue-400">prd skill</Link> to:
-            </p>
-            <ul className="mt-2 ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
-              <li>Break down your request into user stories</li>
-              <li>Define acceptance criteria for each story</li>
-              <li>Identify dependencies and technical considerations</li>
-              <li>Save the PRD to <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/prds/</code></li>
-            </ul>
-          </div>
-        </section>
-
-        {/* Step 4 */}
-        <section className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">4</span>
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-              Start Building
-            </h2>
-          </div>
-          <div className="ml-14">
-            <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-              With your project configured and PRD ready, tell the agent to start implementation:
-            </p>
-            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950">
-              <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
-                &quot;Implement the first user story from prd-auth&quot;
-              </p>
-            </div>
-            <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-              The agent will:
-            </p>
-            <ul className="mt-2 ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
-              <li>Read the user story and acceptance criteria</li>
-              <li>Write code following your project conventions</li>
-              <li>Run quality gates (typecheck, lint, tests)</li>
-              <li>Request code review from critic agents</li>
-              <li>Commit changes when everything passes</li>
-            </ul>
           </div>
         </section>
 
@@ -184,70 +193,69 @@ opencode`}</code></pre>
 ├── docs/
 │   ├── project.json          # Project configuration
 │   ├── CONVENTIONS.md        # Coding patterns & style guide
-│   ├── ARCHITECTURE.md       # System overview (optional)
 │   ├── prd-registry.json     # Tracks all PRDs
-│   ├── session-locks.json    # Multi-session coordination
 │   ├── prds/                 # Active PRDs
-│   ├── drafts/               # PRDs in progress
 │   └── completed/            # Finished PRDs
 ├── src/                      # Your application code
 └── ...`}</code></pre>
           </div>
         </section>
 
-        {/* Key Workflows */}
+        {/* Key Agents */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">
-            Key Workflows
+            Key Agents to Know
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-lg border border-neutral-200 p-6 dark:border-neutral-800">
-              <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Planning Session</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
-                Use the planner agent to create and refine PRDs, prioritize features, and coordinate work.
+            <Link
+              href="/agents/builder"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
+            >
+              <code className="rounded bg-blue-100 px-2 py-1 text-sm font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">@builder</code>
+              <h3 className="mt-2 font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                Build Features
+              </h3>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                Implement PRDs, write code, run tests, and ship features end-to-end.
               </p>
-              <code className="text-xs text-blue-600 dark:text-blue-400">@project-planner</code>
-            </div>
-            <div className="rounded-lg border border-neutral-200 p-6 dark:border-neutral-800">
-              <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Building Session</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
-                Use the builder agent to implement user stories, write code, and ship features.
+            </Link>
+            <Link
+              href="/agents/planner"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
+            >
+              <code className="rounded bg-green-100 px-2 py-1 text-sm font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">@planner</code>
+              <h3 className="mt-2 font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                Plan Work
+              </h3>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                Create PRDs, prioritize features, and coordinate multi-session work.
               </p>
-              <code className="text-xs text-blue-600 dark:text-blue-400">@bildr</code>
-            </div>
-            <div className="rounded-lg border border-neutral-200 p-6 dark:border-neutral-800">
-              <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Code Review</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
-                Critic agents automatically review code for best practices, security, and consistency.
+            </Link>
+            <Link
+              href="/agents/e2e-tester"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
+            >
+              <code className="rounded bg-purple-100 px-2 py-1 text-sm font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">@e2e-tester</code>
+              <h3 className="mt-2 font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                Test End-to-End
+              </h3>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                Run and maintain Playwright E2E tests for your application.
               </p>
-              <code className="text-xs text-blue-600 dark:text-blue-400">@critic</code>
-            </div>
-            <div className="rounded-lg border border-neutral-200 p-6 dark:border-neutral-800">
-              <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Testing</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
-                Tester agents write and maintain tests for your code changes.
+            </Link>
+            <Link
+              href="/agents/toolkit"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
+            >
+              <code className="rounded bg-orange-100 px-2 py-1 text-sm font-medium text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">@toolkit</code>
+              <h3 className="mt-2 font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                Extend the Toolkit
+              </h3>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                Modify agents, skills, and scaffolds in the AI Toolkit itself.
               </p>
-              <code className="text-xs text-blue-600 dark:text-blue-400">@tester</code>
-            </div>
+            </Link>
           </div>
-        </section>
-
-        {/* New Project */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
-            Starting a New Project
-          </h2>
-          <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-            Want to start fresh? Use a scaffold to generate a complete project template:
-          </p>
-          <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950 mb-4">
-            <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
-              &quot;Scaffold a new project using nextjs-prisma&quot;
-            </p>
-          </div>
-          <p className="text-neutral-600 dark:text-neutral-300">
-            Check out the <Link href="/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">available scaffolds</Link> to see what&apos;s included in each template.
-          </p>
         </section>
 
         {/* Learn More */}
@@ -275,7 +283,7 @@ opencode`}</code></pre>
                 Browse Agents →
               </h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                Explore all 57 agents and their capabilities
+                Explore all {manifest.counts.agents} agents and their capabilities
               </p>
             </Link>
             <Link

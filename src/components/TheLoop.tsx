@@ -24,7 +24,7 @@ const phases: Phase[] = [
   {
     id: "plan",
     name: "Plan",
-    agent: "@project-planner",
+    agent: "@planner",
     agentIcon: "P",
     color: "bg-blue-500",
     darkColor: "dark:bg-blue-600",
@@ -58,7 +58,7 @@ const phases: Phase[] = [
   {
     id: "build",
     name: "Build",
-    agent: "@builder → @ralph",
+    agent: "@builder → @developer",
     agentIcon: "B",
     color: "bg-emerald-500",
     darkColor: "dark:bg-emerald-600",
@@ -73,7 +73,7 @@ const phases: Phase[] = [
         id: "implement",
         label: "Implement",
         icon: "⚡",
-        description: "@ralph writes code",
+        description: "@developer writes code",
         isLoop: true,
       },
       {
