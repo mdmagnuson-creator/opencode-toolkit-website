@@ -1,6 +1,31 @@
 {
   "version": "1.0",
-  "prds": [],
+  "prds": [
+    {
+      "id": "prd-comprehensive-docs",
+      "name": "Comprehensive Documentation Site with Auto-Sync",
+      "status": "ready",
+      "filePath": "docs/prds/prd-comprehensive-docs.md",
+      "jsonPath": "docs/prds/prd-comprehensive-docs.json",
+      "createdAt": "2026-02-20",
+      "completedAt": null,
+      "stories": ["US-001", "US-002", "US-003", "US-004", "US-005", "US-006", "US-007", "US-008", "US-009", "US-010", "US-011", "US-012", "US-013", "US-014", "US-015", "US-016", "US-017", "US-018", "US-019", "US-020", "US-021"],
+      "dependencies": [],
+      "blockedBy": []
+    },
+    {
+      "id": "prd-homepage-navigation",
+      "name": "Homepage Navigation Improvements",
+      "status": "ready",
+      "filePath": "docs/prds/prd-homepage-navigation.md",
+      "jsonPath": "docs/prds/prd-homepage-navigation.json",
+      "createdAt": "2026-02-20",
+      "completedAt": null,
+      "stories": ["US-001", "US-002", "US-003", "US-004", "US-005", "US-006", "US-007"],
+      "dependencies": [],
+      "blockedBy": []
+    }
+  ],
   "completed": [
     {
       "id": "prd-landing-page",

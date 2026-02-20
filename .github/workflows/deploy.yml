@@ -5,6 +5,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [toolkit-updated]
 
 permissions:
   contents: read
@@ -19,6 +21,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Log trigger source
+        run: |
+          echo "Triggered by: ${{ github.event_name }}"
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "Toolkit commit SHA: ${{ github.event.client_payload.sha }}"
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
 

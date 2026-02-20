@@ -2,7 +2,15 @@
 
 import { FadeInSection } from "./FadeInSection";
 
-export function Hero() {
+interface HeroProps {
+  counts: {
+    agents: number;
+    skills: number;
+    primaryAgents: number;
+  };
+}
+
+export function Hero({ counts }: HeroProps) {
   return (
     <section className="flex min-h-screen flex-col items-center justify-center px-6 pt-32 pb-24 sm:px-8 lg:px-12">
       <FadeInSection className="mx-auto max-w-3xl text-center">
@@ -23,7 +31,7 @@ export function Hero() {
 
         {/* Subheadline */}
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-800 sm:text-xl dark:text-neutral-300">
-          57 specialized agents working together to build software.
+          {counts.agents} specialized agents working together to build software.
         </p>
 
         {/* CTA Buttons */}
@@ -61,7 +69,7 @@ export function Hero() {
         <div className="mt-16 grid grid-cols-3 gap-4 border-t border-neutral-200 pt-10 sm:gap-8 dark:border-neutral-800">
           <div>
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
-              57
+              {counts.agents}
             </p>
             <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
               Agents
@@ -69,7 +77,7 @@ export function Hero() {
           </div>
           <div>
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
-              16
+              {counts.skills}
             </p>
             <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
               Skills
@@ -77,7 +85,7 @@ export function Hero() {
           </div>
           <div>
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
-              4
+              {counts.primaryAgents}
             </p>
             <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
               Primary Agents
