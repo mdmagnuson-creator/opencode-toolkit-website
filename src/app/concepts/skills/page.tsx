@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { manifest, getRegularSkills, getMetaSkills } from "@/data";
+import { getRegularSkills } from "@/data";
 
 export default function SkillsConceptPage() {
   const regularSkills = getRegularSkills();
-  const metaSkills = getMetaSkills();
 
   return (
     <main className="min-h-screen">
@@ -16,13 +15,41 @@ export default function SkillsConceptPage() {
           </div>
 
           <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-            Understanding Skills
+            Understanding Project Skills
           </h1>
           <p className="mt-6 text-lg leading-8 text-neutral-700 sm:text-xl dark:text-neutral-400">
             Skills are loadable instruction sets that give agents specialized
             knowledge for complex, multi-step workflows. Unlike agents, skills
             are loaded on-demand—activated when needed, not always running.
           </p>
+
+          {/* Meta-skills callout */}
+          <div className="mt-8 rounded-xl border-2 border-purple-200 bg-purple-50 p-5 dark:border-purple-800 dark:bg-purple-950/50">
+            <div className="flex items-start gap-3">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-purple-600 text-white">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-semibold text-purple-900 dark:text-purple-100">
+                  Looking for Meta-Skills?
+                </h3>
+                <p className="mt-1 text-sm text-purple-800 dark:text-purple-200">
+                  Meta-skills are a special category that <strong>generate project-specific skills</strong> based on your stack.
+                </p>
+                <Link
+                  href="/concepts/meta-skills"
+                  className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-purple-700 hover:text-purple-900 dark:text-purple-300 dark:hover:text-purple-100"
+                >
+                  Learn about Meta-Skills
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -234,89 +261,29 @@ export default function SkillsConceptPage() {
         </div>
       </section>
 
-      {/* Meta-Skills */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-            Meta-Skills ({metaSkills.length})
-          </h2>
-          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-            Meta-skills are special—they <strong>generate project-specific skills</strong>{" "}
-            based on your stack and configuration. Instead of providing generic instructions,
-            they analyze your project and create tailored workflows.
-          </p>
-
-          <div className="mt-8 rounded-xl border-2 border-purple-200 bg-purple-50 p-6 dark:border-purple-800 dark:bg-purple-950">
-            <h3 className="font-semibold text-purple-900 dark:text-purple-100">
-              How Meta-Skills Work
-            </h3>
-            <div className="mt-4 space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-600 text-xs font-semibold text-white">
-                  1
-                </div>
-                <p className="text-sm text-purple-800 dark:text-purple-200">
-                  Meta-skill reads your <code className="rounded bg-purple-100 px-1 py-0.5 text-xs dark:bg-purple-900">project.json</code> to
-                  understand your tech stack (database, auth, API patterns, etc.)
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-600 text-xs font-semibold text-white">
-                  2
-                </div>
-                <p className="text-sm text-purple-800 dark:text-purple-200">
-                  It generates a customized skill file with patterns specific to your
-                  project&apos;s conventions
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-600 text-xs font-semibold text-white">
-                  3
-                </div>
-                <p className="text-sm text-purple-800 dark:text-purple-200">
-                  The generated skill is saved to your project&apos;s{" "}
-                  <code className="rounded bg-purple-100 px-1 py-0.5 text-xs dark:bg-purple-900">docs/skills/</code> directory
-                  for future use
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            {metaSkills.map((skill) => (
-              <div
-                key={skill.slug}
-                className="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-800 dark:bg-purple-950/50"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="rounded bg-purple-200 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-800 dark:text-purple-200">
-                    meta
-                  </span>
-                  <h3 className="font-medium text-purple-900 dark:text-purple-100">
-                    {skill.slug}
-                  </h3>
-                </div>
-                <p className="mt-2 text-sm text-purple-700 line-clamp-2 dark:text-purple-300">
-                  {skill.description.split('.')[0]}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Browse All Skills CTA */}
       <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
-        <div className="mx-auto max-w-4xl text-center">
-          <Link
-            href="/skills"
-            className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
-          >
-            Browse All {manifest.counts.skills} Skills
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </Link>
+        <div className="mx-auto max-w-4xl">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
+            <Link
+              href="/skills?type=regular"
+              className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
+            >
+              Browse Project Skills
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+            <Link
+              href="/concepts/meta-skills"
+              className="inline-flex items-center gap-2 rounded-lg border border-purple-300 bg-purple-50 px-6 py-3 text-sm font-medium text-purple-700 transition-colors hover:bg-purple-100 dark:border-purple-700 dark:bg-purple-950 dark:text-purple-300 dark:hover:bg-purple-900"
+            >
+              Learn About Meta-Skills
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
     </main>

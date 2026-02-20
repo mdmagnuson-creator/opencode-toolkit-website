@@ -4,6 +4,7 @@ import Link from "next/link";
 import { manifest } from "@/data";
 import type { Agent } from "@/data/types";
 import { AgentContent } from "./AgentContent";
+import { AgentAvatar } from "@/components/AgentAvatar";
 
 const CATEGORY_LABELS: Record<Agent["category"], string> = {
   critics: "Critics",
@@ -84,27 +85,34 @@ export default async function AgentDetailPage({
             <Breadcrumbs />
           </div>
 
-          <div className="flex flex-wrap items-start gap-3">
-            <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-              {agent.name}
-            </h1>
-            <div className="flex items-center gap-2 pt-2">
-              {agent.mode === "primary" && (
-                <span className="inline-flex items-center rounded-full bg-violet-100 px-3 py-1 text-sm font-medium text-violet-800 dark:bg-violet-950 dark:text-violet-200">
-                  Primary Agent
-                </span>
-              )}
-              <span
-                className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${categoryColors.bg} ${categoryColors.text}`}
-              >
-                {CATEGORY_LABELS[agent.category]}
-              </span>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+            {/* Agent Avatar */}
+            <AgentAvatar agent={agent} size="xl" className="shrink-0" />
+
+            <div className="flex-1">
+              <div className="flex flex-wrap items-start gap-3">
+                <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
+                  {agent.name}
+                </h1>
+                <div className="flex items-center gap-2 pt-2">
+                  {agent.mode === "primary" && (
+                    <span className="inline-flex items-center rounded-full bg-violet-100 px-3 py-1 text-sm font-medium text-violet-800 dark:bg-violet-950 dark:text-violet-200">
+                      Primary Agent
+                    </span>
+                  )}
+                  <span
+                    className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${categoryColors.bg} ${categoryColors.text}`}
+                  >
+                    {CATEGORY_LABELS[agent.category]}
+                  </span>
+                </div>
+              </div>
+
+              <p className="mt-6 text-lg leading-8 text-neutral-700 dark:text-neutral-400">
+                {agent.description}
+              </p>
             </div>
           </div>
-
-          <p className="mt-6 text-lg leading-8 text-neutral-700 dark:text-neutral-400">
-            {agent.description}
-          </p>
         </div>
       </section>
 

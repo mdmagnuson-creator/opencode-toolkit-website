@@ -4,6 +4,7 @@ import Link from "next/link";
 import { manifest } from "@/data";
 import type { Skill } from "@/data/types";
 import { SkillContent } from "./SkillContent";
+import { SkillAvatar } from "@/components/SkillAvatar";
 
 // Generate static params for all skills
 export function generateStaticParams() {
@@ -56,46 +57,53 @@ export default async function SkillDetailPage({
             <Breadcrumbs />
           </div>
 
-          <div className="flex flex-wrap items-start gap-3">
-            <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-              {skill.name}
-            </h1>
-            {skill.isMeta ? (
-              <span className="inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800 dark:bg-purple-950 dark:text-purple-200">
-                Meta-Skill
-              </span>
-            ) : (
-              <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-950 dark:text-blue-200">
-                Skill
-              </span>
-            )}
-          </div>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+            {/* Skill Avatar */}
+            <SkillAvatar skill={skill} size="xl" className="shrink-0" />
 
-          <p className="mt-6 text-lg leading-8 text-neutral-700 dark:text-neutral-400">
-            {skill.description}
-          </p>
-
-          {/* Triggers */}
-          {skill.triggers.length > 0 && (
-            <div className="mt-8">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                Trigger Phrases
-              </h2>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {skill.triggers.map((trigger, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center rounded-lg bg-neutral-100 px-3 py-1.5 text-sm text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
-                  >
-                    &ldquo;{trigger}&rdquo;
+            <div className="flex-1">
+              <div className="flex flex-wrap items-start gap-3">
+                <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
+                  {skill.name}
+                </h1>
+                {skill.isMeta ? (
+                  <span className="inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800 dark:bg-purple-950 dark:text-purple-200">
+                    Meta-Skill
                   </span>
-                ))}
+                ) : (
+                  <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-950 dark:text-blue-200">
+                    Skill
+                  </span>
+                )}
               </div>
-              <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
-                Say any of these phrases to load this skill.
+
+              <p className="mt-6 text-lg leading-8 text-neutral-700 dark:text-neutral-400">
+                {skill.description}
               </p>
+
+              {/* Triggers */}
+              {skill.triggers.length > 0 && (
+                <div className="mt-8">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Trigger Phrases
+                  </h2>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {skill.triggers.map((trigger, i) => (
+                      <span
+                        key={i}
+                        className="inline-flex items-center rounded-lg bg-neutral-100 px-3 py-1.5 text-sm text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+                      >
+                        &ldquo;{trigger}&rdquo;
+                      </span>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
+                    Say any of these phrases to load this skill.
+                  </p>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </section>
 
