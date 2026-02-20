@@ -64,6 +64,7 @@ export function FadeInSection({
     <div
       ref={ref}
       className={`
+        no-theme-transition
         transition-all duration-500 ease-out
         motion-reduce:transition-none motion-reduce:transform-none
         ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}

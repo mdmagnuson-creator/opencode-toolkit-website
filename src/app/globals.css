@@ -38,11 +38,10 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-/* Smooth transitions for dark mode */
-html,
-html *,
-html *::before,
-html *::after {
+/* Smooth transitions for dark mode (use .no-theme-transition to opt out) */
+html:not(.no-transitions) *:not(.no-theme-transition),
+html:not(.no-transitions) *:not(.no-theme-transition)::before,
+html:not(.no-transitions) *:not(.no-theme-transition)::after {
   transition-property: background-color, border-color, color;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
