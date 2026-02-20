@@ -2,9 +2,8 @@
 name: Deploy to GitHub Pages
 
 on:
-  # TEMPORARILY DISABLED - uncomment to enable auto-deploy
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch:
   repository_dispatch:
     types: [toolkit-updated]
