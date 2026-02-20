@@ -396,9 +396,9 @@ function formatDate(dateStr: string): string {
   });
 }
 
-// Changelog cutoff date - only show changes from this date forward.
+// Changelog cutoff timestamp - only show changes committed after this Unix timestamp.
 // This filters out pre-release commits and internal development history.
-const CHANGELOG_START_DATE = '2026-02-21';
+const CHANGELOG_START_TIMESTAMP = 1771621916;
 
 /**
  * Read git changelog from the ai-toolkit repo
@@ -413,9 +413,9 @@ function readChangelog(): ChangelogDay[] {
   }
 
   try {
-    // Get last 50 commits
+    // Get last 50 commits with Unix timestamp for filtering
     const gitLog = execSync(
-      'git log --oneline -50 --format="%H|%ad|%s" --date=short',
+      'git log --oneline -50 --format="%H|%at|%ad|%s" --date=short',
       { cwd: AI_TOOLKIT_GIT_PATH, encoding: 'utf-8' }
     );
 
@@ -423,8 +423,11 @@ function readChangelog(): ChangelogDay[] {
     const changesByDate: Map<string, ChangelogEntry[]> = new Map();
 
     for (const commit of commits) {
-      const [, date, message] = commit.split('|');
-      if (!date || !message) continue;
+      const [, timestamp, date, message] = commit.split('|');
+      if (!timestamp || !date || !message) continue;
+
+      // Filter out commits before the cutoff timestamp
+      if (parseInt(timestamp, 10) < CHANGELOG_START_TIMESTAMP) continue;
 
       const parsed = parseCommitMessage(message);
       if (!parsed) continue; // Skip non-conventional commits
@@ -441,9 +444,7 @@ function readChangelog(): ChangelogDay[] {
     }
 
     // Convert to array, sorted by date descending
-    // Filter to only include dates on or after the cutoff date
     const sortedDates = Array.from(changesByDate.keys())
-      .filter(date => date >= CHANGELOG_START_DATE)
       .sort()
       .reverse();
     
