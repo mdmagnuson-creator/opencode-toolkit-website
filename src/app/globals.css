@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Use class-based dark mode instead of prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
@@ -24,17 +28,21 @@ body {
   max-width: 100vw;
 }
 
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-/* Smooth transitions for dark mode */
-html,
-html *,
-html *::before,
-html *::after {
+/* Smooth transitions for dark mode (use .no-theme-transition to opt out) */
+html:not(.no-transitions) *:not(.no-theme-transition),
+html:not(.no-transitions) *:not(.no-theme-transition)::before,
+html:not(.no-transitions) *:not(.no-theme-transition)::after {
   transition-property: background-color, border-color, color;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;

@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-02-20T00:00:00.000Z",
+  "syncedAt": "2026-02-20T00:00:00.000Z",
+  "toolkitCommit": "sample",
+  "counts": {
+    "agents": 3,
+    "primaryAgents": 1,
+    "subagents": 2,
+    "skills": 2,
+    "metaSkills": 1,
+    "scaffolds": 1,
+    "agentTemplates": 1
+  },
+  "categories": {
+    "critics": 1,
+    "developers": 1,
+    "testers": 1,
+    "other": 0
+  },
+  "templateCategories": ["backend"],
+  "agents": [
+    {
+      "slug": "builder",
+      "name": "Builder",
+      "description": "Builds features from PRDs or ad-hoc requests by orchestrating implementation agents",
+      "mode": "primary",
+      "category": "developers",
+      "content": "# Builder Agent Instructions\n\nYou are a **build coordinator** that implements features through orchestrating sub-agents. You work in two modes:\n\n1. **PRD Mode** — Building features from ready PRDs in `docs/prds/`\n2. **Ad-hoc Mode** — Handling direct requests without a PRD\n\n**You do NOT write code yourself.** All code changes must be done by the @developer sub-agent. Your job is to coordinate, delegate, review, and ship."
+    },
+    {
+      "slug": "frontend-critic",
+      "name": "Frontend Critic",
+      "description": "Reviews frontend code for component design, performance, styling, and best practices",
+      "mode": "subagent",
+      "category": "critics",
+      "content": "# Frontend Critic Agent Instructions\n\nYou are an autonomous code review agent specialized in frontend code. Your job is to review frontend files and produce actionable, specific feedback.\n\n## Your Task\n\n1. **Load Project Context (FIRST)**\n2. **Determine what to review.**\n3. **Read each file** and review it against the criteria.\n4. **Write your review** to `docs/review.md`."
+    },
+    {
+      "slug": "jest-tester",
+      "name": "Jest Tester",
+      "description": "Writes backend Jest tests in TypeScript for comprehensive test coverage",
+      "mode": "subagent",
+      "category": "testers",
+      "content": "# Jest Tester: Backend JavaScript/TypeScript Testing Subagent\n\nYou are a specialized backend Jest testing agent. You receive testing tasks with a description of what to test. Your job is to write comprehensive tests for backend code, run them, and report back what you did."
+    }
+  ],
+  "skills": [
+    {
+      "slug": "prd",
+      "name": "PRD",
+      "description": "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan this feature, requirements for, spec out.",
+      "triggers": ["create a prd", "write prd for", "plan this feature", "requirements for", "spec out"],
+      "isMeta": false,
+      "content": "# PRD Skill\n\nThis skill helps you generate a Product Requirements Document (PRD) for a new feature."
+    },
+    {
+      "slug": "crud-skill-generator",
+      "name": "CRUD Skill Generator",
+      "description": "Generate a project-specific CRUD patterns skill. Use for any project with a database to document entity creation patterns. Triggers on: generate crud skill, create crud patterns, crud-skill-generator.",
+      "triggers": ["generate crud skill", "create crud patterns", "crud-skill-generator"],
+      "isMeta": true,
+      "content": "# CRUD Skill Generator\n\nThis meta-skill generates project-specific CRUD patterns for entity creation."
+    }
+  ],
+  "scaffolds": [
+    {
+      "slug": "nextjs-app",
+      "name": "Nextjs App",
+      "description": "A Next.js App Router project scaffold with Tailwind CSS, TypeScript, and best practices configuration.",
+      "files": [
+        "README.md",
+        "package.json",
+        "tsconfig.json",
+        "next.config.js",
+        "tailwind.config.ts",
+        "app/layout.tsx",
+        "app/page.tsx"
+      ]
+    }
+  ],
+  "agentTemplates": [
+    {
+      "slug": "backend-api",
+      "name": "Backend Api",
+      "description": "Template for creating backend API endpoint implementation agents",
+      "category": "backend",
+      "appliesTo": ["typescript", "go", "python"],
+      "generates": "agents/<language>-api-dev.md",
+      "content": "# Backend API Template\n\nThis template generates backend API implementation agents for different languages."
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-02-20",
+      "displayDate": "February 20, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "Sample changelog entry for local development",
+          "scope": "sample"
+        },
+        {
+          "type": "docs",
+          "description": "Added sample data for contributors without toolkit"
+        }
+      ]
+    }
+  ]
+}

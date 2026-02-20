@@ -1,0 +1,35 @@
+# Add this workflow to the ai-toolkit repository at:
+# .github/workflows/trigger-website-rebuild.yml
+#
+# This workflow triggers a rebuild of the toolkit-website when
+# changes are pushed to the ai-toolkit main branch.
+#
+# Required secret: WEBSITE_DISPATCH_TOKEN
+# - Create a GitHub Personal Access Token with `repo` scope
+# - Add it as a secret in the ai-toolkit repository
+
+name: Trigger Website Rebuild
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'agents/**'
+      - 'skills/**'
+      - 'scaffolds/**'
+      - 'agent-templates/**'
+      - 'automations/**'
+      - 'mcp/**'
+      - 'templates/**'
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger toolkit-website rebuild
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}
+          repository: YOUR_ORG/opencode-toolkit-website
+          event-type: toolkit-updated
+          client-payload: '{"sha": "${{ github.sha }}", "ref": "${{ github.ref }}"}'
