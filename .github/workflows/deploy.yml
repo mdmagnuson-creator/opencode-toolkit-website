@@ -43,7 +43,7 @@ jobs:
       - name: Get toolkit commit SHA
         id: toolkit-sha
         run: |
-          SHA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          SHA=$(curl -s -H "Authorization: Bearer ${{ secrets.TOOLKIT_PAT }}" \
             "https://api.github.com/repos/mdmagnuson-creator/ai-toolkit/commits/main" \
             | jq -r '.sha[:7]')
           echo "sha=$SHA" >> $GITHUB_OUTPUT
@@ -52,7 +52,7 @@ jobs:
       - name: Generate toolkit manifest
         run: npx tsx scripts/generate-manifest.ts --github
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOOLKIT_PAT }}
           TOOLKIT_REPO: mdmagnuson-creator/ai-toolkit
 
       - name: Build static site
