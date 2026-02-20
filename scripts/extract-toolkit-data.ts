@@ -63,6 +63,8 @@ interface ChangelogDay {
 
 interface ToolkitManifest {
   generatedAt: string;
+  syncedAt: string;
+  toolkitCommit: string;
   counts: {
     agents: number;
     primaryAgents: number;
@@ -386,8 +388,23 @@ function parseCommitMessage(message: string): { type: ChangelogEntry['type']; sc
 
 /**
  * Format date for display
+ * Note: We parse YYYY-MM-DD manually to avoid timezone issues.
+ * Using new Date("YYYY-MM-DD") parses as UTC midnight, which when
+ * converted to local time can shift the date back by one day.
  */
 function formatDate(dateStr: string): string {
+  // Parse YYYY-MM-DD format manually to avoid timezone issues
+  const match = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (match) {
+    const [, year, month, day] = match;
+    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
+  // Fallback for other date formats
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -463,6 +480,28 @@ function readChangelog(): ChangelogDay[] {
 }
 
 /**
+ * Get the latest commit SHA from the ai-toolkit repo
+ */
+function getLatestCommitSHA(): string {
+  // Check if git repo exists
+  if (!fs.existsSync(path.join(AI_TOOLKIT_GIT_PATH, '.git'))) {
+    return 'local';
+  }
+
+  try {
+    // Get the short SHA (7 characters) of the latest commit
+    const sha = execSync('git rev-parse --short=7 HEAD', {
+      cwd: AI_TOOLKIT_GIT_PATH,
+      encoding: 'utf-8',
+    }).trim();
+    return sha || 'local';
+  } catch (error) {
+    console.warn('Failed to get commit SHA:', error);
+    return 'local';
+  }
+}
+
+/**
  * Main function
  */
 function main() {
@@ -474,6 +513,7 @@ function main() {
   const scaffolds = readScaffolds();
   const agentTemplates = readAgentTemplates();
   const changelog = readChangelog();
+  const toolkitCommit = getLatestCommitSHA();
 
   const primaryAgents = agents.filter(a => a.mode === 'primary');
   const subagents = agents.filter(a => a.mode === 'subagent');
@@ -489,8 +529,12 @@ function main() {
   // Get unique template categories
   const templateCategories = [...new Set(agentTemplates.map(t => t.category))].sort();
 
+  const now = new Date().toISOString();
+
   const manifest: ToolkitManifest = {
-    generatedAt: new Date().toISOString(),
+    generatedAt: now,
+    syncedAt: now,
+    toolkitCommit,
     counts: {
       agents: agents.length,
       primaryAgents: primaryAgents.length,

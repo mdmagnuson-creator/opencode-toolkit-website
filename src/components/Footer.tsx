@@ -1,4 +1,31 @@
 import Link from "next/link";
+import manifest from "@/data/toolkit-manifest.json";
+
+/**
+ * Format a date as a relative time string (e.g., "2 hours ago", "3 days ago")
+ */
+function formatRelativeTime(isoDate: string): string {
+  const date = new Date(isoDate);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffSeconds = Math.floor(diffMs / 1000);
+  const diffMinutes = Math.floor(diffSeconds / 60);
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+  const diffWeeks = Math.floor(diffDays / 7);
+
+  if (diffSeconds < 60) {
+    return "just now";
+  } else if (diffMinutes < 60) {
+    return `${diffMinutes} ${diffMinutes === 1 ? "minute" : "minutes"} ago`;
+  } else if (diffHours < 24) {
+    return `${diffHours} ${diffHours === 1 ? "hour" : "hours"} ago`;
+  } else if (diffDays < 7) {
+    return `${diffDays} ${diffDays === 1 ? "day" : "days"} ago`;
+  } else {
+    return `${diffWeeks} ${diffWeeks === 1 ? "week" : "weeks"} ago`;
+  }
+}
 
 const footerLinks = {
   learn: {
@@ -89,6 +116,29 @@ export function Footer() {
           </div>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
             Agentic development made simple
+          </p>
+        </div>
+
+        {/* Sync Info */}
+        <div className="mt-6 flex justify-center">
+          <p className="text-xs text-neutral-400 dark:text-neutral-500">
+            Last synced: {formatRelativeTime(manifest.syncedAt)}{" "}
+            {manifest.toolkitCommit && manifest.toolkitCommit !== "local" ? (
+              <>
+                (
+                <a
+                  href={`https://github.com/mdmagnuson-creator/ai-toolkit/commit/${manifest.toolkitCommit}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"
+                >
+                  {manifest.toolkitCommit}
+                </a>
+                )
+              </>
+            ) : (
+              <span className="font-mono">({manifest.toolkitCommit})</span>
+            )}
           </p>
         </div>
       </div>

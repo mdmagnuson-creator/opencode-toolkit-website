@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npm run extract-data && next dev",
-    "build": "npm run extract-data && next build",
+    "build": "next build",
+    "prebuild": "npx tsx scripts/generate-manifest.ts ~/.config/opencode || echo 'Using existing manifest'",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",

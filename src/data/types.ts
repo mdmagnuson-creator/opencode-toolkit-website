@@ -51,6 +51,8 @@ export interface ChangelogDay {
 
 export interface ToolkitManifest {
   generatedAt: string;
+  syncedAt: string;
+  toolkitCommit: string;
   counts: {
     agents: number;
     primaryAgents: number;
