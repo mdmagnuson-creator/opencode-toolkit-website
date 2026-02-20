@@ -1,0 +1,15 @@
+{
+  "id": "prd-build-time-toolkit-sync",
+  "name": "Build-Time Toolkit Sync",
+  "status": "completed",
+  "completedAt": "2026-02-20",
+  "prNumber": 2,
+  "stories": [
+    {"id": "US-001", "title": "Create build-time manifest generation script", "status": "completed"},
+    {"id": "US-002", "title": "Add GitHub fetch mode to manifest script", "status": "completed"},
+    {"id": "US-003", "title": "Update deploy workflow to generate fresh manifest", "status": "completed"},
+    {"id": "US-004", "title": "Remove committed manifest from git tracking", "status": "completed"},
+    {"id": "US-005", "title": "Add sync metadata to manifest and display on site", "status": "completed"},
+    {"id": "US-006", "title": "Add fallback for local development without toolkit", "status": "completed"}
+  ]
+}
