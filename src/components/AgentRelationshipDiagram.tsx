@@ -1,18 +1,21 @@
 "use client";
 
+import { manifest } from "@/data";
+
 export function AgentRelationshipDiagram() {
   const primaryAgents = [
     { initial: "B", name: "builder" },
-    { initial: "D", name: "developer" },
     { initial: "P", name: "planner" },
+    { initial: "E", name: "e2e-tester" },
+    { initial: "M", name: "merge-coordinator" },
     { initial: "T", name: "toolkit" },
   ];
 
   const subCategories = [
-    { name: "Critics", count: 22 },
-    { name: "Developers", count: 9 },
-    { name: "Testers", count: 5 },
-    { name: "Other", count: 21 },
+    { name: "Critics", count: manifest.categories.critics },
+    { name: "Developers", count: manifest.categories.developers },
+    { name: "Testers", count: manifest.categories.testers },
+    { name: "Other", count: manifest.categories.other },
   ];
 
   return (

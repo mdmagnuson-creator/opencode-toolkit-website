@@ -236,7 +236,8 @@ export default function McpPage() {
     "npx",
     "@playwright/mcp@latest",
     "--headless",
-    "--caps=vision,pdf,test,tracing"
+    "--caps=vision,pdf,test,tracing",
+    "--ignore-https-errors"
   ],
   "enabled": true
 }`}
@@ -254,15 +255,18 @@ export default function McpPage() {
           />
 
           <FeatureCard
-            title="GitHub"
-            description="GitHub integration for repository management, issues, pull requests, and code search."
-            type="remote"
-            example={`"github": {
-  "type": "remote",
-  "url": "https://api.github.com/mcp",
-  "oauth": {
-    "clientId": "your-github-app-id",
-    "scopes": ["repo", "read:org"]
+            title="Supabase"
+            description="Database access for Supabase projects. Query tables, manage schemas, and interact with your Postgres database."
+            type="local"
+            example={`"supabase": {
+  "type": "local",
+  "command": [
+    "npx",
+    "@supabase/mcp@latest",
+    "--project-ref=your-project-ref"
+  ],
+  "env": {
+    "SUPABASE_ACCESS_TOKEN": "your-access-token"
   },
   "enabled": true
 }`}

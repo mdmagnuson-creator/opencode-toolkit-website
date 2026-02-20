@@ -24,7 +24,7 @@ const phases: Phase[] = [
   {
     id: "plan",
     name: "Plan",
-    agent: "@project-planner",
+    agent: "@planner",
     agentIcon: "P",
     color: "bg-blue-500",
     darkColor: "dark:bg-blue-600",

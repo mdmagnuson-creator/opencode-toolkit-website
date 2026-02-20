@@ -3,7 +3,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Automations | AI Toolkit",
-  description: "GitHub Actions automations for CI triage, PRD generation, release notes, and more.",
+  description: "Go CLI tools for CI triage, PRD generation, and release notes automation.",
 };
 
 function CodeBlock({ code, language = "yaml" }: { code: string; language?: string }) {
@@ -218,84 +218,6 @@ jobs:
           body_path: release-notes.md
           tag_name: \${{ github.event.release.tag_name || inputs.tag }}`,
   },
-  {
-    name: "Code Review",
-    description: "AI-powered code review that analyzes PRs for common issues, security vulnerabilities, and style inconsistencies. Posts inline comments with suggestions and a summary review.",
-    triggers: ["pull_request.opened", "pull_request.synchronize"],
-    features: [
-      "Analyzes diff for common code issues",
-      "Checks for security vulnerabilities",
-      "Validates against project conventions",
-      "Posts inline suggestions as review comments",
-      "Provides overall summary with action items",
-    ],
-    workflow: `name: AI Code Review
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-jobs:
-  review:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          
-      - name: Run AI review
-        uses: opencode-ai/code-review@v1
-        with:
-          github-token: \${{ secrets.GITHUB_TOKEN }}
-          opencode-api-key: \${{ secrets.OPENCODE_API_KEY }}
-          review-level: thorough  # quick | standard | thorough
-          conventions-path: docs/CONVENTIONS.md
-          ignore-patterns: |
-            *.lock
-            *.generated.*
-            dist/**`,
-  },
-  {
-    name: "Documentation Sync",
-    description: "Keep documentation in sync with code changes. Automatically updates API docs, README sections, and support articles when relevant code is modified.",
-    triggers: ["push", "pull_request.closed"],
-    features: [
-      "Detects documentation-affecting code changes",
-      "Updates API documentation from code comments",
-      "Regenerates README sections from templates",
-      "Creates PRs with documentation updates",
-      "Validates documentation links",
-    ],
-    workflow: `name: Documentation Sync
-on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/**'
-      - 'docs/**'
-
-jobs:
-  sync-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Sync documentation
-        uses: opencode-ai/docs-sync@v1
-        with:
-          github-token: \${{ secrets.GITHUB_TOKEN }}
-          opencode-api-key: \${{ secrets.OPENCODE_API_KEY }}
-          source-paths: src/
-          docs-path: docs/
-          readme-path: README.md
-          
-      - name: Create PR if changes
-        uses: peter-evans/create-pull-request@v6
-        with:
-          title: "docs: Sync documentation with code changes"
-          body: "Automated documentation update based on recent code changes."
-          branch: docs/auto-sync
-          commit-message: "docs: sync documentation"`,
-  },
 ];
 
 export default function AutomationsPage() {
@@ -309,8 +231,8 @@ export default function AutomationsPage() {
           Automations
         </h1>
         <p className="text-xl text-neutral-600 dark:text-neutral-400">
-          GitHub Actions workflows that bring AI-powered automation to your CI/CD pipeline.
-          Add these to your repositories to automate triage, documentation, code review, and more.
+          Go CLI tools that bring AI-powered automation to your development workflow.
+          Run them locally, integrate into your CI pipelines, or use with GitHub Actions.
         </p>
       </div>
 
@@ -337,26 +259,29 @@ export default function AutomationsPage() {
         <SectionHeading id="getting-started">Getting Started</SectionHeading>
         <div className="prose prose-neutral dark:prose-invert max-w-none">
           <p className="text-neutral-700 dark:text-neutral-300">
-            To add an automation to your repository:
+            Each automation is a standalone Go CLI tool. You can run them locally or integrate them into CI:
           </p>
+          
+          <h4 className="mt-6 text-lg font-medium text-neutral-900 dark:text-white">Local Usage</h4>
           <ol className="mt-4 space-y-3 text-neutral-700 dark:text-neutral-300">
             <li className="flex gap-3">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">1</span>
-              <span>Create a <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">.github/workflows/</code> directory in your repository if it doesn&apos;t exist</span>
+              <span>Clone the <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">ai-toolkit</code> repository and navigate to the automation directory</span>
             </li>
             <li className="flex gap-3">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">2</span>
-              <span>Copy the workflow YAML for the automation you want to add</span>
+              <span>Build the tool with <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">go build</code> or run directly with <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">go run .</code></span>
             </li>
             <li className="flex gap-3">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">3</span>
-              <span>Add required secrets to your repository settings (Settings → Secrets and variables → Actions)</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">4</span>
-              <span>Commit and push the workflow file - it will start running on the configured triggers</span>
+              <span>Set required environment variables (see each automation&apos;s documentation)</span>
             </li>
           </ol>
+
+          <h4 className="mt-6 text-lg font-medium text-neutral-900 dark:text-white">CI Integration</h4>
+          <p className="mt-2 text-neutral-700 dark:text-neutral-300">
+            The example workflows below show how to wrap each CLI tool in a GitHub Action. Adapt the workflow YAML to match your CI environment.
+          </p>
         </div>
 
         <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-900/50 dark:bg-amber-900/20">
@@ -365,10 +290,10 @@ export default function AutomationsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
             <div>
-              <h3 className="font-medium text-amber-900 dark:text-amber-300">Required Secrets</h3>
+              <h3 className="font-medium text-amber-900 dark:text-amber-300">Required Configuration</h3>
               <p className="mt-1 text-sm text-amber-800 dark:text-amber-400">
-                Most automations require an <code className="rounded bg-amber-100 px-1 dark:bg-amber-900/50">OPENCODE_API_KEY</code> secret.
-                Get your API key from the opencode dashboard and add it to your repository secrets.
+                Most automations require a <code className="rounded bg-amber-100 px-1 dark:bg-amber-900/50">GITHUB_TOKEN</code> for repository access
+                and an AI provider API key. Check each tool&apos;s README for specific requirements.
               </p>
             </div>
           </div>

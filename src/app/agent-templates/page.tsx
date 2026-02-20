@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { manifest } from "@/data";
 
 export const metadata: Metadata = {
   title: "Agent Templates | AI Toolkit",
@@ -27,170 +28,59 @@ function SectionHeading({ children, id }: { children: React.ReactNode; id: strin
   );
 }
 
-interface TemplateCategory {
-  name: string;
-  description: string;
-  templates: {
-    name: string;
-    file: string;
-    description: string;
-    appliesTo: string[];
-    generates: string;
-  }[];
+// Group templates by category from manifest data
+function groupTemplatesByCategory(templates: typeof manifest.agentTemplates) {
+  const categories: Record<string, typeof templates> = {};
+
+  for (const template of templates) {
+    const cat = template.category || "other";
+    if (!categories[cat]) {
+      categories[cat] = [];
+    }
+    categories[cat].push(template);
+  }
+
+  return categories;
 }
 
-const templateCategories: TemplateCategory[] = [
-  {
-    name: "Backend",
-    description: "Server-side implementation agents for various frameworks",
-    templates: [
-      {
-        name: "Go Chi",
-        file: "backend/go-chi.md",
-        description: "Go Chi router patterns, handlers, middleware, and database integration",
-        appliesTo: ["go-chi", "chi"],
-        generates: "backend-dev.md",
-      },
-      {
-        name: "Node Express",
-        file: "backend/node-express.md",
-        description: "Express.js patterns, async handlers, validation, and error handling",
-        appliesTo: ["express", "node"],
-        generates: "backend-dev.md",
-      },
-      {
-        name: "Python FastAPI",
-        file: "backend/python-fastapi.md",
-        description: "FastAPI async patterns, Pydantic models, dependency injection",
-        appliesTo: ["fastapi", "python"],
-        generates: "backend-dev.md",
-      },
-    ],
-  },
-  {
-    name: "Frontend",
-    description: "UI implementation agents for component libraries",
-    templates: [
-      {
-        name: "React",
-        file: "frontend/react.md",
-        description: "React component patterns, hooks, state management, and styling",
-        appliesTo: ["react", "next.js"],
-        generates: "frontend-dev.md",
-      },
-      {
-        name: "Vue",
-        file: "frontend/vue.md",
-        description: "Vue 3 composition API, components, and Pinia state",
-        appliesTo: ["vue", "nuxt"],
-        generates: "frontend-dev.md",
-      },
-      {
-        name: "Svelte",
-        file: "frontend/svelte.md",
-        description: "Svelte component patterns, stores, and reactivity",
-        appliesTo: ["svelte", "sveltekit"],
-        generates: "frontend-dev.md",
-      },
-    ],
-  },
-  {
-    name: "Testing",
-    description: "Test implementation agents for different frameworks",
-    templates: [
-      {
-        name: "Go Test",
-        file: "testing/go-test.md",
-        description: "Go testing patterns, table-driven tests, mocking with interfaces",
-        appliesTo: ["go"],
-        generates: "go-tester.md",
-      },
-      {
-        name: "Jest React",
-        file: "testing/jest-react.md",
-        description: "React Testing Library patterns, component and hook tests",
-        appliesTo: ["react", "jest"],
-        generates: "react-tester.md",
-      },
-      {
-        name: "Playwright",
-        file: "testing/playwright.md",
-        description: "E2E testing patterns, page objects, fixtures",
-        appliesTo: ["playwright"],
-        generates: "e2e-playwright.md",
-      },
-      {
-        name: "Pytest",
-        file: "testing/pytest.md",
-        description: "Python testing patterns, fixtures, mocking with pytest-mock",
-        appliesTo: ["python", "pytest"],
-        generates: "python-tester.md",
-      },
-    ],
-  },
-  {
-    name: "Critics",
-    description: "Code review agents for specific languages",
-    templates: [
-      {
-        name: "TypeScript Critic",
-        file: "critics/typescript.md",
-        description: "TypeScript code review patterns, type safety, async handling",
-        appliesTo: ["typescript", "ts"],
-        generates: "typescript-critic.md",
-      },
-      {
-        name: "Go Critic",
-        file: "critics/go.md",
-        description: "Go code review patterns, idiomatic Go, error handling",
-        appliesTo: ["go"],
-        generates: "go-critic.md",
-      },
-      {
-        name: "Python Critic",
-        file: "critics/python.md",
-        description: "Python code review patterns, PEP 8, type hints",
-        appliesTo: ["python"],
-        generates: "python-critic.md",
-      },
-    ],
-  },
-  {
-    name: "Styling",
-    description: "UI styling agents for CSS frameworks",
-    templates: [
-      {
-        name: "Tailwind",
-        file: "styling/tailwind.md",
-        description: "Tailwind CSS patterns, responsive design, dark mode",
-        appliesTo: ["tailwind", "tailwindcss"],
-        generates: "tailwind-dev.md",
-      },
-    ],
-  },
-];
+// Category display names and descriptions
+const categoryInfo: Record<string, { title: string; description: string }> = {
+  backend: { title: "Backend", description: "Server-side implementation agents for various frameworks" },
+  frontend: { title: "Frontend", description: "UI implementation agents for component libraries" },
+  testing: { title: "Testing", description: "Test implementation agents for different frameworks" },
+  critics: { title: "Critics", description: "Code review agents for specific languages" },
+  styling: { title: "Styling", description: "UI styling agents for CSS frameworks" },
+};
 
-function TemplateCard({ template }: { template: TemplateCategory["templates"][0] }) {
+// Render categories in this order
+const categoryOrder = ["backend", "frontend", "testing", "critics", "styling"];
+
+function TemplateCard({ template }: { template: typeof manifest.agentTemplates[0] }) {
+  // Filter empty strings from appliesTo
+  const validAppliesTo = template.appliesTo.filter(Boolean);
+
   return (
     <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
       <div className="flex items-start justify-between">
         <h4 className="font-medium text-neutral-900 dark:text-white">{template.name}</h4>
         <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
-          {template.file}
+          {template.category}/{template.slug}.md
         </code>
       </div>
       <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{template.description}</p>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <span className="text-xs text-neutral-500 dark:text-neutral-500">Applies to:</span>
-        {template.appliesTo.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+      {validAppliesTo.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="text-xs text-neutral-500 dark:text-neutral-500">Applies to:</span>
+          {validAppliesTo.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="mt-2 flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
         <span>Generates:</span>
         <code className="rounded bg-green-100 px-1.5 py-0.5 text-green-700 dark:bg-green-900/30 dark:text-green-400">
@@ -415,27 +305,41 @@ Follow patterns from CONVENTIONS.md.`} />
 
       {/* Available Templates */}
       <section className="mb-12">
-        <SectionHeading id="available-templates">Available Templates</SectionHeading>
+        <SectionHeading id="available-templates">
+          Available Templates{" "}
+          <span className="text-neutral-500 dark:text-neutral-400">
+            ({manifest.counts.agentTemplates})
+          </span>
+        </SectionHeading>
         <p className="mb-6 text-neutral-700 dark:text-neutral-300">
           Templates are organized by category in <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">~/.config/opencode/agent-templates/</code>:
         </p>
 
         <div className="space-y-8">
-          {templateCategories.map((category) => (
-            <div key={category.name}>
-              <h3 className="mb-2 text-lg font-semibold text-neutral-900 dark:text-white">
-                {category.name}
-              </h3>
-              <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
-                {category.description}
-              </p>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {category.templates.map((template) => (
-                  <TemplateCard key={template.file} template={template} />
-                ))}
-              </div>
-            </div>
-          ))}
+          {(() => {
+            const groupedTemplates = groupTemplatesByCategory(manifest.agentTemplates);
+            return categoryOrder.map((categoryKey) => {
+              const templates = groupedTemplates[categoryKey];
+              if (!templates || templates.length === 0) return null;
+              const info = categoryInfo[categoryKey] || { title: categoryKey, description: "" };
+
+              return (
+                <div key={categoryKey}>
+                  <h3 className="mb-2 text-lg font-semibold text-neutral-900 dark:text-white">
+                    {info.title}
+                  </h3>
+                  <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
+                    {info.description}
+                  </p>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {templates.map((template) => (
+                      <TemplateCard key={template.slug} template={template} />
+                    ))}
+                  </div>
+                </div>
+              );
+            });
+          })()}
         </div>
       </section>
 

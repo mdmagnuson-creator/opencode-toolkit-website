@@ -46,7 +46,7 @@ const concepts = [
   },
   {
     name: "Project Configuration",
-    href: "/concepts/project-config",
+    href: "/concepts/projects",
     description:
       "The project.json file tells agents about your tech stack, conventions, and integrations. It enables context-aware assistance.",
     icon: (
@@ -72,9 +72,9 @@ const concepts = [
   },
   {
     name: "PRDs & Planning",
-    href: "/concepts/prds",
+    href: "/concepts/workflow",
     description:
-      "Product Requirements Documents guide multi-step development. Agents read PRDs to understand what to build and track progress through user stories.",
+      "Product Requirements Documents guide multi-step development. Learn how agents use PRDs to understand what to build and track progress through user stories.",
     icon: (
       <svg
         className="h-6 w-6"
@@ -93,7 +93,7 @@ const concepts = [
   },
   {
     name: "Scaffolds & Templates",
-    href: "/concepts/scaffolds",
+    href: "/scaffolds",
     description:
       "Pre-built project structures that bootstrap new codebases with best practices. Start a project with the right patterns from day one.",
     icon: (
@@ -114,9 +114,9 @@ const concepts = [
   },
   {
     name: "Multi-Session Coordination",
-    href: "/concepts/coordination",
+    href: "/concepts/workflow",
     description:
-      "How multiple agent sessions work together without conflicts. Session locks, artifact storage, and branch management for parallel work.",
+      "How multiple agent sessions work together without conflicts. The workflow page covers session locks, artifact storage, and branch management for parallel work.",
     icon: (
       <svg
         className="h-6 w-6"
@@ -214,7 +214,7 @@ export default function ConceptsPage() {
                   Primary Agents
                 </p>
                 <div className="flex flex-wrap justify-center gap-2">
-                  {["@builder", "@planner", "@toolkit", "@e2e-tester"].map((agent) => (
+                  {["@builder", "@planner", "@e2e-tester", "@merge-coordinator", "@toolkit"].map((agent) => (
                     <span
                       key={agent}
                       className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-900 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-200"

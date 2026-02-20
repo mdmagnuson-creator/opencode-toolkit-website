@@ -39,18 +39,19 @@ const SCAFFOLD_DETAILS: Record<
     ],
     useCase: "Full-stack web apps, SaaS products, authenticated dashboards",
   },
-  "react-vite-tailwind": {
+  "nextjs-supabase": {
     description:
-      "A lightweight React SPA template using Vite for fast development.",
-    stack: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+      "A full-stack Next.js template with Supabase for auth, database, and realtime.",
+    stack: ["Next.js", "React", "TypeScript", "Supabase", "Tailwind CSS"],
     features: [
-      "Fast HMR with Vite",
+      "Supabase authentication (email, OAuth)",
+      "Supabase PostgreSQL database",
+      "Server-side Supabase client",
+      "Middleware for auth protection",
       "Tailwind CSS styling",
-      "TypeScript configured",
-      "ESLint + Prettier",
-      "Path aliases configured",
+      "TypeScript throughout",
     ],
-    useCase: "Single-page apps, client-side tools, prototypes",
+    useCase: "Full-stack web apps, SaaS products, realtime applications",
   },
 };
 
