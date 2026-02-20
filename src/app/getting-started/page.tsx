@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { manifest } from '@/data';
 
 export const metadata = {
   title: 'Getting Started | AI Toolkit',
@@ -49,8 +50,15 @@ export default function GettingStartedPage() {
               <li className="flex items-start gap-3">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">✓</span>
                 <div>
-                  <span className="font-medium text-neutral-900 dark:text-white">Node.js 18+</span>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Required for the toolkit scripts and most web projects</p>
+                  <span className="font-medium text-neutral-900 dark:text-white">GitHub Account</span>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Required for repository access. <a href="https://github.com/features/copilot" className="text-blue-600 hover:underline dark:text-blue-400">GitHub Copilot Pro+</a> recommended for access to the best models.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">✓</span>
+                <div>
+                  <span className="font-medium text-neutral-900 dark:text-white">LLM Provider</span>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">GitHub Copilot Pro+ (recommended, works out of the box), <a href="https://zen.ai" className="text-blue-600 hover:underline dark:text-blue-400">Zen</a> (alternative provider), or direct API keys (OpenAI, Anthropic, etc.)</p>
                 </div>
               </li>
             </ul>
@@ -213,7 +221,7 @@ opencode`}</code></pre>
               <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
                 Use the builder agent to implement user stories, write code, and ship features.
               </p>
-              <code className="text-xs text-blue-600 dark:text-blue-400">@bildr</code>
+              <code className="text-xs text-blue-600 dark:text-blue-400">@builder</code>
             </div>
             <div className="rounded-lg border border-neutral-200 p-6 dark:border-neutral-800">
               <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Code Review</h3>
@@ -275,7 +283,7 @@ opencode`}</code></pre>
                 Browse Agents →
               </h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                Explore all 57 agents and their capabilities
+                Explore all {manifest.counts.agents} agents and their capabilities
               </p>
             </Link>
             <Link
