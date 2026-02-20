@@ -10,7 +10,7 @@ export default function Home() {
         <div className="mx-auto max-w-3xl text-center">
           {/* Badge */}
           <div className="mb-8">
-            <span className="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 text-sm font-medium text-neutral-600 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+            <span className="inline-flex items-center rounded-full border border-neutral-300 bg-neutral-50 px-4 py-1.5 text-sm font-medium text-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
               Open Source
             </span>
           </div>
@@ -18,13 +18,13 @@ export default function Home() {
           {/* Headline */}
           <h1 className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl dark:text-neutral-50">
             An Agent System for{" "}
-            <span className="text-neutral-500 dark:text-neutral-400">
+            <span className="text-neutral-600 dark:text-neutral-400">
               opencode
             </span>
           </h1>
 
           {/* Subheadline */}
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-600 sm:text-xl dark:text-neutral-400">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-700 sm:text-xl dark:text-neutral-400">
             57 specialized agents working together to build software.
           </p>
 
@@ -65,7 +65,7 @@ export default function Home() {
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
                 57
               </p>
-              <p className="mt-1 text-xs text-neutral-600 sm:text-sm dark:text-neutral-400">
+              <p className="mt-1 text-xs text-neutral-700 sm:text-sm dark:text-neutral-400">
                 Agents
               </p>
             </div>
@@ -73,7 +73,7 @@ export default function Home() {
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
                 16
               </p>
-              <p className="mt-1 text-xs text-neutral-600 sm:text-sm dark:text-neutral-400">
+              <p className="mt-1 text-xs text-neutral-700 sm:text-sm dark:text-neutral-400">
                 Skills
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function Home() {
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
                 4
               </p>
-              <p className="mt-1 text-xs text-neutral-600 sm:text-sm dark:text-neutral-400">
+              <p className="mt-1 text-xs text-neutral-700 sm:text-sm dark:text-neutral-400">
                 Primary Agents
               </p>
             </div>
@@ -99,7 +99,7 @@ export default function Home() {
             What is an agent system?
           </h2>
 
-          <div className="mt-8 space-y-6 text-base leading-7 text-neutral-600 sm:text-lg sm:leading-8 dark:text-neutral-400">
+          <div className="mt-8 space-y-6 text-base leading-7 text-neutral-700 sm:text-lg sm:leading-8 dark:text-neutral-400">
             <p>
               Traditional AI assistants wait for you to type, respond once, and
               stop. An <strong className="text-neutral-900 dark:text-neutral-200">agentic</strong> AI
@@ -136,7 +136,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
               Primary Agents
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-600 sm:text-lg dark:text-neutral-400">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 sm:text-lg dark:text-neutral-400">
               These are the entry points to the system. Start a conversation
               with any of them, and they&apos;ll orchestrate specialists as
               needed.
@@ -154,7 +154,7 @@ export default function Home() {
                   <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                     @bildr
                   </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  <p className="mt-1 text-sm leading-relaxed text-neutral-700 dark:text-neutral-400">
                     Claims PRDs and orchestrates the full build-review-ship
                     cycle.
                   </p>
@@ -172,7 +172,7 @@ export default function Home() {
                   <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                     @ralph
                   </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  <p className="mt-1 text-sm leading-relaxed text-neutral-700 dark:text-neutral-400">
                     Implements user stories one at a time with focused,
                     autonomous coding.
                   </p>
@@ -190,7 +190,7 @@ export default function Home() {
                   <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                     @project-planner
                   </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  <p className="mt-1 text-sm leading-relaxed text-neutral-700 dark:text-neutral-400">
                     Creates and refines PRDs, manages project backlog.
                   </p>
                 </div>
@@ -207,7 +207,7 @@ export default function Home() {
                   <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                     @toolkit
                   </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  <p className="mt-1 text-sm leading-relaxed text-neutral-700 dark:text-neutral-400">
                     Maintains the agent system itself, adds new agents and
                     skills.
                   </p>
@@ -228,7 +228,7 @@ export default function Home() {
             <h2 className="text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl dark:text-neutral-50">
               How It Works
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm text-neutral-600 sm:text-base dark:text-neutral-400">
+            <p className="mx-auto mt-3 max-w-xl text-sm text-neutral-700 sm:text-base dark:text-neutral-400">
               Primary agents orchestrate specialists—you talk to one, and it
               coordinates the rest.
             </p>
@@ -245,13 +245,13 @@ export default function Home() {
       >
         <div className="mx-auto max-w-4xl">
           <div className="text-center">
-            <p className="text-sm font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm font-medium uppercase tracking-wide text-neutral-600 dark:text-neutral-400">
               57 Agents
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
               Specialist Categories
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-600 sm:text-lg dark:text-neutral-400">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 sm:text-lg dark:text-neutral-400">
               Sub-agents that get delegated to automatically when primary agents
               need specialized help.
             </p>
@@ -266,7 +266,7 @@ export default function Home() {
               <h3 className="mt-1 text-sm font-medium text-neutral-900 sm:text-base dark:text-neutral-50">
                 Critics
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-neutral-600 sm:text-sm dark:text-neutral-400">
+              <p className="mt-2 text-xs leading-relaxed text-neutral-700 sm:text-sm dark:text-neutral-400">
                 Review code for correctness, security, style, and best
                 practices.
               </p>
@@ -280,7 +280,7 @@ export default function Home() {
               <h3 className="mt-1 text-sm font-medium text-neutral-900 sm:text-base dark:text-neutral-50">
                 Developers
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-neutral-600 sm:text-sm dark:text-neutral-400">
+              <p className="mt-2 text-xs leading-relaxed text-neutral-700 sm:text-sm dark:text-neutral-400">
                 Implement features across different languages and frameworks.
               </p>
             </div>
@@ -293,7 +293,7 @@ export default function Home() {
               <h3 className="mt-1 text-sm font-medium text-neutral-900 sm:text-base dark:text-neutral-50">
                 Testers
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-neutral-600 sm:text-sm dark:text-neutral-400">
+              <p className="mt-2 text-xs leading-relaxed text-neutral-700 sm:text-sm dark:text-neutral-400">
                 Write and run unit tests, integration tests, and E2E tests.
               </p>
             </div>
@@ -306,7 +306,7 @@ export default function Home() {
               <h3 className="mt-1 text-sm font-medium text-neutral-900 sm:text-base dark:text-neutral-50">
                 Other
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-neutral-600 sm:text-sm dark:text-neutral-400">
+              <p className="mt-2 text-xs leading-relaxed text-neutral-700 sm:text-sm dark:text-neutral-400">
                 Specialized agents for docs, QA, debugging, infrastructure, and
                 more.
               </p>
@@ -322,13 +322,13 @@ export default function Home() {
       >
         <div className="mx-auto max-w-4xl">
           <div className="text-center">
-            <p className="text-sm font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm font-medium uppercase tracking-wide text-neutral-600 dark:text-neutral-400">
               16 Skills
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
               On-Demand Workflows
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-600 sm:text-lg dark:text-neutral-400">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 sm:text-lg dark:text-neutral-400">
               Skills are specialized instruction sets that agents load on-demand
               for complex, multi-step workflows. Unlike agents, skills provide
               situational expertise—loaded when needed, not always active.
@@ -340,7 +340,7 @@ export default function Home() {
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 prd
               </p>
-              <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-400">
                 Generate Product Requirements Documents
               </p>
             </div>
@@ -349,7 +349,7 @@ export default function Home() {
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 project-bootstrap
               </p>
-              <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-400">
                 Initialize projects with stack detection
               </p>
             </div>
@@ -358,7 +358,7 @@ export default function Home() {
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 merge-conflicts
               </p>
-              <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-400">
                 Resolve git merge conflicts
               </p>
             </div>
@@ -367,7 +367,7 @@ export default function Home() {
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 cve
               </p>
-              <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-400">
                 Investigate security vulnerabilities
               </p>
             </div>
@@ -376,7 +376,7 @@ export default function Home() {
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 screenshot
               </p>
-              <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-400">
                 Capture authenticated screenshots
               </p>
             </div>
@@ -385,7 +385,7 @@ export default function Home() {
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 marketing-copy
               </p>
-              <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-400">
                 Generate marketing content from docs
               </p>
             </div>
@@ -394,7 +394,7 @@ export default function Home() {
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 public-page
               </p>
-              <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-400">
                 Build landing pages and legal pages
               </p>
             </div>
@@ -403,13 +403,13 @@ export default function Home() {
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                 e2e-quality
               </p>
-              <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+              <p className="mt-0.5 text-xs text-neutral-700 dark:text-neutral-400">
                 Advanced E2E testing patterns
               </p>
             </div>
           </div>
 
-          <p className="mt-6 text-center text-sm text-neutral-500 dark:text-neutral-500">
+          <p className="mt-6 text-center text-sm text-neutral-600 dark:text-neutral-500">
             Plus 8 more specialized workflows
           </p>
         </div>
@@ -425,7 +425,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
               Getting Started
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-600 sm:text-lg dark:text-neutral-400">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 sm:text-lg dark:text-neutral-400">
               Get up and running in a few minutes.
             </p>
           </div>
@@ -440,7 +440,7 @@ export default function Home() {
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                   Download opencode
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600 sm:text-base dark:text-neutral-400">
+                <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
                   Get the opencode desktop app for your platform. It&apos;s the
                   AI-native code editor that powers the agent system.
                 </p>
@@ -462,7 +462,7 @@ export default function Home() {
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                   Connect GitHub
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600 sm:text-base dark:text-neutral-400">
+                <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
                   Link your GitHub account to opencode. This enables agents to
                   read repositories, create branches, and manage pull requests
                   on your behalf.
@@ -479,7 +479,7 @@ export default function Home() {
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                   Upgrade to GitHub Copilot Pro+
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600 sm:text-base dark:text-neutral-400">
+                <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
                   For best results, upgrade to GitHub Copilot Pro+ (or use your
                   own API keys). This gives agents access to the most capable
                   models—critical for complex coding tasks.
@@ -496,7 +496,7 @@ export default function Home() {
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                   Run the setup script
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600 sm:text-base dark:text-neutral-400">
+                <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
                   Open opencode and run the toolkit installer. It configures
                   agents, skills, and scaffolds in your environment. After that,
                   you&apos;re ready to start using{" "}
@@ -519,7 +519,7 @@ export default function Home() {
       <footer className="border-t border-neutral-200 px-6 py-10 sm:py-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row sm:gap-6">
-            <p className="text-sm text-neutral-500 dark:text-neutral-500">
+            <p className="text-sm text-neutral-600 dark:text-neutral-500">
               Built with{" "}
               <a
                 href="https://opencode.ai"
@@ -531,7 +531,7 @@ export default function Home() {
 
             <a
               href="#"
-              className="inline-flex min-h-[44px] items-center gap-2 text-sm text-neutral-500 transition-colors hover:text-neutral-700 dark:text-neutral-500 dark:hover:text-neutral-300"
+              className="inline-flex min-h-[44px] items-center gap-2 text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-500 dark:hover:text-neutral-300"
             >
               <svg
                 className="h-5 w-5"
