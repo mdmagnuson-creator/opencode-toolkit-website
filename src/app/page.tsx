@@ -1,4 +1,5 @@
 import { AgentRelationshipDiagram } from "@/components/AgentRelationshipDiagram";
+import { TheLoop } from "@/components/TheLoop";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
@@ -237,6 +238,9 @@ export default function Home() {
           <AgentRelationshipDiagram />
         </div>
       </section>
+
+      {/* The Loop - Workflow Process */}
+      <TheLoop />
 
       {/* Agent Categories Section */}
       <section
