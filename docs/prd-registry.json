@@ -4,12 +4,28 @@
     {
       "id": "prd-build-time-toolkit-sync",
       "name": "Build-Time Toolkit Sync",
-      "status": "ready",
+      "status": "pr_open",
+      "startedAt": "2026-02-20",
       "filePath": "docs/prds/prd-build-time-toolkit-sync.md",
       "jsonPath": "docs/prds/prd-build-time-toolkit-sync.json",
       "createdAt": "2026-02-20",
       "completedAt": null,
+      "prBranch": "feature/build-time-toolkit-sync",
+      "prNumber": 2,
+      "prUrl": "https://github.com/mdmagnuson-creator/opencode-toolkit-website/pull/2",
       "stories": ["US-001", "US-002", "US-003", "US-004", "US-005", "US-006"],
+      "dependencies": [],
+      "blockedBy": []
+    },
+    {
+      "id": "prd-site-accuracy-pass",
+      "name": "Site-Wide Accuracy Pass",
+      "status": "ready",
+      "filePath": "docs/prds/prd-site-accuracy-pass.md",
+      "jsonPath": "docs/prds/prd-site-accuracy-pass.json",
+      "createdAt": "2026-02-20",
+      "completedAt": null,
+      "stories": ["US-001", "US-002", "US-003", "US-004", "US-005", "US-006", "US-007", "US-008", "US-009"],
       "dependencies": [],
       "blockedBy": []
     }
