@@ -105,12 +105,14 @@ const phases: Phase[] = [
         label: "Unit Tests",
         icon: "🧪",
         description: "@tester adds coverage",
+        isLoop: true,
       },
       {
         id: "e2e",
         label: "E2E Tests",
         icon: "🎭",
-        description: "@playwright-dev writes E2E",
+        description: "End-to-end tests via @playwright-dev",
+        isLoop: true,
       },
       {
         id: "quality-gates",
@@ -312,29 +314,17 @@ export function TheLoop() {
                       </span>
                     </div>
                   )}
-                </div>
 
-                {/* Phase Connection Arrow (except last) */}
-                {phaseIndex < phases.length - 1 && (
-                  <div className="mt-6 flex justify-end">
-                    <div className="flex items-center gap-1 text-neutral-400 dark:text-neutral-500">
-                      <span className="text-sm">Next</span>
-                      <svg
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
+                  {/* Loop Indicator for Test Phase */}
+                  {phase.id === "test" && (
+                    <div className="ml-5 mt-2 flex items-center gap-2 rounded-lg border border-dashed border-emerald-300 bg-emerald-50 px-3 py-2 dark:border-emerald-700 dark:bg-emerald-900/20">
+                      <span className="text-lg">🔄</span>
+                      <span className="text-sm text-emerald-700 dark:text-emerald-400">
+                        Repeat until all tests pass
+                      </span>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           ))}
