@@ -1,22 +1,6 @@
 {
   "version": "1.0",
-  "prds": [
-    {
-      "id": "prd-site-accuracy-pass",
-      "name": "Site-Wide Accuracy Pass",
-      "status": "pr_open",
-      "filePath": "docs/prds/prd-site-accuracy-pass.md",
-      "jsonPath": "docs/prds/prd-site-accuracy-pass.json",
-      "createdAt": "2026-02-20",
-      "completedAt": null,
-      "prNumber": 3,
-      "prUrl": "https://github.com/mdmagnuson-creator/opencode-toolkit-website/pull/3",
-      "startedAt": "2026-02-20",
-      "stories": ["US-001", "US-002", "US-003", "US-004", "US-005", "US-006", "US-007", "US-008", "US-009"],
-      "dependencies": [],
-      "blockedBy": []
-    }
-  ],
+  "prds": [],
   "completed": [
     {
       "id": "prd-landing-page",
@@ -39,6 +23,18 @@
       "prNumber": 2,
       "prUrl": "https://github.com/mdmagnuson-creator/opencode-toolkit-website/pull/2",
       "stories": ["US-001", "US-002", "US-003", "US-004", "US-005", "US-006"]
+    },
+    {
+      "id": "prd-site-accuracy-pass",
+      "name": "Site-Wide Accuracy Pass",
+      "status": "completed",
+      "filePath": "docs/completed/prd-site-accuracy-pass/prd-site-accuracy-pass.md",
+      "jsonPath": "docs/completed/prd-site-accuracy-pass/prd-site-accuracy-pass.json",
+      "createdAt": "2026-02-20",
+      "completedAt": "2026-02-20",
+      "prNumber": 3,
+      "prUrl": "https://github.com/mdmagnuson-creator/opencode-toolkit-website/pull/3",
+      "stories": ["US-001", "US-002", "US-003", "US-004", "US-005", "US-006", "US-007", "US-008", "US-009"]
     }
   ]
 }
