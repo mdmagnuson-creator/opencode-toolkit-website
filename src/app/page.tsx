@@ -18,13 +18,13 @@ export default function Home() {
           {/* Headline */}
           <h1 className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl dark:text-neutral-50">
             An Agent System for{" "}
-            <span className="text-neutral-600 dark:text-neutral-400">
+            <span className="text-neutral-700 dark:text-neutral-300">
               opencode
             </span>
           </h1>
 
           {/* Subheadline */}
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-700 sm:text-xl dark:text-neutral-400">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-800 sm:text-xl dark:text-neutral-300">
             57 specialized agents working together to build software.
           </p>
 
@@ -65,7 +65,7 @@ export default function Home() {
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
                 57
               </p>
-              <p className="mt-1 text-xs text-neutral-700 sm:text-sm dark:text-neutral-400">
+              <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
                 Agents
               </p>
             </div>
@@ -73,7 +73,7 @@ export default function Home() {
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
                 16
               </p>
-              <p className="mt-1 text-xs text-neutral-700 sm:text-sm dark:text-neutral-400">
+              <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
                 Skills
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function Home() {
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
                 4
               </p>
-              <p className="mt-1 text-xs text-neutral-700 sm:text-sm dark:text-neutral-400">
+              <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
                 Primary Agents
               </p>
             </div>
