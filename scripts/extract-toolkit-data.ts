@@ -396,6 +396,10 @@ function formatDate(dateStr: string): string {
   });
 }
 
+// Changelog cutoff date - only show changes from this date forward.
+// This filters out pre-release commits and internal development history.
+const CHANGELOG_START_DATE = '2026-02-21';
+
 /**
  * Read git changelog from the ai-toolkit repo
  */
@@ -437,7 +441,11 @@ function readChangelog(): ChangelogDay[] {
     }
 
     // Convert to array, sorted by date descending
-    const sortedDates = Array.from(changesByDate.keys()).sort().reverse();
+    // Filter to only include dates on or after the cutoff date
+    const sortedDates = Array.from(changesByDate.keys())
+      .filter(date => date >= CHANGELOG_START_DATE)
+      .sort()
+      .reverse();
     
     for (const date of sortedDates) {
       changelog.push({

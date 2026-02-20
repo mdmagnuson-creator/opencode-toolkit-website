@@ -65,7 +65,7 @@
   },
   
   "workflows": {
-    "adhoc": ["build", "typecheck", "lint", "test", "critic", "commit"],
+    "adhoc": ["build", "typecheck", "lint", "test", "critic", "commit", "report"],
     "prd": ["build", "critic", "tester", "typecheck", "lint", "test", "e2e", "commit"]
   },
   
