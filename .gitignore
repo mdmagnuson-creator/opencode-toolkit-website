@@ -41,5 +41,5 @@ yarn-error.log*
 next-env.d.ts
 .tmp/
 
-# generated data (regenerated at build time)
-src/data/toolkit-manifest.json
+# generated data (committed manually, updated periodically)
+# src/data/toolkit-manifest.json
