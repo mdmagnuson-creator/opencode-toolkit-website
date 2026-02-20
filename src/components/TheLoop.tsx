@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-
 interface Step {
   id: string;
   label: string;
@@ -16,7 +14,8 @@ interface Phase {
   agent: string;
   agentIcon: string;
   color: string;
-  darkColor: string;
+  borderColor: string;
+  bgColor: string;
   steps: Step[];
 }
 
@@ -26,8 +25,9 @@ const phases: Phase[] = [
     name: "Plan",
     agent: "@project-planner",
     agentIcon: "P",
-    color: "bg-blue-500",
-    darkColor: "dark:bg-blue-600",
+    color: "bg-blue-500 dark:bg-blue-600",
+    borderColor: "border-blue-200 dark:border-blue-800",
+    bgColor: "bg-blue-50 dark:bg-blue-950/30",
     steps: [
       {
         id: "bootstrap",
@@ -39,7 +39,7 @@ const phases: Phase[] = [
         id: "draft",
         label: "Draft PRD",
         icon: "📝",
-        description: "Describe the feature",
+        description: "Describe the feature in plain language",
       },
       {
         id: "qa",
@@ -51,17 +51,18 @@ const phases: Phase[] = [
         id: "ready",
         label: "Ready",
         icon: "✅",
-        description: "PRD approved for build",
+        description: "PRD approved and ready for build",
       },
     ],
   },
   {
     id: "build",
     name: "Build",
-    agent: "@bildr → @ralph",
+    agent: "@builder → @ralph",
     agentIcon: "B",
-    color: "bg-emerald-500",
-    darkColor: "dark:bg-emerald-600",
+    color: "bg-emerald-500 dark:bg-emerald-600",
+    borderColor: "border-emerald-200 dark:border-emerald-800",
+    bgColor: "bg-emerald-50 dark:bg-emerald-950/30",
     steps: [
       {
         id: "claim",
@@ -73,21 +74,21 @@ const phases: Phase[] = [
         id: "implement",
         label: "Implement",
         icon: "⚡",
-        description: "@ralph writes code",
+        description: "@ralph writes code for each story",
         isLoop: true,
       },
       {
         id: "review",
         label: "Review",
         icon: "🔍",
-        description: "@critic checks quality",
+        description: "@critic checks code quality",
         isLoop: true,
       },
       {
         id: "iterate",
         label: "Iterate",
         icon: "🔄",
-        description: "Fix issues, repeat",
+        description: "Fix issues and repeat until clean",
         isLoop: true,
       },
     ],
@@ -97,54 +98,56 @@ const phases: Phase[] = [
     name: "Test",
     agent: "@tester → @critic",
     agentIcon: "T",
-    color: "bg-amber-500",
-    darkColor: "dark:bg-amber-600",
+    color: "bg-amber-500 dark:bg-amber-600",
+    borderColor: "border-amber-200 dark:border-amber-800",
+    bgColor: "bg-amber-50 dark:bg-amber-950/30",
     steps: [
       {
         id: "unit",
         label: "Unit Tests",
         icon: "🧪",
-        description: "@tester adds coverage",
+        description: "@tester adds test coverage",
       },
       {
         id: "e2e",
         label: "E2E Tests",
         icon: "🎭",
-        description: "@playwright-dev writes E2E",
+        description: "@playwright-dev writes end-to-end tests",
       },
       {
         id: "quality-gates",
         label: "Quality Gates",
         icon: "🚦",
-        description: "Typecheck, lint, build",
+        description: "Typecheck, lint, build must pass",
       },
       {
         id: "verify",
         label: "Verify",
         icon: "✓",
-        description: "All checks pass",
+        description: "All checks green",
       },
     ],
   },
   {
     id: "ship",
     name: "Ship",
-    agent: "@bildr → @felix",
+    agent: "@builder → @felix",
     agentIcon: "S",
-    color: "bg-violet-500",
-    darkColor: "dark:bg-violet-600",
+    color: "bg-violet-500 dark:bg-violet-600",
+    borderColor: "border-violet-200 dark:border-violet-800",
+    bgColor: "bg-violet-50 dark:bg-violet-950/30",
     steps: [
       {
         id: "pr",
         label: "Create PR",
         icon: "🔀",
-        description: "Push and open PR",
+        description: "Push branch and open pull request",
       },
       {
         id: "watch",
         label: "Watch CI",
         icon: "👁️",
-        description: "@felix monitors build",
+        description: "@felix monitors the build",
       },
       {
         id: "merge",
@@ -156,51 +159,19 @@ const phases: Phase[] = [
         id: "archive",
         label: "Archive",
         icon: "📦",
-        description: "PRD completed, cleanup",
+        description: "PRD marked complete, cleanup runs",
       },
     ],
   },
 ];
 
 export function TheLoop() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activePhase, setActivePhase] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      const scrollLeft = container.scrollLeft;
-      const phaseWidth = container.scrollWidth / phases.length;
-      const newPhase = Math.round(scrollLeft / phaseWidth);
-      setActivePhase(Math.min(newPhase, phases.length - 1));
-    };
-
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToPhase = (index: number) => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    setIsScrolling(true);
-    const phaseWidth = container.scrollWidth / phases.length;
-    container.scrollTo({
-      left: phaseWidth * index,
-      behavior: "smooth",
-    });
-    setTimeout(() => setIsScrolling(false), 500);
-  };
-
   return (
     <section
       id="the-loop"
-      className="border-t border-neutral-200 py-24 dark:border-neutral-800"
+      className="border-t border-neutral-200 px-6 py-24 sm:px-8 lg:px-12 dark:border-neutral-800"
     >
-      <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-3xl">
         {/* Header */}
         <div className="text-center">
           <p className="text-sm font-medium uppercase tracking-wide text-neutral-600 dark:text-neutral-400">
@@ -215,112 +186,71 @@ export function TheLoop() {
           </p>
         </div>
 
-        {/* Phase Indicators */}
-        <div className="mt-10 flex justify-center gap-2 sm:gap-4">
-          {phases.map((phase, index) => (
-            <button
-              key={phase.id}
-              onClick={() => scrollToPhase(index)}
-              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
-                activePhase === index
-                  ? `${phase.color} ${phase.darkColor} text-white shadow-lg`
-                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700"
-              }`}
-            >
-              <span className="hidden sm:inline">{phase.name}</span>
-              <span className="sm:hidden">{index + 1}</span>
-            </button>
-          ))}
-        </div>
+        {/* Vertical Phases */}
+        <div className="relative mt-12">
+          {/* Connecting Line */}
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-emerald-400 via-amber-400 to-violet-400 sm:left-8" />
 
-        {/* Scrollable Container */}
-        <div
-          ref={scrollRef}
-          className="mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6 scrollbar-hide sm:gap-8"
-          style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
-        >
-          {phases.map((phase, phaseIndex) => (
-            <div
-              key={phase.id}
-              className="min-w-[85vw] flex-shrink-0 snap-center sm:min-w-[400px] lg:min-w-[350px]"
-            >
-              {/* Phase Card */}
-              <div className="h-full rounded-2xl border-2 border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
-                {/* Phase Header */}
-                <div className="mb-6 flex items-center gap-3">
+          <div className="space-y-8">
+            {phases.map((phase, phaseIndex) => (
+              <div key={phase.id} className="relative">
+                {/* Phase Card */}
+                <div
+                  className={`ml-12 rounded-xl border-2 ${phase.borderColor} ${phase.bgColor} p-5 sm:ml-16 sm:p-6`}
+                >
+                  {/* Phase Number Badge (on the line) */}
                   <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${phase.color} ${phase.darkColor} text-lg font-bold text-white shadow-lg`}
+                    className={`absolute left-0 flex h-12 w-12 items-center justify-center rounded-full ${phase.color} text-lg font-bold text-white shadow-lg sm:left-2 sm:h-14 sm:w-14 sm:text-xl`}
                   >
-                    {phase.agentIcon}
+                    {phaseIndex + 1}
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                      {phase.name}
-                    </h3>
-                    <p className="font-mono text-sm text-neutral-600 dark:text-neutral-400">
-                      {phase.agent}
-                    </p>
+
+                  {/* Phase Header */}
+                  <div className="mb-4 flex items-center justify-between">
+                    <div>
+                      <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+                        {phase.name}
+                      </h3>
+                      <p className="mt-0.5 font-mono text-sm text-neutral-600 dark:text-neutral-400">
+                        {phase.agent}
+                      </p>
+                    </div>
+                    {phase.id === "build" && (
+                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400">
+                        iterates
+                      </span>
+                    )}
                   </div>
-                </div>
 
-                {/* Steps */}
-                <div className="relative space-y-4">
-                  {/* Vertical Line */}
-                  <div className="absolute left-5 top-0 h-full w-0.5 bg-neutral-200 dark:bg-neutral-700" />
-
-                  {phase.steps.map((step, stepIndex) => (
-                    <div key={step.id} className="relative flex gap-4">
-                      {/* Step Icon */}
+                  {/* Steps Grid */}
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {phase.steps.map((step) => (
                       <div
-                        className={`relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 bg-white text-lg dark:bg-neutral-900 ${
+                        key={step.id}
+                        className={`flex items-start gap-3 rounded-lg bg-white/70 p-3 dark:bg-neutral-900/50 ${
                           step.isLoop
-                            ? "border-emerald-400 dark:border-emerald-500"
-                            : "border-neutral-300 dark:border-neutral-600"
+                            ? "ring-1 ring-emerald-300 dark:ring-emerald-700"
+                            : ""
                         }`}
                       >
-                        {step.icon}
-                      </div>
-
-                      {/* Step Content */}
-                      <div className="flex-1 pt-1">
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-medium text-neutral-900 dark:text-neutral-100">
+                        <span className="text-xl">{step.icon}</span>
+                        <div className="min-w-0">
+                          <p className="font-medium text-neutral-900 dark:text-neutral-100">
                             {step.label}
-                          </h4>
-                          {step.isLoop && (
-                            <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400">
-                              loops
-                            </span>
-                          )}
+                          </p>
+                          <p className="mt-0.5 text-sm text-neutral-600 dark:text-neutral-400">
+                            {step.description}
+                          </p>
                         </div>
-                        <p className="mt-0.5 text-sm text-neutral-600 dark:text-neutral-400">
-                          {step.description}
-                        </p>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
 
-                  {/* Loop Indicator for Build Phase */}
+                  {/* Loop indicator for Build phase */}
                   {phase.id === "build" && (
-                    <div className="ml-5 mt-2 flex items-center gap-2 rounded-lg border border-dashed border-emerald-300 bg-emerald-50 px-3 py-2 dark:border-emerald-700 dark:bg-emerald-900/20">
-                      <span className="text-lg">🔄</span>
-                      <span className="text-sm text-emerald-700 dark:text-emerald-400">
-                        Repeat until all stories pass
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Phase Connection Arrow (except last) */}
-                {phaseIndex < phases.length - 1 && (
-                  <div className="mt-6 flex justify-end">
-                    <div className="flex items-center gap-1 text-neutral-400 dark:text-neutral-500">
-                      <span className="text-sm">Next</span>
+                    <div className="mt-4 flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-400">
                       <svg
-                        className="h-5 w-5"
+                        className="h-4 w-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -329,63 +259,65 @@ export function TheLoop() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M9 5l7 7-7 7"
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                         />
                       </svg>
+                      <span>Implement → Review → Iterate until all stories pass</span>
                     </div>
+                  )}
+                </div>
+
+                {/* Arrow to next phase */}
+                {phaseIndex < phases.length - 1 && (
+                  <div className="ml-12 flex h-8 items-center sm:ml-16">
+                    <svg
+                      className="h-5 w-5 text-neutral-400 dark:text-neutral-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      />
+                    </svg>
                   </div>
                 )}
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bug Feedback Loop */}
-        <div className="mt-8 flex justify-center">
-          <div className="flex items-center gap-3 rounded-full border border-dashed border-amber-300 bg-amber-50 px-5 py-3 dark:border-amber-600 dark:bg-amber-900/20">
-            <span className="text-2xl">🐛</span>
-            <div>
-              <p className="font-medium text-amber-800 dark:text-amber-300">
-                Bugs feed back into the loop
-              </p>
-              <p className="text-sm text-amber-700 dark:text-amber-400">
-                Discovered issues become new PRDs automatically
-              </p>
-            </div>
-            <svg
-              className="h-6 w-6 text-amber-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
+            ))}
           </div>
-        </div>
 
-        {/* Scroll Hint (mobile) */}
-        <div className="mt-4 flex justify-center sm:hidden">
-          <p className="flex items-center gap-1 text-sm text-neutral-500">
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-              />
-            </svg>
-            Swipe to explore
-          </p>
+          {/* Loop Back Indicator */}
+          <div className="mt-10 rounded-xl border-2 border-dashed border-amber-300 bg-amber-50 p-5 dark:border-amber-700 dark:bg-amber-950/30">
+            <div className="flex items-start gap-4">
+              <span className="text-3xl">🐛</span>
+              <div>
+                <h4 className="font-semibold text-amber-800 dark:text-amber-300">
+                  Bugs feed back into the loop
+                </h4>
+                <p className="mt-1 text-sm text-amber-700 dark:text-amber-400">
+                  Issues discovered in production automatically become new PRDs,
+                  restarting the cycle. The loop never really ends — it's
+                  continuous improvement.
+                </p>
+              </div>
+              <svg
+                className="h-8 w-8 flex-shrink-0 text-amber-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </section>

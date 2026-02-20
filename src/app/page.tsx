@@ -1,13 +1,13 @@
 import { AgentRelationshipDiagram } from "@/components/AgentRelationshipDiagram";
+import { Header } from "@/components/Header";
 import { TheLoop } from "@/components/TheLoop";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <ThemeToggle />
+      <Header />
       {/* Hero Section */}
-      <section className="flex min-h-screen flex-col items-center justify-center px-6 py-24 sm:px-8 lg:px-12">
+      <section className="flex min-h-screen flex-col items-center justify-center px-6 pt-32 pb-24 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-3xl text-center">
           {/* Badge */}
           <div className="mb-8">
@@ -145,7 +145,7 @@ export default function Home() {
           </div>
 
           <div className="mt-12 grid gap-4 sm:gap-6 md:grid-cols-2">
-            {/* @bildr */}
+            {/* @builder */}
             <div className="group relative rounded-xl border-2 border-neutral-200 bg-white p-5 shadow-sm transition-all hover:border-neutral-300 hover:shadow-md sm:p-6 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600">
               <div className="flex items-start gap-3 sm:gap-4">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-neutral-900 text-base font-semibold text-white sm:h-12 sm:w-12 sm:text-lg dark:bg-neutral-100 dark:text-neutral-900">
@@ -153,7 +153,7 @@ export default function Home() {
                 </div>
                 <div className="min-w-0">
                   <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                    @bildr
+                    @builder
                   </h3>
                   <p className="mt-1 text-sm leading-relaxed text-neutral-700 dark:text-neutral-400">
                     Claims PRDs and orchestrates the full build-review-ship
@@ -503,9 +503,9 @@ export default function Home() {
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
                   Open opencode and run the toolkit installer. It configures
                   agents, skills, and scaffolds in your environment. After that,
-                  you&apos;re ready to start using{" "}
+                   you&apos;re ready to start using{" "}
                   <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
-                    @bildr
+                    @builder
                   </code>
                   ,{" "}
                   <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
