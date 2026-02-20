@@ -217,8 +217,8 @@ export function TheLoop() {
           </p>
         </div>
 
-        {/* Phase Indicators */}
-        <div className="mt-10 flex justify-center gap-2 sm:gap-4">
+        {/* Phase Indicators - hidden on mobile, visible on sm+ */}
+        <div className="mt-10 hidden justify-center gap-4 sm:flex">
           {phases.map((phase, index) => (
             <button
               key={phase.id}
@@ -229,16 +229,15 @@ export function TheLoop() {
                   : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700"
               }`}
             >
-              <span className="hidden sm:inline">{phase.name}</span>
-              <span className="sm:hidden">{index + 1}</span>
+              {phase.name}
             </button>
           ))}
         </div>
 
-        {/* Scrollable Container */}
+        {/* Scrollable Container - vertical stack on mobile, horizontal scroll on sm+ */}
         <div
           ref={scrollRef}
-          className="mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6 scrollbar-hide sm:gap-8"
+          className="mt-8 flex flex-col gap-6 sm:flex-row sm:snap-x sm:snap-mandatory sm:overflow-x-auto sm:pb-6 sm:scrollbar-hide"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -247,7 +246,7 @@ export function TheLoop() {
           {phases.map((phase, phaseIndex) => (
             <div
               key={phase.id}
-              className="min-w-[85vw] flex-shrink-0 snap-center sm:min-w-[400px] lg:min-w-[350px]"
+              className="w-full flex-shrink-0 sm:min-w-[400px] sm:snap-center lg:min-w-[350px]"
             >
               {/* Phase Card */}
               <div className="h-full rounded-2xl border-2 border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
