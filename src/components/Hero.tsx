@@ -6,6 +6,7 @@ interface HeroProps {
   counts: {
     agents: number;
     skills: number;
+    metaSkills: number;
     primaryAgents: number;
   };
 }
@@ -66,7 +67,7 @@ export function Hero({ counts }: HeroProps) {
         </div>
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-3 gap-4 border-t border-neutral-200 pt-10 sm:gap-8 dark:border-neutral-800">
+        <div className="mt-16 grid grid-cols-2 gap-4 border-t border-neutral-200 pt-10 sm:grid-cols-4 sm:gap-8 dark:border-neutral-800">
           <div>
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
               {counts.agents}
@@ -77,10 +78,18 @@ export function Hero({ counts }: HeroProps) {
           </div>
           <div>
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
-              {counts.skills}
+              {counts.skills - counts.metaSkills}
             </p>
             <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
-              Skills
+              Project Skills
+            </p>
+          </div>
+          <div>
+            <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
+              {counts.metaSkills}
+            </p>
+            <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
+              Meta-Skills
             </p>
           </div>
           <div>

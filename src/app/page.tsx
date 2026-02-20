@@ -15,6 +15,7 @@ export default function Home() {
       <Hero counts={{
         agents: counts.agents,
         skills: counts.skills,
+        metaSkills: counts.metaSkills,
         primaryAgents: counts.primaryAgents,
       }} />
 
