@@ -26,8 +26,8 @@ const siteNavigation: NavItem[] = [
     dropdown: [
       { name: "Overview", href: "/concepts", description: "The big picture" },
       { name: "Understanding Agents", href: "/concepts/agents", description: "Primary vs sub-agents" },
-      { name: "Project Skills", href: "/concepts/skills", description: "Task-specific workflows" },
       { name: "Meta-Skills", href: "/concepts/meta-skills", description: "Generate project patterns" },
+      { name: "Project Skills", href: "/concepts/skills", description: "Task-specific workflows" },
       { name: "Project Setup", href: "/concepts/projects", description: "Configuration & structure" },
       { name: "The Workflow Loop", href: "/concepts/workflow", description: "Build-review-ship cycle" },
     ],
@@ -37,8 +37,8 @@ const siteNavigation: NavItem[] = [
     href: "/agents",
     dropdown: [
       { name: "Agents", href: "/agents", description: "Browse all 57 agents" },
-      { name: "Skills", href: "/skills?type=regular", description: "Task-specific workflows" },
       { name: "Meta-Skills", href: "/skills?type=meta", description: "Generate project patterns" },
+      { name: "Skills", href: "/skills?type=regular", description: "Task-specific workflows" },
       { name: "Scaffolds", href: "/scaffolds", description: "Project templates" },
       { name: "Agent Templates", href: "/agent-templates", description: "Framework-specific agent patterns" },
       { name: "MCP Servers", href: "/mcp", description: "External tools & integrations" },
