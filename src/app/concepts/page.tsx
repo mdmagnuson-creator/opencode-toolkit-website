@@ -214,7 +214,7 @@ export default function ConceptsPage() {
                   Primary Agents
                 </p>
                 <div className="flex flex-wrap justify-center gap-2">
-                  {["@builder", "@ralph", "@overlord", "@felix"].map((agent) => (
+                  {["@builder", "@planner", "@toolkit", "@e2e-tester"].map((agent) => (
                     <span
                       key={agent}
                       className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-900 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-200"

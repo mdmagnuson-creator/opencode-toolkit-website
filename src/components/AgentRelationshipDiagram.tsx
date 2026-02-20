@@ -3,7 +3,7 @@
 export function AgentRelationshipDiagram() {
   const primaryAgents = [
     { initial: "B", name: "builder" },
-    { initial: "R", name: "ralph" },
+    { initial: "D", name: "developer" },
     { initial: "P", name: "planner" },
     { initial: "T", name: "toolkit" },
   ];

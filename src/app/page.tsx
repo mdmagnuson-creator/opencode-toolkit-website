@@ -375,8 +375,8 @@ export default function Home() {
                     @builder
                   </code>
                   ,{" "}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
-                    @ralph
+                   <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
+                    @developer
                   </code>
                   , and the rest of the system.
                 </p>
