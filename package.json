@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "npm run extract-data && next dev",
     "build": "next build",
-    "prebuild": "npx tsx scripts/generate-manifest.ts ~/.config/opencode || echo 'Using existing manifest'",
+    "prebuild": "[ -n \"$CI\" ] && echo 'Skipping prebuild in CI' || npx tsx scripts/generate-manifest.ts ~/.config/opencode || echo 'Using existing manifest'",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
