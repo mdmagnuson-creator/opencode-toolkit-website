@@ -127,57 +127,70 @@ export default function GettingStartedPage() {
             Starting Your First Project
           </h2>
           <p className="text-neutral-600 dark:text-neutral-300 mb-6">
-            Once the toolkit is installed, you can bootstrap any project to work with the agent system.
+            Once the toolkit is installed, open opencode and invoke any primary agent. The agent will immediately ask you to select or add a project.
           </p>
 
           <div className="space-y-8">
-            {/* Bootstrap step */}
+            {/* Step 1: Invoke an agent */}
             <div>
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                Bootstrap an existing project
+                1. Open opencode and invoke an agent
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                Navigate to your project directory and open opencode:
-              </p>
-              <div className="rounded-lg bg-neutral-900 p-4 dark:bg-neutral-800 mb-4">
-                <pre className="text-sm text-neutral-100 overflow-x-auto"><code>{`cd ~/code/my-project
-opencode`}</code></pre>
-              </div>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                Then tell the agent:
+                Launch opencode from anywhere and invoke a primary agent like <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">@builder</code>:
               </p>
               <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950">
                 <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
-                  &quot;Bootstrap this project&quot;
+                  @builder
                 </p>
               </div>
-              <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-                The agent will:
+            </div>
+
+            {/* Step 2: Project selection */}
+            <div>
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
+                2. Select or add a project
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
+                The agent immediately shows you a project selection table:
               </p>
-              <ul className="mt-2 ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
+              <div className="rounded-lg bg-neutral-900 p-4 dark:bg-neutral-800 mb-4">
+                <pre className="text-sm text-neutral-100 overflow-x-auto"><code>{`═══════════════════════════════════════════════════════════════
+                     SELECT PROJECT
+═══════════════════════════════════════════════════════════════
+
+  #   Project                    Agent System
+  1   My Web App                 ✅ Yes
+  2   API Service                ✅ Yes
+  3   New Project                ❌ No
+
+  0   ➕ Add New Project
+
+Which project? _`}</code></pre>
+              </div>
+              <p className="text-neutral-600 dark:text-neutral-300">
+                Select an existing project by number, or choose <strong>0</strong> to add a new one.
+              </p>
+            </div>
+
+            {/* Step 3: Bootstrap */}
+            <div>
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
+                3. Bootstrap new projects
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
+                When you select &quot;Add New Project&quot;, the agent walks you through setup:
+              </p>
+              <ul className="ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
+                <li>Point to an existing codebase or create from a <Link href="/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">scaffold</Link></li>
                 <li>Auto-detect your tech stack (framework, database, testing, etc.)</li>
                 <li>Ask clarifying questions for anything it can&apos;t detect</li>
                 <li>Generate <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/project.json</code> with your configuration</li>
                 <li>Create <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/CONVENTIONS.md</code> with coding patterns</li>
                 <li>Set up the PRD registry for tracking features</li>
               </ul>
-            </div>
-
-            {/* Or start fresh */}
-            <div>
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                Or start a new project from a scaffold
-              </h3>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                Use a scaffold to generate a complete project template with best practices baked in:
-              </p>
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950 mb-4">
-                <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
-                  &quot;Scaffold a new project using nextjs-supabase&quot;
-                </p>
-              </div>
-              <p className="text-neutral-600 dark:text-neutral-300">
-                Check out the <Link href="/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">available scaffolds</Link> to see what&apos;s included.
+              <p className="mt-4 text-neutral-600 dark:text-neutral-300">
+                After bootstrap, the project appears in your selection list for all future sessions.
               </p>
             </div>
           </div>
