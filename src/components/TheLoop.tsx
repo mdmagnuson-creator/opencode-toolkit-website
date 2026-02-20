@@ -320,7 +320,7 @@ export function TheLoop() {
                     <div className="ml-5 mt-2 flex items-center gap-2 rounded-lg border border-dashed border-emerald-300 bg-emerald-50 px-3 py-2 dark:border-emerald-700 dark:bg-emerald-900/20">
                       <span className="text-lg">🔄</span>
                       <span className="text-sm text-emerald-700 dark:text-emerald-400">
-                        Repeat until all tests pass
+                        Retry up to 3 times, then stop for human review
                       </span>
                     </div>
                   )}
