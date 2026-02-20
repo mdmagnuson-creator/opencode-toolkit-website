@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FadeInSection } from "./FadeInSection";
 
 interface HeroProps {
@@ -68,38 +69,50 @@ export function Hero({ counts }: HeroProps) {
 
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 gap-4 border-t border-neutral-200 pt-10 sm:grid-cols-4 sm:gap-8 dark:border-neutral-800">
-          <div>
+          <Link
+            href="/concepts/agents"
+            className="block rounded-lg p-3 -m-3 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 dark:hover:bg-neutral-800 dark:focus-visible:ring-neutral-400"
+          >
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
               {counts.agents}
             </p>
             <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
               Agents
             </p>
-          </div>
-          <div>
+          </Link>
+          <Link
+            href="/concepts/skills"
+            className="block rounded-lg p-3 -m-3 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 dark:hover:bg-neutral-800 dark:focus-visible:ring-neutral-400"
+          >
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
               {counts.skills - counts.metaSkills}
             </p>
             <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
               Project Skills
             </p>
-          </div>
-          <div>
+          </Link>
+          <Link
+            href="/concepts/meta-skills"
+            className="block rounded-lg p-3 -m-3 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 dark:hover:bg-neutral-800 dark:focus-visible:ring-neutral-400"
+          >
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
               {counts.metaSkills}
             </p>
             <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
               Meta-Skills
             </p>
-          </div>
-          <div>
+          </Link>
+          <Link
+            href="/concepts/agents#primary-agents"
+            className="block rounded-lg p-3 -m-3 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 dark:hover:bg-neutral-800 dark:focus-visible:ring-neutral-400"
+          >
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
               {counts.primaryAgents}
             </p>
             <p className="mt-1 text-xs text-neutral-800 sm:text-sm dark:text-neutral-400">
               Primary Agents
             </p>
-          </div>
+          </Link>
         </div>
       </FadeInSection>
     </section>

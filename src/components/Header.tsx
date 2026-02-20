@@ -25,7 +25,8 @@ const siteNavigation: NavItem[] = [
     href: "/concepts",
     dropdown: [
       { name: "Overview", href: "/concepts", description: "The big picture" },
-      { name: "Understanding Agents", href: "/concepts/agents", description: "Primary vs sub-agents" },
+      { name: "Primary Agents", href: "/concepts/agents", description: "Entry points to the system" },
+      { name: "Sub-Agents", href: "/concepts/agents#sub-agents", description: "Specialist workers" },
       { name: "Meta-Skills", href: "/concepts/meta-skills", description: "Generate project patterns" },
       { name: "Project Skills", href: "/concepts/skills", description: "Task-specific workflows" },
       { name: "Project Setup", href: "/concepts/projects", description: "Configuration & structure" },
@@ -36,7 +37,8 @@ const siteNavigation: NavItem[] = [
     name: "Reference",
     href: "/agents",
     dropdown: [
-      { name: "Agents", href: "/agents", description: "Browse all 57 agents" },
+      { name: "Primary Agents", href: "/agents?mode=primary", description: "Entry points (5 agents)" },
+      { name: "Sub-Agents", href: "/agents?mode=subagent", description: "Specialists (54 agents)" },
       { name: "Meta-Skills", href: "/skills?type=meta", description: "Generate project patterns" },
       { name: "Skills", href: "/skills?type=regular", description: "Task-specific workflows" },
       { name: "Scaffolds", href: "/scaffolds", description: "Project templates" },
