@@ -2888,6 +2888,109 @@ export default function TestingConceptPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Authentication Setup */}
+              <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                      Authentication in E2E Tests
+                    </h4>
+                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      For authenticated test runs, use{" "}
+                      <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-700">
+                        globalSetup
+                      </code>{" "}
+                      with shared{" "}
+                      <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-700">
+                        storageState
+                      </code>
+                      . This authenticates once at suite start and shares the session
+                      across all tests.
+                    </p>
+
+                    {/* Recommended Pattern */}
+                    <div className="mt-4 rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-green-700 dark:text-green-300">
+                        Recommended: globalSetup + storageState
+                      </p>
+                      <pre className="mt-2 overflow-x-auto text-sm">
+                        <code className="text-green-800 dark:text-green-200">
+{`// playwright.config.ts
+export default defineConfig({
+  globalSetup: './tests/global-setup.ts',
+  use: {
+    storageState: './tests/.auth/user.json',
+  },
+});
+
+// tests/global-setup.ts
+async function globalSetup() {
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  await page.goto('/login');
+  await page.fill('#email', process.env.TEST_USER);
+  await page.fill('#password', process.env.TEST_PASS);
+  await page.click('button[type="submit"]');
+  await page.context().storageState({
+    path: './tests/.auth/user.json'
+  });
+  await browser.close();
+}`}
+                        </code>
+                      </pre>
+                    </div>
+
+                    {/* Anti-pattern Warning */}
+                    <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-red-700 dark:text-red-300">
+                        Anti-pattern: per-suite beforeAll auth
+                      </p>
+                      <p className="mt-2 text-sm text-red-700 dark:text-red-300">
+                        Avoid authenticating in each test file&apos;s{" "}
+                        <code className="rounded bg-red-100 px-1 dark:bg-red-900">beforeAll</code>.
+                        This triggers multiple login requests per test run, which:
+                      </p>
+                      <ul className="mt-2 space-y-1 text-sm text-red-700 dark:text-red-300">
+                        <li>• <strong>Rate limit risk</strong> — Auth providers may throttle or block</li>
+                        <li>• <strong>Slower runs</strong> — Login flow repeated N times</li>
+                        <li>• <strong>Flaky tests</strong> — Network timing issues multiply</li>
+                      </ul>
+                      <pre className="mt-3 overflow-x-auto text-sm">
+                        <code className="text-red-800 dark:text-red-200">
+{`// ❌ Don't do this for default user flows
+test.beforeAll(async ({ browser }) => {
+  const page = await browser.newPage();
+  await page.goto('/login');
+  await page.fill('#email', user);
+  // Runs for every test file!
+});`}
+                        </code>
+                      </pre>
+                    </div>
+
+                    <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-500">
+                      <strong>Exception:</strong> Per-suite auth is appropriate when testing
+                      <em> different</em> user roles or permission levels that need distinct sessions.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

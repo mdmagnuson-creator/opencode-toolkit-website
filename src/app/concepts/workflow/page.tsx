@@ -384,6 +384,86 @@ export default function WorkflowConceptPage() {
         </div>
       </section>
 
+      {/* Trunk-Based Workflow */}
+      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Trunk-Based Git Workflow
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            The toolkit follows a <strong>trunk-based development</strong> model. All work flows
+            through short-lived feature branches that merge directly to <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">main</code>.
+          </p>
+
+          {/* Workflow Diagram */}
+          <div className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-24 items-center justify-center rounded-lg bg-green-100 font-mono text-sm font-semibold text-green-900 dark:bg-green-950 dark:text-green-200">
+                  main
+                </div>
+                <span className="text-sm text-neutral-500 dark:text-neutral-500">← Integration branch (always deployable)</span>
+              </div>
+              <div className="ml-8 flex items-center gap-2">
+                <svg className="h-6 w-6 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+                <span className="text-xs text-neutral-500">branch off</span>
+              </div>
+              <div className="ml-8 flex items-center gap-4">
+                <div className="flex h-10 w-48 items-center justify-center rounded-lg bg-blue-100 font-mono text-sm font-semibold text-blue-900 dark:bg-blue-950 dark:text-blue-200">
+                  feature/dark-mode
+                </div>
+                <span className="text-sm text-neutral-500 dark:text-neutral-500">← Short-lived feature branch</span>
+              </div>
+              <div className="ml-8 flex items-center gap-2">
+                <svg className="h-6 w-6 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                </svg>
+                <span className="text-xs text-neutral-500">PR & merge</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-24 items-center justify-center rounded-lg bg-green-100 font-mono text-sm font-semibold text-green-900 dark:bg-green-950 dark:text-green-200">
+                  main
+                </div>
+                <span className="text-sm text-neutral-500 dark:text-neutral-500">← Feature merged, branch deleted</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Points */}
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950">
+              <h3 className="font-semibold text-green-900 dark:text-green-100">Do</h3>
+              <ul className="mt-3 space-y-2 text-sm text-green-800 dark:text-green-200">
+                <li>• Branch from <code className="rounded bg-green-100 px-1 dark:bg-green-900">main</code> for all features</li>
+                <li>• Keep branches short-lived (hours to days)</li>
+                <li>• Merge via PR after review passes</li>
+                <li>• Delete branches after merge</li>
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+              <h3 className="font-semibold text-red-900 dark:text-red-100">Don&apos;t</h3>
+              <ul className="mt-3 space-y-2 text-sm text-red-800 dark:text-red-200">
+                <li>• Don&apos;t use long-lived <code className="rounded bg-red-100 px-1 dark:bg-red-900">develop</code> branches</li>
+                <li>• Don&apos;t create <code className="rounded bg-red-100 px-1 dark:bg-red-900">release/*</code> branches</li>
+                <li>• Don&apos;t let branches diverge for weeks</li>
+                <li>• Don&apos;t stack multiple features on one branch</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-lg bg-blue-50 p-4 dark:bg-blue-950">
+            <p className="text-sm text-blue-800 dark:text-blue-200">
+              <strong>Why trunk-based?</strong> Smaller, more frequent merges reduce integration pain.
+              Feature flags handle incomplete features in production. This matches how agents work —
+              each PRD produces one branch with focused, reviewable changes.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Multi-Session Coordination */}
       <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">

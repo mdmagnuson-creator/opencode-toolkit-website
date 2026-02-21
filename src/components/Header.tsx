@@ -26,6 +26,7 @@ const siteNavigation: NavItem[] = [
     dropdown: [
       { name: "Overview", href: "/concepts", description: "The big picture" },
       { name: "Understanding Agents", href: "/concepts/agents", description: "Primary vs sub-agents" },
+      { name: "Agent Workflows", href: "/concepts/agent-workflows", description: "Update queues & coordination" },
       { name: "Meta-Skills", href: "/concepts/meta-skills", description: "Generate project patterns" },
       { name: "Project Skills", href: "/concepts/skills", description: "Task-specific workflows" },
       { name: "Project Setup", href: "/concepts/projects", description: "Configuration & structure" },

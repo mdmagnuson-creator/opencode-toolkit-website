@@ -24,6 +24,27 @@ const concepts = [
     ),
   },
   {
+    name: "Agent Workflows",
+    href: "/concepts/agent-workflows",
+    description:
+      "How agents communicate through asynchronous update queues. A self-improving system where agents discover gaps and queue improvements — all under your control.",
+    icon: (
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+        />
+      </svg>
+    ),
+  },
+  {
     name: "Skills",
     href: "/concepts/skills",
     description:
@@ -114,9 +135,9 @@ const concepts = [
   },
   {
     name: "Multi-Session Coordination",
-    href: "/concepts/workflow",
+    href: "/concepts/agent-workflows",
     description:
-      "How multiple agent sessions work together without conflicts. The workflow page covers session locks, artifact storage, and branch management for parallel work.",
+      "How multiple agent sessions work together without conflicts. Learn about session locks, update queues, and branch management for parallel work.",
     icon: (
       <svg
         className="h-6 w-6"
