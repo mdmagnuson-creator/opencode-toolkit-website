@@ -40,16 +40,30 @@ export interface AgentTemplate {
   content: string;
 }
 
+export type ChangelogEntryType = 'feat' | 'fix' | 'chore' | 'docs' | 'refactor' | 'test' | 'style' | 'perf' | 'ci' | 'build';
+
+export type ChangelogSource = 'toolkit' | 'website';
+
 export interface ChangelogEntry {
-  type: 'feat' | 'fix' | 'chore' | 'docs' | 'refactor' | 'test' | 'style' | 'perf' | 'ci' | 'build';
+  type: ChangelogEntryType;
   description: string;
   scope?: string;
+}
+
+export interface ChangelogEntryWithSource extends ChangelogEntry {
+  source: ChangelogSource;
 }
 
 export interface ChangelogDay {
   date: string;
   displayDate: string;
   changes: ChangelogEntry[];
+}
+
+export interface ChangelogDayWithSource {
+  date: string;
+  displayDate: string;
+  changes: ChangelogEntryWithSource[];
 }
 
 export interface ToolkitManifest {

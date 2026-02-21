@@ -1,4 +1,5 @@
 import { AgentRelationshipDiagram } from "@/components/AgentRelationshipDiagram";
+import { CodeBlockWithCopy } from "@/components/CodeBlockWithCopy";
 import { Hero } from "@/components/Hero";
 import { TheLoop } from "@/components/TheLoop";
 import { manifest, getPrimaryAgents, getRegularSkills } from "@/data";
@@ -324,17 +325,17 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Download opencode
+                  Install OpenCode
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  Get the opencode desktop app for your platform. It&apos;s the
+                  Get the OpenCode desktop app for your platform. It&apos;s the
                   AI-native code editor that powers the agent system.
                 </p>
                 <a
                   href="https://opencode.ai/download"
                   className="mt-4 inline-flex h-11 min-w-[44px] items-center justify-center rounded-lg bg-neutral-900 px-6 text-sm font-medium text-white transition-colors hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:ring-offset-neutral-900"
                 >
-                  Download opencode
+                  Download OpenCode
                 </a>
               </div>
             </div>
@@ -346,12 +347,20 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Connect GitHub
+                  Connect Provider
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  Link your GitHub account to opencode. This enables agents to
-                  read repositories, create branches, and manage pull requests
-                  on your behalf.
+                  Open the OpenCode command palette with{" "}
+                  <kbd className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
+                    Ctrl+P
+                  </kbd>
+                  , type{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
+                    provider
+                  </code>
+                  , and select{" "}
+                  <strong>&quot;Connect Provider&quot;</strong>. Then choose how
+                  you want to connect to a model.
                 </p>
               </div>
             </div>
@@ -363,31 +372,15 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Upgrade to GitHub Copilot Pro+
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  For best results, upgrade to GitHub Copilot Pro+ (or use your
-                  own API keys). This gives agents access to the most capable
-                  models—critical for complex coding tasks.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div className="flex gap-3 sm:gap-6">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-sm font-semibold text-white sm:h-10 sm:w-10 sm:text-base dark:bg-neutral-100 dark:text-neutral-900">
-                4
-              </div>
-              <div className="min-w-0 pt-0.5 sm:pt-1">
-                <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
                   Run the setup script
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  Open a terminal and run the installer:
+                  Open a terminal and run the toolkit installer:
                 </p>
-                <div className="mt-3 rounded-lg bg-neutral-900 p-3 dark:bg-neutral-800">
-                  <pre className="text-xs sm:text-sm text-neutral-100 overflow-x-auto"><code>{`curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash`}</code></pre>
-                </div>
+                <CodeBlockWithCopy
+                  code="curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash"
+                  className="mt-3"
+                />
               </div>
             </div>
           </div>

@@ -318,7 +318,7 @@ export default function AgentWorkflowsPage() {
 
           {/* Visual Diagram */}
           <div className="mt-10 overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-50 p-8 dark:border-neutral-700 dark:bg-neutral-900">
-            <div className="min-w-[600px] space-y-8">
+            <div className="min-w-[600px] space-y-6">
               {/* User Control Banner */}
               <div className="rounded-lg bg-neutral-900 px-4 py-3 text-center text-sm font-medium text-white dark:bg-neutral-100 dark:text-neutral-900">
                 USER CONTROL — Reviews, approves, rejects, or escalates all updates
@@ -341,13 +341,22 @@ export default function AgentWorkflowsPage() {
                 ))}
               </div>
 
-              {/* Arrows to pending-updates */}
-              <div className="flex justify-center">
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-px bg-neutral-400 dark:bg-neutral-600" />
-                  <span className="text-xs text-neutral-500">queue updates</span>
-                  <div className="h-8 w-px bg-neutral-400 dark:bg-neutral-600" />
-                </div>
+              {/* Flow label: Agents to pending-updates */}
+              <div className="flex flex-col items-center gap-1">
+                <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">queue updates</span>
+                <svg
+                  className="h-6 w-6 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
               </div>
 
               {/* pending-updates queue */}
@@ -362,10 +371,10 @@ export default function AgentWorkflowsPage() {
                 </div>
               </div>
 
-              {/* Arrow to toolkit */}
-              <div className="flex justify-center">
+              {/* Flow label: pending-updates to toolkit */}
+              <div className="flex flex-col items-center gap-1">
                 <svg
-                  className="h-8 w-8 text-neutral-400 dark:text-neutral-600"
+                  className="h-6 w-6 text-neutral-400 dark:text-neutral-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
@@ -377,10 +386,11 @@ export default function AgentWorkflowsPage() {
                     d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
                   />
                 </svg>
+                <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">reads & processes</span>
               </div>
 
               {/* @toolkit processes */}
-              <div className="mx-auto flex items-center gap-4">
+              <div className="mx-auto flex items-center justify-center gap-4">
                 <div className="flex h-16 w-28 items-center justify-center rounded-lg border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950">
                   <span className="font-mono text-sm font-semibold text-blue-900 dark:text-blue-200">
                     @toolkit
@@ -391,10 +401,11 @@ export default function AgentWorkflowsPage() {
                 </span>
               </div>
 
-              {/* Arrow to project-updates */}
-              <div className="flex justify-center">
+              {/* Flow label: toolkit to project-updates */}
+              <div className="flex flex-col items-center gap-1">
+                <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">queues project changes</span>
                 <svg
-                  className="h-8 w-8 text-neutral-400 dark:text-neutral-600"
+                  className="h-6 w-6 text-neutral-400 dark:text-neutral-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
@@ -420,10 +431,10 @@ export default function AgentWorkflowsPage() {
                 </div>
               </div>
 
-              {/* Arrow to builder */}
-              <div className="flex justify-center">
+              {/* Flow label: project-updates to builder */}
+              <div className="flex flex-col items-center gap-1">
                 <svg
-                  className="h-8 w-8 text-neutral-400 dark:text-neutral-600"
+                  className="h-6 w-6 text-neutral-400 dark:text-neutral-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
@@ -435,10 +446,11 @@ export default function AgentWorkflowsPage() {
                     d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
                   />
                 </svg>
+                <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">applies to projects</span>
               </div>
 
               {/* @builder applies */}
-              <div className="mx-auto flex items-center gap-4">
+              <div className="mx-auto flex items-center justify-center gap-4">
                 <div className="flex h-16 w-28 items-center justify-center rounded-lg border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950">
                   <span className="font-mono text-sm font-semibold text-blue-900 dark:text-blue-200">
                     @builder

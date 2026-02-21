@@ -59,12 +59,17 @@ export default function WorkflowConceptPage() {
                 </div>
               </div>
 
-              {/* Arrow down */}
-              <div className="flex justify-end pr-20">
-                <div className="my-4 text-2xl text-neutral-400">↓</div>
+              {/* Connector: Row 1 to Row 2 */}
+              <div className="flex justify-center py-3">
+                <div className="flex w-[700px] justify-end pr-20">
+                  <div className="flex flex-col items-center">
+                    <div className="h-6 w-px bg-neutral-400 dark:bg-neutral-600" />
+                    <div className="text-lg text-neutral-400">↓</div>
+                  </div>
+                </div>
               </div>
 
-              {/* Row 2: Build Phase */}
+              {/* Row 2: Build Phase (reversed) */}
               <div className="flex flex-row-reverse items-center justify-center gap-4">
                 <div className="flex flex-col items-center">
                   <div className="flex h-20 w-40 items-center justify-center rounded-xl bg-green-100 px-4 text-center font-medium text-green-900 dark:bg-green-950 dark:text-green-200">

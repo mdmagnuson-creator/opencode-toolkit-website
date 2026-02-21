@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { CopyButton } from '@/components/CopyButton';
 import { manifest } from '@/data';
 
 export const metadata = {
@@ -26,7 +27,7 @@ export default function GettingStartedPage() {
           </p>
         </div>
 
-        {/* Steps - matches homepage exactly */}
+        {/* Steps - 3 step process */}
         <div className="space-y-8 mb-16">
           {/* Step 1 */}
           <div className="flex gap-6">
@@ -35,17 +36,17 @@ export default function GettingStartedPage() {
             </div>
             <div className="pt-1">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                Download opencode
+                Install OpenCode
               </h3>
               <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
-                Get the opencode desktop app for your platform. It&apos;s the
+                Get the OpenCode desktop app for your platform. It&apos;s the
                 AI-native code editor that powers the agent system.
               </p>
               <a
                 href="https://opencode.ai/download"
                 className="mt-4 inline-flex h-11 min-w-[44px] items-center justify-center rounded-lg bg-neutral-900 px-6 text-sm font-medium text-white transition-colors hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:ring-offset-neutral-900"
               >
-                Download opencode
+                Download OpenCode
               </a>
             </div>
           </div>
@@ -57,12 +58,20 @@ export default function GettingStartedPage() {
             </div>
             <div className="pt-1">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                Connect GitHub
+                Connect Provider
               </h3>
               <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
-                Link your GitHub account to opencode. This enables agents to
-                read repositories, create branches, and manage pull requests
-                on your behalf.
+                Open the OpenCode command palette with{" "}
+                <kbd className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                  Ctrl+P
+                </kbd>
+                , type{" "}
+                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                  provider
+                </code>
+                , and select{" "}
+                <strong>&quot;Connect Provider&quot;</strong>. Then choose how
+                you want to connect to a model.
               </p>
             </div>
           </div>
@@ -74,30 +83,18 @@ export default function GettingStartedPage() {
             </div>
             <div className="pt-1">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                Upgrade to GitHub Copilot Pro+
-              </h3>
-              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
-                For best results, upgrade to GitHub Copilot Pro+ (or use your
-                own API keys). This gives agents access to the most capable
-                models—critical for complex coding tasks.
-              </p>
-            </div>
-          </div>
-
-          {/* Step 4 */}
-          <div className="flex gap-6">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
-              4
-            </div>
-            <div className="pt-1">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
                 Run the setup script
               </h3>
               <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
                 Open a terminal and run the toolkit installer:
               </p>
-              <div className="mt-4 rounded-lg bg-neutral-900 p-4 dark:bg-neutral-800">
-                <pre className="text-sm text-neutral-100 overflow-x-auto"><code>{`curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash`}</code></pre>
+              <div className="mt-4 rounded-lg bg-neutral-900 dark:bg-neutral-800">
+                <div className="flex items-start gap-2 p-3 sm:p-4">
+                  <pre className="min-w-0 flex-1 overflow-x-auto text-xs leading-relaxed text-neutral-100 sm:text-sm">
+                    <code className="block whitespace-pre-wrap break-all sm:whitespace-pre sm:break-normal">{`curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash`}</code>
+                  </pre>
+                  <CopyButton text="curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash" />
+                </div>
               </div>
               <p className="mt-4 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
                 This installs agents, skills, and scaffolds to{" "}

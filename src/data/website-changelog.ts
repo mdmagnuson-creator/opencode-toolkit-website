@@ -1,0 +1,70 @@
+/**
+ * Website-specific changelog entries.
+ * This file tracks changes to the documentation website itself,
+ * separate from the AI Toolkit repository changes.
+ */
+import type { ChangelogDay } from './types';
+
+export const websiteChangelog: ChangelogDay[] = [
+  {
+    date: "2026-02-21",
+    displayDate: "February 21, 2026",
+    changes: [
+      {
+        type: "feat",
+        description: "Add combined changelog showing both toolkit and website changes",
+        scope: "changelog",
+      },
+      {
+        type: "feat",
+        description: "Add source badges to distinguish toolkit vs website changes",
+        scope: "changelog",
+      },
+    ],
+  },
+  {
+    date: "2026-02-20",
+    displayDate: "February 20, 2026",
+    changes: [
+      {
+        type: "feat",
+        description: "Add agent workflow concept page with interactive diagram",
+        scope: "concepts",
+      },
+      {
+        type: "feat",
+        description: "Add searchable documentation with keyboard navigation",
+        scope: "search",
+      },
+      {
+        type: "fix",
+        description: "Improve dark mode contrast for code blocks",
+        scope: "styling",
+      },
+    ],
+  },
+  {
+    date: "2026-02-19",
+    displayDate: "February 19, 2026",
+    changes: [
+      {
+        type: "feat",
+        description: "Launch AI Toolkit documentation website",
+      },
+      {
+        type: "feat",
+        description: "Add agents reference pages with filtering",
+        scope: "agents",
+      },
+      {
+        type: "feat",
+        description: "Add skills reference pages with category tabs",
+        scope: "skills",
+      },
+      {
+        type: "docs",
+        description: "Add getting started guide with installation steps",
+      },
+    ],
+  },
+];

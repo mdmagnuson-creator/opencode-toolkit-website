@@ -80,17 +80,18 @@ export default async function AgentDetailPage({
 
   const relatedAgents = getRelatedAgents(agent);
   const categoryColors = CATEGORY_COLORS[agent.category];
+  const hasAgentContent = agent.content.trim().length > 0;
 
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="px-6 py-16 sm:px-8 sm:py-20 lg:px-12">
+      <section className="px-6 py-12 sm:px-8 sm:py-14 lg:px-12">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-8">
+          <div className="mb-6">
             <Breadcrumbs />
           </div>
 
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
             {/* Agent Avatar */}
             <AgentAvatar agent={agent} size="xl" className="shrink-0" />
 
@@ -113,7 +114,7 @@ export default async function AgentDetailPage({
                 </div>
               </div>
 
-              <p className="mt-6 text-lg leading-8 text-neutral-700 dark:text-neutral-400">
+              <p className="mt-4 text-lg leading-7 text-neutral-700 dark:text-neutral-400">
                 {agent.description}
               </p>
             </div>
@@ -122,15 +123,17 @@ export default async function AgentDetailPage({
       </section>
 
       {/* Agent Content */}
-      <section className="border-t border-neutral-200 px-6 py-12 sm:px-8 lg:px-12 dark:border-neutral-800">
-        <div className="mx-auto max-w-4xl">
-          <AgentContent content={agent.content} />
-        </div>
-      </section>
+      {hasAgentContent && (
+        <section className="border-t border-neutral-200 px-6 py-8 sm:px-8 sm:py-10 lg:px-12 dark:border-neutral-800">
+          <div className="mx-auto max-w-4xl">
+            <AgentContent content={agent.content} />
+          </div>
+        </section>
+      )}
 
       {/* Related Agents */}
       {relatedAgents.length > 0 && (
-        <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <section className="border-t border-neutral-200 px-6 py-10 sm:px-8 sm:py-12 lg:px-12 dark:border-neutral-800">
           <div className="mx-auto max-w-4xl">
             <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
               Related {CATEGORY_LABELS[agent.category]}

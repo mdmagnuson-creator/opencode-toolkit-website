@@ -1,7 +1,64 @@
-import type { ToolkitManifest, Skill, SkillCategory } from './types';
+import type { ToolkitManifest, Skill, SkillCategory, ChangelogDay, ChangelogDayWithSource, ChangelogSource } from './types';
 import manifestData from './toolkit-manifest.json';
+import { websiteChangelog } from './website-changelog';
 
 export const manifest = manifestData as ToolkitManifest;
+
+/**
+ * Merges toolkit and website changelogs into a single timeline,
+ * sorted by date descending. Entries from the same day are combined.
+ */
+export function getCombinedChangelog(): ChangelogDayWithSource[] {
+  const toolkitChangelog = manifest.changelog;
+  
+  // Create a map of date -> merged day
+  const dayMap = new Map<string, ChangelogDayWithSource>();
+  
+  // Add toolkit entries
+  toolkitChangelog.forEach((day: ChangelogDay) => {
+    const existing = dayMap.get(day.date);
+    const changesWithSource = day.changes.map(change => ({
+      ...change,
+      source: 'toolkit' as ChangelogSource,
+    }));
+    
+    if (existing) {
+      existing.changes.push(...changesWithSource);
+    } else {
+      dayMap.set(day.date, {
+        date: day.date,
+        displayDate: day.displayDate,
+        changes: changesWithSource,
+      });
+    }
+  });
+  
+  // Add website entries
+  websiteChangelog.forEach((day: ChangelogDay) => {
+    const existing = dayMap.get(day.date);
+    const changesWithSource = day.changes.map(change => ({
+      ...change,
+      source: 'website' as ChangelogSource,
+    }));
+    
+    if (existing) {
+      existing.changes.push(...changesWithSource);
+    } else {
+      dayMap.set(day.date, {
+        date: day.date,
+        displayDate: day.displayDate,
+        changes: changesWithSource,
+      });
+    }
+  });
+  
+  // Sort by date descending
+  const sortedDays = Array.from(dayMap.values()).sort((a, b) => 
+    b.date.localeCompare(a.date)
+  );
+  
+  return sortedDays;
+}
 
 export function getAgentsByCategory(category: 'critics' | 'developers' | 'testers' | 'orchestrators' | 'utilities') {
   return manifest.agents.filter(a => a.category === category);

@@ -108,16 +108,38 @@ export function Header() {
     setOpenDropdown(openDropdown === itemName ? null : itemName);
   };
 
-  // Prevent body scroll when mobile menu is open
+  // Robust body scroll lock when mobile menu is open
+  // Uses position:fixed approach for iOS Safari compatibility
   useEffect(() => {
     if (mobileMenuOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      const scrollX = window.scrollX;
+      
+      // Lock body in place using position:fixed with negative top offset
+      // This prevents background scrolling on iOS Safari where overflow:hidden fails
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = `-${scrollX}px`;
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+      // Prevent overscroll bounce on the body itself
+      document.body.style.overscrollBehavior = "none";
+      
+      // Cleanup function to restore scroll position
+      return () => {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.width = "";
+        document.body.style.overflow = "";
+        document.body.style.overscrollBehavior = "";
+        // Restore scroll position after releasing fixed positioning
+        window.scrollTo(scrollX, scrollY);
+      };
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [mobileMenuOpen]);
 
   const openSearch = useCallback(() => {
@@ -142,7 +164,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/80">
+    <header className="fixed top-0 left-0 right-0 z-[70] border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/80">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-8 lg:px-12">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -249,7 +271,15 @@ export function Header() {
 
       {/* Mobile Navigation - Full screen overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 top-[65px] z-40 overflow-y-auto bg-white lg:hidden dark:bg-neutral-950">
+        <div
+          className="absolute inset-x-0 top-full z-[60] h-[calc(100dvh-65px)] overflow-y-auto overscroll-contain border-t border-neutral-200 bg-white lg:hidden dark:border-neutral-800 dark:bg-neutral-950"
+          onClick={(e) => {
+            // Close menu when clicking background (not links)
+            if (e.target === e.currentTarget) {
+              setMobileMenuOpen(false);
+            }
+          }}
+        >
           <div className="min-h-full px-6 py-4">
             {/* Search and Theme Toggle */}
             <div className="mb-4 flex items-center gap-2 border-b border-neutral-200 pb-4 dark:border-neutral-800">

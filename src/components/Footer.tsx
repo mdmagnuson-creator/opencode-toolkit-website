@@ -33,6 +33,7 @@ const footerLinks = {
     links: [
       { name: "Overview", href: "/concepts" },
       { name: "Understanding Agents", href: "/concepts/agents" },
+      { name: "Agent Workflows", href: "/concepts/agent-workflows" },
       { name: "Meta-Skills", href: "/concepts/meta-skills" },
       { name: "Project Skills", href: "/concepts/skills" },
       { name: "Project Setup", href: "/concepts/projects" },
