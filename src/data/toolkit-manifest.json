@@ -1,12 +1,12 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-21T18:15:00Z",
-  "syncedAt": "2026-02-21T16:58:29.217Z",
+  "generatedAt": "2026-02-21T19:30:00Z",
+  "syncedAt": "2026-02-21T17:06:24.151Z",
   "toolkitCommit": "f614c7b",
   "counts": {
     "agents": 59,
-    "primaryAgents": 4,
-    "subagents": 55,
+    "primaryAgents": 3,
+    "subagents": 56,
     "skills": 31,
     "metaSkills": 10,
     "scaffolds": 3,
@@ -14,10 +14,10 @@
   },
   "categories": {
     "critics": 24,
-    "developers": 16,
+    "developers": 15,
     "testers": 9,
     "orchestrators": 3,
-    "utilities": 7
+    "utilities": 8
   },
   "templateCategories": [
     "backend",
@@ -255,8 +255,8 @@
       "slug": "merge-coordinator",
       "name": "Merge Coordinator",
       "description": "Processes the merge queue - rebases, tests, and merges PRs from parallel sessions",
-      "mode": "primary",
-      "category": "developers",
+      "mode": "subagent",
+      "category": "utilities",
       "content": ""
     },
     {
