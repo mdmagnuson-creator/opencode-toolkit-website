@@ -26,8 +26,49 @@ const CATEGORY_LABELS: Record<Agent["category"], string> = {
 const CATEGORY_DESCRIPTIONS: Record<Agent["category"], string> = {
   critics: "Review code for specific concerns — security, performance, accessibility, and more.",
   developers: "Write code in specific languages or frameworks.",
-  testers: "Write and run tests for different parts of your codebase.",
+  testers: "A multi-layered testing system: the tester orchestrator routes to unit specialists (jest-tester, react-tester, go-tester), E2E agents handle UI testing, and QA agents perform adversarial exploration.",
   other: "Specialized agents for workflows, orchestration, and utilities.",
+};
+
+// Tester functional groups for specialized display
+type TesterGroup = "orchestrator" | "unit" | "e2e" | "qa" | "other";
+
+const TESTER_GROUPS: Record<TesterGroup, { label: string; description: string; slugs: string[] }> = {
+  orchestrator: {
+    label: "Orchestrator",
+    description: "Routes test requests to the appropriate specialist agents",
+    slugs: ["tester"],
+  },
+  unit: {
+    label: "Unit Specialists",
+    description: "Write unit tests for specific languages and frameworks",
+    slugs: ["jest-tester", "react-tester", "go-tester"],
+  },
+  e2e: {
+    label: "E2E Testing",
+    description: "Write and manage end-to-end UI tests with Playwright",
+    slugs: ["e2e-playwright"],
+  },
+  qa: {
+    label: "QA & Adversarial",
+    description: "Find bugs through exploratory testing and convert findings to regression tests",
+    slugs: ["qa", "qa-explorer", "qa-browser-tester"],
+  },
+  other: {
+    label: "Supporting",
+    description: "Additional testing infrastructure and coordination",
+    slugs: ["merge-coordinator"],
+  },
+};
+
+const TESTER_GROUP_ORDER: TesterGroup[] = ["orchestrator", "unit", "e2e", "qa", "other"];
+
+// Cross-references for tester agents
+const TESTER_CROSS_REFS: Record<string, { label: string; refs: string[] }> = {
+  tester: { label: "Routes to", refs: ["jest-tester", "react-tester", "go-tester"] },
+  qa: { label: "Coordinates", refs: ["qa-explorer", "qa-browser-tester"] },
+  "qa-explorer": { label: "Reports to", refs: ["qa"] },
+  "qa-browser-tester": { label: "Works with", refs: ["qa-explorer"] },
 };
 
 const CATEGORY_COLORS: Record<Agent["category"], { bg: string; text: string }> = {
@@ -60,7 +101,9 @@ function CategoryBadge({ category }: { category: Agent["category"] }) {
   );
 }
 
-function AgentCard({ agent }: { agent: Agent }) {
+function AgentCard({ agent, showCrossRefs = false }: { agent: Agent; showCrossRefs?: boolean }) {
+  const crossRef = showCrossRefs ? TESTER_CROSS_REFS[agent.slug] : null;
+  
   return (
     <Link
       href={`/agents/${agent.slug}`}
@@ -75,6 +118,12 @@ function AgentCard({ agent }: { agent: Agent }) {
       <p className="mt-2 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
         {agent.description}
       </p>
+      {crossRef && (
+        <p className="mt-3 text-xs text-green-700 dark:text-green-400">
+          <span className="font-medium">{crossRef.label}:</span>{" "}
+          {crossRef.refs.join(", ")}
+        </p>
+      )}
     </Link>
   );
 }
@@ -268,8 +317,49 @@ function SubAgentsPageContent() {
                 );
               })}
             </div>
+          ) : selectedCategory === "testers" ? (
+            // Grouped view for testers category
+            <div className="space-y-10">
+              {/* Link to Testing Concepts page */}
+              <Link
+                href="/concepts/testing"
+                className="inline-flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-4 py-2 text-sm font-medium text-green-800 transition-colors hover:bg-green-100 dark:border-green-800 dark:bg-green-950 dark:text-green-200 dark:hover:bg-green-900"
+              >
+                <span>📖</span>
+                <span>Learn about the testing system architecture →</span>
+              </Link>
+
+              {TESTER_GROUP_ORDER.map((groupKey) => {
+                const group = TESTER_GROUPS[groupKey];
+                const groupAgents = filteredAgents.filter((agent) =>
+                  group.slugs.includes(agent.slug)
+                );
+                if (groupAgents.length === 0) return null;
+
+                return (
+                  <div key={groupKey}>
+                    <div className="mb-4">
+                      <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        {group.label}{" "}
+                        <span className="text-neutral-500 dark:text-neutral-400">
+                          ({groupAgents.length})
+                        </span>
+                      </h3>
+                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        {group.description}
+                      </p>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {groupAgents.map((agent) => (
+                        <AgentCard key={agent.slug} agent={agent} showCrossRefs />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           ) : (
-            // Flat view for single category
+            // Flat view for other single categories
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredAgents.map((agent) => (
                 <AgentCard key={agent.slug} agent={agent} />
