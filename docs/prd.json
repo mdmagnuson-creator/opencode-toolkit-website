@@ -165,8 +165,8 @@
         "Works in both light and dark mode"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Added comprehensive E2E Quality Patterns section to testing concepts page. Documents all 7 patterns with code examples: assertNeverAppears, withPerformanceBudget, assertNoLayoutShift, assertStableRender, measureCLS, assertStateStability, expectMutualExclusivity. Includes guidance on when to use quality patterns vs basic assertions and link to full skill page.",
       "supportArticleRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],

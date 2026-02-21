@@ -70,6 +70,43 @@
 
 ---
 
+## 2026-02-20 - US-005: Document QA Adversarial Testing System
+
+### What was implemented
+- Added comprehensive "QA & Adversarial Testing" section to testing concepts page
+- Created QA workflow diagram showing the complete flow:
+  - qa (coordinates) → qa-explorer (explores) → Bug Findings → qa-browser-tester (converts) → Regression Tests
+  - Shows browser-use CLI as the autonomous browsing tool
+- Created detailed agent cards for all 3 QA agents:
+  - qa: QA Coordinator with orange color theme
+  - qa-explorer: Adversarial Testing Agent with red color theme
+  - qa-browser-tester: Bug-to-Test Converter with teal color theme
+- Each card includes:
+  - Agent name and description
+  - Input/output information
+  - Key capabilities (6 per agent)
+  - Link to full agent documentation page
+- Added Browser-Use CLI callout explaining:
+  - What browser-use is (external tool for AI-controlled browsing)
+  - Required dependency for qa-explorer
+  - Real browser control, AI-driven exploration, and beyond scripted tests
+  - Link to browser-use documentation
+- Added "Why Adversarial Testing?" section with three benefit cards:
+  - Finds Edge Cases
+  - Simulates Real Users
+  - Permanent Protection (bugs become regression tests)
+
+### Files changed
+- src/app/concepts/testing/page.tsx - Added QA & Adversarial Testing section (~650 lines)
+
+### Learnings for future iterations
+- Use distinct color themes for QA agents (orange for coordinator, red for explorer, teal for browser-tester)
+- External dependencies should be prominently documented with callout boxes
+- Violet/purple theme works well for external tools like browser-use CLI
+- "Why" sections with benefit cards help explain the value proposition of testing approaches
+
+---
+
 ## 2026-02-20 - US-003: Document Unit Test Specialists
 
 ### What was implemented
@@ -97,5 +134,35 @@
 - Agent cards should use semantic color coding (blue for jest, purple for react, cyan for go)
 - Project override documentation should include concrete file path examples
 - Capabilities lists work well in 2-column grids on larger screens
+
+---
+
+## 2026-02-20 - US-006: Document E2E Quality Patterns Skill
+
+### What was implemented
+- Added comprehensive "E2E Quality Patterns" section to testing concepts page
+- Documented all 7 quality patterns with code examples:
+  - assertNeverAppears: Verify elements never flash/flicker during actions
+  - withPerformanceBudget: Enforce time/memory constraints as assertions
+  - assertNoLayoutShift: Track element positions before/after actions
+  - assertStableRender: Monitor content stability over time
+  - measureCLS: Measure Cumulative Layout Shift via Performance Observer
+  - assertStateStability: Verify desired states don't regress
+  - expectMutualExclusivity: Assert UI states never coexist
+- Added "When to Use Quality Patterns" guidance box
+  - Lists quality pattern use cases (loading states, drag-drop, animations)
+  - Lists when basic assertions suffice (form validation, navigation, CRUD)
+- Added link to full e2e-quality skill documentation page
+- Used pink color theme to distinguish from other testing sections
+- All patterns include "Use when:" guidance notes
+
+### Files changed
+- src/app/concepts/testing/page.tsx - Added E2E Quality Patterns section (~460 lines)
+
+### Learnings for future iterations
+- Pink color theme works well for quality/polish patterns (not used elsewhere)
+- Code examples should show realistic use cases, not toy examples
+- Each pattern benefits from a specific "Use when:" note
+- Link components should use Next.js <Link> not <a> for internal navigation
 
 ---

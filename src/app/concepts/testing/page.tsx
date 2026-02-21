@@ -685,6 +685,500 @@ export default function TestingConceptPage() {
         </div>
       </section>
 
+      {/* Test Flow Automation */}
+      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Test Flow Automation
+          </h2>
+          <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
+            The{" "}
+            <code className="rounded bg-indigo-100 px-1.5 py-0.5 font-mono text-sm text-indigo-900 dark:bg-indigo-900 dark:text-indigo-100">
+              test-flow
+            </code>{" "}
+            skill automates the entire test lifecycle—from generation through
+            execution to failure handling. It coordinates between the builder
+            workflow and testing agents to ensure quality gates are met.
+          </p>
+
+          {/* Automatic Test Generation Triggers */}
+          <div className="mt-10">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Automatic Test Generation Triggers
+            </h3>
+            <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+              Tests are automatically generated at specific points in the
+              workflow, without requiring manual intervention:
+            </p>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {/* PRD Mode */}
+              <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-950">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+                    />
+                  </svg>
+                </div>
+                <h4 className="mt-4 font-semibold text-blue-900 dark:text-blue-100">
+                  After Each Story
+                </h4>
+                <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
+                  In PRD mode, tests are automatically generated after each user
+                  story completes. Unit tests run immediately; E2E tests are
+                  queued.
+                </p>
+              </div>
+
+              {/* Ad-hoc Mode */}
+              <div className="rounded-xl border border-purple-200 bg-purple-50 p-5 dark:border-purple-800 dark:bg-purple-950">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-600 text-white">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                    />
+                  </svg>
+                </div>
+                <h4 className="mt-4 font-semibold text-purple-900 dark:text-purple-100">
+                  On Request
+                </h4>
+                <p className="mt-2 text-sm text-purple-800 dark:text-purple-200">
+                  In ad-hoc mode, tests are generated when explicitly requested
+                  or after all ad-hoc todos complete. User chooses when to run
+                  E2E.
+                </p>
+              </div>
+
+              {/* Full Suite Mode */}
+              <div className="rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-950">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-600 text-white">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h4 className="mt-4 font-semibold text-green-900 dark:text-green-100">
+                  Coverage Gaps
+                </h4>
+                <p className="mt-2 text-sm text-green-800 dark:text-green-200">
+                  During full suite mode, tests are generated for any untested
+                  code paths identified through coverage analysis.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* The Fix Loop Mechanism */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              The Fix Loop Mechanism
+            </h3>
+            <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+              When tests fail, the test-flow skill automatically attempts to fix
+              the issues—up to 3 times before deferring to human review:
+            </p>
+
+            {/* Fix Loop Diagram */}
+            <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex flex-col items-center space-y-4">
+                {/* Run Tests */}
+                <div className="flex w-full max-w-xs items-center justify-center rounded-lg border-2 border-indigo-300 bg-indigo-50 px-4 py-3 dark:border-indigo-700 dark:bg-indigo-950">
+                  <span className="text-sm font-semibold text-indigo-900 dark:text-indigo-100">
+                    Run Tests
+                  </span>
+                </div>
+
+                {/* Arrow */}
+                <svg
+                  className="h-6 w-6 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
+
+                {/* Decision */}
+                <div className="flex w-full max-w-xs items-center justify-center rounded-lg border-2 border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-700 dark:bg-amber-950">
+                  <span className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+                    Tests Pass?
+                  </span>
+                </div>
+
+                {/* Two branches */}
+                <div className="flex w-full max-w-lg justify-center gap-8">
+                  {/* Pass branch */}
+                  <div className="flex flex-col items-center">
+                    <span className="mb-2 text-xs font-medium text-green-600 dark:text-green-400">
+                      Yes
+                    </span>
+                    <div className="rounded-lg border-2 border-green-300 bg-green-50 px-4 py-2 dark:border-green-700 dark:bg-green-950">
+                      <span className="text-sm font-semibold text-green-900 dark:text-green-100">
+                        Done ✓
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Fail branch */}
+                  <div className="flex flex-col items-center">
+                    <span className="mb-2 text-xs font-medium text-red-600 dark:text-red-400">
+                      No
+                    </span>
+                    <div className="rounded-lg border-2 border-red-300 bg-red-50 px-4 py-2 dark:border-red-700 dark:bg-red-950">
+                      <span className="text-sm font-semibold text-red-900 dark:text-red-100">
+                        Analyze Failures
+                      </span>
+                    </div>
+                    <svg
+                      className="my-2 h-6 w-6 text-neutral-400 dark:text-neutral-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                      />
+                    </svg>
+                    <div className="rounded-lg border-2 border-blue-300 bg-blue-50 px-4 py-2 dark:border-blue-700 dark:bg-blue-950">
+                      <span className="text-sm font-semibold text-blue-900 dark:text-blue-100">
+                        @developer fixes
+                      </span>
+                    </div>
+                    <svg
+                      className="my-2 h-6 w-6 text-neutral-400 dark:text-neutral-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                      />
+                    </svg>
+                    <div className="rounded-lg border-2 border-amber-300 bg-amber-50 px-4 py-2 dark:border-amber-700 dark:bg-amber-950">
+                      <span className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+                        Attempts &lt; 3?
+                      </span>
+                    </div>
+                    <div className="mt-2 flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <span className="mb-1 text-xs font-medium text-green-600 dark:text-green-400">
+                          Yes
+                        </span>
+                        <div className="rounded bg-neutral-200 px-2 py-1 text-xs dark:bg-neutral-700">
+                          ↑ Retry
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <span className="mb-1 text-xs font-medium text-red-600 dark:text-red-400">
+                          No
+                        </span>
+                        <div className="rounded-lg border-2 border-orange-300 bg-orange-50 px-3 py-1 dark:border-orange-700 dark:bg-orange-950">
+                          <span className="text-xs font-semibold text-orange-900 dark:text-orange-100">
+                            Defer
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Explanation callout */}
+              <div className="mt-6 rounded-lg bg-white p-4 dark:bg-neutral-800">
+                <p className="text-sm text-neutral-700 dark:text-neutral-300">
+                  <strong>Why max 3 attempts?</strong> This prevents infinite
+                  loops while giving the AI enough chances to resolve common
+                  issues. Complex problems that require human insight are
+                  properly escalated rather than endlessly retried.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* E2E Test Deferral */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              E2E Test Deferral
+            </h3>
+            <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+              Not all tests need to pass immediately. The test-flow skill uses
+              different blocking behaviors for unit vs E2E tests:
+            </p>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {/* Unit Tests - Blocking */}
+              <div className="rounded-xl border border-red-200 bg-white p-5 dark:border-red-800 dark:bg-neutral-900">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                      />
+                    </svg>
+                  </div>
+                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                    Unit Tests: Blocking
+                  </h4>
+                </div>
+                <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+                  Unit tests <strong>must pass</strong> before a story can be
+                  marked complete. Failures block progress and trigger the fix
+                  loop.
+                </p>
+                <div className="mt-4 rounded-lg bg-red-50 p-3 dark:bg-red-950">
+                  <p className="text-xs text-red-800 dark:text-red-200">
+                    Story completion requires all unit tests green
+                  </p>
+                </div>
+              </div>
+
+              {/* E2E Tests - Deferrable */}
+              <div className="rounded-xl border border-green-200 bg-white p-5 dark:border-green-800 dark:bg-neutral-900">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                    E2E Tests: Deferrable
+                  </h4>
+                </div>
+                <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+                  E2E tests can be <strong>deferred</strong> to PRD completion.
+                  They&apos;re queued and run together before creating the PR.
+                </p>
+                <div className="mt-4 rounded-lg bg-green-50 p-3 dark:bg-green-950">
+                  <p className="text-xs text-green-800 dark:text-green-200">
+                    All deferred E2E tests run before final PR
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Tracking in builder-state.json */}
+            <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                    />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                    Tracking in builder-state.json
+                  </h4>
+                  <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    Deferred tests are tracked in the builder state file,
+                    ensuring they&apos;re never forgotten:
+                  </p>
+                  <div className="mt-4 rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                    <pre className="overflow-x-auto text-sm">
+                      <code className="text-neutral-700 dark:text-neutral-300">
+{`{
+  "pendingTests": {
+    "e2e": {
+      "generated": [
+        "e2e/login-flow.spec.ts",
+        "e2e/checkout.spec.ts"
+      ],
+      "status": "pending",
+      "deferredTo": "prd-completion"
+    }
+  }
+}`}
+                      </code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Integration with Tester Agent */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Integration with Tester Agent
+            </h3>
+            <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+              The test-flow skill acts as a coordinator between the builder
+              workflow and the tester agent hierarchy:
+            </p>
+
+            <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="space-y-4">
+                {/* Builder triggers test-flow */}
+                <div className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border-2 border-blue-300 bg-blue-50 dark:border-blue-700 dark:bg-blue-950">
+                    <code className="text-xs font-semibold text-blue-900 dark:text-blue-100">
+                      builder
+                    </code>
+                  </div>
+                  <svg
+                    className="h-5 w-5 text-neutral-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                  <div className="flex h-10 items-center rounded-lg border-2 border-indigo-300 bg-indigo-50 px-3 dark:border-indigo-700 dark:bg-indigo-950">
+                    <code className="text-xs font-semibold text-indigo-900 dark:text-indigo-100">
+                      test-flow skill
+                    </code>
+                  </div>
+                  <svg
+                    className="h-5 w-5 text-neutral-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border-2 border-green-300 bg-green-50 dark:border-green-700 dark:bg-green-950">
+                    <code className="text-xs font-semibold text-green-900 dark:text-green-100">
+                      tester
+                    </code>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2 pl-14">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                      1.
+                    </span>{" "}
+                    Builder loads test-flow skill during PRD mode
+                  </p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                      2.
+                    </span>{" "}
+                    test-flow determines when to generate/run tests
+                  </p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                      3.
+                    </span>{" "}
+                    test-flow invokes @tester for test generation
+                  </p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                      4.
+                    </span>{" "}
+                    tester routes to specialists (react-tester, jest-tester,
+                    etc.)
+                  </p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                      5.
+                    </span>{" "}
+                    test-flow manages pendingTests state in builder-state.json
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Link to full skill page */}
+          <div className="mt-8">
+            <Link
+              href="/skills/test-flow"
+              className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
+            >
+              View full test-flow skill documentation
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Layer Details */}
       <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
@@ -2289,6 +2783,1181 @@ export default function TestingConceptPage() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* QA & Adversarial Testing */}
+      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            QA &amp; Adversarial Testing
+          </h2>
+          <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
+            Beyond correctness testing, the toolkit includes a dedicated QA
+            layer for exploratory, adversarial testing. These agents actively
+            try to break your application—finding edge cases, race conditions,
+            and unexpected behaviors that scripted tests miss.
+          </p>
+
+          {/* QA Workflow Diagram */}
+          <div className="mt-10 rounded-xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 dark:border-neutral-700 dark:bg-neutral-900">
+            <h3 className="text-center text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400">
+              QA Testing Workflow
+            </h3>
+
+            <div className="mt-6 space-y-4">
+              {/* Step 1: QA Coordinator */}
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-100 text-sm font-semibold text-orange-700 dark:bg-orange-900 dark:text-orange-300">
+                  1
+                </div>
+                <div className="flex-1 rounded-lg border-2 border-orange-300 bg-orange-50 px-4 py-3 dark:border-orange-700 dark:bg-orange-950">
+                  <div className="flex items-center gap-2">
+                    <code className="text-sm font-semibold text-orange-900 dark:text-orange-100">
+                      qa
+                    </code>
+                    <span className="rounded bg-orange-200 px-1.5 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-800 dark:text-orange-200">
+                      coordinates
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-orange-700 dark:text-orange-400">
+                    Dispatches exploratory testing tasks, prioritizes test areas
+                  </p>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div className="flex justify-center pl-14">
+                <svg
+                  className="h-6 w-6 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
+              </div>
+
+              {/* Step 2: QA Explorer */}
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-100 text-sm font-semibold text-red-700 dark:bg-red-900 dark:text-red-300">
+                  2
+                </div>
+                <div className="flex-1 rounded-lg border-2 border-red-300 bg-red-50 px-4 py-3 dark:border-red-700 dark:bg-red-950">
+                  <div className="flex items-center gap-2">
+                    <code className="text-sm font-semibold text-red-900 dark:text-red-100">
+                      qa-explorer
+                    </code>
+                    <span className="rounded bg-red-200 px-1.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-800 dark:text-red-200">
+                      explores
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-red-700 dark:text-red-400">
+                    Autonomously browses the app, tries edge cases, finds bugs
+                  </p>
+                </div>
+              </div>
+
+              {/* Arrow with browser-use */}
+              <div className="flex items-center gap-4 pl-14">
+                <svg
+                  className="h-6 w-6 shrink-0 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
+                <div className="rounded-lg bg-violet-100 px-3 py-1.5 dark:bg-violet-900">
+                  <code className="text-xs font-medium text-violet-700 dark:text-violet-300">
+                    browser-use CLI
+                  </code>
+                </div>
+                <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                  (autonomous browsing)
+                </span>
+              </div>
+
+              {/* Arrow with output */}
+              <div className="flex items-center gap-4 pl-14">
+                <svg
+                  className="h-6 w-6 shrink-0 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
+                <div className="rounded-lg bg-neutral-200 px-3 py-1.5 dark:bg-neutral-700">
+                  <code className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                    Bug Findings
+                  </code>
+                </div>
+                <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                  (screenshots + reproduction steps)
+                </span>
+              </div>
+
+              {/* Step 3: QA Browser Tester */}
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-100 text-sm font-semibold text-teal-700 dark:bg-teal-900 dark:text-teal-300">
+                  3
+                </div>
+                <div className="flex-1 rounded-lg border-2 border-teal-300 bg-teal-50 px-4 py-3 dark:border-teal-700 dark:bg-teal-950">
+                  <div className="flex items-center gap-2">
+                    <code className="text-sm font-semibold text-teal-900 dark:text-teal-100">
+                      qa-browser-tester
+                    </code>
+                    <span className="rounded bg-teal-200 px-1.5 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-800 dark:text-teal-200">
+                      converts
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-teal-700 dark:text-teal-400">
+                    Turns bug findings into permanent Playwright regression
+                    tests
+                  </p>
+                </div>
+              </div>
+
+              {/* Final output */}
+              <div className="flex justify-center pl-14 pt-2">
+                <div className="rounded-lg border-2 border-green-300 bg-green-50 px-4 py-2 dark:border-green-700 dark:bg-green-950">
+                  <span className="text-sm font-semibold text-green-900 dark:text-green-100">
+                    Regression Tests in e2e/
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* QA Agent Cards */}
+          <div className="mt-12 space-y-6">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              QA Testing Agents
+            </h3>
+
+            {/* qa coordinator */}
+            <div className="rounded-xl border border-orange-200 bg-white p-6 dark:border-orange-800 dark:bg-neutral-900">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-600 text-white">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        qa
+                      </h4>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        QA Coordinator
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+                    The central coordinator for all QA and exploratory testing.
+                    Dispatches testing tasks to specialists, manages testing
+                    sessions, and prioritizes which areas of the application
+                    need the most attention.
+                  </p>
+                </div>
+              </div>
+
+              {/* Details Grid */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* Dispatch Mechanism */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Dispatch Mechanism
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    Routes to qa-explorer or qa-browser-tester
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    Based on testing phase and objectives
+                  </p>
+                </div>
+
+                {/* Invoked By */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Typically Invoked By
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    builder, developer, or manual request
+                  </p>
+                </div>
+
+                {/* Capabilities */}
+                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Key Capabilities
+                  </p>
+                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                      Exploratory testing session management
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                      Test area prioritization based on risk
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                      Dispatches to explorer or browser-tester
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                      Aggregates findings across sessions
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                      Tracks bug discovery and resolution
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                      Coordinates with E2E testing workflow
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="mt-6">
+                <Link
+                  href="/agents/qa"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
+                >
+                  View full agent documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* qa-explorer */}
+            <div className="rounded-xl border border-red-200 bg-white p-6 dark:border-red-800 dark:bg-neutral-900">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600 text-white">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 12.75c1.148 0 2.278.08 3.383.237 1.037.146 1.866.966 1.866 2.013 0 3.728-2.35 6.75-5.25 6.75S6.75 18.728 6.75 15c0-1.046.83-1.867 1.866-2.013A24.204 24.204 0 0112 12.75zm0 0c2.883 0 5.647.508 8.207 1.44a23.91 23.91 0 01-1.152 6.06M12 12.75c-2.883 0-5.647.508-8.208 1.44.125 2.104.52 4.136 1.153 6.06M12 12.75a2.25 2.25 0 002.248-2.354M12 12.75a2.25 2.25 0 01-2.248-2.354M12 8.25c.995 0 1.971-.08 2.922-.236.403-.066.74-.358.795-.762a3.778 3.778 0 00-.399-2.25M12 8.25c-.995 0-1.97-.08-2.922-.236-.402-.066-.74-.358-.795-.762a3.734 3.734 0 01.4-2.253M12 8.25a2.25 2.25 0 00-2.248 2.146M12 8.25a2.25 2.25 0 012.248 2.146M8.683 5a6.032 6.032 0 01-1.155-1.002c.07-.63.27-1.222.574-1.747m.581 2.749A3.75 3.75 0 0115.318 5m0 0c.427-.283.815-.62 1.155-.999a4.471 4.471 0 00-.575-1.752M4.921 6a24.048 24.048 0 00-.392 3.314c1.668.546 3.416.914 5.223 1.082M19.08 6c.205 1.08.337 2.187.392 3.314a23.882 23.882 0 01-5.223 1.082"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        qa-explorer
+                      </h4>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        Adversarial Testing Agent
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+                    Uses the browser-use CLI to autonomously browse and interact
+                    with your application like a real user—but with an
+                    adversarial mindset. Tries edge cases, rapid interactions,
+                    unusual inputs, and unexpected navigation patterns to find
+                    bugs.
+                  </p>
+                </div>
+              </div>
+
+              {/* Details Grid */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* Primary Tool */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Primary Tool
+                  </p>
+                  <div className="mt-2">
+                    <code className="rounded bg-violet-100 px-2 py-1 text-sm font-medium text-violet-900 dark:bg-violet-900 dark:text-violet-100">
+                      browser-use CLI
+                    </code>
+                  </div>
+                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    Required dependency for autonomous browsing
+                  </p>
+                </div>
+
+                {/* Output */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Output
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    Bug findings with screenshots
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    Includes reproduction steps for each issue
+                  </p>
+                </div>
+
+                {/* Capabilities */}
+                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Key Capabilities
+                  </p>
+                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                      Autonomous browser navigation
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                      Edge case input testing
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                      Rapid interaction sequences
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                      Unusual navigation patterns
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                      Screenshot capture on failures
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                      Reproduction step documentation
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="mt-6">
+                <Link
+                  href="/agents/qa-explorer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                >
+                  View full agent documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* qa-browser-tester */}
+            <div className="rounded-xl border border-teal-200 bg-white p-6 dark:border-teal-800 dark:bg-neutral-900">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-600 text-white">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        qa-browser-tester
+                      </h4>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        Bug-to-Test Converter
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+                    Takes bug findings from qa-explorer and converts them into
+                    permanent Playwright regression tests. Ensures that once a
+                    bug is found, it can never silently regress—the test will
+                    catch it.
+                  </p>
+                </div>
+              </div>
+
+              {/* Details Grid */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* Input */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Input
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    Bug findings from qa-explorer
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    Screenshots and reproduction steps
+                  </p>
+                </div>
+
+                {/* Output */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Output
+                  </p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <code className="rounded bg-teal-100 px-2 py-1 text-sm font-medium text-teal-900 dark:bg-teal-900 dark:text-teal-100">
+                      *.spec.ts
+                    </code>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                      regression tests
+                    </span>
+                  </div>
+                </div>
+
+                {/* Capabilities */}
+                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Key Capabilities
+                  </p>
+                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Converts bug reports to Playwright tests
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Extracts reproduction steps automatically
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Generates reliable test selectors
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Adds appropriate assertions
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Integrates with existing E2E suite
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Prevents silent regressions
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="mt-6">
+                <Link
+                  href="/agents/qa-browser-tester"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
+                >
+                  View full agent documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Browser-Use CLI Callout */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Browser-Use CLI Dependency
+            </h3>
+
+            <div className="mt-6 rounded-xl border border-violet-200 bg-violet-50 p-6 dark:border-violet-800 dark:bg-violet-950">
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-600 text-white">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
+                    />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-violet-900 dark:text-violet-100">
+                    External Dependency: browser-use
+                  </p>
+                  <p className="mt-2 text-sm text-violet-800 dark:text-violet-200">
+                    The{" "}
+                    <code className="rounded bg-violet-200 px-1 py-0.5 text-xs dark:bg-violet-800">
+                      qa-explorer
+                    </code>{" "}
+                    agent relies on the{" "}
+                    <strong>browser-use CLI</strong>—an external tool that
+                    enables AI agents to control a real browser autonomously.
+                  </p>
+
+                  <div className="mt-4 space-y-3">
+                    <div className="flex items-start gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />
+                      <span className="text-sm text-violet-800 dark:text-violet-200">
+                        <strong>Real browser control:</strong> Navigates pages,
+                        clicks elements, fills forms, and simulates real user
+                        behavior
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />
+                      <span className="text-sm text-violet-800 dark:text-violet-200">
+                        <strong>AI-driven exploration:</strong> The agent
+                        decides what to try next based on what it sees, enabling
+                        truly autonomous testing
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />
+                      <span className="text-sm text-violet-800 dark:text-violet-200">
+                        <strong>Beyond scripted tests:</strong> Can discover
+                        issues that predefined test scripts would never think to
+                        check
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 rounded-lg bg-violet-100 p-3 dark:bg-violet-900">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-violet-600 dark:text-violet-300">
+                      Note
+                    </p>
+                    <p className="mt-1 text-sm text-violet-700 dark:text-violet-300">
+                      The browser-use CLI must be installed separately. See the{" "}
+                      <a
+                        href="https://github.com/browser-use/browser-use"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium underline hover:no-underline"
+                      >
+                        browser-use documentation
+                      </a>{" "}
+                      for installation instructions.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Why Adversarial Testing */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Why Adversarial Testing?
+            </h3>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                    />
+                  </svg>
+                </div>
+                <h4 className="mt-4 font-semibold text-neutral-900 dark:text-neutral-50">
+                  Finds Edge Cases
+                </h4>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                  Tests combinations and scenarios that developers didn&apos;t
+                  anticipate—unusual inputs, rapid sequences, boundary
+                  conditions.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-400">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                    />
+                  </svg>
+                </div>
+                <h4 className="mt-4 font-semibold text-neutral-900 dark:text-neutral-50">
+                  Simulates Real Users
+                </h4>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                  Real users don&apos;t follow happy paths. They click randomly,
+                  navigate unexpectedly, and use the app in ways you never
+                  imagined.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400">
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                    />
+                  </svg>
+                </div>
+                <h4 className="mt-4 font-semibold text-neutral-900 dark:text-neutral-50">
+                  Permanent Protection
+                </h4>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                  Every bug found becomes a regression test. Once discovered,
+                  that issue can never silently return to your codebase.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* E2E Quality Patterns */}
+      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-pink-100 dark:bg-pink-900/30">
+              <svg
+                className="h-5 w-5 text-pink-600 dark:text-pink-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+              E2E Quality Patterns
+            </h2>
+          </div>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Quality testing goes beyond basic assertions. The{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
+              e2e-quality
+            </code>{" "}
+            skill provides specialized patterns for catching visual glitches,
+            performance issues, layout shifts, and intermediate bad states that
+            users experience but traditional tests miss.
+          </p>
+
+          {/* When to use quality patterns */}
+          <div className="mt-8 rounded-xl border border-pink-200 bg-pink-50 p-6 dark:border-pink-900/50 dark:bg-pink-950/30">
+            <h3 className="font-semibold text-pink-900 dark:text-pink-100">
+              When to Use Quality Patterns
+            </h3>
+            <p className="mt-2 text-sm text-pink-800 dark:text-pink-200">
+              Use these patterns when you need to verify the <em>experience</em>{" "}
+              of using your UI, not just the final state. Basic assertions check
+              &quot;does this element exist?&quot; — quality patterns check
+              &quot;did the user see a flash of wrong content?&quot;,
+              &quot;did the layout jump?&quot;, &quot;was it fast enough?&quot;
+            </p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg bg-white/60 p-3 dark:bg-neutral-900/60">
+                <p className="text-sm font-medium text-pink-900 dark:text-pink-100">
+                  ✓ Use quality patterns for:
+                </p>
+                <ul className="mt-1 space-y-1 text-xs text-pink-700 dark:text-pink-300">
+                  <li>• Loading states that shouldn&apos;t flash</li>
+                  <li>• Drag-and-drop interactions</li>
+                  <li>• Animations and transitions</li>
+                  <li>• Performance-critical pages</li>
+                  <li>• Layout-sensitive components</li>
+                </ul>
+              </div>
+              <div className="rounded-lg bg-white/60 p-3 dark:bg-neutral-900/60">
+                <p className="text-sm font-medium text-pink-900 dark:text-pink-100">
+                  ✗ Basic assertions suffice for:
+                </p>
+                <ul className="mt-1 space-y-1 text-xs text-pink-700 dark:text-pink-300">
+                  <li>• Form validation messages</li>
+                  <li>• Navigation between pages</li>
+                  <li>• Simple CRUD operations</li>
+                  <li>• Static content verification</li>
+                  <li>• API response checks</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Pattern 1: assertNeverAppears */}
+          <div className="mt-10">
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100 text-xs font-bold text-pink-600 dark:bg-pink-900/50 dark:text-pink-400">
+                1
+              </span>
+              assertNeverAppears
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Verifies that an element never appears during an action — catches
+              flickers, loading state flashes, and momentary error displays that
+              users see but final-state assertions miss.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                flicker-test.spec.ts
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`// Watch for skeleton flash during cached navigation
+await assertNeverAppears(
+  page,
+  '[data-testid="skeleton"]',
+  async () => {
+    await page.click('[data-testid="cached-link"]');
+    await page.waitForSelector('[data-testid="content"]');
+  },
+  { checkInterval: 16 } // Check every frame (~60fps)
+);
+
+// Ensure error toast doesn't flash during successful submit
+await assertNeverAppears(
+  page,
+  '[data-testid="error-toast"]',
+  async () => {
+    await page.click('[data-testid="submit-button"]');
+    await page.waitForSelector('[data-testid="success-message"]');
+  }
+);`}</code>
+              </pre>
+            </div>
+            <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
+              <strong>Use when:</strong> Testing cached navigations, optimistic
+              updates, or any action where intermediate states shouldn&apos;t be
+              visible.
+            </p>
+          </div>
+
+          {/* Pattern 2: withPerformanceBudget */}
+          <div className="mt-10">
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100 text-xs font-bold text-pink-600 dark:bg-pink-900/50 dark:text-pink-400">
+                2
+              </span>
+              withPerformanceBudget
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Enforces performance constraints as test assertions. Fails the
+              test if an action exceeds time or memory budgets — catches
+              performance regressions before they reach production.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                performance.spec.ts
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`// Dashboard must load within 2 seconds
+await withPerformanceBudget(
+  page,
+  { timeout: 2000 },
+  async () => {
+    await page.goto('/dashboard');
+    await page.waitForSelector('[data-testid="dashboard-loaded"]');
+  }
+);
+
+// Search should respond within 500ms with reasonable memory
+await withPerformanceBudget(
+  page,
+  { timeout: 500, maxHeapUsage: 50 * 1024 * 1024 }, // 50MB
+  async () => {
+    await page.fill('[data-testid="search"]', 'query');
+    await page.waitForSelector('[data-testid="results"]');
+  }
+);`}</code>
+              </pre>
+            </div>
+            <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
+              <strong>Use when:</strong> Protecting critical user journeys from
+              performance regressions, especially after optimization work.
+            </p>
+          </div>
+
+          {/* Pattern 3: assertNoLayoutShift */}
+          <div className="mt-10">
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100 text-xs font-bold text-pink-600 dark:bg-pink-900/50 dark:text-pink-400">
+                3
+              </span>
+              assertNoLayoutShift
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Captures element positions before and after an action, failing if
+              any tracked element moved unexpectedly. Prevents the frustrating
+              experience of clicking a button that jumps away.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                layout-shift.spec.ts
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`// Verify ad loading doesn't shift article content
+await assertNoLayoutShift(
+  page,
+  ['article', '.sidebar', '.cta-button'], // Elements to track
+  async () => {
+    // Wait for lazy-loaded ad to appear
+    await page.waitForSelector('[data-testid="ad-loaded"]');
+  }
+);
+
+// Ensure image loading doesn't shift text below
+await assertNoLayoutShift(
+  page,
+  ['.hero-text', '.nav-button'],
+  async () => {
+    await page.waitForSelector('img[data-loaded="true"]');
+  },
+  { tolerance: 2 } // Allow 2px variance for subpixel rendering
+);`}</code>
+              </pre>
+            </div>
+            <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
+              <strong>Use when:</strong> Testing pages with lazy-loaded content,
+              images without dimensions, or dynamic elements that could push
+              other content around.
+            </p>
+          </div>
+
+          {/* Pattern 4: assertStableRender */}
+          <div className="mt-10">
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100 text-xs font-bold text-pink-600 dark:bg-pink-900/50 dark:text-pink-400">
+                4
+              </span>
+              assertStableRender
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Monitors an element&apos;s content over time, failing if it
+              changes unexpectedly. Catches React hydration mismatches,
+              flickering values, and components that re-render with different
+              content.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                stable-render.spec.ts
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`// Price shouldn't flicker between different values
+await assertStableRender(
+  page,
+  '[data-testid="price"]',
+  { duration: 1000 } // Watch for 1 second
+);
+
+// Dashboard metrics should stabilize after load
+await page.waitForSelector('[data-testid="dashboard-ready"]');
+await assertStableRender(
+  page,
+  '[data-testid="total-revenue"]',
+  { 
+    duration: 500,
+    allowedChanges: 1 // Allow one update, then must stabilize
+  }
+);`}</code>
+              </pre>
+            </div>
+            <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
+              <strong>Use when:</strong> Testing SSR hydration, real-time data
+              displays, or any component where content flickering would confuse
+              users.
+            </p>
+          </div>
+
+          {/* Pattern 5: measureCLS */}
+          <div className="mt-10">
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100 text-xs font-bold text-pink-600 dark:bg-pink-900/50 dark:text-pink-400">
+                5
+              </span>
+              measureCLS
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Measures Cumulative Layout Shift using the browser&apos;s
+              Performance Observer API. Returns the actual CLS score for
+              assertions or reporting — essential for Core Web Vitals
+              compliance.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                cls-measurement.spec.ts
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`// Measure CLS during full page lifecycle
+const cls = await measureCLS(page, async () => {
+  await page.goto('/article');
+  await page.waitForLoadState('networkidle');
+  // Wait for all lazy content
+  await page.waitForTimeout(2000);
+});
+
+// Google's "Good" threshold is < 0.1
+expect(cls).toBeLessThan(0.1);
+
+// For stricter pages, use tighter threshold
+const checkoutCLS = await measureCLS(page, async () => {
+  await page.goto('/checkout');
+  await page.waitForSelector('[data-testid="checkout-ready"]');
+});
+expect(checkoutCLS).toBeLessThan(0.05);`}</code>
+              </pre>
+            </div>
+            <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
+              <strong>Use when:</strong> Monitoring Core Web Vitals, testing
+              pages with ads or dynamic content, or after any layout-related
+              changes.
+            </p>
+          </div>
+
+          {/* Pattern 6: assertStateStability */}
+          <div className="mt-10">
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100 text-xs font-bold text-pink-600 dark:bg-pink-900/50 dark:text-pink-400">
+                6
+              </span>
+              assertStateStability
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Verifies that once a desired state is reached, it doesn&apos;t
+              regress. Catches race conditions where success briefly appears
+              then reverts to loading or error states.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                state-stability.spec.ts
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`// Once saved, the button shouldn't revert to "saving..."
+await assertStateStability(
+  page,
+  '[data-testid="save-button"]',
+  {
+    desiredState: { text: 'Saved' },
+    forbiddenStates: [{ text: 'Saving...' }, { text: 'Save' }],
+    duration: 2000
+  }
+);
+
+// Verify successful state persists after form submit
+await page.click('[data-testid="submit"]');
+await assertStateStability(
+  page,
+  '[data-testid="status"]',
+  {
+    desiredState: { attribute: 'data-status', value: 'success' },
+    forbiddenStates: [
+      { attribute: 'data-status', value: 'loading' },
+      { attribute: 'data-status', value: 'error' }
+    ],
+    duration: 3000
+  }
+);`}</code>
+              </pre>
+            </div>
+            <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
+              <strong>Use when:</strong> Testing async operations, optimistic
+              updates with server reconciliation, or any action with multiple
+              state transitions.
+            </p>
+          </div>
+
+          {/* Pattern 7: expectMutualExclusivity */}
+          <div className="mt-10">
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100 text-xs font-bold text-pink-600 dark:bg-pink-900/50 dark:text-pink-400">
+                7
+              </span>
+              expectMutualExclusivity
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Asserts that certain UI states never coexist — catches impossible
+              states like showing both a loading spinner and loaded content, or
+              both success and error messages simultaneously.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                mutual-exclusivity.spec.ts
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`// Loading and content should never appear together
+await expectMutualExclusivity(
+  page,
+  ['[data-testid="loading"]', '[data-testid="content"]'],
+  async () => {
+    await page.goto('/dashboard');
+    await page.waitForSelector('[data-testid="content"]');
+  }
+);
+
+// Success and error toasts are mutually exclusive
+await expectMutualExclusivity(
+  page,
+  [
+    '[data-testid="success-toast"]',
+    '[data-testid="error-toast"]',
+    '[data-testid="warning-toast"]'
+  ],
+  async () => {
+    await page.click('[data-testid="submit"]');
+    await page.waitForSelector('[data-testid*="toast"]');
+  }
+);`}</code>
+              </pre>
+            </div>
+            <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-500">
+              <strong>Use when:</strong> Testing state machines, loading/error
+              states, or any UI with states that should be mutually exclusive.
+            </p>
+          </div>
+
+          {/* Link to full skill documentation */}
+          <div className="mt-10 rounded-xl border border-neutral-200 bg-gradient-to-r from-pink-50 to-neutral-50 p-6 dark:border-neutral-700 dark:from-pink-950/30 dark:to-neutral-900">
+            <div className="flex items-start gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-pink-100 dark:bg-pink-900/50">
+                <svg
+                  className="h-5 w-5 text-pink-600 dark:text-pink-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                  Full Skill Documentation
+                </h4>
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  The{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
+                    e2e-quality
+                  </code>{" "}
+                  skill includes implementation details, helper functions, and
+                  integration guidance. Load it with{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
+                    Loading skill: e2e-quality
+                  </code>{" "}
+                  or see the full documentation.
+                </p>
+                <Link
+                  href="/skills/e2e-quality"
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300"
+                >
+                  View e2e-quality skill documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>
