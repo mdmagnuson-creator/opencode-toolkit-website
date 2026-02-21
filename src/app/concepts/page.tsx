@@ -133,6 +133,33 @@ const concepts = [
       </svg>
     ),
   },
+  {
+    name: "Testing System",
+    href: "/concepts/testing",
+    description:
+      "How the multi-layered testing architecture works. Unit test specialists, E2E testing, QA/adversarial testing, and three operating modes for different needs.",
+    subLinks: [
+      { name: "Architecture Overview", href: "/concepts/testing#architecture" },
+      { name: "Test Flow Automation", href: "/concepts/testing#test-flow" },
+      { name: "E2E Quality Patterns", href: "/concepts/testing#quality-patterns" },
+      { name: "Mutation Testing", href: "/concepts/testing#mutation-testing" },
+    ],
+    icon: (
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+        />
+      </svg>
+    ),
+  },
 ];
 
 export default function ConceptsPage() {
@@ -367,23 +394,45 @@ export default function ConceptsPage() {
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {concepts.map((concept) => (
-              <Link
+              <div
                 key={concept.name}
-                href={concept.href}
                 className="group rounded-xl border border-neutral-200 bg-white p-5 transition-all hover:border-neutral-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
               >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 group-hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:group-hover:bg-neutral-700">
-                    {concept.icon}
+                <Link href={concept.href}>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 group-hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:group-hover:bg-neutral-700">
+                      {concept.icon}
+                    </div>
+                    <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                      {concept.name}
+                    </h3>
                   </div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
-                    {concept.name}
-                  </h3>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                  {concept.description}
-                </p>
-                <div className="mt-4 flex items-center text-sm font-medium text-neutral-900 dark:text-neutral-200">
+                  <p className="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                    {concept.description}
+                  </p>
+                </Link>
+                {"subLinks" in concept && concept.subLinks && (
+                  <div className="mt-4 border-t border-neutral-100 pt-4 dark:border-neutral-800">
+                    <p className="mb-2 text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                      Quick Links
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {concept.subLinks.map((subLink) => (
+                        <Link
+                          key={subLink.href}
+                          href={subLink.href}
+                          className="rounded-md bg-neutral-100 px-2 py-1 text-xs font-medium text-neutral-700 transition-colors hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-neutral-100"
+                        >
+                          {subLink.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <Link
+                  href={concept.href}
+                  className="mt-4 flex items-center text-sm font-medium text-neutral-900 dark:text-neutral-200"
+                >
                   Learn more
                   <svg
                     className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -398,8 +447,8 @@ export default function ConceptsPage() {
                       d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                     />
                   </svg>
-                </div>
-              </Link>
+                </Link>
+              </div>
             ))}
           </div>
         </div>

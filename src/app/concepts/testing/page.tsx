@@ -19,11 +19,115 @@ export default function TestingConceptPage() {
             layers. An orchestrator routes to unit test specialists, E2E testers,
             and QA agents—each optimized for different testing needs.
           </p>
+
+          {/* Quick Navigation */}
+          <div className="mt-10">
+            <p className="mb-4 text-sm font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+              Jump to
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <a
+                href="#architecture"
+                className="group flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition-all hover:border-green-300 hover:bg-green-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-green-700 dark:hover:bg-green-950"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400">
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-neutral-900 group-hover:text-green-700 dark:text-neutral-100 dark:group-hover:text-green-300">
+                  Architecture Overview
+                </span>
+              </a>
+
+              <a
+                href="#test-flow"
+                className="group flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition-all hover:border-indigo-300 hover:bg-indigo-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-indigo-700 dark:hover:bg-indigo-950"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-400">
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-neutral-900 group-hover:text-indigo-700 dark:text-neutral-100 dark:group-hover:text-indigo-300">
+                  Test Flow Automation
+                </span>
+              </a>
+
+              <a
+                href="#quality-patterns"
+                className="group flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition-all hover:border-pink-300 hover:bg-pink-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-pink-700 dark:hover:bg-pink-950"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-pink-100 text-pink-600 dark:bg-pink-900 dark:text-pink-400">
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-neutral-900 group-hover:text-pink-700 dark:text-neutral-100 dark:group-hover:text-pink-300">
+                  E2E Quality Patterns
+                </span>
+              </a>
+
+              <a
+                href="#mutation-testing"
+                className="group flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition-all hover:border-sky-300 hover:bg-sky-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-sky-700 dark:hover:bg-sky-950"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-400">
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-neutral-900 group-hover:text-sky-700 dark:text-neutral-100 dark:group-hover:text-sky-300">
+                  Mutation Testing
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Architecture Overview */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="architecture" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Testing Agent Hierarchy
@@ -686,7 +790,7 @@ export default function TestingConceptPage() {
       </section>
 
       {/* Test Flow Automation */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="test-flow" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Test Flow Automation
@@ -3504,7 +3608,7 @@ export default function TestingConceptPage() {
       </section>
 
       {/* E2E Quality Patterns */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="quality-patterns" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-pink-100 dark:bg-pink-900/30">
@@ -3965,7 +4069,7 @@ await expectMutualExclusivity(
       </section>
 
       {/* Mutation Testing Pattern */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="mutation-testing" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-900/30">
