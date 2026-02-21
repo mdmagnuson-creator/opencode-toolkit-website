@@ -225,3 +225,25 @@
 - Grouped views benefit from descriptions explaining each group's purpose
 
 ---
+
+## 2026-02-21 - US-010: Update Concepts Navigation
+
+### What was implemented
+- Added Quick Links subsection to Testing System card on concepts page
+- Links to 4 testing sub-topics: Architecture Overview, Test Flow Automation, E2E Quality Patterns, Mutation Testing
+- Added Quick Navigation section at top of testing concepts page with colored icon buttons
+- Each quick link has a distinct color theme matching the target section's color
+- Added anchor IDs to 4 sections: #architecture, #test-flow, #quality-patterns, #mutation-testing
+- Updated concepts card rendering to support optional subLinks property
+
+### Files changed
+- src/app/concepts/page.tsx - Added subLinks to Testing System concept, updated card rendering
+- src/app/concepts/testing/page.tsx - Added Quick Navigation section, added IDs to key sections
+
+### Learnings for future iterations
+- Anchor links with matching color themes help users preview what section they're navigating to
+- Quick Navigation grids work well with 4 items (responsive 2x2 on mobile, 1x4 on desktop)
+- subLinks pattern on concept cards can be reused for other concepts that have sub-sections
+- Section IDs should be short and kebab-case for cleaner URLs
+
+---
