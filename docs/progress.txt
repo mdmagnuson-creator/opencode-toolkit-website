@@ -349,3 +349,38 @@
 - Primary agents get special styling with gradient backgrounds and violet accent
 
 ---
+
+## 2026-02-21 - US-002: Document how humans work with Planner
+
+### What was implemented
+- Added comprehensive "Working with Planner" section to Human Work Modes page
+- Created "The Draft-to-Ready Journey" with 4-step visual timeline:
+  1. Create a Draft PRD
+  2. Refine Requirements
+  3. Clarify Scope
+  4. Mark as Ready
+- Added "Draft Refinement Tips" with 4 actionable cards:
+  - Challenge the stories (edge cases, error handling)
+  - Split large stories (4-5 AC max)
+  - Define "done" clearly (specific criteria)
+  - Check dependencies (ordering)
+- Added "Clarifying Scope" section with In Scope / Out of Scope checklist
+- Added "Practical Prompts for Planning Sessions" with 5 copy-ready prompts:
+  - New Feature: Starting a planning session
+  - Refine Draft: Continuing refinement
+  - Edge Cases: Adding error handling
+  - Scope Check: Verifying boundaries
+  - Mark Ready: Finalizing PRD
+- Added "When to Use Planner vs Builder" comparison table
+- Updated "Coming Soon" section to focus on Builder & Toolkit guides
+
+### Files changed
+- src/app/concepts/human-work-modes/page.tsx - Added ~450 lines for Planner section
+
+### Learnings for future iterations
+- Violet color theme for Planner (consistent with overview cards)
+- Timeline-style step lists with connecting lines work well for journeys
+- Copy-ready prompts should include category badges (New Feature, Refine Draft, etc.)
+- Comparison tables help users understand when to use which agent
+
+---
