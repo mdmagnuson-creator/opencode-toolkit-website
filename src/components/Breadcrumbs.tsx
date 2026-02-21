@@ -21,6 +21,7 @@ const pathNames: Record<string, string> = {
   "getting-started": "Getting Started",
   workflow: "The Workflow Loop",
   projects: "Project Setup",
+  testing: "Testing System",
 };
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
