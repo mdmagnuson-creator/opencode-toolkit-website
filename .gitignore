@@ -40,6 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .tmp/
+docs/builder-state.json
 
 # generated data (committed manually, updated periodically)
 # src/data/toolkit-manifest.json
