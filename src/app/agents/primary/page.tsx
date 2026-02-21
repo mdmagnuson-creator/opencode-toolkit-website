@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { LastSyncedTimestamp } from "@/components/LastSyncedTimestamp";
+import { VersionBadge } from "@/components/VersionBadge";
 import Link from "next/link";
 import { manifest } from "@/data";
 import type { Agent } from "@/data/types";
@@ -10,7 +12,8 @@ const CATEGORY_LABELS: Record<Agent["category"], string> = {
   critics: "Critics",
   developers: "Developers",
   testers: "Testers",
-  other: "Other",
+  orchestrators: "Orchestrators",
+  utilities: "Utilities",
 };
 
 const CATEGORY_COLORS: Record<Agent["category"], { bg: string; text: string }> = {
@@ -26,9 +29,13 @@ const CATEGORY_COLORS: Record<Agent["category"], { bg: string; text: string }> =
     bg: "bg-green-100 dark:bg-green-950",
     text: "text-green-800 dark:text-green-200",
   },
-  other: {
+  orchestrators: {
     bg: "bg-purple-100 dark:bg-purple-950",
     text: "text-purple-800 dark:text-purple-200",
+  },
+  utilities: {
+    bg: "bg-slate-100 dark:bg-slate-800",
+    text: "text-slate-700 dark:text-slate-300",
   },
 };
 
@@ -96,9 +103,15 @@ export default function PrimaryAgentsPage() {
             <Breadcrumbs />
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-            Primary Agents
-          </h1>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
+              Primary Agents
+            </h1>
+            <div className="flex flex-wrap items-center gap-2">
+              <VersionBadge version={manifest.version} />
+              <LastSyncedTimestamp timestamp={manifest.generatedAt} />
+            </div>
+          </div>
           <p className="mt-4 text-lg text-neutral-700 dark:text-neutral-400">
             Entry points to the agent system. These are the agents you invoke directly &mdash; they orchestrate sub-agents to complete complex tasks.
           </p>

@@ -169,8 +169,8 @@
         "Works in both light and dark mode"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Implemented new category structure: split 'other' into 'orchestrators' (3 agents) and 'utilities' (7 agents). Added Primary Agents section at top of agents page. Updated all category references across pages. Backwards compatibility via CATEGORY_ALIASES mapping 'other' to 'utilities'.",
       "supportArticleRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],

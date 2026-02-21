@@ -15,7 +15,8 @@ export function AgentRelationshipDiagram() {
     { name: "Critics", count: manifest.categories.critics },
     { name: "Developers", count: manifest.categories.developers },
     { name: "Testers", count: manifest.categories.testers },
-    { name: "Other", count: manifest.categories.other },
+    { name: "Orchestrators", count: manifest.categories.orchestrators },
+    { name: "Utilities", count: manifest.categories.utilities },
   ];
 
   return (

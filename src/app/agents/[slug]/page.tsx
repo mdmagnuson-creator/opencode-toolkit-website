@@ -10,7 +10,8 @@ const CATEGORY_LABELS: Record<Agent["category"], string> = {
   critics: "Critics",
   developers: "Developers",
   testers: "Testers",
-  other: "Other",
+  orchestrators: "Orchestrators",
+  utilities: "Utilities",
 };
 
 const CATEGORY_COLORS: Record<Agent["category"], { bg: string; text: string }> = {
@@ -26,9 +27,13 @@ const CATEGORY_COLORS: Record<Agent["category"], { bg: string; text: string }> =
     bg: "bg-green-100 dark:bg-green-950",
     text: "text-green-800 dark:text-green-200",
   },
-  other: {
+  orchestrators: {
     bg: "bg-purple-100 dark:bg-purple-950",
     text: "text-purple-800 dark:text-purple-200",
+  },
+  utilities: {
+    bg: "bg-slate-100 dark:bg-slate-800",
+    text: "text-slate-700 dark:text-slate-300",
   },
 };
 

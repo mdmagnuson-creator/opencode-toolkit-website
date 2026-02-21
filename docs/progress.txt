@@ -309,3 +309,43 @@
 - CI builds no longer need local toolkit clone - fetch from GitHub raw URL
 
 ---
+
+## 2026-02-21 - US-007: Implement New Agent Category Structure
+
+### What was implemented
+- Split 'other' category into 'orchestrators' (3 agents) and 'utilities' (7 agents)
+- Added Primary Agents section at top of agents page with dedicated PrimaryAgentCard component
+- Updated category colors: Orchestrators (Purple), Utilities (Gray/Slate)
+- Added backwards compatibility via CATEGORY_ALIASES mapping 'other' → 'utilities'
+- Updated all pages that reference agent categories:
+  - src/app/agents/page.tsx - Main agents page with Primary section
+  - src/app/agents/[slug]/page.tsx - Agent detail page
+  - src/app/agents/primary/page.tsx - Primary agents page
+  - src/app/agents/sub/page.tsx - Sub-agents page
+  - src/app/page.tsx - Home page (5-column grid for categories)
+  - src/app/concepts/agents/page.tsx - Agents concepts page
+  - src/components/AgentAvatar.tsx - Avatar with category colors
+  - src/components/AgentRelationshipDiagram.tsx - Relationship diagram
+
+### Files changed
+- src/data/types.ts - Updated Agent category union type
+- src/data/index.ts - Updated getAgentsByCategory function signature
+- scripts/transform-toolkit-structure.ts - Split operational into orchestrators/utilities
+- src/data/toolkit-manifest.json - Regenerated with new categories
+- src/app/agents/page.tsx - Added Primary section, new categories
+- src/app/agents/[slug]/page.tsx - Updated category labels/colors
+- src/app/agents/primary/page.tsx - Updated category labels/colors
+- src/app/agents/sub/page.tsx - Updated all category references
+- src/app/page.tsx - Updated to 5-column grid with new categories
+- src/app/concepts/agents/page.tsx - Updated to 5-column grid
+- src/components/AgentAvatar.tsx - Added orchestrators/utilities styles
+- src/components/AgentRelationshipDiagram.tsx - Added new category counts
+
+### Learnings for future iterations
+- Category changes require updates across many files - consider shared constants
+- CATEGORY_ALIASES pattern provides clean backwards compatibility
+- Orchestrators: agents that coordinate (felix, prd, prd-impact-analyzer)
+- Utilities: standalone tools (debugger, wall-e, session-status, docs-writer, etc.)
+- Primary agents get special styling with gradient backgrounds and violet accent
+
+---

@@ -357,7 +357,7 @@ export default function AgentsConceptPage() {
             Sub-agents are organized by their specialty:
           </p>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
               <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">
                 {manifest.categories.critics}
@@ -396,13 +396,25 @@ export default function AgentsConceptPage() {
 
             <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
               <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">
-                {manifest.categories.other}
+                {manifest.categories.orchestrators}
               </p>
               <h3 className="mt-1 font-medium text-neutral-900 dark:text-neutral-50">
-                Other
+                Orchestrators
               </h3>
               <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
-                Docs, QA, debugging, infrastructure, and specialized tasks.
+                Coordinate other agents and manage workflows.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">
+                {manifest.categories.utilities}
+              </p>
+              <h3 className="mt-1 font-medium text-neutral-900 dark:text-neutral-50">
+                Utilities
+              </h3>
+              <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
+                Debugging, docs, cleanup, and specialized tools.
               </p>
             </div>
           </div>

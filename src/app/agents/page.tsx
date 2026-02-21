@@ -3,16 +3,33 @@
 import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { LastSyncedTimestamp } from "@/components/LastSyncedTimestamp";
+import { VersionBadge } from "@/components/VersionBadge";
 import Link from "next/link";
 import { manifest } from "@/data";
 import type { Agent } from "@/data/types";
 
-const VALID_CATEGORIES: Agent["category"][] = ["critics", "developers", "testers", "other"];
+// Valid categories for filtering
+const VALID_CATEGORIES: Agent["category"][] = ["critics", "developers", "testers", "orchestrators", "utilities"];
+
+// Legacy category aliases for backwards compatibility
+const CATEGORY_ALIASES: Record<string, Agent["category"]> = {
+  other: "utilities", // Map old "other" to "utilities"
+};
 
 function getInitialCategory(param: string | null): Agent["category"] | "all" {
-  if (param && VALID_CATEGORIES.includes(param as Agent["category"])) {
+  if (!param) return "all";
+  
+  // Check if it's a valid category
+  if (VALID_CATEGORIES.includes(param as Agent["category"])) {
     return param as Agent["category"];
   }
+  
+  // Check for legacy aliases
+  if (param in CATEGORY_ALIASES) {
+    return CATEGORY_ALIASES[param];
+  }
+  
   return "all";
 }
 
@@ -20,14 +37,16 @@ const CATEGORY_LABELS: Record<Agent["category"], string> = {
   critics: "Critics",
   developers: "Developers",
   testers: "Testers",
-  other: "Other",
+  orchestrators: "Orchestrators",
+  utilities: "Utilities",
 };
 
 const CATEGORY_DESCRIPTIONS: Record<Agent["category"], string> = {
   critics: "Review code for specific concerns — security, performance, accessibility, and more.",
   developers: "Write code in specific languages or frameworks.",
   testers: "Write and run tests for different parts of your codebase.",
-  other: "Specialized agents for workflows, orchestration, and utilities.",
+  orchestrators: "Coordinate other agents and manage workflows.",
+  utilities: "Standalone tools for debugging, cleanup, and documentation.",
 };
 
 const CATEGORY_COLORS: Record<Agent["category"], { bg: string; text: string; border: string }> = {
@@ -46,10 +65,15 @@ const CATEGORY_COLORS: Record<Agent["category"], { bg: string; text: string; bor
     text: "text-green-800 dark:text-green-200",
     border: "border-green-200 dark:border-green-800",
   },
-  other: {
+  orchestrators: {
     bg: "bg-purple-100 dark:bg-purple-950",
     text: "text-purple-800 dark:text-purple-200",
     border: "border-purple-200 dark:border-purple-800",
+  },
+  utilities: {
+    bg: "bg-slate-100 dark:bg-slate-800",
+    text: "text-slate-700 dark:text-slate-300",
+    border: "border-slate-200 dark:border-slate-700",
   },
 };
 
@@ -97,6 +121,27 @@ function AgentCard({ agent }: { agent: Agent }) {
   );
 }
 
+function PrimaryAgentCard({ agent }: { agent: Agent }) {
+  return (
+    <Link
+      href={`/agents/${agent.slug}`}
+      className="group block rounded-xl border-2 border-violet-200 bg-gradient-to-br from-violet-50 to-white p-5 transition-all hover:border-violet-300 hover:shadow-lg dark:border-violet-800 dark:from-violet-950/50 dark:to-neutral-900 dark:hover:border-violet-700"
+    >
+      <div className="flex items-start justify-between gap-2">
+        <h3 className="font-semibold text-neutral-900 group-hover:text-violet-600 dark:text-neutral-50 dark:group-hover:text-violet-400">
+          {agent.name}
+        </h3>
+        <span className="inline-flex shrink-0 items-center rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-800 dark:bg-violet-900 dark:text-violet-200">
+          Primary
+        </span>
+      </div>
+      <p className="mt-2 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
+        {agent.description}
+      </p>
+    </Link>
+  );
+}
+
 function AgentsPageContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
@@ -131,12 +176,20 @@ function AgentsPageContent() {
     });
   }, [search, selectedCategory, showPrimaryOnly]);
 
+  // Primary agents for the special section
+  const primaryAgents = useMemo(() => {
+    return manifest.agents
+      .filter((agent) => agent.mode === "primary")
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, []);
+
   const groupedAgents = useMemo(() => {
     const groups: Record<Agent["category"], Agent[]> = {
       critics: [],
       developers: [],
       testers: [],
-      other: [],
+      orchestrators: [],
+      utilities: [],
     };
 
     filteredAgents.forEach((agent) => {
@@ -151,7 +204,10 @@ function AgentsPageContent() {
     return groups;
   }, [filteredAgents]);
 
-  const categoryOrder: Agent["category"][] = ["critics", "developers", "testers", "other"];
+  const categoryOrder: Agent["category"][] = ["critics", "developers", "testers", "orchestrators", "utilities"];
+
+  // Check if we should show the primary section (not filtering by category or primary only)
+  const showPrimarySection = selectedCategory === "all" && !showPrimaryOnly;
 
   return (
     <main className="min-h-screen">
@@ -164,9 +220,15 @@ function AgentsPageContent() {
 
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-                Agents
-              </h1>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
+                  Agents
+                </h1>
+                <div className="flex flex-wrap items-center gap-2">
+                  <VersionBadge version={manifest.version} />
+                  <LastSyncedTimestamp timestamp={manifest.generatedAt} />
+                </div>
+              </div>
               <p className="mt-4 text-lg text-neutral-700 dark:text-neutral-400">
                 Browse all {manifest.counts.agents} agents in the toolkit.{" "}
                 <span className="text-violet-600 dark:text-violet-400">
@@ -223,7 +285,8 @@ function AgentsPageContent() {
                 <option value="critics">Critics ({manifest.categories.critics})</option>
                 <option value="developers">Developers ({manifest.categories.developers})</option>
                 <option value="testers">Testers ({manifest.categories.testers})</option>
-                <option value="other">Other ({manifest.categories.other})</option>
+                <option value="orchestrators">Orchestrators ({manifest.categories.orchestrators})</option>
+                <option value="utilities">Utilities ({manifest.categories.utilities})</option>
               </select>
 
               {/* Primary only toggle */}
@@ -252,6 +315,31 @@ function AgentsPageContent() {
           {selectedCategory === "all" ? (
             // Grouped view
             <div className="space-y-12">
+              {/* Primary Agents Section */}
+              {showPrimarySection && primaryAgents.length > 0 && (
+                <div>
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3">
+                      <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+                        Primary Agents
+                      </h2>
+                      <span className="inline-flex items-center rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-medium text-violet-800 dark:bg-violet-950 dark:text-violet-200">
+                        Core
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      The main orchestrators that drive the agent system. Start here.
+                    </p>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {primaryAgents.map((agent) => (
+                      <PrimaryAgentCard key={agent.slug} agent={agent} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Category Groups */}
               {categoryOrder.map((category) => {
                 const agents = groupedAgents[category];
                 if (agents.length === 0) return null;

@@ -15,8 +15,7 @@
       "path": ".",
       "framework": "nextjs",
       "router": "app",
-      "entryPoint": "app/",
-      "devPort": 3000
+      "entryPoint": "app/"
     }
   },
   

@@ -4,7 +4,8 @@
     {
       "id": "prd-manifest-migration",
       "name": "Migrate to Toolkit Structure Manifest",
-      "status": "ready",
+      "status": "in_progress",
+      "startedAt": "2026-02-21T12:00:00Z",
       "filePath": "docs/prds/prd-manifest-migration.md",
       "jsonPath": "docs/prds/prd-manifest-migration.json",
       "createdAt": "2026-02-21",

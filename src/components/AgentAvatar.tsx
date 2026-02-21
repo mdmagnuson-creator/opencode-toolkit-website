@@ -29,11 +29,17 @@ const CATEGORY_STYLES: Record<
     accent: "bg-green-200/30 dark:bg-green-400/20",
     icon: "🧪",
   },
-  other: {
+  orchestrators: {
     bg: "bg-gradient-to-br from-purple-400 to-violet-500 dark:from-purple-500 dark:to-violet-600",
     text: "text-white",
     accent: "bg-purple-200/30 dark:bg-purple-400/20",
-    icon: "✨",
+    icon: "🎯",
+  },
+  utilities: {
+    bg: "bg-gradient-to-br from-slate-400 to-slate-500 dark:from-slate-500 dark:to-slate-600",
+    text: "text-white",
+    accent: "bg-slate-200/30 dark:bg-slate-400/20",
+    icon: "🔧",
   },
 };
 

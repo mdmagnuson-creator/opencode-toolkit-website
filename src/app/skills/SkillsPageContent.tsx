@@ -3,26 +3,84 @@
 import { useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { LastSyncedTimestamp } from "@/components/LastSyncedTimestamp";
+import { VersionBadge } from "@/components/VersionBadge";
 import Link from "next/link";
-import { manifest } from "@/data";
-import type { Skill } from "@/data/types";
+import { manifest, getSkillCategory, getSkillCategoryCounts } from "@/data";
+import type { Skill, SkillCategory } from "@/data/types";
 
-function SkillTypeBadge({ isMeta }: { isMeta: boolean }) {
-  if (isMeta) {
-    return (
-      <span className="inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-950 dark:text-purple-200">
-        Meta-Skill
-      </span>
-    );
+// Valid categories for filtering
+const VALID_CATEGORIES: SkillCategory[] = ["workflow", "content", "project", "meta", "utilities"];
+
+// Category display configuration
+const CATEGORY_LABELS: Record<SkillCategory, string> = {
+  workflow: "Workflow",
+  content: "Content",
+  project: "Project",
+  meta: "Meta",
+  utilities: "Utilities",
+};
+
+const CATEGORY_DESCRIPTIONS: Record<SkillCategory, string> = {
+  workflow: "Skills that define build and development workflows",
+  content: "Skills for generating marketing copy, documentation, and support articles",
+  project: "Skills for project setup, bootstrapping, and configuration",
+  meta: "Skills that generate other skills (meta-skills)",
+  utilities: "Utility skills for screenshots, CVE checking, and other tools",
+};
+
+const CATEGORY_COLORS: Record<SkillCategory, { bg: string; text: string }> = {
+  workflow: {
+    bg: "bg-violet-100 dark:bg-violet-950",
+    text: "text-violet-800 dark:text-violet-200",
+  },
+  content: {
+    bg: "bg-emerald-100 dark:bg-emerald-950",
+    text: "text-emerald-800 dark:text-emerald-200",
+  },
+  project: {
+    bg: "bg-blue-100 dark:bg-blue-950",
+    text: "text-blue-800 dark:text-blue-200",
+  },
+  meta: {
+    bg: "bg-purple-100 dark:bg-purple-950",
+    text: "text-purple-800 dark:text-purple-200",
+  },
+  utilities: {
+    bg: "bg-slate-100 dark:bg-slate-800",
+    text: "text-slate-700 dark:text-slate-300",
+  },
+};
+
+function getInitialCategory(param: string | null): SkillCategory | "all" {
+  if (!param) return "all";
+
+  // Check if it's a valid category
+  if (VALID_CATEGORIES.includes(param as SkillCategory)) {
+    return param as SkillCategory;
   }
+
+  // Legacy aliases for backwards compatibility
+  if (param === "regular") return "all"; // Old filter
+  if (param === "meta") return "meta";
+
+  return "all";
+}
+
+function CategoryBadge({ category }: { category: SkillCategory }) {
+  const colors = CATEGORY_COLORS[category];
   return (
-    <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-950 dark:text-blue-200">
-      Skill
+    <span
+      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${colors.bg} ${colors.text}`}
+    >
+      {CATEGORY_LABELS[category]}
     </span>
   );
 }
 
 function SkillCard({ skill }: { skill: Skill }) {
+  const category = getSkillCategory(skill);
+
   return (
     <Link
       href={`/skills/${skill.slug}`}
@@ -32,7 +90,7 @@ function SkillCard({ skill }: { skill: Skill }) {
         <h3 className="font-semibold text-neutral-900 group-hover:text-violet-600 dark:text-neutral-50 dark:group-hover:text-violet-400">
           {skill.name}
         </h3>
-        <SkillTypeBadge isMeta={skill.isMeta} />
+        <CategoryBadge category={category} />
       </div>
       <p className="mt-2 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
         {skill.description}
@@ -66,14 +124,15 @@ function SkillCard({ skill }: { skill: Skill }) {
 export function SkillsPageContent() {
   const searchParams = useSearchParams();
   const [search, setSearch] = useState("");
-  
-  // Get initial type from URL params, default to "all"
-  const typeParam = searchParams.get("type");
-  const initialType = typeParam === "regular" || typeParam === "meta" ? typeParam : "all";
-  const [skillType, setSkillType] = useState<"all" | "regular" | "meta">(initialType);
 
-  // Derive effective skill type - prefer URL param if present, otherwise use state
-  const effectiveSkillType = typeParam === "regular" || typeParam === "meta" ? typeParam : skillType;
+  // Get initial category from URL params
+  const categoryParam = searchParams.get("category") || searchParams.get("type");
+  const [selectedCategory, setSelectedCategory] = useState<SkillCategory | "all">(() =>
+    getInitialCategory(categoryParam)
+  );
+
+  // Get skill category counts
+  const categoryCounts = useMemo(() => getSkillCategoryCounts(), []);
 
   const filteredSkills = useMemo(() => {
     return manifest.skills.filter((skill) => {
@@ -88,26 +147,40 @@ export function SkillsPageContent() {
         if (!matchesName && !matchesDescription && !matchesTriggers) return false;
       }
 
-      // Filter by type
-      if (effectiveSkillType === "regular" && skill.isMeta) return false;
-      if (effectiveSkillType === "meta" && !skill.isMeta) return false;
+      // Filter by category
+      if (selectedCategory !== "all") {
+        const skillCategory = getSkillCategory(skill);
+        if (skillCategory !== selectedCategory) return false;
+      }
 
       return true;
     });
-  }, [search, effectiveSkillType]);
+  }, [search, selectedCategory]);
 
-  const regularSkills = useMemo(
-    () => filteredSkills.filter((s) => !s.isMeta).sort((a, b) => a.name.localeCompare(b.name)),
-    [filteredSkills]
-  );
+  // Group filtered skills by category
+  const groupedSkills = useMemo(() => {
+    const groups: Record<SkillCategory, Skill[]> = {
+      workflow: [],
+      content: [],
+      project: [],
+      meta: [],
+      utilities: [],
+    };
 
-  const metaSkills = useMemo(
-    () => filteredSkills.filter((s) => s.isMeta).sort((a, b) => a.name.localeCompare(b.name)),
-    [filteredSkills]
-  );
+    filteredSkills.forEach((skill) => {
+      const category = getSkillCategory(skill);
+      groups[category].push(skill);
+    });
 
-  const regularCount = manifest.skills.filter((s) => !s.isMeta).length;
-  const metaCount = manifest.skills.filter((s) => s.isMeta).length;
+    // Sort each group alphabetically
+    Object.values(groups).forEach((group) => {
+      group.sort((a, b) => a.name.localeCompare(b.name));
+    });
+
+    return groups;
+  }, [filteredSkills]);
+
+  const categoryOrder: SkillCategory[] = ["workflow", "content", "project", "meta", "utilities"];
 
   return (
     <main className="min-h-screen">
@@ -120,17 +193,37 @@ export function SkillsPageContent() {
 
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-                Skills
-              </h1>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
+                  Skills
+                </h1>
+                <div className="flex flex-wrap items-center gap-2">
+                  <VersionBadge version={manifest.version} />
+                  <LastSyncedTimestamp timestamp={manifest.generatedAt} />
+                </div>
+              </div>
               <p className="mt-4 text-lg text-neutral-700 dark:text-neutral-400">
                 Browse all {manifest.counts.skills} skills in the toolkit.{" "}
-                <span className="text-blue-600 dark:text-blue-400">{regularCount} core skills</span>{" "}
-                and{" "}
+                <span className="text-violet-600 dark:text-violet-400">
+                  {categoryCounts.workflow} workflow
+                </span>
+                ,{" "}
+                <span className="text-emerald-600 dark:text-emerald-400">
+                  {categoryCounts.content} content
+                </span>
+                ,{" "}
+                <span className="text-blue-600 dark:text-blue-400">
+                  {categoryCounts.project} project
+                </span>
+                ,{" "}
                 <span className="text-purple-600 dark:text-purple-400">
-                  {metaCount} meta-skills
+                  {categoryCounts.meta} meta
+                </span>
+                , and{" "}
+                <span className="text-slate-600 dark:text-slate-400">
+                  {categoryCounts.utilities} utility
                 </span>{" "}
-                that generate project-specific patterns.
+                skills.
               </p>
             </div>
           </div>
@@ -165,16 +258,19 @@ export function SkillsPageContent() {
               </svg>
             </div>
 
-            {/* Type filter */}
+            {/* Category filter */}
             <div className="flex flex-wrap items-center gap-3">
               <select
-                value={effectiveSkillType}
-                onChange={(e) => setSkillType(e.target.value as "all" | "regular" | "meta")}
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value as SkillCategory | "all")}
                 className="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/20 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
               >
-                <option value="all">All skills ({manifest.counts.skills})</option>
-                <option value="regular">Core skills ({regularCount})</option>
-                <option value="meta">Meta-skills ({metaCount})</option>
+                <option value="all">All categories ({manifest.counts.skills})</option>
+                <option value="workflow">Workflow ({categoryCounts.workflow})</option>
+                <option value="content">Content ({categoryCounts.content})</option>
+                <option value="project">Project ({categoryCounts.project})</option>
+                <option value="meta">Meta ({categoryCounts.meta})</option>
+                <option value="utilities">Utilities ({categoryCounts.utilities})</option>
               </select>
             </div>
           </div>
@@ -189,60 +285,43 @@ export function SkillsPageContent() {
       {/* Skills List */}
       <section className="px-6 py-8 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-6xl">
-          {effectiveSkillType === "all" ? (
-            // Grouped view
+          {selectedCategory === "all" ? (
+            // Grouped view by category
             <div className="space-y-12">
-              {/* Core Skills */}
-              {regularSkills.length > 0 && (
-                <div>
-                  <div className="mb-6">
-                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
-                      Core Skills{" "}
-                      <span className="text-neutral-500 dark:text-neutral-400">
-                        ({regularSkills.length})
-                      </span>
-                    </h2>
-                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                      Reusable instruction sets that agents load on-demand for specific tasks.
-                    </p>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {regularSkills.map((skill) => (
-                      <SkillCard key={skill.slug} skill={skill} />
-                    ))}
-                  </div>
-                </div>
-              )}
+              {categoryOrder.map((category) => {
+                const skills = groupedSkills[category];
+                if (skills.length === 0) return null;
 
-              {/* Meta Skills */}
-              {metaSkills.length > 0 && (
-                <div>
-                  <div className="mb-6">
-                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
-                      Meta-Skills{" "}
-                      <span className="text-neutral-500 dark:text-neutral-400">
-                        ({metaSkills.length})
-                      </span>
-                    </h2>
-                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                      Skills that generate project-specific skills based on your stack and
-                      configuration.
-                    </p>
+                return (
+                  <div key={category}>
+                    <div className="mb-6">
+                      <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+                        {CATEGORY_LABELS[category]}{" "}
+                        <span className="text-neutral-500 dark:text-neutral-400">
+                          ({skills.length})
+                        </span>
+                      </h2>
+                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        {CATEGORY_DESCRIPTIONS[category]}
+                      </p>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {skills.map((skill) => (
+                        <SkillCard key={skill.slug} skill={skill} />
+                      ))}
+                    </div>
                   </div>
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {metaSkills.map((skill) => (
-                      <SkillCard key={skill.slug} skill={skill} />
-                    ))}
-                  </div>
-                </div>
-              )}
+                );
+              })}
             </div>
           ) : (
-            // Flat view
+            // Flat view for single category
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredSkills.map((skill) => (
-                <SkillCard key={skill.slug} skill={skill} />
-              ))}
+              {filteredSkills
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((skill) => (
+                  <SkillCard key={skill.slug} skill={skill} />
+                ))}
             </div>
           )}
 
@@ -255,7 +334,7 @@ export function SkillsPageContent() {
               <button
                 onClick={() => {
                   setSearch("");
-                  setSkillType("all");
+                  setSelectedCategory("all");
                 }}
                 className="mt-4 text-sm text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
               >
@@ -273,8 +352,8 @@ export function SkillsPageContent() {
             New to skills?
           </h2>
           <p className="mt-4 text-neutral-600 dark:text-neutral-400">
-            Learn how skills work, when they&apos;re loaded, and the difference between core
-            skills and meta-skills.
+            Learn how skills work, when they&apos;re loaded, and how they help agents perform
+            specialized tasks.
           </p>
           <Link
             href="/concepts/skills"

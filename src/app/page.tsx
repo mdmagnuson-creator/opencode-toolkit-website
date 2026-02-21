@@ -158,7 +158,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
             {/* Critics */}
             <Link 
               href="/agents?category=critics"
@@ -208,20 +208,35 @@ export default function Home() {
               </p>
             </Link>
 
-            {/* Other */}
+            {/* Orchestrators */}
             <Link 
-              href="/agents?category=other"
+              href="/agents?category=orchestrators"
               className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-5 transition-all hover:shadow-md hover:border-neutral-300 cursor-pointer dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-                {categories.other}
+                {categories.orchestrators}
               </p>
               <h3 className="mt-1 text-sm font-medium text-neutral-900 sm:text-base dark:text-neutral-50">
-                Other
+                Orchestrators
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-neutral-700 sm:text-sm dark:text-neutral-400">
-                Specialized agents for docs, QA, debugging, infrastructure, and
-                more.
+                Coordinate other agents and manage workflows.
+              </p>
+            </Link>
+
+            {/* Utilities */}
+            <Link 
+              href="/agents?category=utilities"
+              className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-5 transition-all hover:shadow-md hover:border-neutral-300 cursor-pointer dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
+            >
+              <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+                {categories.utilities}
+              </p>
+              <h3 className="mt-1 text-sm font-medium text-neutral-900 sm:text-base dark:text-neutral-50">
+                Utilities
+              </h3>
+              <p className="mt-2 text-xs leading-relaxed text-neutral-700 sm:text-sm dark:text-neutral-400">
+                Debugging, docs, cleanup, and specialized tools.
               </p>
             </Link>
           </div>

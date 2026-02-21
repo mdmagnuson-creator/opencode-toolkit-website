@@ -3,16 +3,32 @@
 import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { LastSyncedTimestamp } from "@/components/LastSyncedTimestamp";
+import { VersionBadge } from "@/components/VersionBadge";
 import Link from "next/link";
 import { manifest } from "@/data";
 import type { Agent } from "@/data/types";
 
-const VALID_CATEGORIES: Agent["category"][] = ["critics", "developers", "testers", "other"];
+const VALID_CATEGORIES: Agent["category"][] = ["critics", "developers", "testers", "orchestrators", "utilities"];
+
+// Legacy category aliases for backwards compatibility
+const CATEGORY_ALIASES: Record<string, Agent["category"]> = {
+  other: "utilities", // Map old "other" to "utilities"
+};
 
 function getInitialCategory(param: string | null): Agent["category"] | "all" {
-  if (param && VALID_CATEGORIES.includes(param as Agent["category"])) {
+  if (!param) return "all";
+  
+  // Check if it's a valid category
+  if (VALID_CATEGORIES.includes(param as Agent["category"])) {
     return param as Agent["category"];
   }
+  
+  // Check for legacy aliases
+  if (param in CATEGORY_ALIASES) {
+    return CATEGORY_ALIASES[param];
+  }
+  
   return "all";
 }
 
@@ -20,14 +36,16 @@ const CATEGORY_LABELS: Record<Agent["category"], string> = {
   critics: "Critics",
   developers: "Developers",
   testers: "Testers",
-  other: "Other",
+  orchestrators: "Orchestrators",
+  utilities: "Utilities",
 };
 
 const CATEGORY_DESCRIPTIONS: Record<Agent["category"], string> = {
   critics: "Review code for specific concerns — security, performance, accessibility, and more.",
   developers: "Write code in specific languages or frameworks.",
   testers: "A multi-layered testing system: the tester orchestrator routes to unit specialists (jest-tester, react-tester, go-tester), E2E agents handle UI testing, and QA agents perform adversarial exploration.",
-  other: "Specialized agents for workflows, orchestration, and utilities.",
+  orchestrators: "Coordinate other agents and manage workflows.",
+  utilities: "Standalone tools for debugging, cleanup, and documentation.",
 };
 
 // Tester functional groups for specialized display
@@ -84,9 +102,13 @@ const CATEGORY_COLORS: Record<Agent["category"], { bg: string; text: string }> =
     bg: "bg-green-100 dark:bg-green-950",
     text: "text-green-800 dark:text-green-200",
   },
-  other: {
+  orchestrators: {
     bg: "bg-purple-100 dark:bg-purple-950",
     text: "text-purple-800 dark:text-purple-200",
+  },
+  utilities: {
+    bg: "bg-slate-100 dark:bg-slate-800",
+    text: "text-slate-700 dark:text-slate-300",
   },
 };
 
@@ -146,7 +168,8 @@ function SubAgentsPageContent() {
       critics: 0,
       developers: 0,
       testers: 0,
-      other: 0,
+      orchestrators: 0,
+      utilities: 0,
     };
     subAgents.forEach((agent) => {
       counts[agent.category]++;
@@ -178,7 +201,8 @@ function SubAgentsPageContent() {
       critics: [],
       developers: [],
       testers: [],
-      other: [],
+      orchestrators: [],
+      utilities: [],
     };
 
     filteredAgents.forEach((agent) => {
@@ -193,7 +217,7 @@ function SubAgentsPageContent() {
     return groups;
   }, [filteredAgents]);
 
-  const categoryOrder: Agent["category"][] = ["critics", "developers", "testers", "other"];
+  const categoryOrder: Agent["category"][] = ["critics", "developers", "testers", "orchestrators", "utilities"];
 
   return (
     <main className="min-h-screen">
@@ -204,9 +228,15 @@ function SubAgentsPageContent() {
             <Breadcrumbs />
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-            Sub-Agents
-          </h1>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
+              Sub-Agents
+            </h1>
+            <div className="flex flex-wrap items-center gap-2">
+              <VersionBadge version={manifest.version} />
+              <LastSyncedTimestamp timestamp={manifest.generatedAt} />
+            </div>
+          </div>
           <p className="mt-4 text-lg text-neutral-700 dark:text-neutral-400">
             Specialized workers that handle specific tasks. Primary agents delegate work to these sub-agents based on what needs to be done.
           </p>
@@ -274,7 +304,8 @@ function SubAgentsPageContent() {
               <option value="critics">Critics ({categoryCounts.critics})</option>
               <option value="developers">Developers ({categoryCounts.developers})</option>
               <option value="testers">Testers ({categoryCounts.testers})</option>
-              <option value="other">Other ({categoryCounts.other})</option>
+              <option value="orchestrators">Orchestrators ({categoryCounts.orchestrators})</option>
+              <option value="utilities">Utilities ({categoryCounts.utilities})</option>
             </select>
           </div>
 

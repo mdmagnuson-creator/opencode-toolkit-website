@@ -7,9 +7,11 @@ export interface Agent {
   name: string;
   description: string;
   mode: 'primary' | 'subagent';
-  category: 'critics' | 'developers' | 'testers' | 'other';
+  category: 'critics' | 'developers' | 'testers' | 'orchestrators' | 'utilities';
   content: string;
 }
+
+export type SkillCategory = 'workflow' | 'content' | 'project' | 'meta' | 'utilities';
 
 export interface Skill {
   slug: string;
@@ -17,6 +19,7 @@ export interface Skill {
   description: string;
   triggers: string[];
   isMeta: boolean;
+  category?: SkillCategory;
   content: string;
 }
 
@@ -38,7 +41,7 @@ export interface AgentTemplate {
 }
 
 export interface ChangelogEntry {
-  type: 'feat' | 'fix' | 'refactor' | 'docs' | 'chore';
+  type: 'feat' | 'fix' | 'chore' | 'docs' | 'refactor' | 'test' | 'style' | 'perf' | 'ci' | 'build';
   description: string;
   scope?: string;
 }
@@ -50,6 +53,7 @@ export interface ChangelogDay {
 }
 
 export interface ToolkitManifest {
+  version: string;
   generatedAt: string;
   syncedAt: string;
   toolkitCommit: string;
@@ -66,7 +70,15 @@ export interface ToolkitManifest {
     critics: number;
     developers: number;
     testers: number;
-    other: number;
+    orchestrators: number;
+    utilities: number;
+  };
+  skillCategories?: {
+    workflow: number;
+    content: number;
+    project: number;
+    meta: number;
+    utilities: number;
   };
   templateCategories: string[];
   agents: Agent[];
