@@ -195,3 +195,33 @@
 - The 3-stage pattern is particularly important for E2E tests that verify state changes
 
 ---
+
+## 2026-02-20 - US-009: Update Testers Category Page
+
+### What was implemented
+- Updated testers category description to explain the testing system hierarchy
+- Added tester functional groups for specialized display:
+  - Orchestrator: tester
+  - Unit Specialists: jest-tester, react-tester, go-tester
+  - E2E Testing: e2e-playwright
+  - QA & Adversarial: qa, qa-explorer, qa-browser-tester
+  - Supporting: merge-coordinator
+- Created grouped view when filtering to testers category with sub-headers and descriptions
+- Added cross-references between related agents showing relationships:
+  - tester "Routes to" unit specialists
+  - qa "Coordinates" qa-explorer and qa-browser-tester
+  - qa-explorer "Reports to" qa
+  - qa-browser-tester "Works with" qa-explorer
+- Added link to Testing Concepts page at top of testers view
+- Enhanced AgentCard component with optional showCrossRefs prop
+
+### Files changed
+- src/app/agents/sub/page.tsx - Added tester grouping constants, cross-references, and specialized testers view
+
+### Learnings for future iterations
+- Category-specific views can provide more context than flat lists
+- Cross-references help users understand agent relationships
+- Green accent colors work well for testers category (consistent with existing badge colors)
+- Grouped views benefit from descriptions explaining each group's purpose
+
+---
