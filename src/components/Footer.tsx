@@ -28,37 +28,40 @@ function formatRelativeTime(isoDate: string): string {
 }
 
 const footerLinks = {
-  learn: {
-    title: "Learn",
+  concepts: {
+    title: "Concepts",
     links: [
-      { name: "Getting Started", href: "/getting-started" },
-      { name: "Concepts", href: "/concepts" },
+      { name: "Overview", href: "/concepts" },
+      { name: "Understanding Agents", href: "/concepts/agents" },
+      { name: "Meta-Skills", href: "/concepts/meta-skills" },
+      { name: "Project Skills", href: "/concepts/skills" },
+      { name: "Project Setup", href: "/concepts/projects" },
       { name: "The Workflow Loop", href: "/concepts/workflow" },
     ],
   },
   reference: {
     title: "Reference",
     links: [
-      { name: "Agents", href: "/agents" },
-      { name: "Skills", href: "/skills" },
+      { name: "Primary Agents", href: "/agents/primary" },
+      { name: "Sub-Agents", href: "/agents/sub" },
+      { name: "Meta-Skills", href: "/skills?type=meta" },
+      { name: "Skills", href: "/skills?type=regular" },
       { name: "Scaffolds", href: "/scaffolds" },
       { name: "Agent Templates", href: "/agent-templates" },
       { name: "MCP Servers", href: "/mcp" },
       { name: "Automations", href: "/automations" },
     ],
   },
-  concepts: {
-    title: "Concepts",
+  gettingStarted: {
+    title: "Getting Started",
     links: [
-      { name: "Understanding Agents", href: "/concepts/agents" },
-      { name: "Understanding Skills", href: "/concepts/skills" },
-      { name: "Project Setup", href: "/concepts/projects" },
+      { name: "Quick Start", href: "/getting-started" },
+      { name: "Changelog", href: "/changelog" },
     ],
   },
   resources: {
     title: "Resources",
     links: [
-      { name: "Changelog", href: "/changelog" },
       { name: "GitHub", href: "https://github.com/opencode-ai/ai-toolkit" },
       { name: "OpenCode", href: "https://opencode.ai" },
     ],
