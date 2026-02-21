@@ -3964,6 +3964,413 @@ await expectMutualExclusivity(
         </div>
       </section>
 
+      {/* Mutation Testing Pattern */}
+      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-900/30">
+              <svg
+                className="h-5 w-5 text-sky-600 dark:text-sky-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.5 12.75l6 6 9-13.5"
+                />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+              Mutation Testing Pattern
+            </h2>
+          </div>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            The 3-step mutation testing pattern ensures state changes are truly
+            persisted, not just optimistically displayed. This pattern catches
+            bugs at three distinct verification stages—from immediate UI feedback
+            to permanent data persistence.
+          </p>
+
+          {/* Overview Callout */}
+          <div className="mt-8 rounded-xl border border-sky-200 bg-sky-50 p-6 dark:border-sky-900/50 dark:bg-sky-950/30">
+            <h3 className="font-semibold text-sky-900 dark:text-sky-100">
+              Why Three Stages?
+            </h3>
+            <p className="mt-2 text-sm text-sky-800 dark:text-sky-200">
+              Single-assertion tests only verify the final state. But users
+              experience the full journey: they click a button, see it respond,
+              wait for completion, and expect the change to survive a refresh.
+              The 3-step pattern tests what users actually experience—catching
+              bugs that final-state tests miss.
+            </p>
+          </div>
+
+          {/* The Three Stages Visual */}
+          <div className="mt-10">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              The Three Verification Stages
+            </h3>
+
+            <div className="mt-6 grid gap-6 sm:grid-cols-3">
+              {/* Stage 1: Immediate State */}
+              <div className="rounded-xl border-2 border-sky-200 bg-white p-5 dark:border-sky-800 dark:bg-neutral-900">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
+                    1
+                  </span>
+                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                    Immediate State
+                  </h4>
+                </div>
+                <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+                  Assert <strong>right after the action</strong>. Verifies the
+                  UI responds immediately to user input.
+                </p>
+                <div className="mt-4 rounded-lg bg-sky-50 p-3 dark:bg-sky-950/50">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
+                    Catches
+                  </p>
+                  <ul className="mt-1 space-y-1 text-xs text-sky-800 dark:text-sky-200">
+                    <li>• Action handler bugs</li>
+                    <li>• Validation errors</li>
+                    <li>• Event binding issues</li>
+                    <li>• Missing optimistic updates</li>
+                  </ul>
+                </div>
+                <div className="mt-4 rounded-lg bg-neutral-100 p-3 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Example
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
+                    &quot;After clicking save, button shows &apos;Saving...&apos;&quot;
+                  </p>
+                </div>
+              </div>
+
+              {/* Stage 2: Stable State */}
+              <div className="rounded-xl border-2 border-sky-200 bg-white p-5 dark:border-sky-800 dark:bg-neutral-900">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
+                    2
+                  </span>
+                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                    Stable State
+                  </h4>
+                </div>
+                <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+                  Assert <strong>after async operations settle</strong>. Verifies
+                  the operation completed successfully.
+                </p>
+                <div className="mt-4 rounded-lg bg-sky-50 p-3 dark:bg-sky-950/50">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
+                    Catches
+                  </p>
+                  <ul className="mt-1 space-y-1 text-xs text-sky-800 dark:text-sky-200">
+                    <li>• Async bugs</li>
+                    <li>• Race conditions</li>
+                    <li>• Optimistic UI mismatches</li>
+                    <li>• API error handling</li>
+                  </ul>
+                </div>
+                <div className="mt-4 rounded-lg bg-neutral-100 p-3 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Example
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
+                    &quot;After save completes, success toast appears&quot;
+                  </p>
+                </div>
+              </div>
+
+              {/* Stage 3: Persistence */}
+              <div className="rounded-xl border-2 border-sky-200 bg-white p-5 dark:border-sky-800 dark:bg-neutral-900">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-600 text-sm font-bold text-white">
+                    3
+                  </span>
+                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                    Persistence
+                  </h4>
+                </div>
+                <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+                  Assert <strong>after page reload or re-fetch</strong>. Verifies
+                  the change was actually persisted.
+                </p>
+                <div className="mt-4 rounded-lg bg-sky-50 p-3 dark:bg-sky-950/50">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
+                    Catches
+                  </p>
+                  <ul className="mt-1 space-y-1 text-xs text-sky-800 dark:text-sky-200">
+                    <li>• Persistence bugs</li>
+                    <li>• Cache issues</li>
+                    <li>• Serialization problems</li>
+                    <li>• Database transaction failures</li>
+                  </ul>
+                </div>
+                <div className="mt-4 rounded-lg bg-neutral-100 p-3 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Example
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
+                    &quot;After reload, the saved data is still there&quot;
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Full Code Example */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Complete Pattern Example
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Here&apos;s a full Playwright test demonstrating all three verification
+              stages for a profile update flow:
+            </p>
+
+            <div className="mt-6 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                mutation-test.spec.ts
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`test('saving profile updates persists', async ({ page }) => {
+  // Setup: Navigate to the profile page
+  await page.goto('/profile');
+  await page.waitForSelector('[name="bio"]');
+
+  // === Stage 1: Immediate State ===
+  // Assert right after the action
+  await page.fill('[name="bio"]', 'New bio text');
+  await page.click('button:text("Save")');
+  
+  // Verify the button shows loading state immediately
+  await expect(page.locator('button:text("Save")'))
+    .toHaveAttribute('aria-busy', 'true');
+  
+  // Verify optimistic update appears in form
+  await expect(page.locator('[name="bio"]'))
+    .toHaveValue('New bio text');
+
+  // === Stage 2: Stable State ===
+  // Assert after async operations settle
+  await expect(page.locator('[role="alert"]'))
+    .toHaveText('Profile saved');
+  
+  await expect(page.locator('button:text("Save")'))
+    .not.toHaveAttribute('aria-busy', 'true');
+  
+  // Verify the form still shows the correct value
+  await expect(page.locator('[name="bio"]'))
+    .toHaveValue('New bio text');
+
+  // === Stage 3: Persistence ===
+  // Assert after page reload or re-fetch
+  await page.reload();
+  await page.waitForSelector('[name="bio"]');
+  
+  // Verify the saved data survived the refresh
+  await expect(page.locator('[name="bio"]'))
+    .toHaveValue('New bio text');
+});`}</code>
+              </pre>
+            </div>
+          </div>
+
+          {/* Why Each Stage Matters */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Why Each Stage Matters
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Each stage catches a different category of bugs. Skipping any stage
+              leaves blind spots in your test coverage:
+            </p>
+
+            <div className="mt-6 space-y-4">
+              {/* Stage 1 importance */}
+              <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-400">
+                    <span className="text-lg font-bold">1</span>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                      Immediate State catches UX failures
+                    </h4>
+                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      If Stage 1 fails, users don&apos;t know their action registered.
+                      They might click again, causing duplicate submissions. Or they
+                      might think the app is broken and leave. Common bugs: missing
+                      onClick handlers, broken form bindings, disabled state not
+                      applying.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stage 2 importance */}
+              <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-400">
+                    <span className="text-lg font-bold">2</span>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                      Stable State catches async failures
+                    </h4>
+                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      If Stage 2 fails, the optimistic update showed success but the
+                      server rejected it. Or a race condition caused the UI to revert.
+                      Users see a &quot;success&quot; that disappears. Common bugs: unhandled
+                      API errors, race conditions in state updates, missing error
+                      boundaries.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stage 3 importance */}
+              <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-400">
+                    <span className="text-lg font-bold">3</span>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                      Persistence catches data loss
+                    </h4>
+                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      If Stage 3 fails, everything looked correct but the data was
+                      never actually saved. Users think their work is safe, but
+                      refreshing the page reveals it&apos;s gone. Common bugs: cache-only
+                      updates without API calls, transaction rollbacks, serialization
+                      errors.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Examples */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              More Pattern Examples
+            </h3>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              The 3-step pattern applies to any mutation operation. Here are
+              additional examples:
+            </p>
+
+            {/* Delete operation example */}
+            <div className="mt-6 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                delete-item.spec.ts — Delete operation
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`test('deleting an item removes it permanently', async ({ page }) => {
+  // Stage 1: Immediate - item starts fading/strikethrough
+  await page.click('[data-testid="delete-item-1"]');
+  await expect(page.locator('[data-testid="item-1"]'))
+    .toHaveClass(/deleting/);
+
+  // Stage 2: Stable - item is removed from list
+  await expect(page.locator('[data-testid="item-1"]'))
+    .not.toBeVisible();
+  await expect(page.locator('[data-testid="toast"]'))
+    .toHaveText('Item deleted');
+
+  // Stage 3: Persistence - item stays gone after reload
+  await page.reload();
+  await expect(page.locator('[data-testid="item-1"]'))
+    .not.toBeVisible();
+});`}</code>
+              </pre>
+            </div>
+
+            {/* Create operation example */}
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                create-task.spec.ts — Create operation
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`test('creating a task adds it to the list', async ({ page }) => {
+  // Stage 1: Immediate - new task appears optimistically
+  await page.fill('[data-testid="new-task"]', 'Buy groceries');
+  await page.click('[data-testid="add-task"]');
+  await expect(page.locator('text=Buy groceries')).toBeVisible();
+  await expect(page.locator('[data-testid="add-task"]'))
+    .toBeDisabled(); // Prevent double-submit
+
+  // Stage 2: Stable - task gets permanent ID, button re-enabled
+  await expect(page.locator('[data-testid="add-task"]'))
+    .toBeEnabled();
+  const task = page.locator('text=Buy groceries');
+  await expect(task).toHaveAttribute('data-id', /.+/); // Has server ID
+
+  // Stage 3: Persistence - task survives page refresh
+  await page.reload();
+  await expect(page.locator('text=Buy groceries')).toBeVisible();
+});`}</code>
+              </pre>
+            </div>
+          </div>
+
+          {/* When to Apply callout */}
+          <div className="mt-10 rounded-xl border border-sky-200 bg-gradient-to-r from-sky-50 to-neutral-50 p-6 dark:border-sky-900/50 dark:from-sky-950/30 dark:to-neutral-900">
+            <div className="flex items-start gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-900/50">
+                <svg
+                  className="h-5 w-5 text-sky-600 dark:text-sky-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                  When to Apply This Pattern
+                </h4>
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  Use the 3-step mutation testing pattern for any operation that
+                  modifies data: creates, updates, deletes, settings changes,
+                  form submissions, and user preference updates. Skip it only
+                  for read-only operations like navigation and search.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-900 dark:text-sky-200">
+                    CRUD operations
+                  </span>
+                  <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-900 dark:text-sky-200">
+                    Form submissions
+                  </span>
+                  <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-900 dark:text-sky-200">
+                    Settings changes
+                  </span>
+                  <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-900 dark:text-sky-200">
+                    User preferences
+                  </span>
+                  <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-800 dark:bg-sky-900 dark:text-sky-200">
+                    File uploads
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How Testing Fits Into Workflows */}
       <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">

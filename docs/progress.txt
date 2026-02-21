@@ -166,3 +166,32 @@
 - Link components should use Next.js <Link> not <a> for internal navigation
 
 ---
+
+## 2026-02-20 - US-008: Add Mutation Testing Requirements Concept
+
+### What was implemented
+- Added comprehensive "Mutation Testing Pattern" section to testing concepts page
+- Documented the 3-stage verification approach for state-changing operations:
+  1. **Immediate State**: Assert right after action (catches validation errors, action handler bugs)
+  2. **Stable State**: Assert after async operations settle (catches race conditions, optimistic UI mismatches)
+  3. **Persistence**: Assert after page reload/re-fetch (catches persistence bugs, cache issues, serialization)
+- Created visual cards for each verification stage with:
+  - Icon, title, and description
+  - What it catches (common bugs)
+  - Code snippet showing the assertion pattern
+- Added full Playwright code example showing all three stages together
+- Added "Why Each Stage Matters" section explaining what bugs each stage catches
+- Added additional code examples for delete and create operations
+- Added "When to Apply" callout with use case tags (CRUD, form submissions, settings, workflow transitions)
+- Used sky/cyan color theme to distinguish from other sections (pink for quality, purple for E2E, orange for QA, blue for unit)
+
+### Files changed
+- src/app/concepts/testing/page.tsx - Added Mutation Testing Pattern section (~340 lines)
+
+### Learnings for future iterations
+- Sky/cyan color theme available for new testing sections
+- Visual stage cards with code snippets help explain multi-step patterns
+- "When to Apply" sections with tags help users quickly identify relevant use cases
+- The 3-stage pattern is particularly important for E2E tests that verify state changes
+
+---
