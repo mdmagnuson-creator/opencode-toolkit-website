@@ -128,19 +128,21 @@ export default function GettingStartedPage() {
           </p>
 
           <div className="space-y-8">
-            {/* Step 1: Invoke an agent */}
+            {/* Step 1: Select a primary agent */}
             <div>
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                1. Open opencode and invoke an agent
+                1. Open opencode and select a primary agent
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                Launch opencode from anywhere and invoke a primary agent like <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">@builder</code>:
+                Launch opencode and press{" "}
+                <kbd className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                  Tab
+                </kbd>
+                {" "}to open the agent selector. Choose a primary agent like{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">Planner</code>,{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">Builder</code>, or{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">Toolkit</code>, then start chatting.
               </p>
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950">
-                <p className="font-mono text-sm text-blue-800 dark:text-blue-200">
-                  @builder
-                </p>
-              </div>
             </div>
 
             {/* Step 2: Project selection */}
