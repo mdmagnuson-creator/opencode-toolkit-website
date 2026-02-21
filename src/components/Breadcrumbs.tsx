@@ -32,10 +32,10 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
   if (breadcrumbs.length <= 1) return null;
 
   return (
-    <nav className="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
+    <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-neutral-500 dark:text-neutral-400">
       {breadcrumbs.map((item, index) => (
-        <span key={item.href} className="flex items-center gap-2">
-          {index > 0 && <span>/</span>}
+        <span key={item.href} className="inline-flex items-center gap-2">
+          {index > 0 && <span className="select-none">/</span>}
           {index === breadcrumbs.length - 1 ? (
             <span className="text-neutral-900 dark:text-white">{item.name}</span>
           ) : (

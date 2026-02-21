@@ -107,6 +107,18 @@ export function Header() {
     setOpenDropdown(openDropdown === itemName ? null : itemName);
   };
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const openSearch = useCallback(() => {
     setSearchOpen(true);
   }, []);
@@ -234,62 +246,64 @@ export function Header() {
         </div>
       </nav>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Full screen overlay */}
       {mobileMenuOpen && (
-        <div className="border-t border-neutral-200 bg-white px-6 py-4 lg:hidden dark:border-neutral-800 dark:bg-neutral-950">
-          {/* Search and Theme Toggle */}
-          <div className="mb-4 flex items-center gap-2 border-b border-neutral-200 pb-4 dark:border-neutral-800">
-            <button
-              onClick={() => {
-                openSearch();
-                setMobileMenuOpen(false);
-              }}
-              className="flex flex-1 items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-500 transition-colors hover:border-neutral-300 hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:bg-neutral-700"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <span>Search...</span>
-            </button>
-            <ThemeToggle />
-          </div>
+        <div className="fixed inset-0 top-[65px] z-40 overflow-y-auto bg-white lg:hidden dark:bg-neutral-950">
+          <div className="min-h-full px-6 py-4">
+            {/* Search and Theme Toggle */}
+            <div className="mb-4 flex items-center gap-2 border-b border-neutral-200 pb-4 dark:border-neutral-800">
+              <button
+                onClick={() => {
+                  openSearch();
+                  setMobileMenuOpen(false);
+                }}
+                className="flex flex-1 items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-500 transition-colors hover:border-neutral-300 hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:bg-neutral-700"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span>Search...</span>
+              </button>
+              <ThemeToggle />
+            </div>
 
-          {/* Navigation Links */}
-          <div className="flex flex-col gap-2">
-            {siteNavigation.map((item) => {
-              const hasDropdown = "dropdown" in item && item.dropdown;
+            {/* Navigation Links */}
+            <div className="flex flex-col gap-2">
+              {siteNavigation.map((item) => {
+                const hasDropdown = "dropdown" in item && item.dropdown;
 
-              if (hasDropdown && item.dropdown) {
-                return (
-                  <div key={item.name} className="space-y-1">
-                    <div className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 py-2">
-                      {item.name}
+                if (hasDropdown && item.dropdown) {
+                  return (
+                    <div key={item.name} className="space-y-1">
+                      <div className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 py-2">
+                        {item.name}
+                      </div>
+                      {item.dropdown.map((subItem) => (
+                        <Link
+                          key={subItem.href}
+                          href={subItem.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block rounded-md px-3 py-2 text-sm text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+                        >
+                          {subItem.name}
+                        </Link>
+                      ))}
                     </div>
-                    {item.dropdown.map((subItem) => (
-                      <Link
-                        key={subItem.href}
-                        href={subItem.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block rounded-md px-3 py-2 text-sm text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
-                      >
-                        {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                );
-              }
+                  );
+                }
 
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block rounded-md px-3 py-2 text-base font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block rounded-md px-3 py-2 text-base font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
