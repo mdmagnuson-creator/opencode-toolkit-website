@@ -70,7 +70,7 @@
   },
   
   "agents": {
-    "gitWorkflow": "feature-branches",
+    "gitWorkflow": "trunk",
     "autoCommit": true,
     "autoPush": true,
     "browserVerification": true,
