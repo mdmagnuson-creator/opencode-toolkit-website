@@ -384,3 +384,107 @@
 - Comparison tables help users understand when to use which agent
 
 ---
+
+## 2026-02-21 - US-003: Document how humans work with Builder
+
+### What was implemented
+- Added comprehensive "Working with Builder" section to Human Work Modes page
+- Created "Two Operating Modes" subsection with detailed cards:
+  - PRD Mode: systematic story-by-story execution with auto-generated tests
+  - Ad-hoc Mode: immediate execution for quick fixes and one-off tasks
+- Added "When to Use Each Mode" comparison table with 6 common scenarios
+- Created "The Update Flow" section with visual flow diagram showing:
+  - Agent discovers gap → queues in pending-updates/ → @toolkit applies → @builder applies project updates
+  - Includes user control note about reviewing and approving updates
+- Added "Expected Outcomes" section with outcome lists for both modes
+- Created "Practical Prompts for Builder Sessions" with 5 copy-ready prompts:
+  - PRD Mode: starting implementation, continuing work
+  - Ad-hoc: bug fix, refactoring, adding API endpoint
+- Added "Pro Tips for Working with Builder" callout box
+- Updated "Coming Soon" section to only mention Toolkit (Builder now documented)
+
+### Files changed
+- src/app/concepts/human-work-modes/page.tsx - Added ~550 lines for Builder section
+- docs/prd.json - Marked US-003 as passes: true
+
+### Learnings for future iterations
+- Blue color theme for Builder, purple for ad-hoc mode (distinguishes the two modes visually)
+- Side-by-side cards work well for comparing two operational modes
+- Update flow diagrams with numbered steps help explain multi-agent coordination
+- Expected outcomes lists with bullet points give users clear success criteria
+- Pro tips boxes at the end of sections provide valuable quick reference
+
+---
+
+## 2026-02-21 - US-005: Define end-to-end human operating loops
+
+### What was implemented
+- Added comprehensive "End-to-End Operating Loops" section to Human Work Modes page
+- Created three concrete operating loops:
+  1. **New Feature Loop**: Planner → Builder → (optional Toolkit) → Ship
+     - 4 steps with handoff points marked between each
+     - Shows PRD ready handoff, optional toolkit gap queuing, and PR completion
+     - Completion criteria: all stories pass, tests pass, PR merged, PRD archived
+  2. **Quick Fix Loop**: Builder (ad-hoc) → Verify → Ship
+     - 3 steps for bug fixes and quick improvements
+     - No PRD overhead, direct implementation
+     - Completion criteria: fix committed, quality gates pass, changes pushed
+  3. **Toolkit Sync Loop**: Toolkit review → Apply → Builder verify → Done
+     - 4 steps for periodic toolkit maintenance
+     - Shows review/approve decision point and verification step
+     - Completion criteria: updates reviewed, changes committed, verified on project
+- Added "Choosing the Right Loop" summary table with 5 common scenarios
+- Added "Pro Tips for Operating Loops" callout with 4 best practices
+- Used emerald color theme for section, purple for Quick Fix loop, amber for Toolkit Sync loop
+- All loops include:
+  - Clear handoff arrows with labels
+  - Agent badges (violet for Planner, blue for Builder, amber for Toolkit, green for Done)
+  - Completion criteria checklists
+  - Copy-ready prompt examples
+
+### Files changed
+- src/app/concepts/human-work-modes/page.tsx - Added ~700 lines for Operating Loops section
+- docs/prd.json - Marked US-005 as passes: true
+
+### Learnings for future iterations
+- Emerald color theme works well for meta/coordination sections
+- Dashed borders help distinguish optional steps from required ones
+- Handoff arrows with uppercase labels create clear visual flow
+- Completion criteria checklists give users confidence in when a loop is truly done
+- Summary tables help users quickly match their situation to the right workflow
+
+---
+
+## 2026-02-21 - US-006: Add actionable quick-start prompts
+
+### What was implemented
+- Added new "Quick Start Prompts" section to Human Work Modes page (after Operating Loops)
+- Section includes 16 copy-ready prompts using CodeBlockWithCopy component:
+  - **Planner prompts (4)**: new feature, refine draft PRD, mark ready, split story
+  - **Builder prompts (7)**: organized by PRD Mode (3) and Ad-hoc Mode (4)
+    - PRD Mode: start implementing, continue with story, implement specific story
+    - Ad-hoc Mode: fix bug, add quick feature, refactor code, add tests
+  - **Toolkit prompts (5)**: review pending updates, create skill, update agent, audit coverage, create scaffold
+- Each prompt card includes:
+  - Descriptive title for the use case
+  - Copy button for one-click clipboard copy
+  - Bracketed placeholders for user-specific details
+- Added "Prompt Tips" card at section end with 4 best practices:
+  - Be specific (concrete > vague)
+  - Include context (file paths, error messages)
+  - State constraints (what NOT to change)
+  - Use the right agent (routing guidance)
+- Used indigo color theme for section header with rocket icon
+- Fixed 3 failing tests by updating queries to use getAllBy* variants for intentionally duplicate content
+
+### Files changed
+- src/app/concepts/human-work-modes/page.tsx - Added ~250 lines for Quick Start Prompts section
+- src/app/concepts/human-work-modes/__tests__/page.test.tsx - Fixed 3 tests (lines 27-34, 697-705, 1629-1638)
+- docs/prd.json - Marked US-006 as passes: true
+
+### Learnings for future iterations
+- CodeBlockWithCopy component provides real copy functionality (unlike styled spans)
+- When adding content that duplicates existing text, tests using getBy* need to switch to getAllBy*
+- Indigo color theme available for new sections (not used elsewhere on this page)
+- Organizing prompts by mode (PRD Mode vs Ad-hoc Mode) helps users find what they need quickly
+- Prompt tips should be actionable and specific ("Fix the login form" > "Fix the bug")

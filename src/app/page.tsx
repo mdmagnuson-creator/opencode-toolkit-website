@@ -3,6 +3,7 @@ import { CodeBlockWithCopy } from "@/components/CodeBlockWithCopy";
 import { Hero } from "@/components/Hero";
 import { TheLoop } from "@/components/TheLoop";
 import { manifest, getPrimaryAgents, getRegularSkills } from "@/data";
+import { getInstallCommand } from "@/config/urls";
 import Link from "next/link";
 
 export default function Home() {
@@ -378,7 +379,7 @@ export default function Home() {
                   Open a terminal and run the toolkit installer:
                 </p>
                 <CodeBlockWithCopy
-                  code="curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash"
+                  code={getInstallCommand()}
                   className="mt-3"
                 />
               </div>

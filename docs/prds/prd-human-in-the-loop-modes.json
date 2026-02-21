@@ -17,7 +17,7 @@
         "Works in both light and dark mode"
       ],
       "priority": 1,
-      "passes": true,
+      "passes": false,
       "notes": "",
       "documentationRequired": false,
       "documentationType": null,
@@ -45,8 +45,8 @@
         "Works in both light and dark mode"
       ],
       "priority": 2,
-      "passes": true,
-      "notes": "Added comprehensive Planner section with draft-to-ready journey, refinement tips, scope clarification, practical prompts, and when to use Planner vs Builder guidance.",
+      "passes": false,
+      "notes": "",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
@@ -73,8 +73,8 @@
         "Works in both light and dark mode"
       ],
       "priority": 3,
-      "passes": true,
-      "notes": "Added comprehensive Builder section with PRD mode vs ad-hoc mode comparison, update flow diagram, expected outcomes, and practical prompts for common scenarios.",
+      "passes": false,
+      "notes": "",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
@@ -101,8 +101,8 @@
         "Works in both light and dark mode"
       ],
       "priority": 4,
-      "passes": true,
-      "notes": "Added comprehensive Toolkit section with: key distinction between toolkit vs project levels, what toolkit changes (agents/skills/scaffolds/data), when-to-use comparison table, full pending-updates handoff flow diagram, practical prompts for common scenarios, and pro tips.",
+      "passes": false,
+      "notes": "",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
@@ -129,8 +129,8 @@
         "Works in both light and dark mode"
       ],
       "priority": 5,
-      "passes": true,
-      "notes": "Added three end-to-end operating loops: (1) New Feature Loop (Planner → Builder → optional Toolkit → Ship) with 4 steps and handoff points, (2) Quick Fix Loop (Builder ad-hoc → verify → Ship) for bug fixes and small changes, (3) Toolkit Sync Loop (Toolkit review → apply → Builder verify) for periodic maintenance. Each loop has clear completion criteria, agent badges at each step, visual handoff arrows, and a summary table for choosing the right loop. Used emerald theme for the section with purple and amber accents for individual loops.",
+      "passes": false,
+      "notes": "",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
@@ -157,8 +157,8 @@
         "Works in both light and dark mode"
       ],
       "priority": 6,
-      "passes": true,
-      "notes": "Added Quick Start Prompts section with 16 copy-ready prompts using CodeBlockWithCopy component: 4 Planner prompts (new feature, refine draft, mark ready, split story), 7 Builder prompts organized by PRD Mode (3) and Ad-hoc Mode (4), and 5 Toolkit prompts (review updates, new skill, update agent, audit coverage, new scaffold). Section includes a Prompt Tips card with best practices. Verified in both light and dark modes. All 197 tests pass.",
+      "passes": false,
+      "notes": "",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
