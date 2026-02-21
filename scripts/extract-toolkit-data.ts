@@ -138,6 +138,18 @@ function categorizeAgent(name: string, description: string): string {
   const lowerName = name.toLowerCase();
   const lowerDesc = description.toLowerCase();
 
+  // E2E and QA agents are testers (check before critic/dev patterns)
+  if (lowerName.includes('e2e-') || lowerName.includes('qa-') || lowerName === 'qa') {
+    return 'testers';
+  }
+  // Playwright-dev is a tester (writes test code)
+  if (lowerName === 'playwright-dev') {
+    return 'testers';
+  }
+  // Merge-coordinator is coordination, not testing (even though it runs tests)
+  if (lowerName === 'merge-coordinator') {
+    return 'other';
+  }
   if (lowerName.includes('critic') || lowerName.includes('reviewer')) {
     return 'critics';
   }

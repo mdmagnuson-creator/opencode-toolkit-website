@@ -247,3 +247,37 @@
 - Section IDs should be short and kebab-case for cleaner URLs
 
 ---
+
+## 2026-02-21 - US-001, US-002, US-004, US-005, US-007: Verified Existing Documentation
+
+### What was verified
+- US-001 (Testing Architecture Overview): Already implemented with Testing Agent Hierarchy diagram and Three Operational Modes
+- US-002 (Document Tester Orchestrator): Already implemented with How the Tester Orchestrator Works section, routing logic, retry handling
+- US-004 (Document E2E Testing Agents): Already implemented with E2E Testing System section and 4 agent cards
+- US-005 (Document QA Adversarial Testing): Already implemented with QA & Adversarial Testing section
+- US-007 (Document Test Flow Skill): Already implemented with Test Flow Automation section
+
+### Files verified
+- src/app/concepts/testing/page.tsx - All sections present and complete
+
+---
+
+## 2026-02-21 - US-011: Verify Build-Time Sync Accuracy
+
+### What was implemented
+- Fixed categorization logic in extract-toolkit-data.ts
+- Added explicit checks for e2e-, qa-, and playwright-dev to be categorized as testers
+- Excluded merge-coordinator from testers category (it's coordination, not testing)
+- Verified all 10 testers are now correctly extracted
+- Verified both testing skills (test-flow, e2e-quality) are extracted
+
+### Files changed
+- scripts/extract-toolkit-data.ts - Updated categorizeAgent() function
+- src/data/toolkit-manifest.json - Regenerated with correct categories
+
+### Learnings for future iterations
+- Agent categorization is based on name and description patterns
+- Order of pattern matching matters - specific patterns should come before generic ones
+- E2E and QA agents should be categorized as testers even if they have "reviewer" or "dev" in name
+
+---
