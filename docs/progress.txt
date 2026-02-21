@@ -36,3 +36,33 @@
 - Static export creates 'out/' directory with index.html
 
 ---
+
+## 2026-02-20 - US-003: Document Unit Test Specialists
+
+### What was implemented
+- Added new "Unit Test Specialists" section to testing concepts page
+- Created detailed agent cards for each specialist:
+  - jest-tester: Backend JS/TS testing with Jest
+  - react-tester: React component testing with RTL + Jest
+  - go-tester: Go testing with testify and httptest
+- Each card includes:
+  - Agent name and description
+  - File patterns handled (*.ts, *.js, *.tsx, *.jsx, *.go)
+  - Testing framework used
+  - Key capabilities (6 per agent)
+  - Link to full agent documentation page
+- Added Project-Specific Overrides section explaining:
+  - How to override global testers with project versions
+  - Directory structure example (docs/agents/)
+  - Common use cases for customization
+  - Override priority note
+
+### Files changed
+- src/app/concepts/testing/page.tsx - Added Unit Test Specialists section (~500 lines)
+
+### Learnings for future iterations
+- Agent cards should use semantic color coding (blue for jest, purple for react, cyan for go)
+- Project override documentation should include concrete file path examples
+- Capabilities lists work well in 2-column grids on larger screens
+
+---
