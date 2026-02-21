@@ -140,8 +140,8 @@
         "Lint passes"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Removed extract-toolkit-data.ts and generate-manifest.ts. Updated package.json to use fetch-data → transform-data flow. Updated types.ts comment and docs/review.md references.",
       "supportArticleRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],

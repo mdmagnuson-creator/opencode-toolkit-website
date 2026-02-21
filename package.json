@@ -2,14 +2,17 @@
   "name": "opencode-toolkit-website",
   "version": "0.1.0",
   "private": true,
+  "comment:scripts": "Note: prepare-data uses bash syntax and requires a Unix-like shell. Windows users should run fetch-data and transform-data manually.",
   "scripts": {
-    "dev": "npm run extract-data && next dev",
+    "dev": "npm run prepare-data && next dev --port 4004",
     "build": "next build",
-    "prebuild": "[ -n \"$CI\" ] && echo 'Skipping prebuild in CI' || npx tsx scripts/generate-manifest.ts ~/.config/opencode || echo 'Using existing manifest'",
+    "prebuild": "[ -n \"$CI\" ] && echo 'Skipping prebuild in CI' || npm run prepare-data",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "extract-data": "npx tsx scripts/extract-toolkit-data.ts"
+    "fetch-data": "npx tsx scripts/fetch-toolkit-manifest.ts",
+    "transform-data": "npx tsx scripts/transform-toolkit-structure.ts",
+    "prepare-data": "npm run fetch-data && npm run transform-data"
   },
   "dependencies": {
     "next": "16.1.6",

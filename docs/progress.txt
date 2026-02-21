@@ -281,3 +281,31 @@
 - E2E and QA agents should be categorized as testers even if they have "reviewer" or "dev" in name
 
 ---
+
+## 2026-02-21 - US-006: Deprecate Old Extraction Script
+
+### What was implemented
+- Removed `scripts/extract-toolkit-data.ts` (deprecated custom extraction script)
+- Removed `scripts/generate-manifest.ts` (deprecated manifest generation script)
+- Updated `package.json` scripts:
+  - Removed `extract-data` script
+  - Added `fetch-data` script for fetching manifest from GitHub/local
+  - Changed `prepare-data` to use `fetch-data → transform-data` flow
+  - Updated comment about Windows compatibility
+- Updated `src/data/types.ts` comment to reference new transform script
+- Updated `docs/review.md` to remove obsolete reference to deprecated script
+
+### Files changed
+- scripts/extract-toolkit-data.ts - DELETED
+- scripts/generate-manifest.ts - DELETED
+- package.json - Updated scripts section
+- src/data/types.ts - Updated comment
+- docs/review.md - Removed obsolete minor issue
+
+### Learnings for future iterations
+- New data flow: `fetch-toolkit-manifest.ts` → `transform-toolkit-structure.ts`
+- Fetch script tries GitHub first, falls back to local `~/code/ai-toolkit/toolkit-structure.json`
+- Transform script converts toolkit-structure.json format to website's toolkit-manifest.json format
+- CI builds no longer need local toolkit clone - fetch from GitHub raw URL
+
+---
