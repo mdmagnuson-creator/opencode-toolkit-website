@@ -1418,6 +1418,883 @@ export default function TestingConceptPage() {
         </div>
       </section>
 
+      {/* E2E Testing System */}
+      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            E2E Testing System
+          </h2>
+          <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
+            The toolkit includes a complete end-to-end testing pipeline using
+            Playwright. Four specialized agents work together to identify test
+            gaps, write comprehensive tests, and run full browser-based test
+            suites.
+          </p>
+
+          {/* E2E Workflow Diagram */}
+          <div className="mt-10 rounded-xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 dark:border-neutral-700 dark:bg-neutral-900">
+            <h3 className="text-center text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400">
+              E2E Testing Workflow
+            </h3>
+
+            <div className="mt-6 space-y-4">
+              {/* Step 1: UI Changes */}
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-200 text-sm font-semibold text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300">
+                  1
+                </div>
+                <div className="flex-1 rounded-lg border-2 border-neutral-300 bg-white px-4 py-3 dark:border-neutral-600 dark:bg-neutral-800">
+                  <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                    UI Changes Made
+                  </p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    Code changes to components, pages, or user flows
+                  </p>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div className="flex justify-center pl-14">
+                <svg
+                  className="h-6 w-6 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
+              </div>
+
+              {/* Step 2: e2e-reviewer */}
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-sm font-semibold text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+                  2
+                </div>
+                <div className="flex-1 rounded-lg border-2 border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-700 dark:bg-amber-950">
+                  <div className="flex items-center gap-2">
+                    <code className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+                      e2e-reviewer
+                    </code>
+                    <span className="rounded bg-amber-200 px-1.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-800 dark:text-amber-200">
+                      analyzes
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-amber-700 dark:text-amber-400">
+                    Reviews git diff, identifies UI areas needing E2E coverage
+                  </p>
+                </div>
+              </div>
+
+              {/* Arrow with output */}
+              <div className="flex items-center gap-4 pl-14">
+                <svg
+                  className="h-6 w-6 shrink-0 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
+                <div className="rounded-lg bg-neutral-200 px-3 py-1.5 dark:bg-neutral-700">
+                  <code className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                    e2e-areas.json
+                  </code>
+                </div>
+              </div>
+
+              {/* Step 3: e2e-playwright */}
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-100 text-sm font-semibold text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+                  3
+                </div>
+                <div className="flex-1 rounded-lg border-2 border-purple-300 bg-purple-50 px-4 py-3 dark:border-purple-700 dark:bg-purple-950">
+                  <div className="flex items-center gap-2">
+                    <code className="text-sm font-semibold text-purple-900 dark:text-purple-100">
+                      e2e-playwright
+                    </code>
+                    <span className="rounded bg-purple-200 px-1.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-800 dark:text-purple-200">
+                      writes
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-purple-700 dark:text-purple-400">
+                    Reads manifest, writes comprehensive Playwright tests
+                  </p>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div className="flex justify-center pl-14">
+                <svg
+                  className="h-6 w-6 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
+              </div>
+
+              {/* Step 4: e2e-tester */}
+              <div className="flex items-center gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-100 text-sm font-semibold text-green-700 dark:bg-green-900 dark:text-green-300">
+                  4
+                </div>
+                <div className="flex-1 rounded-lg border-2 border-green-300 bg-green-50 px-4 py-3 dark:border-green-700 dark:bg-green-950">
+                  <div className="flex items-center gap-2">
+                    <code className="text-sm font-semibold text-green-900 dark:text-green-100">
+                      e2e-tester
+                    </code>
+                    <span className="rounded bg-green-200 px-1.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-800 dark:text-green-200">
+                      runs
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-green-700 dark:text-green-400">
+                    Executes full E2E suite, generates failure reports
+                  </p>
+                </div>
+              </div>
+
+              {/* Two outcome branches */}
+              <div className="flex justify-center gap-8 pl-14 pt-2">
+                <div className="flex flex-col items-center">
+                  <span className="mb-2 text-xs font-medium text-green-600 dark:text-green-400">
+                    Pass
+                  </span>
+                  <div className="rounded-lg border-2 border-green-300 bg-green-50 px-3 py-2 dark:border-green-700 dark:bg-green-950">
+                    <span className="text-sm font-semibold text-green-900 dark:text-green-100">
+                      Ready to ship
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="mb-2 text-xs font-medium text-red-600 dark:text-red-400">
+                    Fail
+                  </span>
+                  <div className="rounded-lg border-2 border-red-300 bg-red-50 px-3 py-2 dark:border-red-700 dark:bg-red-950">
+                    <span className="text-sm font-semibold text-red-900 dark:text-red-100">
+                      Draft PRD created
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* E2E Agent Cards */}
+          <div className="mt-12 space-y-6">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              E2E Testing Agents
+            </h3>
+
+            {/* e2e-reviewer */}
+            <div className="rounded-xl border border-amber-200 bg-white p-6 dark:border-amber-800 dark:bg-neutral-900">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600 text-white">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        e2e-reviewer
+                      </h4>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        Test Gap Analyzer
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+                    Analyzes git diffs to identify UI areas that need E2E test
+                    coverage. Creates a structured manifest of test requirements
+                    for other agents to consume.
+                  </p>
+                </div>
+              </div>
+
+              {/* Details Grid */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* Primary Output */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Primary Output
+                  </p>
+                  <div className="mt-2">
+                    <code className="rounded bg-amber-100 px-2 py-1 text-sm font-medium text-amber-900 dark:bg-amber-900 dark:text-amber-100">
+                      e2e-areas.json
+                    </code>
+                  </div>
+                </div>
+
+                {/* Invoked By */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Typically Invoked By
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    builder, developer, or workflow automation
+                  </p>
+                </div>
+
+                {/* Capabilities */}
+                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Key Capabilities
+                  </p>
+                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      Git diff analysis for changed UI components
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      Identifies user flows affected by changes
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      Detects forms, modals, and interactive elements
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      Prioritizes critical paths for testing
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      Structured JSON manifest generation
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      Integration with existing test coverage
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="mt-6">
+                <Link
+                  href="/agents/e2e-reviewer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300"
+                >
+                  View full agent documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* e2e-playwright */}
+            <div className="rounded-xl border border-purple-200 bg-white p-6 dark:border-purple-800 dark:bg-neutral-900">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-600 text-white">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        e2e-playwright
+                      </h4>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        E2E Test Writer
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+                    Reads the e2e-areas.json manifest and writes comprehensive
+                    Playwright E2E tests for each identified area. Generates
+                    tests that cover user flows, forms, and critical paths.
+                  </p>
+                </div>
+              </div>
+
+              {/* Details Grid */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* Test Output */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Test Output
+                  </p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <code className="rounded bg-purple-100 px-2 py-1 text-sm font-medium text-purple-900 dark:bg-purple-900 dark:text-purple-100">
+                      *.spec.ts
+                    </code>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                      in e2e/ or tests/
+                    </span>
+                  </div>
+                </div>
+
+                {/* Framework */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Testing Framework
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    Playwright Test
+                  </p>
+                </div>
+
+                {/* Capabilities */}
+                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Key Capabilities
+                  </p>
+                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                      Page object pattern for maintainability
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                      Form submission and validation tests
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                      Navigation and routing verification
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                      Authentication flow testing
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                      Visual regression with screenshots
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                      Multi-browser testing support
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="mt-6">
+                <Link
+                  href="/agents/e2e-playwright"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
+                >
+                  View full agent documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* playwright-dev */}
+            <div className="rounded-xl border border-indigo-200 bg-white p-6 dark:border-indigo-800 dark:bg-neutral-900">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 text-white">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        playwright-dev
+                      </h4>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        Playwright Automation Specialist
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+                    General-purpose Playwright implementation agent for custom
+                    automation tasks, fixtures, and utilities. Can be invoked
+                    directly for Playwright-specific work outside the standard
+                    E2E workflow.
+                  </p>
+                </div>
+              </div>
+
+              {/* Details Grid */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* Use Cases */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Common Use Cases
+                  </p>
+                  <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
+                    <li>Custom test fixtures</li>
+                    <li>Shared page objects</li>
+                    <li>Helper utilities</li>
+                  </ul>
+                </div>
+
+                {/* Direct Invocation */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Invocation
+                  </p>
+                  <div className="mt-2">
+                    <code className="rounded bg-indigo-100 px-2 py-1 text-sm font-medium text-indigo-900 dark:bg-indigo-900 dark:text-indigo-100">
+                      @playwright-dev
+                    </code>
+                  </div>
+                  <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+                    Can be invoked directly for Playwright tasks
+                  </p>
+                </div>
+
+                {/* Capabilities */}
+                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Key Capabilities
+                  </p>
+                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                      Custom fixture development
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                      Reusable page object classes
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                      Test data factories
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                      API mocking and interception
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                      Browser context configuration
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                      Parallel test orchestration
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="mt-6">
+                <Link
+                  href="/agents/playwright-dev"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                >
+                  View full agent documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* e2e-tester */}
+            <div className="rounded-xl border border-green-200 bg-white p-6 dark:border-green-800 dark:bg-neutral-900">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-600 text-white">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        e2e-tester
+                      </h4>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        E2E Suite Runner
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+                    The primary agent for running full E2E test suites. Executes
+                    all Playwright tests, generates detailed failure reports, and
+                    creates draft PRDs for any failures that need fixing.
+                  </p>
+                </div>
+              </div>
+
+              {/* Details Grid */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* On Failure */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    On Test Failure
+                  </p>
+                  <div className="mt-2">
+                    <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                      Creates draft PRD for fix
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    Failures are tracked and queued for resolution
+                  </p>
+                </div>
+
+                {/* Dev Server */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Execution Environment
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    Uses dev server for testing
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                    Tests run against local development server
+                  </p>
+                </div>
+
+                {/* Capabilities */}
+                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Key Capabilities
+                  </p>
+                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Full test suite execution
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Parallel browser testing
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Detailed failure reports with screenshots
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Automatic draft PRD generation
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Retry logic for flaky tests
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                      CI/CD integration support
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="mt-6">
+                <Link
+                  href="/agents/e2e-tester"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+                >
+                  View full agent documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Concepts */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Key Concepts
+            </h3>
+
+            <div className="mt-6 space-y-4">
+              {/* e2e-areas.json */}
+              <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                      The e2e-areas.json Manifest
+                    </h4>
+                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      A structured JSON file that describes which UI areas need
+                      E2E test coverage. Created by{" "}
+                      <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">
+                        e2e-reviewer
+                      </code>{" "}
+                      and consumed by{" "}
+                      <code className="rounded bg-purple-100 px-1 py-0.5 text-xs dark:bg-purple-900">
+                        e2e-playwright
+                      </code>
+                      .
+                    </p>
+                    <div className="mt-4 rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                      <pre className="overflow-x-auto text-sm">
+                        <code className="text-neutral-700 dark:text-neutral-300">
+{`{
+  "areas": [
+    {
+      "name": "Login Flow",
+      "priority": "critical",
+      "paths": ["/login", "/forgot-password"],
+      "interactions": ["form-submit", "validation"]
+    },
+    {
+      "name": "Dashboard Navigation",
+      "priority": "high",
+      "paths": ["/dashboard/*"],
+      "interactions": ["nav-click", "search"]
+    }
+  ]
+}`}
+                        </code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Failures → Draft PRDs */}
+              <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                      Failures Become Draft PRDs
+                    </h4>
+                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      When E2E tests fail, the{" "}
+                      <code className="rounded bg-green-100 px-1 py-0.5 text-xs dark:bg-green-900">
+                        e2e-tester
+                      </code>{" "}
+                      automatically generates a draft PRD describing the issue.
+                      This ensures failures are tracked and queued for
+                      resolution rather than being lost.
+                    </p>
+                    <div className="mt-4 flex items-center gap-3">
+                      <div className="rounded-lg bg-red-50 px-3 py-2 dark:bg-red-950">
+                        <span className="text-sm font-medium text-red-900 dark:text-red-100">
+                          Test Failure
+                        </span>
+                      </div>
+                      <svg
+                        className="h-5 w-5 text-neutral-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                      <div className="rounded-lg bg-blue-50 px-3 py-2 dark:bg-blue-950">
+                        <span className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                          Draft PRD Created
+                        </span>
+                      </div>
+                      <svg
+                        className="h-5 w-5 text-neutral-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                      <div className="rounded-lg bg-green-50 px-3 py-2 dark:bg-green-950">
+                        <span className="text-sm font-medium text-green-900 dark:text-green-100">
+                          Fixed in Next Sprint
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dev Server */}
+              <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                      Using the Dev Server for E2E Tests
+                    </h4>
+                    <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      E2E tests run against your local development server,
+                      configured via{" "}
+                      <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-700">
+                        project.json
+                      </code>
+                      . The{" "}
+                      <code className="rounded bg-green-100 px-1 py-0.5 text-xs dark:bg-green-900">
+                        e2e-tester
+                      </code>{" "}
+                      manages starting and stopping the server automatically.
+                    </p>
+                    <div className="mt-4 rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                        From project.json
+                      </p>
+                      <pre className="mt-2 overflow-x-auto text-sm">
+                        <code className="text-neutral-700 dark:text-neutral-300">
+{`"apps": {
+  "web": {
+    "devPort": 3000,
+    "framework": "nextjs"
+  }
+}`}
+                        </code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How Testing Fits Into Workflows */}
       <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">

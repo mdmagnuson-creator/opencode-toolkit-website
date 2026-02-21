@@ -37,6 +37,39 @@
 
 ---
 
+## 2026-02-20 - US-004: Document E2E Testing Agents
+
+### What was implemented
+- Added comprehensive "E2E Testing System" section to testing concepts page
+- Created E2E workflow diagram showing the complete flow:
+  - UI Changes → e2e-reviewer (analyzes) → e2e-areas.json → e2e-playwright (writes) → e2e-tester (runs)
+  - Shows pass/fail outcomes (Ready to ship vs Draft PRD created)
+- Created detailed agent cards for all 4 E2E agents:
+  - e2e-reviewer: Test gap analyzer with amber color theme
+  - e2e-playwright: E2E test writer with purple color theme
+  - playwright-dev: Playwright automation specialist with indigo color theme
+  - e2e-tester: E2E suite runner with green color theme
+- Each card includes:
+  - Agent name and description
+  - Primary output/framework info
+  - Key capabilities (6 per agent)
+  - Link to full agent documentation page
+- Added Key Concepts section explaining:
+  - The e2e-areas.json manifest with JSON example
+  - How failures become draft PRDs (visual flow diagram)
+  - Using the dev server for E2E tests with project.json example
+
+### Files changed
+- src/app/concepts/testing/page.tsx - Added E2E Testing System section (~600 lines)
+
+### Learnings for future iterations
+- Use distinct color themes for each E2E agent (amber, purple, indigo, green)
+- Workflow diagrams with numbered steps are effective for explaining agent chains
+- Include JSON code examples in Key Concepts for concrete understanding
+- Visual flow diagrams (A → B → C) help explain failure handling workflows
+
+---
+
 ## 2026-02-20 - US-003: Document Unit Test Specialists
 
 ### What was implemented
