@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-21T19:27:00Z",
-  "syncedAt": "2026-02-21T19:30:37.448Z",
-  "toolkitCommit": "24210e9",
+  "generatedAt": "2026-02-21T19:37:39Z",
+  "syncedAt": "2026-02-21T19:48:28.333Z",
+  "toolkitCommit": "7ed4067",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
@@ -935,6 +935,16 @@
       "date": "2026-02-21",
       "displayDate": "February 21, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add resumable right-panel todo contracts",
+          "scope": "primary"
+        },
+        {
+          "type": "feat",
+          "description": "sync right-panel todos with persisted session state",
+          "scope": "builder"
+        },
         {
           "type": "fix",
           "description": "defer dev server checks until workflow selection",
