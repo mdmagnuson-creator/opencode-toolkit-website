@@ -9,12 +9,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const MANIFEST_URL =
-  'https://raw.githubusercontent.com/opencode-ai/ai-toolkit/main/toolkit-structure.json';
+  'https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/toolkit-structure.json';
 const LOCAL_FALLBACK_PATH = path.join(
   process.env.HOME || '',
   'code/ai-toolkit/toolkit-structure.json'
 );
 const OUTPUT_PATH = path.join(process.cwd(), 'src/data/toolkit-structure.json');
+const CHECKED_IN_FALLBACK_PATH = OUTPUT_PATH;
 
 interface FetchResult {
   success: boolean;
@@ -65,6 +66,27 @@ function readFromLocal(): FetchResult {
   }
 }
 
+function readFromCheckedIn(): FetchResult {
+  try {
+    console.log(`Reading checked-in fallback from: ${CHECKED_IN_FALLBACK_PATH}`);
+
+    if (!fs.existsSync(CHECKED_IN_FALLBACK_PATH)) {
+      return {
+        success: false,
+        source: 'local',
+        error: `File not found: ${CHECKED_IN_FALLBACK_PATH}`,
+      };
+    }
+
+    const content = fs.readFileSync(CHECKED_IN_FALLBACK_PATH, 'utf-8');
+    const data = JSON.parse(content);
+    return { success: true, source: 'local', data };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return { success: false, source: 'local', error: message };
+  }
+}
+
 async function main(): Promise<void> {
   console.log('Fetching toolkit-structure.json manifest...\n');
 
@@ -78,16 +100,21 @@ async function main(): Promise<void> {
     result = readFromLocal();
   }
 
+  // Fall back to checked-in manifest in CI and other environments
+  if (!result.success) {
+    console.warn(`Local fallback failed: ${result.error}`);
+    console.log('Attempting checked-in fallback...\n');
+    result = readFromCheckedIn();
+  }
+
   if (!result.success) {
     console.error('\n❌ Failed to fetch toolkit manifest');
     console.error(`   Remote error: Could not fetch from ${MANIFEST_URL}`);
     console.error(`   Local error: ${result.error}`);
     console.error('\nTo fix this:');
     console.error('  1. Check your network connection');
-    console.error(
-      '  2. Ensure ai-toolkit repo is cloned at ~/code/ai-toolkit'
-    );
-    console.error('  3. Run: git clone <repo-url> ~/code/ai-toolkit');
+    console.error('  2. Ensure ai-toolkit repo is cloned at ~/code/ai-toolkit (for local fallback)');
+    console.error('  3. Ensure src/data/toolkit-structure.json exists as checked-in fallback');
     process.exit(1);
   }
 
