@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
 import { SearchModal } from "./SearchModal";
+import { manifest } from "@/data";
 
 interface SubNavItem {
   name: string;
@@ -18,39 +19,47 @@ interface NavItem {
   dropdown?: SubNavItem[];
 }
 
-const siteNavigation: NavItem[] = [
-  { name: "Home", href: "/" },
-  {
-    name: "Concepts",
-    href: "/concepts",
-    dropdown: [
-      { name: "Overview", href: "/concepts", description: "The big picture" },
-      { name: "Understanding Agents", href: "/concepts/agents", description: "Primary vs sub-agents" },
-      { name: "Agent Workflows", href: "/concepts/agent-workflows", description: "Update queues & coordination" },
-      { name: "Meta-Skills", href: "/concepts/meta-skills", description: "Generate project patterns" },
-      { name: "Project Skills", href: "/concepts/skills", description: "Task-specific workflows" },
-      { name: "Project Setup", href: "/concepts/projects", description: "Configuration & structure" },
-      { name: "The Agent Loop", href: "/concepts/workflow", description: "Plan-Build-Test-Ship cycle" },
-      { name: "The Human in the Loop (you)", href: "/concepts/the-human-in-the-loop", description: "Control AI autonomy" },
-    ],
-  },
-  {
-    name: "Reference",
-    href: "/agents",
-    dropdown: [
-      { name: "Primary Agents", href: "/agents/primary", description: "Entry points (5 agents)" },
-      { name: "Sub-Agents", href: "/agents/sub", description: "Specialists (54 agents)" },
-      { name: "Meta-Skills", href: "/skills?type=meta", description: "Generate project patterns" },
-      { name: "Skills", href: "/skills?type=regular", description: "Task-specific workflows" },
-      { name: "Scaffolds", href: "/scaffolds", description: "Project templates" },
-      { name: "Agent Templates", href: "/agent-templates", description: "Framework-specific agent patterns" },
-      { name: "MCP Servers", href: "/mcp", description: "External tools & integrations" },
-      { name: "Automations", href: "/automations", description: "GitHub Actions workflows" },
-    ],
-  },
-  { name: "Get Started", href: "/getting-started" },
-  { name: "Changelog", href: "/changelog" },
-];
+// Build navigation with dynamic counts from manifest
+function buildNavigation(): NavItem[] {
+  const primaryCount = manifest.counts.primaryAgents;
+  const subagentCount = manifest.counts.subagents;
+  const metaSkillCount = manifest.counts.metaSkills;
+  const regularSkillCount = manifest.counts.skills - metaSkillCount;
+
+  return [
+    { name: "Home", href: "/" },
+    {
+      name: "Concepts",
+      href: "/concepts",
+      dropdown: [
+        { name: "Overview", href: "/concepts", description: "The big picture" },
+        { name: "Understanding Agents", href: "/concepts/agents", description: "Primary vs sub-agents" },
+        { name: "Agent Workflows", href: "/concepts/agent-workflows", description: "Update queues & coordination" },
+        { name: "Meta-Skills", href: "/concepts/meta-skills", description: "Generate project patterns" },
+        { name: "Project Skills", href: "/concepts/skills", description: "Task-specific workflows" },
+        { name: "Project Setup", href: "/concepts/projects", description: "Configuration & structure" },
+        { name: "The Agent Loop", href: "/concepts/workflow", description: "Plan-Build-Test-Ship cycle" },
+        { name: "The Human in the Loop (you)", href: "/concepts/the-human-in-the-loop", description: "Control AI autonomy" },
+      ],
+    },
+    {
+      name: "Reference",
+      href: "/agents",
+      dropdown: [
+        { name: "Primary Agents", href: "/agents/primary", description: `Entry points (${primaryCount} agents)` },
+        { name: "Sub-Agents", href: "/agents/sub", description: `Specialists (${subagentCount} agents)` },
+        { name: "Meta-Skills", href: "/skills?type=meta", description: `Pattern generators (${metaSkillCount} skills)` },
+        { name: "Skills", href: "/skills?type=regular", description: `Task workflows (${regularSkillCount} skills)` },
+        { name: "Scaffolds", href: "/scaffolds", description: "Project templates" },
+        { name: "Agent Templates", href: "/agent-templates", description: "Framework-specific agent patterns" },
+        { name: "MCP Servers", href: "/mcp", description: "External tools & integrations" },
+        { name: "Automations", href: "/automations", description: "GitHub Actions workflows" },
+      ],
+    },
+    { name: "Get Started", href: "/getting-started" },
+    { name: "Changelog", href: "/changelog" },
+  ];
+}
 
 function DropdownMenu({ item, isOpen, onClose }: { item: NavItem; isOpen: boolean; onClose: () => void }) {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -104,6 +113,9 @@ export function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
+  
+  // Build navigation with dynamic counts from manifest
+  const siteNavigation = useMemo(() => buildNavigation(), []);
 
   const handleDropdownToggle = (itemName: string) => {
     setOpenDropdown(openDropdown === itemName ? null : itemName);

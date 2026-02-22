@@ -488,3 +488,65 @@
 - Indigo color theme available for new sections (not used elsewhere on this page)
 - Organizing prompts by mode (PRD Mode vs Ad-hoc Mode) helps users find what they need quickly
 - Prompt tips should be actionable and specific ("Fix the login form" > "Fix the bug")
+
+---
+
+## 2026-02-22 - PRD: Hybrid Changelog Sync (US-001 through US-006)
+
+### What was implemented
+- **US-001: Hybrid Architecture Contract**
+  - Baseline source: build-time manifest (toolkit-manifest.json)
+  - Runtime source: GitHub fetch (toolkit-structure.json raw URL)
+  - Precedence: runtime overrides baseline when successful
+  - Fallback: use baseline when runtime fails
+
+- **US-002: Runtime Fetcher**
+  - Created `/src/lib/changelog-fetcher.ts` with fetchToolkitChangelog()
+  - Validates and normalizes external payload shape
+  - Handles network failures safely with try/catch
+
+- **US-003: Changelog Merge**
+  - Added mergeChangelogs() function in `/src/data/index.ts`
+  - Merges runtime/baseline toolkit data with website changelog
+  - Sorted by day, newest-first
+
+- **US-004: Loading/Stale/Fallback States**
+  - Created `/src/app/changelog/ChangelogClient.tsx` (Client Component)
+  - Shows loading spinner while fetching
+  - Shows amber warning banner on fallback/error
+  - Works in both light and dark mode
+
+- **US-005: TTL Caching & Refresh**
+  - 15-minute TTL cache in localStorage
+  - Cache key includes version for invalidation
+  - Manual refresh button bypasses cache
+
+- **US-006: Instrumentation**
+  - FetchOutcome type with status: 'success' | 'stale-cache' | 'fallback' | 'failure'
+  - Console logging for debugging
+  - UI remains functional across all network states
+
+- **Bonus: Metadata Fixes**
+  - Header.tsx: Dynamic counts from manifest (agents, skills)
+  - SearchModal.tsx: Dynamic page descriptions from manifest
+
+### Files created
+- `/src/lib/changelog-fetcher.ts` - Runtime fetcher with caching, validation, instrumentation
+- `/src/app/changelog/ChangelogClient.tsx` - Client component for hybrid changelog UI
+- `/src/components/HybridChangelog.tsx` - Alternative component (may be unused)
+
+### Files changed
+- `/src/data/index.ts` - Added mergeChangelogs(), getBaselineToolkitChangelog()
+- `/src/app/changelog/page.tsx` - Simplified to Server Component delegating to client
+- `/src/components/Header.tsx` - Dynamic navigation counts
+- `/src/components/SearchModal.tsx` - Dynamic page descriptions
+- `/docs/prd.json` - Marked all stories passes: true
+- `/docs/builder-state.json` - Updated session state
+- `/docs/prd-registry.json` - Moved PRD to completed
+
+### Learnings for future iterations
+- Server Components cannot pass render functions to Client Components
+- Split pattern: Server Component for SSR baseline + Client Component for runtime enhancement
+- localStorage caching requires 'use client' directive
+- GitHub raw URLs: https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}
+- FetchOutcome pattern useful for tracking data freshness states

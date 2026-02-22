@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-22T00:22:12Z",
-  "syncedAt": "2026-02-22T00:45:24.085Z",
-  "toolkitCommit": "c13771c",
+  "generatedAt": "2026-02-22T00:52:00Z",
+  "syncedAt": "2026-02-22T01:28:02.434Z",
+  "toolkitCommit": "63fd34c",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
@@ -935,6 +935,11 @@
       "date": "2026-02-21",
       "displayDate": "February 21, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add story-level assessment for PRD rigor",
+          "scope": "testing"
+        },
         {
           "type": "fix",
           "description": "de-duplicate PRD test flow and gate auto generation",

@@ -14,95 +14,98 @@ interface SearchResult {
 }
 
 // Static pages to include in search
-const staticPages: SearchResult[] = [
-  {
-    type: "page",
-    title: "Home",
-    description: "AI Toolkit for opencode - landing page",
-    href: "/",
-  },
-  {
-    type: "page",
-    title: "Getting Started",
-    description: "Install opencode and configure the AI Toolkit in 4 simple steps",
-    href: "/getting-started",
-  },
-  {
-    type: "page",
-    title: "Concepts Overview",
-    description: "The big picture - how opencode and AI Toolkit work together",
-    href: "/concepts",
-  },
-  {
-    type: "page",
-    title: "Understanding Agents",
-    description: "Primary agents vs sub-agents, how they work together",
-    href: "/concepts/agents",
-  },
-  {
-    type: "page",
-    title: "Understanding Skills",
-    description: "On-demand capabilities loaded when needed",
-    href: "/concepts/skills",
-  },
-  {
-    type: "page",
-    title: "Project Setup",
-    description: "Configure your project with project.json and CONVENTIONS.md",
-    href: "/concepts/projects",
-  },
-  {
-    type: "page",
-    title: "The Agent Loop",
-    description: "The Plan-Build-Test-Ship development cycle",
-    href: "/concepts/workflow",
-  },
-  {
-    type: "page",
-    title: "All Agents",
-    description: "Browse all 57 agents - critics, developers, testers, and more",
-    href: "/agents",
-  },
-  {
-    type: "page",
-    title: "All Skills",
-    description: "Browse all 26 skills - regular and meta-skills",
-    href: "/skills",
-  },
-  {
-    type: "page",
-    title: "Scaffolds",
-    description: "Project templates for Go, Next.js, and more",
-    href: "/scaffolds",
-  },
-  {
-    type: "page",
-    title: "MCP Servers",
-    description: "Model Context Protocol servers for external tools and integrations",
-    href: "/mcp",
-  },
-  {
-    type: "page",
-    title: "Automations",
-    description: "GitHub Actions workflows for CI triage, PRD generation, and more",
-    href: "/automations",
-  },
-  {
-    type: "page",
-    title: "Agent Templates",
-    description: "Framework-specific agent patterns with Handlebars variables",
-    href: "/agent-templates",
-  },
-  {
-    type: "page",
-    title: "Changelog",
-    description: "Recent updates and changes to the AI Toolkit",
-    href: "/changelog",
-  },
-];
+// Note: Descriptions use dynamic counts from manifest
+function buildStaticPages(): SearchResult[] {
+  return [
+    {
+      type: "page",
+      title: "Home",
+      description: "AI Toolkit for opencode - landing page",
+      href: "/",
+    },
+    {
+      type: "page",
+      title: "Getting Started",
+      description: "Install opencode and configure the AI Toolkit in 4 simple steps",
+      href: "/getting-started",
+    },
+    {
+      type: "page",
+      title: "Concepts Overview",
+      description: "The big picture - how opencode and AI Toolkit work together",
+      href: "/concepts",
+    },
+    {
+      type: "page",
+      title: "Understanding Agents",
+      description: "Primary agents vs sub-agents, how they work together",
+      href: "/concepts/agents",
+    },
+    {
+      type: "page",
+      title: "Understanding Skills",
+      description: "On-demand capabilities loaded when needed",
+      href: "/concepts/skills",
+    },
+    {
+      type: "page",
+      title: "Project Setup",
+      description: "Configure your project with project.json and CONVENTIONS.md",
+      href: "/concepts/projects",
+    },
+    {
+      type: "page",
+      title: "The Agent Loop",
+      description: "The Plan-Build-Test-Ship development cycle",
+      href: "/concepts/workflow",
+    },
+    {
+      type: "page",
+      title: "All Agents",
+      description: `Browse all ${manifest.counts.agents} agents - critics, developers, testers, and more`,
+      href: "/agents",
+    },
+    {
+      type: "page",
+      title: "All Skills",
+      description: `Browse all ${manifest.counts.skills} skills - regular and meta-skills`,
+      href: "/skills",
+    },
+    {
+      type: "page",
+      title: "Scaffolds",
+      description: "Project templates for Go, Next.js, and more",
+      href: "/scaffolds",
+    },
+    {
+      type: "page",
+      title: "MCP Servers",
+      description: "Model Context Protocol servers for external tools and integrations",
+      href: "/mcp",
+    },
+    {
+      type: "page",
+      title: "Automations",
+      description: "GitHub Actions workflows for CI triage, PRD generation, and more",
+      href: "/automations",
+    },
+    {
+      type: "page",
+      title: "Agent Templates",
+      description: "Framework-specific agent patterns with Handlebars variables",
+      href: "/agent-templates",
+    },
+    {
+      type: "page",
+      title: "Changelog",
+      description: "Recent updates and changes to the AI Toolkit",
+      href: "/changelog",
+    },
+  ];
+}
 
 function buildSearchIndex(): SearchResult[] {
-  const results: SearchResult[] = [...staticPages];
+  const results: SearchResult[] = [...buildStaticPages()];
 
   // Add agents
   manifest.agents.forEach((agent: Agent) => {

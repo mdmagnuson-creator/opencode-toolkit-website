@@ -4,13 +4,19 @@ import { websiteChangelog } from './website-changelog';
 
 export const manifest = manifestData as ToolkitManifest;
 
+// Re-export website changelog for use in hybrid system
+export { websiteChangelog };
+
 /**
- * Merges toolkit and website changelogs into a single timeline,
- * sorted by date descending. Entries from the same day are combined.
+ * HYBRID CHANGELOG MERGE FUNCTION (US-003)
+ * 
+ * Merges toolkit changelog (from any source) with website changelog into a single timeline.
+ * Entries from the same day are combined. Sorted by date descending (newest first).
+ * 
+ * @param toolkitChangelog - Toolkit changelog entries (from runtime fetch or baseline)
+ * @returns Combined changelog with source badges
  */
-export function getCombinedChangelog(): ChangelogDayWithSource[] {
-  const toolkitChangelog = manifest.changelog;
-  
+export function mergeChangelogs(toolkitChangelog: ChangelogDay[]): ChangelogDayWithSource[] {
   // Create a map of date -> merged day
   const dayMap = new Map<string, ChangelogDayWithSource>();
   
@@ -52,12 +58,28 @@ export function getCombinedChangelog(): ChangelogDayWithSource[] {
     }
   });
   
-  // Sort by date descending
+  // Sort by date descending (newest first)
   const sortedDays = Array.from(dayMap.values()).sort((a, b) => 
     b.date.localeCompare(a.date)
   );
   
   return sortedDays;
+}
+
+/**
+ * Get combined changelog using baseline (build-time) toolkit data.
+ * For SSR and static rendering. Use HybridChangelog component for runtime enhancement.
+ */
+export function getCombinedChangelog(): ChangelogDayWithSource[] {
+  return mergeChangelogs(manifest.changelog);
+}
+
+/**
+ * Get baseline toolkit changelog (build-time data).
+ * Used as fallback when runtime fetch is unavailable.
+ */
+export function getBaselineToolkitChangelog(): ChangelogDay[] {
+  return manifest.changelog;
 }
 
 export function getAgentsByCategory(category: 'critics' | 'developers' | 'testers' | 'orchestrators' | 'utilities') {
