@@ -192,11 +192,34 @@ export default function ProjectsConceptPage() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-lg bg-blue-50 p-4 dark:bg-blue-950">
-            <p className="text-sm text-blue-800 dark:text-blue-200">
-              <strong>Tip:</strong> The more specific your conventions, the more
-              consistent agent-generated code will be. Include examples!
-            </p>
+          {/* Collaborative Refinement Callout */}
+          <div className="mt-8 rounded-xl border-2 border-green-300 bg-green-50 p-6 dark:border-green-700 dark:bg-green-950">
+            <div className="flex items-start gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-600 text-lg text-white">
+                💬
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-green-900 dark:text-green-100">
+                  Refine Conventions Collaboratively with @toolkit
+                </h3>
+                <p className="mt-2 text-sm text-green-800 dark:text-green-200">
+                  You don&apos;t have to write <code className="rounded bg-green-100 px-1 py-0.5 font-mono text-xs dark:bg-green-900">CONVENTIONS.md</code> alone! 
+                  Ask <code className="rounded bg-green-100 px-1 py-0.5 font-mono text-xs dark:bg-green-900">@toolkit</code> to 
+                  analyze your codebase and help you refine conventions together. The more specific your conventions, 
+                  the more consistent agent-generated code will be.
+                </p>
+                <div className="mt-4 space-y-2">
+                  <p className="text-xs font-medium uppercase tracking-wide text-green-700 dark:text-green-300">
+                    Example prompts:
+                  </p>
+                  <div className="space-y-2 rounded-lg bg-neutral-900 p-3 font-mono text-xs text-neutral-100 dark:bg-neutral-950">
+                    <p><span className="text-blue-400">@toolkit</span> review my CONVENTIONS.md and suggest improvements based on my codebase</p>
+                    <p><span className="text-blue-400">@toolkit</span> add error handling conventions based on how we handle errors in src/</p>
+                    <p><span className="text-blue-400">@toolkit</span> document our component patterns from the existing components</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -298,23 +321,62 @@ export default function ProjectsConceptPage() {
             Bootstrapping
           </h2>
           <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-            When you first use the toolkit with a project, it automatically detects
-            your tech stack and creates the initial configuration files. You can also
-            explicitly trigger this using the{" "}
+            When you add a new project, the agent uses a streamlined quick intake flow 
+            that gets you from zero to building in minutes:
+          </p>
+
+          {/* Quick intake flow */}
+          <div className="mt-8 space-y-6">
+            <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
+              <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">1. Quick Intake</h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Provide your project name and context — paste text descriptions, images, 
+                or specs directly. The agent extracts requirements from whatever you give it.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
+              <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">2. Optional GitHub Clone</h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                If you have an existing repo, provide the GitHub URL and the agent clones it 
+                before detection. Otherwise, start fresh or use a scaffold.
+              </p>
+              <div className="mt-4 rounded-lg bg-neutral-900 p-3 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
+                <span className="text-neutral-500">GitHub URL (optional):</span>{" "}
+                <span className="text-blue-400">https://github.com/org/my-project</span>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
+              <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">3. Stack Detection + Setup</h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                The agent auto-detects your tech stack and generates{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">project.json</code>{" "}
+                and{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">CONVENTIONS.md</code>.
+                Agent system setup is assumed by default.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-green-200 bg-green-50 p-6 dark:border-green-800 dark:bg-green-950">
+              <h3 className="font-semibold text-green-900 dark:text-green-100">4. Automatic PRD Kickoff</h3>
+              <p className="mt-2 text-sm text-green-800 dark:text-green-200">
+                After setup, the agent immediately transitions to PRD creation — defining your 
+                first feature scope with architecture options. No separate step needed.
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-8 text-sm text-neutral-600 dark:text-neutral-400">
+            You can also explicitly trigger bootstrap using the{" "}
             <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">project-bootstrap</code>{" "}
             skill:
           </p>
 
-          <div className="mt-8 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
-            <span className="text-blue-400">@builder</span>{" "}
-            <span className="text-neutral-400">bootstrap this project for the agent system</span>
+          <div className="mt-4 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
+            <span className="text-blue-400">@planner</span>{" "}
+            <span className="text-neutral-400">add a new project</span>
           </div>
-
-          <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-            The agent analyzes your codebase, detects frameworks and patterns,
-            and generates an initial <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">project.json</code>{" "}
-            and <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">CONVENTIONS.md</code>.
-          </p>
         </div>
       </section>
     </main>

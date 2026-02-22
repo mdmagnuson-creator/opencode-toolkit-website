@@ -187,18 +187,38 @@ Which project? _`}</code></pre>
                 3. Bootstrap new projects
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                When you select &quot;Add New Project&quot;, the agent walks you through setup:
+                When you select &quot;Add New Project&quot;, the agent uses a streamlined quick intake flow:
               </p>
               <ul className="ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
-                <li>Point to an existing codebase or create from a <Link href="/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">scaffold</Link></li>
-                <li>Auto-detect your tech stack (framework, database, testing, etc.)</li>
-                <li>Ask clarifying questions for anything it can&apos;t detect</li>
+                <li>Enter your project name and a brief description (paste text, images, or a spec)</li>
+                <li>Optionally provide a GitHub repo URL to clone</li>
+                <li>Auto-detect your tech stack from the codebase or create from a <Link href="/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">scaffold</Link></li>
                 <li>Generate <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/project.json</code> with your configuration</li>
                 <li>Create <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/CONVENTIONS.md</code> with coding patterns</li>
                 <li>Set up the PRD registry for tracking features</li>
               </ul>
               <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-                After bootstrap, the project appears in your selection list for all future sessions.
+                After bootstrap, the agent automatically offers to create your first PRD with architecture options — so you can start building right away.
+              </p>
+            </div>
+
+            {/* Step 4: First PRD */}
+            <div>
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
+                4. Define your first PRD
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
+                After setup, the agent immediately kicks off PRD creation. You&apos;ll define:
+              </p>
+              <ul className="ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
+                <li>Feature scope and user stories</li>
+                <li>Architecture decisions (database schema, API design, etc.)</li>
+                <li>Acceptance criteria for each story</li>
+              </ul>
+              <p className="mt-4 text-neutral-600 dark:text-neutral-300">
+                Once the PRD is ready, hand off to{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">@builder</code>{" "}
+                to start implementation.
               </p>
             </div>
           </div>
