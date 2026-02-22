@@ -38,7 +38,8 @@ const footerLinks = {
       { name: "Meta-Skills", href: "/concepts/meta-skills" },
       { name: "Project Skills", href: "/concepts/skills" },
       { name: "Project Setup", href: "/concepts/projects" },
-      { name: "The Workflow Loop", href: "/concepts/workflow" },
+      { name: "The Agent Loop", href: "/concepts/workflow" },
+      { name: "The Human in the Loop (you)", href: "/concepts/the-human-in-the-loop" },
     ],
   },
   reference: {

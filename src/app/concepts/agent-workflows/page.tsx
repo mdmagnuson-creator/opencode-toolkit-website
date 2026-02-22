@@ -1,5 +1,18 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { OnThisPageNav } from "@/components/OnThisPageNav";
+
+const PAGE_SECTIONS = [
+  { id: "key-principles", label: "Key Principles" },
+  { id: "primary-agents", label: "Primary Agents" },
+  { id: "communication-flow", label: "Communication Flow" },
+  { id: "update-queues", label: "Update Queues" },
+  { id: "builder-startup", label: "Builder Startup Behavior" },
+  { id: "todo-synchronization", label: "Todo Synchronization" },
+  { id: "escalation-to-prd", label: "Escalation to PRD" },
+  { id: "governance-critics", label: "Governance Critics" },
+  { id: "real-world-examples", label: "Real-World Examples" },
+];
 
 const primaryAgents = [
   {
@@ -47,7 +60,7 @@ const updateQueues = [
       "Agent notifies user: 'Queued toolkit update for @toolkit'",
       "@toolkit presents pending requests at session start",
       "User reviews each request and approves/rejects",
-      "@toolkit applies approved changes and commits",
+      "@toolkit applies approved changes, deletes update file, and commits",
     ],
   },
   {
@@ -62,7 +75,7 @@ const updateQueues = [
       "@builder presents pending updates when user selects a project",
       "User chooses to apply, defer, or skip each update",
       "@builder delegates to @developer to apply the changes",
-      "@builder deletes the update file after successful application",
+      "@builder deletes the update file and verifies deletion before marking complete",
     ],
   },
 ];
@@ -180,6 +193,9 @@ const governanceCritics = [
 export default function AgentWorkflowsPage() {
   return (
     <main className="min-h-screen">
+      {/* On This Page Navigation */}
+      <OnThisPageNav sections={PAGE_SECTIONS} />
+
       {/* Hero Section */}
       <section className="px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-4xl">
@@ -211,7 +227,7 @@ export default function AgentWorkflowsPage() {
       </section>
 
       {/* Value Props Grid */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="key-principles" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Key Principles
@@ -243,7 +259,7 @@ export default function AgentWorkflowsPage() {
       </section>
 
       {/* Primary Agents */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="primary-agents" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             The Three Primary Agents
@@ -306,7 +322,7 @@ export default function AgentWorkflowsPage() {
       </section>
 
       {/* Architecture Diagram */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="communication-flow" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Communication Flow
@@ -466,7 +482,7 @@ export default function AgentWorkflowsPage() {
       </section>
 
       {/* Update Queues Detail */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="update-queues" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Update Queues
@@ -632,7 +648,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
       </section>
 
       {/* Builder Startup Behavior */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="builder-startup" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Builder Startup Behavior
@@ -763,7 +779,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
       </section>
 
       {/* Todo Synchronization Contract */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="todo-synchronization" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Todo Synchronization
@@ -1136,7 +1152,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
       </section>
 
       {/* Escalation to PRD */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="escalation-to-prd" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Escalation to PRD
@@ -1186,7 +1202,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
       </section>
 
       {/* Governance Critics */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="governance-critics" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Governance Critics
@@ -1237,7 +1253,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
       </section>
 
       {/* Use Cases */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="real-world-examples" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Real-World Examples
@@ -1297,7 +1313,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
               className="group rounded-xl border border-neutral-200 bg-white p-5 transition-all hover:border-neutral-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
-                The Workflow Loop
+                The Agent Loop
               </h3>
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                 Understand the build-review-ship cycle for implementing features.

@@ -1,22 +1,22 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * US-001: Add Human-in-the-Loop Modes concept entry point
+ * US-001: Add The Human in the Loop (you) concept entry point
  * 
- * E2E Scope: Concepts navigation exposes and links to Human Work Modes entry.
+ * E2E Scope: Concepts navigation exposes and links to The Human in the Loop (you) entry.
  * Tests:
- * - Concepts page shows Human-in-the-Loop Modes entry
- * - Entry links to /concepts/human-work-modes
+ * - Concepts page shows The Human in the Loop (you) entry
+ * - Entry links to /concepts/the-human-in-the-loop
  * - Destination page renders title/intro and key sections
  */
 
-test.describe('US-001: Human-in-the-Loop Modes Entry Point', () => {
+test.describe('US-001: The Human in the Loop (you) Entry Point', () => {
   
-  test('Concepts page displays Human-in-the-Loop Modes entry', async ({ page }) => {
+  test('Concepts page displays The Human in the Loop (you) entry', async ({ page }) => {
     await page.goto('/concepts');
     
     // Verify the entry heading is visible
-    const entryHeading = page.getByRole('heading', { name: 'Human-in-the-Loop Modes' });
+    const entryHeading = page.getByRole('heading', { name: 'The Human in the Loop (you)' });
     await expect(entryHeading).toBeVisible();
     
     // Verify description text is present
@@ -25,21 +25,21 @@ test.describe('US-001: Human-in-the-Loop Modes Entry Point', () => {
     ).toBeVisible();
   });
 
-  test('Human-in-the-Loop Modes entry links to /concepts/human-work-modes', async ({ page }) => {
+  test('The Human in the Loop (you) entry links to /concepts/the-human-in-the-loop', async ({ page }) => {
     await page.goto('/concepts');
     
     // Navigate by clicking the heading link (the heading itself is wrapped in a link)
-    await page.getByRole('heading', { name: 'Human-in-the-Loop Modes' }).click();
+    await page.getByRole('heading', { name: 'The Human in the Loop (you)' }).click();
     
     // Verify navigation to correct URL (with or without trailing slash)
-    await expect(page).toHaveURL(/\/concepts\/human-work-modes\/?$/);
+    await expect(page).toHaveURL(/\/concepts\/the-human-in-the-loop\/?$/);
   });
 
-  test('Human Work Modes page renders title and intro', async ({ page }) => {
-    await page.goto('/concepts/human-work-modes');
+  test('The Human in the Loop (you) page renders title and intro', async ({ page }) => {
+    await page.goto('/concepts/the-human-in-the-loop');
     
     // Verify page title (H1)
-    const pageTitle = page.getByRole('heading', { level: 1, name: 'Human-in-the-Loop Modes' });
+    const pageTitle = page.getByRole('heading', { level: 1, name: 'The Human in the Loop (you)' });
     await expect(pageTitle).toBeVisible();
     
     // Verify intro paragraph
@@ -48,8 +48,8 @@ test.describe('US-001: Human-in-the-Loop Modes Entry Point', () => {
     ).toBeVisible();
   });
 
-  test('Human Work Modes page renders key sections', async ({ page }) => {
-    await page.goto('/concepts/human-work-modes');
+  test('The Human in the Loop (you) page renders key sections', async ({ page }) => {
+    await page.goto('/concepts/the-human-in-the-loop');
     
     // Verify "What You'll Learn" section heading
     await expect(
@@ -73,16 +73,16 @@ test.describe('US-001: Human-in-the-Loop Modes Entry Point', () => {
     ).toBeVisible();
   });
 
-  test('Human Work Modes page works in dark mode', async ({ page }) => {
+  test('The Human in the Loop (you) page works in dark mode', async ({ page }) => {
     // Set dark mode by adding class to html element
-    await page.goto('/concepts/human-work-modes');
+    await page.goto('/concepts/the-human-in-the-loop');
     await page.evaluate(() => {
       document.documentElement.classList.add('dark');
     });
     
     // Verify content remains visible in dark mode
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Human-in-the-Loop Modes' })
+      page.getByRole('heading', { level: 1, name: 'The Human in the Loop (you)' })
     ).toBeVisible();
     // Use first() to target the overview card headings (which also appear in section headers)
     await expect(page.getByRole('heading', { name: 'Planner' }).first()).toBeVisible();

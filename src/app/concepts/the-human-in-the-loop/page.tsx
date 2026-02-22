@@ -1,9 +1,22 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CodeBlockWithCopy } from "@/components/CodeBlockWithCopy";
+import { OnThisPageNav } from "@/components/OnThisPageNav";
+
+const PAGE_SECTIONS = [
+  { id: "planner", label: "Working with Planner" },
+  { id: "builder", label: "Working with Builder" },
+  { id: "toolkit", label: "Working with Toolkit" },
+  { id: "multi-session", label: "Multi-Session Coordination" },
+  { id: "loops", label: "End-to-End Operating Loops" },
+  { id: "quick-start", label: "Quick Start Examples" },
+];
 
 export default function HumanWorkModesPage() {
   return (
     <main className="min-h-screen">
+      {/* On This Page Navigation */}
+      <OnThisPageNav sections={PAGE_SECTIONS} />
+
       {/* Hero Section */}
       <section className="px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-4xl">
@@ -12,7 +25,7 @@ export default function HumanWorkModesPage() {
           </div>
 
           <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-            Human-in-the-Loop Modes
+            The Human in the Loop (you)
           </h1>
           <p className="mt-6 text-lg leading-8 text-neutral-700 sm:text-xl dark:text-neutral-400">
             Working with AI agents is a collaboration, not a handoff. This guide
@@ -1946,6 +1959,125 @@ export default function HumanWorkModesPage() {
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Multi-Session Coordination Section */}
+      <section
+        id="multi-session"
+        className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800"
+      >
+        <div className="mx-auto max-w-4xl">
+          {/* Section Header */}
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-600 text-white">
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+                />
+              </svg>
+            </div>
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+                Multi-Session Coordination
+              </h2>
+              <p className="mt-1 text-neutral-600 dark:text-neutral-400">
+                What you need to do when running parallel sessions
+              </p>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="mt-8 text-neutral-700 dark:text-neutral-400">
+            Running multiple AI sessions in parallel accelerates large projects, but requires
+            you to make a few decisions and monitor progress. Here&apos;s what you need to know
+            as the human operator.
+          </p>
+
+          {/* Decision Points */}
+          <div className="mt-8 rounded-xl border border-violet-200 bg-violet-50 p-6 dark:border-violet-800 dark:bg-violet-900/20">
+            <h3 className="font-semibold text-violet-900 dark:text-violet-100">
+              Your Decision Points
+            </h3>
+            <ul className="mt-4 space-y-3 text-sm text-violet-800 dark:text-violet-200">
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-500" />
+                <span>
+                  <strong>Enable multi-session:</strong> Set{" "}
+                  <code className="rounded bg-violet-200 px-1.5 py-0.5 text-xs dark:bg-violet-800">
+                    agents.multiSession: true
+                  </code>{" "}
+                  in <code className="rounded bg-violet-200 px-1.5 py-0.5 text-xs dark:bg-violet-800">
+                    project.json
+                  </code>. Only enable this if you plan to run concurrent sessions.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-500" />
+                <span>
+                  <strong>Assign PRDs to sessions:</strong> When starting each session,
+                  tell it which PRD to work on. Agents will auto-claim but you decide the assignment.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-500" />
+                <span>
+                  <strong>Release stale locks:</strong> If a session crashes, its lock lingers.
+                  Check <code className="rounded bg-violet-200 px-1.5 py-0.5 text-xs dark:bg-violet-800">session-locks.json</code>{" "}
+                  and delete entries older than 10 minutes to unblock other sessions.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-500" />
+                <span>
+                  <strong>Resolve merge conflicts:</strong> If agents can&apos;t auto-resolve
+                  conflicts during rebase, you&apos;ll need to step in. Keep PRDs small and independent to minimize this.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Best Practices */}
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950">
+              <h4 className="font-semibold text-green-900 dark:text-green-100">Do</h4>
+              <ul className="mt-2 space-y-1.5 text-sm text-green-800 dark:text-green-200">
+                <li>• Keep PRDs focused (5–10 stories max)</li>
+                <li>• Assign non-overlapping PRDs to sessions</li>
+                <li>• Check session-locks.json periodically</li>
+                <li>• Let agents finish before switching PRDs</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+              <h4 className="font-semibold text-red-900 dark:text-red-100">Don&apos;t</h4>
+              <ul className="mt-2 space-y-1.5 text-sm text-red-800 dark:text-red-200">
+                <li>• Don&apos;t edit files an agent session is working on</li>
+                <li>• Don&apos;t manually force-merge without rebasing</li>
+                <li>• Don&apos;t run sessions on the same PRD simultaneously</li>
+                <li>• Don&apos;t ignore stuck sessions—release their locks</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Quick Reference */}
+          <div className="mt-6 rounded-lg bg-neutral-100 p-4 dark:bg-neutral-800">
+            <p className="text-sm text-neutral-700 dark:text-neutral-400">
+              <strong className="text-neutral-900 dark:text-neutral-200">
+                Quick check:
+              </strong>{" "}
+              Run <code className="rounded bg-neutral-200 px-1.5 py-0.5 font-mono text-xs dark:bg-neutral-700">cat docs/session-locks.json</code>{" "}
+              to see active locks. If a session&apos;s <code className="rounded bg-neutral-200 px-1.5 py-0.5 font-mono text-xs dark:bg-neutral-700">lastHeartbeat</code>{" "}
+              is stale, remove that entry to release the lock.
+            </p>
           </div>
         </div>
       </section>

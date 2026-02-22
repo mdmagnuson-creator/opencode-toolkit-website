@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test';
 test.describe('US-003: Builder Section', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/concepts/human-work-modes');
+    await page.goto('/concepts/the-human-in-the-loop');
   });
 
   test.describe('Section structure and header', () => {

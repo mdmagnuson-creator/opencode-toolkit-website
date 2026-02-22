@@ -14,15 +14,15 @@ jest.mock('@/components/Breadcrumbs', () => ({
   Breadcrumbs: () => <nav data-testid="breadcrumbs">Breadcrumbs</nav>,
 }))
 
-describe('ConceptsPage - US-001: Human-in-the-Loop Modes entry', () => {
-  it('renders the Human-in-the-Loop Modes concept card', () => {
+describe('ConceptsPage - US-001: The Human in the Loop (you) entry', () => {
+  it('renders the The Human in the Loop (you) concept card', () => {
     render(<ConceptsPage />)
 
-    // Check that the Human-in-the-Loop Modes entry is present
-    expect(screen.getByRole('heading', { name: 'Human-in-the-Loop Modes' })).toBeInTheDocument()
+    // Check that the The Human in the Loop (you) entry is present
+    expect(screen.getByRole('heading', { name: 'The Human in the Loop (you)' })).toBeInTheDocument()
   })
 
-  it('displays correct description for Human-in-the-Loop Modes', () => {
+  it('displays correct description for The Human in the Loop (you)', () => {
     render(<ConceptsPage />)
 
     expect(
@@ -30,12 +30,12 @@ describe('ConceptsPage - US-001: Human-in-the-Loop Modes entry', () => {
     ).toBeInTheDocument()
   })
 
-  it('links to /concepts/human-work-modes', () => {
+  it('links to /concepts/the-human-in-the-loop', () => {
     render(<ConceptsPage />)
 
-    // Find all links that point to the human-work-modes page
-    const links = screen.getAllByRole('link', { name: /Human-in-the-Loop Modes|Learn more/i })
-    const humanModesLink = links.find((link) => link.getAttribute('href') === '/concepts/human-work-modes')
+    // Find all links that point to the the-human-in-the-loop page
+    const links = screen.getAllByRole('link', { name: /The Human in the Loop \(you\)|Learn more/i })
+    const humanModesLink = links.find((link) => link.getAttribute('href') === '/concepts/the-human-in-the-loop')
 
     expect(humanModesLink).toBeInTheDocument()
   })

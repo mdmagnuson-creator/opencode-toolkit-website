@@ -1,4 +1,10 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { OnThisPageNav } from "@/components/OnThisPageNav";
+
+const PAGE_SECTIONS = [
+  { id: "draft-prds", label: "Draft PRDs" },
+  { id: "status-legend", label: "Status Legend" },
+];
 
 const draftPrds = [
   {
@@ -54,6 +60,9 @@ const draftPrds = [
 export default function RoadmapPage() {
   return (
     <main className="min-h-screen">
+      {/* On This Page Navigation */}
+      <OnThisPageNav sections={PAGE_SECTIONS} />
+
       {/* Hero Section */}
       <section className="px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-4xl">
@@ -73,7 +82,7 @@ export default function RoadmapPage() {
       </section>
 
       {/* Draft PRDs */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="draft-prds" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Draft PRDs
@@ -236,7 +245,7 @@ export default function RoadmapPage() {
       </section>
 
       {/* Status Legend */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="status-legend" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Status Legend

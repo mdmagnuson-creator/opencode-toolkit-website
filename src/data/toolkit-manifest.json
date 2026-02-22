@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-21T23:18:26Z",
-  "syncedAt": "2026-02-21T23:34:29.861Z",
-  "toolkitCommit": "b081265",
+  "generatedAt": "2026-02-22T00:22:12Z",
+  "syncedAt": "2026-02-22T00:45:24.085Z",
+  "toolkitCommit": "c13771c",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
@@ -935,6 +935,11 @@
       "date": "2026-02-21",
       "displayDate": "February 21, 2026",
       "changes": [
+        {
+          "type": "fix",
+          "description": "de-duplicate PRD test flow and gate auto generation",
+          "scope": "workflows"
+        },
         {
           "type": "fix",
           "description": "enforce update file lifecycle verification",

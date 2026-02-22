@@ -182,8 +182,8 @@ const concepts = [
     ),
   },
   {
-    name: "Human-in-the-Loop Modes",
-    href: "/concepts/human-work-modes",
+    name: "The Human in the Loop (you)",
+    href: "/concepts/the-human-in-the-loop",
     description:
       "Practical collaboration workflows for working with Planner, Builder, and Toolkit. Learn when to use each agent and how to move from idea to shipped change.",
     icon: (

@@ -323,10 +323,10 @@ Which project? _`}</code></pre>
               className="group rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-blue-500 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-blue-400"
             >
               <h3 className="font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-                The Workflow Loop →
+                The Agent Loop →
               </h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                Learn the build-review-ship development cycle
+                Learn the Plan-Build-Test-Ship development cycle
               </p>
             </Link>
           </div>

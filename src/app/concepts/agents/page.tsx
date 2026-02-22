@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { OnThisPageNav } from "@/components/OnThisPageNav";
 import { manifest, getPrimaryAgents, getAgentsByCategory } from "@/data";
+
+const PAGE_SECTIONS = [
+  { id: "primary-vs-sub-agents", label: "Primary vs Sub-Agents" },
+  { id: "how-agents-are-invoked", label: "How Agents Are Invoked" },
+  { id: "delegation-pattern", label: "The Delegation Pattern" },
+  { id: "agent-communication", label: "How Agents Communicate" },
+  { id: "agent-categories", label: "Agent Categories" },
+];
 
 export default function AgentsConceptPage() {
   const primaryAgents = getPrimaryAgents();
@@ -9,6 +18,9 @@ export default function AgentsConceptPage() {
 
   return (
     <main className="min-h-screen">
+      {/* On This Page Navigation */}
+      <OnThisPageNav sections={PAGE_SECTIONS} />
+
       {/* Hero Section */}
       <section className="px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-4xl">
@@ -28,7 +40,7 @@ export default function AgentsConceptPage() {
       </section>
 
       {/* Primary vs Sub-Agents */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="primary-vs-sub-agents" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Primary Agents vs Sub-Agents
@@ -98,7 +110,7 @@ export default function AgentsConceptPage() {
       </section>
 
       {/* How Agents Are Invoked */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="how-agents-are-invoked" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             How Agents Are Invoked
@@ -168,7 +180,7 @@ export default function AgentsConceptPage() {
       </section>
 
       {/* The Delegation Pattern */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="delegation-pattern" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             The Delegation Pattern
@@ -290,7 +302,7 @@ export default function AgentsConceptPage() {
       </section>
 
       {/* Agent Communication */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="agent-communication" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             How Agents Communicate
@@ -348,7 +360,7 @@ export default function AgentsConceptPage() {
       </section>
 
       {/* Agent Categories */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="agent-categories" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Agent Categories

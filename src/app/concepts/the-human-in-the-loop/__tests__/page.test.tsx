@@ -12,7 +12,7 @@ describe('HumanWorkModesPage - US-001: New concept entry page', () => {
     render(<HumanWorkModesPage />)
 
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Human-in-the-Loop Modes' })
+      screen.getByRole('heading', { level: 1, name: 'The Human in the Loop (you)' })
     ).toBeInTheDocument()
   })
 

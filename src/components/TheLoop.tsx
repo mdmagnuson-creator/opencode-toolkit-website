@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Step {
   id: string;
@@ -200,7 +201,7 @@ export function TheLoop() {
   return (
     <section
       id="the-loop"
-      className="border-t border-neutral-200 py-24 dark:border-neutral-800"
+      className="border-t border-neutral-200 py-24 sm:py-32 lg:py-40 dark:border-neutral-800"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
         {/* Header */}
@@ -209,7 +210,7 @@ export function TheLoop() {
             The Process
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-            The Loop
+            The Agent Loop
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 sm:text-lg dark:text-neutral-400">
             From idea to shipped feature — and back again. Every feature follows
@@ -246,7 +247,7 @@ export function TheLoop() {
           {phases.map((phase, phaseIndex) => (
             <div
               key={phase.id}
-              className="w-full flex-shrink-0 sm:min-w-[400px] sm:snap-center lg:min-w-[350px]"
+              className="w-full flex-shrink-0 sm:min-w-[280px] sm:max-w-[300px] lg:min-w-[420px] lg:max-w-[450px] sm:snap-center"
             >
               {/* Phase Card */}
               <div className="h-full rounded-2xl border-2 border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
@@ -338,7 +339,7 @@ export function TheLoop() {
                 Bugs feed back into the loop
               </p>
               <p className="text-sm text-amber-700 dark:text-amber-400">
-                Discovered issues become new PRDs automatically
+                Discovered issues can be tracked as new PRDs
               </p>
             </div>
             <svg
@@ -355,6 +356,16 @@ export function TheLoop() {
               />
             </svg>
           </div>
+        </div>
+
+        {/* Learn More Link */}
+        <div className="mt-8 text-center">
+          <Link 
+            href="/concepts/workflow" 
+            className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+          >
+            Learn about the Agent Loop →
+          </Link>
         </div>
 
         {/* Scroll Hint (mobile) */}

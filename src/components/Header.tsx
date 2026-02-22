@@ -30,7 +30,8 @@ const siteNavigation: NavItem[] = [
       { name: "Meta-Skills", href: "/concepts/meta-skills", description: "Generate project patterns" },
       { name: "Project Skills", href: "/concepts/skills", description: "Task-specific workflows" },
       { name: "Project Setup", href: "/concepts/projects", description: "Configuration & structure" },
-      { name: "The Workflow Loop", href: "/concepts/workflow", description: "Build-review-ship cycle" },
+      { name: "The Agent Loop", href: "/concepts/workflow", description: "Plan-Build-Test-Ship cycle" },
+      { name: "The Human in the Loop (you)", href: "/concepts/the-human-in-the-loop", description: "Control AI autonomy" },
     ],
   },
   {

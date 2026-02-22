@@ -1,8 +1,21 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { OnThisPageNav } from "@/components/OnThisPageNav";
+
+const PAGE_SECTIONS = [
+  { id: "docs-directory", label: "The docs/ Directory" },
+  { id: "project-json", label: "project.json" },
+  { id: "conventions-md", label: "CONVENTIONS.md" },
+  { id: "prds", label: "PRDs" },
+  { id: "session-locks", label: "Session Locks" },
+  { id: "bootstrapping", label: "Bootstrapping" },
+];
 
 export default function ProjectsConceptPage() {
   return (
     <main className="min-h-screen">
+      {/* On This Page Navigation */}
+      <OnThisPageNav sections={PAGE_SECTIONS} />
+
       {/* Hero Section */}
       <section className="px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-4xl">
@@ -11,18 +24,19 @@ export default function ProjectsConceptPage() {
           </div>
 
           <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl dark:text-neutral-50">
-            Project Setup
+            Project Toolkit Structure
           </h1>
           <p className="mt-6 text-lg leading-8 text-neutral-700 sm:text-xl dark:text-neutral-400">
-            Learn how to configure your project for the AI toolkit. A properly
-            configured project gives agents the context they need to work
-            effectively with your codebase.
+            The AI toolkit automatically creates a{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">docs/</code>{" "}
+            directory in your project when you first interact with it. This page
+            explains what each file does and why it exists.
           </p>
         </div>
       </section>
 
       {/* The docs/ Directory */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="docs-directory" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             The docs/ Directory
@@ -67,7 +81,7 @@ export default function ProjectsConceptPage() {
       </section>
 
       {/* project.json */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="project-json" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             project.json
@@ -148,7 +162,7 @@ export default function ProjectsConceptPage() {
       </section>
 
       {/* CONVENTIONS.md */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="conventions-md" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             CONVENTIONS.md
@@ -183,7 +197,7 @@ export default function ProjectsConceptPage() {
       </section>
 
       {/* PRDs */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="prds" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             PRDs (Product Requirements)
@@ -240,7 +254,7 @@ export default function ProjectsConceptPage() {
       </section>
 
       {/* Session Locks */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="session-locks" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Session Locks
@@ -272,16 +286,18 @@ export default function ProjectsConceptPage() {
         </div>
       </section>
 
-      {/* Bootstrap Your Project */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      {/* Bootstrapping */}
+      <section id="bootstrapping" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-            Bootstrap Your Project
+            Bootstrapping
           </h2>
           <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-            Don&apos;t want to set this up manually? Use the{" "}
+            When you first use the toolkit with a project, it automatically detects
+            your tech stack and creates the initial configuration files. You can also
+            explicitly trigger this using the{" "}
             <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">project-bootstrap</code>{" "}
-            skill to automatically detect your stack and generate the configuration:
+            skill:
           </p>
 
           <div className="mt-8 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
@@ -290,8 +306,8 @@ export default function ProjectsConceptPage() {
           </div>
 
           <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-            The agent will analyze your codebase, detect frameworks and patterns,
-            and generate an initial <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">project.json</code>{" "}
+            The agent analyzes your codebase, detects frameworks and patterns,
+            and generates an initial <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">project.json</code>{" "}
             and <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">CONVENTIONS.md</code>.
           </p>
         </div>
