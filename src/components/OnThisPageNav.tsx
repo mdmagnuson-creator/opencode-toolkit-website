@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export interface NavSection {
   id: string;
@@ -17,14 +17,20 @@ interface OnThisPageNavProps {
  * Floating/sticky "On this page" navigation component for long pages.
  * Shows section anchors and highlights the active section as user scrolls.
  * 
- * Desktop: Floating sticky sidebar on the right with collapse/expand toggle
+ * Desktop: Floating sticky sidebar on the right with collapse/expand toggle.
+ *          Starts collapsed by default; user can expand/collapse manually.
  * Mobile: Compact jump list at the top (hidden by default, shown via toggle)
  */
 export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNavProps) {
   // Initialize with first section to avoid setState in effect
   const [activeId, setActiveId] = useState<string>(() => sections[0]?.id ?? "");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [desktopCollapsed, setDesktopCollapsed] = useState(false);
+  const [desktopCollapsed, setDesktopCollapsed] = useState(true);
+
+  // Simple toggle for desktop collapse state
+  const handleDesktopCollapse = useCallback((collapsed: boolean) => {
+    setDesktopCollapsed(collapsed);
+  }, []);
 
   useEffect(() => {
     if (sections.length === 0) return;
@@ -76,12 +82,18 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
         className="fixed right-8 top-32 hidden lg:block"
         aria-label="On this page navigation"
       >
-        {desktopCollapsed ? (
-          /* Collapsed state: minimal pill with expand button */
+        <div className="relative">
+          {/* Collapsed state: minimal pill with expand button */}
           <button
-            onClick={() => setDesktopCollapsed(false)}
-            className="group flex items-center gap-2 rounded-full border border-neutral-200 bg-white/90 px-3 py-2 shadow-sm backdrop-blur-sm transition-all hover:border-violet-300 hover:bg-violet-50 dark:border-neutral-700 dark:bg-neutral-900/90 dark:hover:border-violet-700 dark:hover:bg-violet-950"
+            onClick={() => handleDesktopCollapse(false)}
+            className={`group flex items-center gap-2 rounded-full border border-neutral-200 bg-white/90 px-3 py-2 shadow-sm backdrop-blur-sm transition-all duration-[350ms] ease-out hover:border-violet-300 hover:bg-violet-50 dark:border-neutral-700 dark:bg-neutral-900/90 dark:hover:border-violet-700 dark:hover:bg-violet-950 ${
+              desktopCollapsed
+                ? "pointer-events-auto translate-x-0 opacity-100"
+                : "pointer-events-none translate-x-8 opacity-0"
+            }`}
             aria-label="Expand page navigation"
+            aria-hidden={!desktopCollapsed}
+            tabIndex={desktopCollapsed ? 0 : -1}
           >
             <svg
               className="h-4 w-4 text-neutral-500 group-hover:text-violet-600 dark:text-neutral-400 dark:group-hover:text-violet-400"
@@ -113,18 +125,26 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
               />
             </svg>
           </button>
-        ) : (
-          /* Expanded state: full navigation panel */
-          <div className="w-56 rounded-xl border border-neutral-200 bg-white/80 shadow-sm backdrop-blur-sm dark:border-neutral-700 dark:bg-neutral-900/80">
+
+          {/* Expanded state: full navigation panel */}
+          <div
+            className={`absolute right-0 top-0 origin-top-right overflow-hidden rounded-xl border border-neutral-200 bg-white/80 shadow-sm backdrop-blur-sm transition-all duration-[350ms] ease-out dark:border-neutral-700 dark:bg-neutral-900/80 ${
+              desktopCollapsed
+                ? "pointer-events-none w-0 translate-x-4 opacity-0"
+                : "pointer-events-auto w-56 translate-x-0 opacity-100"
+            }`}
+            aria-hidden={desktopCollapsed}
+          >
             {/* Header with collapse button */}
             <div className="flex items-center justify-between border-b border-neutral-100 px-4 py-3 dark:border-neutral-800">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                 {title}
               </h3>
               <button
-                onClick={() => setDesktopCollapsed(true)}
+                onClick={() => handleDesktopCollapse(true)}
                 className="rounded p-1 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600 dark:hover:bg-neutral-800 dark:hover:text-neutral-300"
                 aria-label="Collapse page navigation"
+                tabIndex={desktopCollapsed ? -1 : 0}
               >
                 <svg
                   className="h-4 w-4"
@@ -152,6 +172,7 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
                         ? "bg-violet-100 font-medium text-violet-700 dark:bg-violet-900/40 dark:text-violet-300"
                         : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
                     }`}
+                    tabIndex={desktopCollapsed ? -1 : 0}
                   >
                     {section.label}
                   </button>
@@ -159,7 +180,7 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
               ))}
             </ul>
           </div>
-        )}
+        </div>
       </nav>
 
       {/* Mobile: Compact toggle-able jump list */}

@@ -307,7 +307,7 @@ export default function ConceptsPage() {
                   Primary Agents
                 </p>
                 <div className="flex flex-wrap justify-center gap-2">
-                  {["@builder", "@planner", "@e2e-tester", "@merge-coordinator", "@toolkit"].map((agent) => (
+                  {["@planner", "@builder", "@toolkit"].map((agent) => (
                     <span
                       key={agent}
                       className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-900 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-200"
@@ -404,23 +404,32 @@ export default function ConceptsPage() {
 
           <div className="mt-8 space-y-6 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
             <p>
-              When you start a conversation with a{" "}
               <strong className="text-neutral-900 dark:text-neutral-200">
-                primary agent
+                You&apos;re always in control.
               </strong>{" "}
-              like <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@builder</code>, you&apos;re talking to an
-              orchestrator. It understands your request, breaks it into tasks,
-              and delegates to specialists.
+              The three primary agents—<code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@planner</code>,{" "}
+              <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@builder</code>, and{" "}
+              <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@toolkit</code>—are
+              orchestrators that understand your requests and delegate work to
+              specialized sub-agents. You choose which agent to invoke, review
+              outputs, and approve changes.
             </p>
 
             <p>
-              Those specialists—the{" "}
               <strong className="text-neutral-900 dark:text-neutral-200">
-                sub-agents
-              </strong>
-              —each focus on a specific domain. A React developer writes
-              components. A security critic checks for vulnerabilities. A tester
-              writes test cases. They work autonomously, then report back.
+                Planner
+              </strong>{" "}
+              helps you turn ideas into structured PRDs with user stories.{" "}
+              <strong className="text-neutral-900 dark:text-neutral-200">
+                Builder
+              </strong>{" "}
+              executes those PRDs by delegating to domain-specific sub-agents—a
+              React developer for components, a security critic for
+              vulnerability checks, a tester for test coverage.{" "}
+              <strong className="text-neutral-900 dark:text-neutral-200">
+                Toolkit
+              </strong>{" "}
+              maintains and evolves the agent system itself.
             </p>
 
             <p>

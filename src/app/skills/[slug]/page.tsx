@@ -6,6 +6,7 @@ import type { Skill } from "@/data/types";
 import { SkillContent } from "./SkillContent";
 import { SkillAvatar } from "@/components/SkillAvatar";
 import { resolveContent } from "@/lib/content-resolver";
+import { DownloadMarkdownButton } from "@/components/DownloadMarkdownButton";
 
 // Generate static params for all skills
 export function generateStaticParams() {
@@ -116,6 +117,12 @@ export default async function SkillDetailPage({
       {hasSkillContent && (
         <section className="border-t border-neutral-200 px-6 py-8 sm:px-8 sm:py-10 lg:px-12 dark:border-neutral-800">
           <div className="mx-auto max-w-4xl">
+            <div className="mb-6 flex justify-end">
+              <DownloadMarkdownButton
+                content={resolvedContent}
+                filename={`${slug}.md`}
+              />
+            </div>
             <SkillContent content={resolvedContent} />
           </div>
         </section>

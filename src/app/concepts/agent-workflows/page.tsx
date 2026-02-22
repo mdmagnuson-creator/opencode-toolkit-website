@@ -643,6 +643,83 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                 </table>
               </div>
             </div>
+
+            {/* Update File Lifecycle */}
+            <div className="mt-10">
+              <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-200">
+                Update File Lifecycle
+              </h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Update files must be deleted after successful application to prevent
+                re-processing. Agents must verify deletion before marking the update complete.
+              </p>
+
+              <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                <ol className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">
+                      1
+                    </span>
+                    <div>
+                      <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                        Apply changes
+                      </p>
+                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        Execute all steps specified in the update file
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">
+                      2
+                    </span>
+                    <div>
+                      <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                        Run verification
+                      </p>
+                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        Execute verification commands from the update file
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">
+                      3
+                    </span>
+                    <div>
+                      <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                        Delete update file
+                      </p>
+                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        Remove the update file from the queue
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-600 text-xs font-semibold text-white">
+                      4
+                    </span>
+                    <div>
+                      <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                        Verify deletion
+                      </p>
+                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        Confirm the file no longer exists before marking complete
+                      </p>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+
+              <div className="mt-4 rounded-lg bg-amber-50 p-4 dark:bg-amber-950">
+                <p className="text-sm text-amber-800 dark:text-amber-200">
+                  <strong>Why verify deletion?</strong> If an agent fails to delete the update
+                  file (or deletion fails silently), the update will be presented again on the
+                  next session, leading to confusion or duplicate work. Verification ensures
+                  the lifecycle completes cleanly.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
