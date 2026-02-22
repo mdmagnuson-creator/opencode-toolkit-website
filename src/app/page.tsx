@@ -1,8 +1,8 @@
-import { AgentRelationshipDiagram } from "@/components/AgentRelationshipDiagram";
 import { CodeBlockWithCopy } from "@/components/CodeBlockWithCopy";
 import { Hero } from "@/components/Hero";
 import { TheLoop } from "@/components/TheLoop";
 import { manifest, getPrimaryAgents, getRegularSkills } from "@/data";
+import { getInstallCommand } from "@/config/urls";
 import Link from "next/link";
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
       {/* What Is It Section */}
       <section
         id="what-is-it"
-        className="border-t border-neutral-200 px-6 py-24 sm:px-8 lg:px-12 dark:border-neutral-800"
+        className="border-t border-neutral-200 px-6 py-24 sm:py-32 lg:py-40 sm:px-8 lg:px-12 dark:border-neutral-800"
       >
         <div className="mx-auto max-w-3xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
@@ -69,7 +69,7 @@ export default function Home() {
       {/* Primary Agents Section */}
       <section
         id="primary-agents"
-        className="border-t border-neutral-200 px-6 py-24 sm:px-8 lg:px-12 dark:border-neutral-800"
+        className="border-t border-neutral-200 px-6 py-24 sm:py-32 lg:py-40 sm:px-8 lg:px-12 dark:border-neutral-800"
       >
         <div className="mx-auto max-w-4xl">
           <div className="text-center">
@@ -117,23 +117,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Agent Relationship Diagram */}
+      {/* The Human in the Loop (you) Section */}
       <section
-        id="architecture"
-        className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800"
+        id="human-in-the-loop"
+        className="border-t border-neutral-200 px-6 py-24 sm:py-32 lg:py-40 sm:px-8 lg:px-12 dark:border-neutral-800"
       >
         <div className="mx-auto max-w-4xl">
           <div className="text-center">
             <h2 className="text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl dark:text-neutral-50">
-              How It Works
+              The Human in the Loop (you)
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm text-neutral-700 sm:text-base dark:text-neutral-400">
-              Primary agents orchestrate specialists—you talk to one, and it
-              coordinates the rest.
+              You guide the direction. Agents handle the execution.
             </p>
           </div>
 
-          <AgentRelationshipDiagram />
+          {/* Role Cards */}
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            {/* Planner */}
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-600 text-white">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                </svg>
+              </div>
+              <h3 className="mt-4 font-semibold text-neutral-900 dark:text-neutral-50">
+                Shape the Vision
+              </h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Work with @planner to refine requirements. You decide what gets built and how.
+              </p>
+            </div>
+
+            {/* Builder */}
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+                </svg>
+              </div>
+              <h3 className="mt-4 font-semibold text-neutral-900 dark:text-neutral-50">
+                Review Progress
+              </h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                @builder implements your PRD. You verify, steer corrections, and approve commits.
+              </p>
+            </div>
+
+            {/* Toolkit */}
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600 text-white">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <h3 className="mt-4 font-semibold text-neutral-900 dark:text-neutral-50">
+                Evolve the System
+              </h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Improve agents over time via @toolkit. You approve changes that ripple across projects.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link 
+              href="/concepts/the-human-in-the-loop" 
+              className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+            >
+              Learn about human-agent collaboration →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -143,7 +198,7 @@ export default function Home() {
       {/* Agent Categories Section */}
       <section
         id="agent-categories"
-        className="border-t border-neutral-200 px-6 py-24 sm:px-8 lg:px-12 dark:border-neutral-800"
+        className="border-t border-neutral-200 px-6 py-24 sm:py-32 lg:py-40 sm:px-8 lg:px-12 dark:border-neutral-800"
       >
         <div className="mx-auto max-w-4xl">
           <div className="text-center">
@@ -256,7 +311,7 @@ export default function Home() {
       {/* Skills Overview Section */}
       <section
         id="skills"
-        className="border-t border-neutral-200 px-6 py-24 sm:px-8 lg:px-12 dark:border-neutral-800"
+        className="border-t border-neutral-200 px-6 py-24 sm:py-32 lg:py-40 sm:px-8 lg:px-12 dark:border-neutral-800"
       >
         <div className="mx-auto max-w-4xl">
           <div className="text-center">
@@ -305,7 +360,7 @@ export default function Home() {
       {/* Getting Started Section */}
       <section
         id="getting-started"
-        className="border-t border-neutral-200 px-6 py-24 sm:px-8 lg:px-12 dark:border-neutral-800"
+        className="border-t border-neutral-200 px-6 py-24 sm:py-32 lg:py-40 sm:px-8 lg:px-12 dark:border-neutral-800"
       >
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
@@ -378,7 +433,7 @@ export default function Home() {
                   Open a terminal and run the toolkit installer:
                 </p>
                 <CodeBlockWithCopy
-                  code="curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash"
+                  code={getInstallCommand()}
                   className="mt-3"
                 />
               </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import manifest from "@/data/toolkit-manifest.json";
+import { getCommitUrl } from "@/config/urls";
 
 /**
  * Format a date as a relative time string (e.g., "2 hours ago", "3 days ago")
@@ -37,7 +38,8 @@ const footerLinks = {
       { name: "Meta-Skills", href: "/concepts/meta-skills" },
       { name: "Project Skills", href: "/concepts/skills" },
       { name: "Project Setup", href: "/concepts/projects" },
-      { name: "The Workflow Loop", href: "/concepts/workflow" },
+      { name: "The Agent Loop", href: "/concepts/workflow" },
+      { name: "The Human in the Loop (you)", href: "/concepts/the-human-in-the-loop" },
     ],
   },
   reference: {
@@ -131,7 +133,7 @@ export function Footer() {
               <>
                 (
                 <a
-                  href={`https://github.com/mdmagnuson-creator/ai-toolkit/commit/${manifest.toolkitCommit}`}
+                  href={getCommitUrl(manifest.toolkitCommit)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-mono transition-colors hover:text-neutral-600 dark:hover:text-neutral-300"

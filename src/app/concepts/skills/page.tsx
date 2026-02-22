@@ -1,12 +1,22 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { OnThisPageNav } from "@/components/OnThisPageNav";
 import { getRegularSkills } from "@/data";
+
+const PAGE_SECTIONS = [
+  { id: "skills-vs-agents", label: "Skills vs Agents" },
+  { id: "when-loaded", label: "When Skills Are Loaded" },
+  { id: "available-skills", label: "Available Skills" },
+];
 
 export default function SkillsConceptPage() {
   const regularSkills = getRegularSkills();
 
   return (
     <main className="min-h-screen">
+      {/* On This Page Navigation */}
+      <OnThisPageNav sections={PAGE_SECTIONS} />
+
       {/* Hero Section */}
       <section className="px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-4xl">
@@ -54,7 +64,7 @@ export default function SkillsConceptPage() {
       </section>
 
       {/* Skills vs Agents */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="skills-vs-agents" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Skills vs Agents
@@ -140,7 +150,7 @@ export default function SkillsConceptPage() {
       </section>
 
       {/* When Skills Are Loaded */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="when-loaded" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             When Skills Are Loaded
@@ -221,8 +231,8 @@ export default function SkillsConceptPage() {
         </div>
       </section>
 
-      {/* Regular Skills */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      {/* Available Skills */}
+      <section id="available-skills" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Available Skills ({regularSkills.length})

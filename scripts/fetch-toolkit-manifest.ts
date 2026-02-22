@@ -9,7 +9,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const MANIFEST_URL =
-  'https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/toolkit-structure.json';
+  'https://raw.githubusercontent.com/opencode-ai/ai-toolkit/main/toolkit-structure.json';
 const LOCAL_FALLBACK_PATH = path.join(
   process.env.HOME || '',
   'code/ai-toolkit/toolkit-structure.json'

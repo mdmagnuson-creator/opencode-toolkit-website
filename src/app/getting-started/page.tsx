@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { CopyButton } from '@/components/CopyButton';
 import { manifest } from '@/data';
+import { getInstallCommand } from '@/config/urls';
 
 export const metadata = {
   title: 'Getting Started | AI Toolkit',
@@ -91,9 +92,9 @@ export default function GettingStartedPage() {
               <div className="mt-4 rounded-lg bg-neutral-900 dark:bg-neutral-800">
                 <div className="flex items-start gap-2 p-3 sm:p-4">
                   <pre className="min-w-0 flex-1 overflow-x-auto text-xs leading-relaxed text-neutral-100 sm:text-sm">
-                    <code className="block whitespace-pre-wrap break-all sm:whitespace-pre sm:break-normal">{`curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash`}</code>
+                    <code className="block whitespace-pre-wrap break-all sm:whitespace-pre sm:break-normal">{getInstallCommand()}</code>
                   </pre>
-                  <CopyButton text="curl -fsSL https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/install.sh | bash" />
+                  <CopyButton text={getInstallCommand()} />
                 </div>
               </div>
               <p className="mt-4 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
@@ -111,6 +112,14 @@ export default function GettingStartedPage() {
                 </code>
                 , and the rest of the agent system.
               </p>
+              <div className="mt-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                  <strong>Note:</strong> When piped to bash, the installer reads prompts from{" "}
+                  <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800/80">/dev/tty</code>{" "}
+                  so you can answer yes/no questions interactively. In non-interactive environments (like CI), 
+                  prompts default to <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800/80">n</code> (no) for safety.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -314,10 +323,10 @@ Which project? _`}</code></pre>
               className="group rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-blue-500 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-blue-400"
             >
               <h3 className="font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-                The Workflow Loop →
+                The Agent Loop →
               </h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                Learn the build-review-ship development cycle
+                Learn the Plan-Build-Test-Ship development cycle
               </p>
             </Link>
           </div>

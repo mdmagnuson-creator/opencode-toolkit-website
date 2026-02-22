@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { OnThisPageNav } from "@/components/OnThisPageNav";
 import { getMetaSkills } from "@/data";
+
+const PAGE_SECTIONS = [
+  { id: "what-makes-different", label: "What Makes Meta-Skills Different" },
+  { id: "how-they-work", label: "How Meta-Skills Work" },
+  { id: "available-meta-skills", label: "Available Meta-Skills" },
+  { id: "when-to-use", label: "When to Use Meta-Skills" },
+];
 
 export const metadata = {
   title: "Meta-Skills | AI Toolkit",
@@ -12,6 +20,9 @@ export default function MetaSkillsConceptPage() {
 
   return (
     <main className="min-h-screen">
+      {/* On This Page Navigation */}
+      <OnThisPageNav sections={PAGE_SECTIONS} />
+
       {/* Hero Section */}
       <section className="px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-4xl">
@@ -29,7 +40,7 @@ export default function MetaSkillsConceptPage() {
       </section>
 
       {/* What Makes Meta-Skills Different */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="what-makes-different" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             What Makes Meta-Skills Different
@@ -96,7 +107,7 @@ export default function MetaSkillsConceptPage() {
       </section>
 
       {/* How Meta-Skills Work */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="how-they-work" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             How Meta-Skills Work
@@ -192,7 +203,7 @@ export default function MetaSkillsConceptPage() {
       </section>
 
       {/* Available Meta-Skills */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="available-meta-skills" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             Available Meta-Skills ({metaSkills.length})
@@ -226,7 +237,7 @@ export default function MetaSkillsConceptPage() {
       </section>
 
       {/* When to Use Meta-Skills */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      <section id="when-to-use" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
             When to Use Meta-Skills

@@ -5,6 +5,8 @@ import { manifest } from "@/data";
 import type { Agent } from "@/data/types";
 import { AgentContent } from "./AgentContent";
 import { AgentAvatar } from "@/components/AgentAvatar";
+import { resolveContent } from "@/lib/content-resolver";
+import { DownloadMarkdownButton } from "@/components/DownloadMarkdownButton";
 
 const CATEGORY_LABELS: Record<Agent["category"], string> = {
   critics: "Critics",
@@ -80,7 +82,10 @@ export default async function AgentDetailPage({
 
   const relatedAgents = getRelatedAgents(agent);
   const categoryColors = CATEGORY_COLORS[agent.category];
-  const hasAgentContent = agent.content.trim().length > 0;
+
+  // Resolve content from manifest, local toolkit, or GitHub
+  const resolvedContent = await resolveContent("agent", slug, agent.content);
+  const hasAgentContent = resolvedContent.trim().length > 0;
 
   return (
     <main className="min-h-screen">
@@ -126,7 +131,13 @@ export default async function AgentDetailPage({
       {hasAgentContent && (
         <section className="border-t border-neutral-200 px-6 py-8 sm:px-8 sm:py-10 lg:px-12 dark:border-neutral-800">
           <div className="mx-auto max-w-4xl">
-            <AgentContent content={agent.content} />
+            <div className="mb-6 flex justify-end">
+              <DownloadMarkdownButton
+                content={resolvedContent}
+                filename={`${slug}.md`}
+              />
+            </div>
+            <AgentContent content={resolvedContent} />
           </div>
         </section>
       )}

@@ -5,7 +5,7 @@ interface VersionBadgeProps {
   className?: string;
 }
 
-const RELEASES_URL = "https://github.com/mdmagnuson-creator/ai-toolkit/releases";
+import { RELEASES_URL } from "@/config/urls";
 
 export function VersionBadge({ version, className = "" }: VersionBadgeProps) {
   // Ensure version has a "v" prefix for display

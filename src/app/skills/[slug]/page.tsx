@@ -5,6 +5,8 @@ import { manifest } from "@/data";
 import type { Skill } from "@/data/types";
 import { SkillContent } from "./SkillContent";
 import { SkillAvatar } from "@/components/SkillAvatar";
+import { resolveContent } from "@/lib/content-resolver";
+import { DownloadMarkdownButton } from "@/components/DownloadMarkdownButton";
 
 // Generate static params for all skills
 export function generateStaticParams() {
@@ -47,7 +49,10 @@ export default async function SkillDetailPage({
   }
 
   const relatedSkills = getRelatedSkills(skill);
-  const hasSkillContent = skill.content.trim().length > 0;
+
+  // Resolve content from manifest, local toolkit, or GitHub
+  const resolvedContent = await resolveContent("skill", slug, skill.content);
+  const hasSkillContent = resolvedContent.trim().length > 0;
 
   return (
     <main className="min-h-screen">
@@ -112,7 +117,13 @@ export default async function SkillDetailPage({
       {hasSkillContent && (
         <section className="border-t border-neutral-200 px-6 py-8 sm:px-8 sm:py-10 lg:px-12 dark:border-neutral-800">
           <div className="mx-auto max-w-4xl">
-            <SkillContent content={skill.content} />
+            <div className="mb-6 flex justify-end">
+              <DownloadMarkdownButton
+                content={resolvedContent}
+                filename={`${slug}.md`}
+              />
+            </div>
+            <SkillContent content={resolvedContent} />
           </div>
         </section>
       )}

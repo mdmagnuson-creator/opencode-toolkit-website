@@ -53,8 +53,8 @@ const staticPages: SearchResult[] = [
   },
   {
     type: "page",
-    title: "The Workflow Loop",
-    description: "The build-review-ship development cycle",
+    title: "The Agent Loop",
+    description: "The Plan-Build-Test-Ship development cycle",
     href: "/concepts/workflow",
   },
   {

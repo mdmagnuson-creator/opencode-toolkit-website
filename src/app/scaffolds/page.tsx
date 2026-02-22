@@ -267,7 +267,7 @@ export default function ScaffoldsPage() {
 
           <div className="mt-8 rounded-lg bg-blue-50 p-4 dark:bg-blue-950">
             <p className="text-sm text-blue-800 dark:text-blue-200">
-              <strong>Pro tip:</strong> Include a <code className="rounded bg-blue-100 px-1 py-0.5 text-xs dark:bg-blue-900">CLAUDE.md</code> in your
+              <strong>Pro tip:</strong> Include an <code className="rounded bg-blue-100 px-1 py-0.5 text-xs dark:bg-blue-900">AGENTS.md</code> in your
               scaffold so new projects start with agent-friendly documentation.
             </p>
           </div>

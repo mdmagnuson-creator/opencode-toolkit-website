@@ -20,6 +20,26 @@ export const websiteChangelog: ChangelogDay[] = [
         description: "Add source badges to distinguish toolkit vs website changes",
         scope: "changelog",
       },
+      {
+        type: "feat",
+        description: "Add Roadmap page with draft PRDs including PRD 004: Dynamic Verbosity Modes",
+        scope: "concepts",
+      },
+      {
+        type: "feat",
+        description: "Add Minimal Startup Output documentation to primary agents page",
+        scope: "agents",
+      },
+      {
+        type: "docs",
+        description: "Document /dev/tty prompt behavior for piped installer",
+        scope: "getting-started",
+      },
+      {
+        type: "fix",
+        description: "Update CLAUDE.md references to AGENTS.md across documentation",
+        scope: "scaffolds",
+      },
     ],
   },
   {

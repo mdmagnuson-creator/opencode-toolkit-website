@@ -234,6 +234,18 @@ export default function PrimaryAgentsPage() {
                 They run tests, linting, and type checking before completing work to ensure quality.
               </p>
             </div>
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-800/50 sm:col-span-2">
+              <h3 className="font-medium text-neutral-900 dark:text-neutral-50">
+                Minimal Startup Output
+              </h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                When starting dev servers, primary agents use token-light checks with one final status:{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">running</code>,{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">startup failed</code>, or{" "}
+                <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">timed out</code>.
+                No log streaming during startup — only brief error details if something fails.
+              </p>
+            </div>
           </div>
           <div className="mt-8">
             <Link
