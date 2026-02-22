@@ -1,9 +1,10 @@
 import { promises as fs } from "fs";
 import path from "path";
 import toolkitStructure from "@/data/toolkit-structure.json";
+import { REPO_RAW_BASE } from "@/config/urls";
 
 const LOCAL_TOOLKIT_PATH = path.join(process.env.HOME || "~", "code", "ai-toolkit");
-const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/opencode-ai/ai-toolkit/main";
+const GITHUB_RAW_BASE = REPO_RAW_BASE;
 
 interface AgentEntry {
   name: string;

@@ -8,7 +8,7 @@
  * with the appropriate organization/username when forking or self-hosting.
  */
 
-export const REPO_OWNER = "opencode-ai";
+export const REPO_OWNER = "mdmagnuson-creator";
 export const REPO_NAME = "ai-toolkit";
 
 export const REPO_BASE = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;

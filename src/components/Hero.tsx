@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FadeInSection } from "./FadeInSection";
+import { REPO_BASE } from "@/config/urls";
 
 interface HeroProps {
   counts: {
@@ -48,7 +49,9 @@ export function Hero({ counts }: HeroProps) {
 
           {/* Secondary CTA */}
           <a
-            href="#"
+            href={REPO_BASE}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-8 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 sm:w-auto dark:border-neutral-700 dark:bg-transparent dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:ring-offset-neutral-900"
           >
             <svg

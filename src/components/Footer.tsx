@@ -1,6 +1,6 @@
 import Link from "next/link";
 import manifest from "@/data/toolkit-manifest.json";
-import { getCommitUrl } from "@/config/urls";
+import { getCommitUrl, REPO_BASE } from "@/config/urls";
 
 /**
  * Format a date as a relative time string (e.g., "2 hours ago", "3 days ago")
@@ -65,7 +65,7 @@ const footerLinks = {
   resources: {
     title: "Resources",
     links: [
-      { name: "GitHub", href: "https://github.com/opencode-ai/ai-toolkit" },
+      { name: "GitHub", href: REPO_BASE },
       { name: "OpenCode", href: "https://opencode.ai" },
     ],
   },

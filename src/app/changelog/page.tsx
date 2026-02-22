@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { getCombinedChangelog } from "@/data";
 import { ChangelogClient } from "./ChangelogClient";
+import { REPO_BASE, RELEASES_URL } from "@/config/urls";
 
 export const metadata: Metadata = {
   title: "Changelog | AI Toolkit",
@@ -40,7 +41,7 @@ export default function ChangelogPage() {
           <span className="font-medium text-violet-600 dark:text-violet-400">Toolkit</span> entries
           come from the{" "}
           <a
-            href="https://github.com/opencode-ai/ai-toolkit"
+            href={REPO_BASE}
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-blue-600 hover:underline dark:text-blue-400"
@@ -54,7 +55,7 @@ export default function ChangelogPage() {
         </p>
         <div className="mt-4 flex flex-wrap gap-4 text-sm">
           <a
-            href="https://github.com/opencode-ai/ai-toolkit/commits/main"
+            href={`${REPO_BASE}/commits/main`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-blue-600 hover:underline dark:text-blue-400"
@@ -65,7 +66,7 @@ export default function ChangelogPage() {
             Toolkit commit history
           </a>
           <a
-            href="https://github.com/opencode-ai/ai-toolkit/releases"
+            href={RELEASES_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-blue-600 hover:underline dark:text-blue-400"

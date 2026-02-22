@@ -10,6 +10,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { mergeChangelogs } from "@/data";
 import { fetchToolkitChangelog, clearCache, trackOutcome, type FetchOutcome } from "@/lib/changelog-fetcher";
 import type { ChangelogEntryWithSource, ChangelogDayWithSource, ChangelogSource, ChangelogEntryType } from "@/data/types";
+import { REPO_BASE } from "@/config/urls";
 
 // ============================================================================
 // Badge Components
@@ -147,7 +148,7 @@ function EmptyChangelogState() {
         Changelog data will appear here once the toolkit manifest is updated with recent changes.
       </p>
       <a
-        href="https://github.com/opencode-ai/ai-toolkit/commits/main"
+        href={`${REPO_BASE}/commits/main`}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"

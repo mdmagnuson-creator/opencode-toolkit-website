@@ -1,5 +1,6 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { manifest } from "@/data";
+import { REPO_BASE } from "@/config/urls";
 
 // Define stack info for each scaffold
 const SCAFFOLD_DETAILS: Record<
@@ -77,7 +78,7 @@ function ScaffoldCard({
           <p className="mt-2 text-neutral-600 dark:text-neutral-400">{details.description}</p>
         </div>
         <a
-          href={`https://github.com/magnuson8/ai-toolkit/tree/main/scaffolds/${scaffold.slug}`}
+          href={`${REPO_BASE}/tree/main/scaffolds/${scaffold.slug}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex shrink-0 items-center gap-1.5 rounded-lg border border-neutral-200 px-3 py-1.5 text-sm text-neutral-600 transition-colors hover:border-neutral-300 hover:text-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:text-neutral-200"

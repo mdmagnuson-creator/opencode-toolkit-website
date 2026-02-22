@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-22T03:40:00Z",
-  "syncedAt": "2026-02-22T17:10:40.988Z",
+  "generatedAt": "2026-02-22T05:08:00Z",
+  "syncedAt": "2026-02-22T19:24:37.773Z",
   "toolkitCommit": "ceb06d4",
   "counts": {
     "agents": 63,
@@ -712,7 +712,7 @@
     {
       "slug": "project-bootstrap",
       "name": "Project Bootstrap",
-      "description": "Bootstrap a project with quick intake (name + freeform context), optional GitHub clone, stack detection, and automatic PRD kickoff.",
+      "description": "Bootstrap a new or existing project with stack detection and project.json generation.",
       "triggers": [],
       "isMeta": false,
       "content": ""
@@ -744,7 +744,7 @@
     {
       "slug": "spec-analyzer",
       "name": "Spec Analyzer",
-      "description": "Extract structured requirements from pasted text, images, or documents for quick bootstrap mode.",
+      "description": "Extract structured requirements from unstructured project specifications.",
       "triggers": [],
       "isMeta": false,
       "content": ""
