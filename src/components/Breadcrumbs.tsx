@@ -20,7 +20,7 @@ const pathNames: Record<string, string> = {
   scaffolds: "Scaffolds",
   "getting-started": "Getting Started",
   workflow: "The Agent Loop",
-  projects: "Project Setup",
+  projects: "Project Toolkit Structure",
   testing: "Testing System",
 };
 

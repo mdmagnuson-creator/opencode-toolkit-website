@@ -49,7 +49,7 @@ function buildStaticPages(): SearchResult[] {
     },
     {
       type: "page",
-      title: "Project Setup",
+      title: "Project Toolkit Structure",
       description: "Configure your project with project.json and CONVENTIONS.md",
       href: "/concepts/projects",
     },
