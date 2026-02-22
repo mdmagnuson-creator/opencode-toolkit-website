@@ -1960,6 +1960,139 @@ export default function HumanWorkModesPage() {
               </ul>
             </div>
           </div>
+
+          {/* Website Sync Modes */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Website Sync Modes
+            </h3>
+            <p className="mt-3 text-neutral-700 dark:text-neutral-400">
+              When Toolkit makes changes that affect documentation websites (like this one),
+              it uses configurable sync modes to determine how updates are handled. The mode
+              is resolved from your local overrides file, with a safe public default.
+            </p>
+
+            {/* Mode Resolution */}
+            <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                Mode Resolution
+              </h4>
+              <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400">
+                Toolkit checks{" "}
+                <code className="rounded bg-neutral-200 px-1.5 py-0.5 text-xs font-mono dark:bg-neutral-700">
+                  .local/toolkit-overrides.json
+                </code>{" "}
+                for your configured sync mode. If not present, the public default{" "}
+                <code className="rounded bg-neutral-200 px-1.5 py-0.5 text-xs font-mono dark:bg-neutral-700">
+                  disabled
+                </code>{" "}
+                is used.
+              </p>
+
+              <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+                <table className="w-full text-sm">
+                  <thead className="bg-neutral-100 dark:bg-neutral-800">
+                    <tr>
+                      <th className="px-4 py-2 text-left font-medium text-neutral-900 dark:text-neutral-100">
+                        Mode
+                      </th>
+                      <th className="px-4 py-2 text-left font-medium text-neutral-900 dark:text-neutral-100">
+                        Behavior
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white dark:bg-neutral-900">
+                    <tr className="border-t border-neutral-200 dark:border-neutral-700">
+                      <td className="px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">
+                          disabled
+                        </code>
+                        <span className="ml-2 rounded bg-green-100 px-1.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-200">
+                          default
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                        No website sync. Toolkit makes local changes only.
+                      </td>
+                    </tr>
+                    <tr className="border-t border-neutral-200 dark:border-neutral-700">
+                      <td className="px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">
+                          owner-managed
+                        </code>
+                      </td>
+                      <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                        Toolkit owner has direct access. Syncs changes to linked website projects.
+                      </td>
+                    </tr>
+                    <tr className="border-t border-neutral-200 dark:border-neutral-700">
+                      <td className="px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">
+                          queue-file
+                        </code>
+                      </td>
+                      <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                        Writes sync requests to a queue file for later processing.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Local Overrides */}
+            <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-950">
+              <h4 className="font-semibold text-amber-900 dark:text-amber-100">
+                Configuring Local Overrides
+              </h4>
+              <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+                Create{" "}
+                <code className="rounded bg-amber-100 px-1.5 py-0.5 font-mono text-xs dark:bg-amber-900">
+                  .local/toolkit-overrides.json
+                </code>{" "}
+                in your toolkit directory to configure sync behavior:
+              </p>
+              <div className="mt-4 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
+                <pre>{`{
+  "websiteSync": {
+    "mode": "owner-managed",
+    "projectId": "opencode-toolkit-website"
+  }
+}`}</pre>
+              </div>
+              <p className="mt-3 text-sm text-amber-700 dark:text-amber-300">
+                The{" "}
+                <code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs dark:bg-amber-900">
+                  websiteSync.projectId
+                </code>{" "}
+                identifies which website project to sync with when running in{" "}
+                <code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs dark:bg-amber-900">
+                  owner-managed
+                </code>{" "}
+                mode. This file is gitignored and stays local to your machine.
+              </p>
+            </div>
+
+            {/* Important Note */}
+            <div className="mt-4 rounded-lg bg-blue-50 p-4 dark:bg-blue-950">
+              <p className="text-sm text-blue-800 dark:text-blue-200">
+                <strong>Note:</strong> The public toolkit defaults to{" "}
+                <code className="rounded bg-blue-100 px-1 py-0.5 font-mono text-xs dark:bg-blue-900">
+                  disabled
+                </code>{" "}
+                to ensure safe out-of-the-box behavior. Only toolkit maintainers with direct
+                website access should configure{" "}
+                <code className="rounded bg-blue-100 px-1 py-0.5 font-mono text-xs dark:bg-blue-900">
+                  owner-managed
+                </code>{" "}
+                or{" "}
+                <code className="rounded bg-blue-100 px-1 py-0.5 font-mono text-xs dark:bg-blue-900">
+                  queue-file
+                </code>{" "}
+                modes.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

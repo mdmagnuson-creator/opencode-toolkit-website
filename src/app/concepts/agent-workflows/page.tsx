@@ -830,7 +830,9 @@ Rename the \`features\` field to \`capabilities\` in project.json.
             </h3>
             <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
               Dev server checks are <strong>deferred until workflow selection</strong> — after the user
-              chooses P, A, U, or E. This avoids blocking the dashboard while waiting for
+              chooses P, A, U, or E. The agent must pass the strict readiness gate via{" "}
+              <code className="rounded bg-blue-100 px-1 py-0.5 text-xs font-mono dark:bg-blue-900">scripts/check-dev-server.sh</code>{" "}
+              before proceeding. This avoids blocking the dashboard while waiting for
               a server that may not be needed (e.g., for documentation-only updates).
             </p>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
