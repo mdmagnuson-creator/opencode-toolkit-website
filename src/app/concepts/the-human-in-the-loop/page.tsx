@@ -286,12 +286,12 @@ export default function HumanWorkModesPage() {
               </div>
               <div className="rounded-lg border border-violet-200 bg-violet-50 p-4 dark:border-violet-800 dark:bg-violet-950">
                 <h4 className="font-semibold text-violet-900 dark:text-violet-100">
-                  Define &quot;done&quot; clearly
+                  Review Planner&apos;s definition of done
                 </h4>
                 <p className="mt-2 text-sm text-violet-800 dark:text-violet-200">
-                  Vague criteria like &quot;works well&quot; lead to ambiguous
-                  implementations. Be specific: &quot;Response time under
-                  200ms&quot;.
+                  Planner authors acceptance criteria for each story. Review them
+                  for specificity—push back on vague criteria like &quot;works well&quot;
+                  and ask for measurable outcomes like &quot;Response time under 200ms&quot;.
                 </p>
               </div>
               <div className="rounded-lg border border-violet-200 bg-violet-50 p-4 dark:border-violet-800 dark:bg-violet-950">

@@ -165,7 +165,7 @@ export default function WorkflowConceptPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-violet-600 dark:text-violet-400">•</span>
-                  <span>Approve scope and acceptance criteria</span>
+                  <span>Review Planner-authored acceptance criteria</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-violet-600 dark:text-violet-400">•</span>
@@ -524,6 +524,58 @@ export default function WorkflowConceptPage() {
               Feature flags handle incomplete features in production. This matches how agents work —
               each PRD produces one branch with focused, reviewable changes.
             </p>
+          </div>
+
+          {/* Trunk Mode Configuration */}
+          <div className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+            <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
+              Trunk Mode Configuration
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Control how Builder handles branching via the{" "}
+              <code className="rounded bg-neutral-200 px-1.5 py-0.5 text-xs dark:bg-neutral-700">
+                agents.trunkMode
+              </code>{" "}
+              setting in your project.json:
+            </p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <div className="flex items-center gap-2">
+                  <code className="rounded bg-violet-100 px-2 py-1 text-sm font-semibold text-violet-800 dark:bg-violet-900 dark:text-violet-200">
+                    pr-based
+                  </code>
+                  <span className="rounded bg-neutral-200 px-1.5 py-0.5 text-xs text-neutral-600 dark:bg-neutral-600 dark:text-neutral-300">
+                    default
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                  Builder creates feature branches and opens PRs for review before merging.
+                  Standard workflow for teams with code review requirements.
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <code className="rounded bg-violet-100 px-2 py-1 text-sm font-semibold text-violet-800 dark:bg-violet-900 dark:text-violet-200">
+                  branchless
+                </code>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                  Builder commits directly to trunk (main/master). Ideal for solo developers
+                  or projects with strong CI gates that catch issues automatically.
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
+              <p className="text-neutral-400">// project.json</p>
+              <p className="mt-1">{`{`}</p>
+              <p className="ml-4">{`"agents": {`}</p>
+              <p className="ml-8">
+                <span className="text-green-400">&quot;trunkMode&quot;</span>
+                <span className="text-neutral-400">: </span>
+                <span className="text-amber-400">&quot;branchless&quot;</span>
+                <span className="text-neutral-400"> // or &quot;pr-based&quot; (default)</span>
+              </p>
+              <p className="ml-4">{`}`}</p>
+              <p>{`}`}</p>
+            </div>
           </div>
         </div>
       </section>

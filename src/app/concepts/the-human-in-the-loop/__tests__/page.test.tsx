@@ -163,7 +163,7 @@ describe('HumanWorkModesPage - US-002: Planner section', () => {
 
       expect(screen.getByRole('heading', { name: 'Challenge the stories' })).toBeInTheDocument()
       expect(screen.getByRole('heading', { name: 'Split large stories' })).toBeInTheDocument()
-      expect(screen.getByRole('heading', { name: /Define.*done.*clearly/i })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: /Review Planner's definition of done/i })).toBeInTheDocument()
       expect(screen.getByRole('heading', { name: 'Check dependencies' })).toBeInTheDocument()
     })
   })

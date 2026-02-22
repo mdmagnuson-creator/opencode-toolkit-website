@@ -803,6 +803,62 @@ export default function TestingConceptPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Visual Audit Mode */}
+              <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900">
+                    <svg
+                      className="h-5 w-5 text-purple-600 dark:text-purple-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.573-3.007-9.963-7.178z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                      Visual Audit Mode
+                    </h3>
+                    <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                      Full-site UX sweeps that systematically check every page for visual
+                      inconsistencies, accessibility issues, and design system violations.
+                      Can also perform targeted post-fix re-checks after issues are resolved.
+                    </p>
+                    <div className="mt-4 rounded-lg bg-purple-50 p-4 dark:bg-purple-950">
+                      <p className="text-sm font-medium text-purple-900 dark:text-purple-100">
+                        Example:
+                      </p>
+                      <p className="mt-1 font-mono text-sm text-purple-800 dark:text-purple-200">
+                        &quot;Run visual audit on all pages&quot; → tester
+                        crawls site, captures screenshots, flags inconsistent
+                        spacing, broken dark mode, and accessibility violations
+                      </p>
+                    </div>
+                    <div className="mt-4 rounded-lg bg-neutral-100 p-3 dark:bg-neutral-800">
+                      <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                        When to use:
+                      </p>
+                      <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        After major UI refactors, before releases, when verifying
+                        design system compliance, or for targeted re-checks after
+                        fixing visual bugs.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

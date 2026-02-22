@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/schemas/toolkit-structure.json",
   "version": "1.0.0",
-  "generatedAt": "2026-02-22T00:52:00Z",
+  "generatedAt": "2026-02-22T03:40:00Z",
   "repository": "https://github.com/<your-org>/ai-toolkit",
   "agents": {
     "total": 63,
@@ -157,7 +157,7 @@
           {
             "name": "api-critic",
             "file": "agents/api-critic.md",
-            "description": "Reviews API design for usability — confusing endpoints, inconsistent conventions, missing pagination, poor error responses"
+            "description": "Reviews API design for usability \u2014 confusing endpoints, inconsistent conventions, missing pagination, poor error responses"
           },
           {
             "name": "backend-aws-critic",
@@ -187,7 +187,7 @@
           {
             "name": "comment-critic",
             "file": "agents/comment-critic.md",
-            "description": "Reviews comments and removes noise — flags obvious comments that just restate the code"
+            "description": "Reviews comments and removes noise \u2014 flags obvious comments that just restate the code"
           },
           {
             "name": "copy-critic",
@@ -207,7 +207,7 @@
           {
             "name": "exploit-critic",
             "file": "agents/exploit-critic.md",
-            "description": "Adversarial review that attempts to exploit code — finds injection, auth bypass, privilege escalation, and data exfiltration paths"
+            "description": "Adversarial review that attempts to exploit code \u2014 finds injection, auth bypass, privilege escalation, and data exfiltration paths"
           },
           {
             "name": "frontend-critic",
@@ -227,7 +227,7 @@
           {
             "name": "oddball-critic",
             "file": "agents/oddball-critic.md",
-            "description": "Reviews code for consistency with the existing codebase — flags patterns that look different from established conventions"
+            "description": "Reviews code for consistency with the existing codebase \u2014 flags patterns that look different from established conventions"
           },
           {
             "name": "policy-testability-critic",
@@ -247,7 +247,7 @@
           {
             "name": "quality-critic",
             "file": "agents/quality-critic.md",
-            "description": "Reviews UI for quality beyond correctness — visual regression, CLS, accessibility, and performance"
+            "description": "Reviews UI for quality beyond correctness \u2014 visual regression, CLS, accessibility, and performance"
           },
           {
             "name": "requirements-critic",
@@ -257,7 +257,7 @@
           {
             "name": "security-critic",
             "file": "agents/security-critic.md",
-            "description": "Reviews code for security scan findings — CSP, CORS, XSRF, SSRF, dependency CVEs, and compliance issues"
+            "description": "Reviews code for security scan findings \u2014 CSP, CORS, XSRF, SSRF, dependency CVEs, and compliance issues"
           },
           {
             "name": "semantic-critic",
@@ -517,7 +517,7 @@
           {
             "name": "cve",
             "path": "skills/cve/",
-            "description": "Investigate a CVE for exploitability, available fixes, and mitigation status."
+            "description": "Assess a CVE for exposure, exploitability, and remediation options across one or more repositories."
           },
           {
             "name": "e2e-quality",
@@ -681,10 +681,6 @@
           "file": "templates/e2e-quality-helpers.ts"
         },
         {
-          "name": "environments.md",
-          "file": "templates/environments.md"
-        },
-        {
           "name": "memory.md",
           "file": "templates/memory.md"
         },
@@ -803,7 +799,7 @@
     "overview": {
       "summary": "The toolkit uses a message-passing architecture where agents communicate through file-based update queues. This design keeps agents loosely coupled while enabling cross-agent collaboration. The user remains in control, deciding when to review and apply queued updates.",
       "keyPrinciples": [
-        "Agents never modify files outside their domain — they queue requests instead",
+        "Agents never modify files outside their domain \u2014 they queue requests instead",
         "Users decide when to apply updates, maintaining full control",
         "Updates can be reviewed, modified, or rejected before application",
         "Complex updates can be escalated to PRDs for proper planning"
@@ -853,9 +849,9 @@
         {
           "name": "pending-updates",
           "path": "pending-updates/",
-          "direction": "Any agent → @toolkit",
+          "direction": "Any agent \u2192 @toolkit",
           "purpose": "Toolkit improvement requests discovered during work",
-          "description": "When any agent discovers a gap in the toolkit — a missing pattern, outdated guidance, or needed enhancement — it writes a request file here instead of modifying toolkit files directly. This preserves separation of concerns while enabling continuous toolkit improvement.",
+          "description": "When any agent discovers a gap in the toolkit \u2014 a missing pattern, outdated guidance, or needed enhancement \u2014 it writes a request file here instead of modifying toolkit files directly. This preserves separation of concerns while enabling continuous toolkit improvement.",
           "fileFormat": "YYYY-MM-DD-[agent]-[description].md",
           "workflow": [
             "Agent discovers toolkit gap during normal work",
@@ -875,9 +871,9 @@
         {
           "name": "project-updates",
           "path": "project-updates/[project-name]/",
-          "direction": "@toolkit → @builder",
+          "direction": "@toolkit \u2192 @builder",
           "purpose": "Project changes required by toolkit updates",
-          "description": "When toolkit changes require updates to existing projects — schema migrations, new required fields, or pattern changes — @toolkit queues instructions here. Each project has its own subfolder. @builder applies these updates when the user works on that project.",
+          "description": "When toolkit changes require updates to existing projects \u2014 schema migrations, new required fields, or pattern changes \u2014 @toolkit queues instructions here. Each project has its own subfolder. @builder applies these updates when the user works on that project.",
           "fileFormat": "YYYY-MM-DD-[description].md",
           "workflow": [
             "@toolkit makes a change that affects project structure",
@@ -914,7 +910,7 @@
       ],
       "example": {
         "scenario": "Pending update requests 'add support for Rust projects'",
-        "reasoning": "This requires new agents, templates, skills, and scaffold — too complex for a simple update",
+        "reasoning": "This requires new agents, templates, skills, and scaffold \u2014 too complex for a simple update",
         "outcome": "Escalated to PRD with stories for each component"
       }
     },
@@ -942,52 +938,52 @@
     "architectureDiagram": {
       "description": "Visual representation of agent communication flow",
       "ascii": [
-        "┌─────────────────────────────────────────────────────────────────┐",
-        "│                        USER CONTROL                            │",
-        "│   (Reviews, approves, rejects, or escalates all updates)       │",
-        "└─────────────────────────────────────────────────────────────────┘",
-        "                              │",
-        "        ┌────────────────────┼────────────────────┐",
-        "        ▼                    ▼                    ▼",
-        "   ┌─────────┐         ┌─────────┐         ┌─────────┐",
-        "   │@planner │         │@builder │         │@toolkit │",
-        "   │         │         │         │         │         │",
-        "   │ • PRDs  │         │ • Build │         │ • Agents│",
-        "   │ • Stack │         │ • Test  │         │ • Skills│",
-        "   │ • Plan  │         │ • Ship  │         │ • Config│",
-        "   └────┬────┘         └────┬────┘         └────┬────┘",
-        "        │                   │                   │",
-        "        │   pending-updates/│                   │",
-        "        │   ┌───────────────┴───────────────┐   │",
-        "        └──►│  Toolkit Update Requests      │◄──┘",
-        "            │  (any agent → @toolkit)       │",
-        "            └───────────────┬───────────────┘",
-        "                            │",
-        "                            ▼",
-        "                       ┌─────────┐",
-        "                       │@toolkit │──── Reviews & applies",
-        "                       └────┬────┘",
-        "                            │",
-        "            project-updates/│",
-        "            ┌───────────────┴───────────────┐",
-        "            │  Project Update Instructions  │",
-        "            │  (@toolkit → @builder)        │",
-        "            └───────────────┬───────────────┘",
-        "                            │",
-        "                            ▼",
-        "                       ┌─────────┐",
-        "                       │@builder │──── Applies to projects",
-        "                       └─────────┘"
+        "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
+        "\u2502                        USER CONTROL                            \u2502",
+        "\u2502   (Reviews, approves, rejects, or escalates all updates)       \u2502",
+        "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
+        "                              \u2502",
+        "        \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
+        "        \u25bc                    \u25bc                    \u25bc",
+        "   \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
+        "   \u2502@planner \u2502         \u2502@builder \u2502         \u2502@toolkit \u2502",
+        "   \u2502         \u2502         \u2502         \u2502         \u2502         \u2502",
+        "   \u2502 \u2022 PRDs  \u2502         \u2502 \u2022 Build \u2502         \u2502 \u2022 Agents\u2502",
+        "   \u2502 \u2022 Stack \u2502         \u2502 \u2022 Test  \u2502         \u2502 \u2022 Skills\u2502",
+        "   \u2502 \u2022 Plan  \u2502         \u2502 \u2022 Ship  \u2502         \u2502 \u2022 Config\u2502",
+        "   \u2514\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2518         \u2514\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2518         \u2514\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2518",
+        "        \u2502                   \u2502                   \u2502",
+        "        \u2502   pending-updates/\u2502                   \u2502",
+        "        \u2502   \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510   \u2502",
+        "        \u2514\u2500\u2500\u25ba\u2502  Toolkit Update Requests      \u2502\u25c4\u2500\u2500\u2518",
+        "            \u2502  (any agent \u2192 @toolkit)       \u2502",
+        "            \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
+        "                            \u2502",
+        "                            \u25bc",
+        "                       \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
+        "                       \u2502@toolkit \u2502\u2500\u2500\u2500\u2500 Reviews & applies",
+        "                       \u2514\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2518",
+        "                            \u2502",
+        "            project-updates/\u2502",
+        "            \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
+        "            \u2502  Project Update Instructions  \u2502",
+        "            \u2502  (@toolkit \u2192 @builder)        \u2502",
+        "            \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
+        "                            \u2502",
+        "                            \u25bc",
+        "                       \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
+        "                       \u2502@builder \u2502\u2500\u2500\u2500\u2500 Applies to projects",
+        "                       \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518"
       ]
     },
     "marketingHighlights": {
       "description": "Key value propositions for the website",
       "headline": "Autonomous Agents That Improve Themselves",
-      "subheadline": "A self-evolving development system where agents discover gaps, queue improvements, and continuously enhance your workflow — all under your control.",
+      "subheadline": "A self-evolving development system where agents discover gaps, queue improvements, and continuously enhance your workflow \u2014 all under your control.",
       "valueProps": [
         {
           "title": "Self-Improving System",
-          "description": "Agents don't just follow instructions — they identify gaps and queue improvements. Your toolkit gets better every time you use it.",
+          "description": "Agents don't just follow instructions \u2014 they identify gaps and queue improvements. Your toolkit gets better every time you use it.",
           "detail": "When @developer discovers an undocumented pattern or @builder hits a workflow limitation, they automatically queue an update for @toolkit. No more manually tracking 'things to fix later.'"
         },
         {
@@ -1003,7 +999,7 @@
         {
           "title": "Asynchronous Collaboration",
           "description": "Queue an idea now, address it later. Keep your flow while building a backlog of improvements.",
-          "detail": "Mid-implementation, realize the toolkit could handle something better? Ask the agent to queue an update. You don't lose context switching to @toolkit — the improvement waits for you."
+          "detail": "Mid-implementation, realize the toolkit could handle something better? Ask the agent to queue an update. You don't lose context switching to @toolkit \u2014 the improvement waits for you."
         },
         {
           "title": "Graceful Escalation",
@@ -1014,7 +1010,7 @@
       "useCases": [
         {
           "title": "Continuous Toolkit Evolution",
-          "story": "You're building a feature when @developer mentions it doesn't have guidance for a pattern you're using. It queues an update. Next week, @toolkit presents the queue — 5 improvements discovered organically. You review and approve them. Your toolkit just got better without any dedicated 'maintenance time.'"
+          "story": "You're building a feature when @developer mentions it doesn't have guidance for a pattern you're using. It queues an update. Next week, @toolkit presents the queue \u2014 5 improvements discovered organically. You review and approve them. Your toolkit just got better without any dedicated 'maintenance time.'"
         },
         {
           "title": "Schema Migrations at Scale",
@@ -1022,7 +1018,7 @@
         },
         {
           "title": "Team Knowledge Capture",
-          "story": "A team member discovers a gotcha with the database library. They tell @developer to queue a toolkit update. @toolkit adds it to the coding conventions. Now every future implementation — by any team member — benefits from that knowledge. Institutional memory, automated."
+          "story": "A team member discovers a gotcha with the database library. They tell @developer to queue a toolkit update. @toolkit adds it to the coding conventions. Now every future implementation \u2014 by any team member \u2014 benefits from that knowledge. Institutional memory, automated."
         }
       ]
     },
@@ -1116,36 +1112,19 @@
     "generatedFrom": "git log --since='30 days ago'",
     "entries": [
       {
-        "date": "2026-02-21",
+        "date": "2026-02-22",
         "changes": [
           {
-            "type": "feat",
-            "description": "add story-level assessment for PRD rigor",
-            "hash": "63fd34c",
-            "scope": "testing"
+            "type": "fix",
+            "scope": "planner",
+            "description": "author PRD definition of done by default",
+            "hash": "ceb06d4"
           },
           {
             "type": "fix",
-            "description": "de-duplicate PRD test flow and gate auto generation",
-            "hash": "c13771c",
-            "scope": "workflows"
-          },
-          {
-            "type": "fix",
-            "description": "enforce update file lifecycle verification",
-            "hash": "b081265",
-            "scope": "planner"
-          },
-          {
-            "type": "fix",
-            "description": "require explicit resume choice for in-progress PRDs",
-            "hash": "d2a6438",
-            "scope": "builder"
-          },
-          {
-            "type": "chore",
-            "description": "initialize public repository",
-            "hash": "c8f934b"
+            "scope": "toolkit",
+            "description": "reference planner as PRD rules source",
+            "hash": "bea5b46"
           }
         ]
       }

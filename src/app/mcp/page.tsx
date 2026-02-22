@@ -121,6 +121,40 @@ export default function McpPage() {
         </div>
       </section>
 
+      {/* Optional Integration */}
+      <section className="mb-12">
+        <SectionHeading id="optional-integration">Optional Integration</SectionHeading>
+        <div className="rounded-xl border border-green-200 bg-green-50 p-6 dark:border-green-900/50 dark:bg-green-900/20">
+          <div className="flex gap-3">
+            <svg className="h-6 w-6 shrink-0 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <h3 className="font-medium text-green-900 dark:text-green-300">MCP is Optional</h3>
+              <p className="mt-2 text-sm text-green-800 dark:text-green-400">
+                MCP servers are <strong>optional enhancements</strong>, not requirements. The AI Toolkit 
+                works without any MCP servers configured. When an MCP tool is unavailable, agents 
+                automatically fall back to alternative approaches:
+              </p>
+              <ul className="mt-3 space-y-1 text-sm text-green-800 dark:text-green-400">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-green-600 dark:text-green-500">•</span>
+                  <span><strong>Browser automation:</strong> Falls back to Playwright CLI or direct library usage</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-green-600 dark:text-green-500">•</span>
+                  <span><strong>Documentation lookup:</strong> Uses Context7 tools if available, otherwise upstream docs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-green-600 dark:text-green-500">•</span>
+                  <span><strong>Database access:</strong> Uses project-specific database clients directly</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Server Types */}
       <section className="mb-12">
         <SectionHeading id="server-types">Server Types</SectionHeading>

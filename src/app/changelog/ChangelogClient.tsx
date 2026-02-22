@@ -367,15 +367,17 @@ export function ChangelogClient({ baselineChangelog }: ChangelogClientProps) {
         setIsStale(result.outcome === 'stale-cache');
       } else {
         // Fallback to baseline (US-004)
+        // Use isStale: false for fallback - this is a neutral state, not a warning
         setChangelog(baselineChangelog);
-        setIsStale(true);
+        setIsStale(false);
       }
     } catch (error) {
       console.error('[ChangelogClient] Unexpected error:', error);
       trackOutcome('failure');
       setOutcome('failure');
       setChangelog(baselineChangelog);
-      setIsStale(true);
+      // failure is a neutral fallback state, not a stale-cache warning
+      setIsStale(false);
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);

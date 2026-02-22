@@ -123,6 +123,11 @@ export default function ProjectsConceptPage() {
   "integrations": {
     "stripe": true,
     "resend": true
+  },
+  
+  // Agent behavior configuration
+  "agents": {
+    "trunkMode": "pr-based"  // "pr-based" (default) or "branchless"
   }
 }`}
             </pre>

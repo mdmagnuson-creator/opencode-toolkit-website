@@ -19,13 +19,13 @@
  */
 
 import type { ChangelogDay, ChangelogEntryType } from '@/data/types';
+import { REPO_RAW_BASE } from '@/config/urls';
 
 // ============================================================================
 // Configuration
 // ============================================================================
 
-const TOOLKIT_CHANGELOG_URL =
-  'https://raw.githubusercontent.com/mdmagnuson-creator/ai-toolkit/main/toolkit-structure.json';
+const TOOLKIT_CHANGELOG_URL = `${REPO_RAW_BASE}/toolkit-structure.json`;
 
 const CACHE_KEY = 'toolkit-changelog-cache';
 const DEFAULT_TTL_MS = 15 * 60 * 1000; // 15 minutes
@@ -220,6 +220,17 @@ export async function fetchToolkitChangelog(
     clearTimeout(timeoutId);
     
     if (!response.ok) {
+      // HTTP 404 is a permanent error - resource definitively doesn't exist
+      // Skip stale cache and go directly to fallback (neutral state)
+      if (response.status === 404) {
+        const errorMessage = `HTTP 404: Resource not found`;
+        logOutcome('fallback', `Permanent error (404), using baseline: ${errorMessage}`);
+        return {
+          outcome: 'fallback',
+          data: null,
+          error: errorMessage,
+        };
+      }
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
     
@@ -242,7 +253,7 @@ export async function fetchToolkitChangelog(
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     
-    // Try stale cache
+    // Try stale cache for transient errors (timeouts, network issues)
     const staleCache = getCache();
     if (staleCache) {
       logOutcome('stale-cache', `Network failed, using stale cache: ${errorMessage}`);
@@ -277,10 +288,12 @@ function logOutcome(outcome: FetchOutcome, message: string): void {
         console.log(`${prefix} ${message}`);
         break;
       case 'stale-cache':
+      case 'fallback':
+        // Non-fatal: baseline data can still render
         console.warn(`${prefix} ${message}`);
         break;
-      case 'fallback':
       case 'failure':
+        // True failure: unrecoverable state
         console.error(`${prefix} ${message}`);
         break;
     }
