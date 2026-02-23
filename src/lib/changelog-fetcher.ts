@@ -1,21 +1,27 @@
 /**
  * Runtime changelog fetcher for hybrid changelog system
  * 
- * HYBRID ARCHITECTURE CONTRACT (US-001):
+ * HYBRID ARCHITECTURE CONTRACT:
  * 
- * Baseline Sources (build-time):
- *   - toolkit-manifest.json → changelog (bundled at build)
+ * Build-time Sources (primary, from scripts/sync-changelog.ts):
+ *   - changelog.json → combined toolkit + website commits
+ *   - Generated during CI with GITHUB_TOKEN for private repo access
+ *   - Website commits are ALWAYS available in build-time data
  * 
- * Runtime Sources:
+ * Runtime Sources (enhancement for real-time updates):
  *   - GitHub raw URL for toolkit-structure.json → changelog entries
- *   - GitHub API for toolkit repo commits (recent)
- *   - GitHub API for website repo commits (recent)
+ *   - GitHub API for toolkit repo commits (recent, public)
+ *   - GitHub API for website repo commits (optional, usually 404 for private repo)
  * 
  * Precedence Rules:
- *   1. If runtime fetch succeeds → use runtime data (merged toolkit + website)
- *   2. If one source fails, other succeeds → use successful source data
- *   3. If runtime fetch fails but cache exists → use cached data
- *   4. If runtime fetch fails and no valid cache → fallback to baseline
+ *   1. Build-time changelog.json is the baseline (includes website commits)
+ *   2. Runtime fetch enhances with commits since last build
+ *   3. If runtime fetch fails → use build-time data (already complete)
+ *   4. If cache exists → use cached data
+ * 
+ * Website Commits:
+ *   - Primary source: Build-time changelog.json (authenticated at build)
+ *   - Runtime fetch: Optional enhancement (usually fails for private repo - expected)
  * 
  * TTL: 15 minutes (900000ms) default
  */
@@ -236,11 +242,10 @@ export function parseConventionalCommit(message: string): { type: string; scope?
  * 
  * Note: Unauthenticated requests are rate-limited to 60/hour per IP.
  * This is acceptable for browser-side fetching with caching.
+ * 
+ * Used for toolkit repo (public).
  */
-async function fetchRecentCommits(
-  apiUrl: string,
-  source: ChangelogSource
-): Promise<ChangelogDayWithHash[]> {
+async function fetchRecentToolkitCommits(): Promise<ChangelogDayWithHash[]> {
   const sinceDate = new Date();
   sinceDate.setDate(sinceDate.getDate() - RECENT_COMMITS_WINDOW_DAYS);
   
@@ -253,7 +258,7 @@ async function fetchRecentCommits(
   const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout (faster than main fetch)
   
   try {
-    const response = await fetch(`${apiUrl}?${params.toString()}`, {
+    const response = await fetch(`${GITHUB_TOOLKIT_COMMITS_API_URL}?${params.toString()}`, {
       signal: controller.signal,
       headers: {
         'Accept': 'application/vnd.github+json',
@@ -265,7 +270,7 @@ async function fetchRecentCommits(
     
     if (!response.ok) {
       // 403 could be rate limit, 404 could be repo not found
-      logOutcome('stale-cache', `GitHub API (${source}) returned ${response.status}, skipping recent commits`);
+      logOutcome('stale-cache', `GitHub API (toolkit) returned ${response.status}, skipping recent commits`);
       return [];
     }
     
@@ -275,58 +280,130 @@ async function fetchRecentCommits(
       return [];
     }
     
-    // Group commits by date and parse conventional commit messages
-    const dayMap = new Map<string, ChangelogDayWithHash>();
-    
-    for (const commit of commits) {
-      const message = commit.commit?.message;
-      if (!message) continue;
-      
-      // Only parse first line (title)
-      const title = message.split('\n')[0];
-      const parsed = parseConventionalCommit(title);
-      
-      if (!parsed) {
-        // Not a conventional commit, skip
-        continue;
-      }
-      
-      // Get date from commit (use author date, not committer date)
-      const commitDate = commit.commit?.author?.date;
-      if (!commitDate) continue;
-      
-      // Convert to local date string (YYYY-MM-DD in viewer's timezone)
-      // This ensures commits group by the day as seen by the user
-      const dateStr = getLocalDateString(new Date(commitDate));
-      
-      const entry: ChangelogEntryWithHash = {
-        type: validateChangelogType(parsed.type),
-        description: parsed.description,
-        source,
-        ...(parsed.scope ? { scope: parsed.scope } : {}),
-        hash: commit.sha?.substring(0, 7), // Short hash for deduplication
-      };
-      
-      const existing = dayMap.get(dateStr);
-      if (existing) {
-        existing.changes.push(entry);
-      } else {
-        dayMap.set(dateStr, {
-          date: dateStr,
-          displayDate: formatDisplayDate(dateStr),
-          changes: [entry],
-        });
-      }
-    }
-    
-    // Sort by date descending
-    return Array.from(dayMap.values()).sort((a, b) => b.date.localeCompare(a.date));
+    return processGitHubCommits(commits, 'toolkit');
   } catch (error) {
     clearTimeout(timeoutId);
     const errorMessage = error instanceof Error ? error.message : String(error);
-    logOutcome('stale-cache', `GitHub API (${source}) fetch failed: ${errorMessage}`);
+    logOutcome('stale-cache', `GitHub API (toolkit) fetch failed: ${errorMessage}`);
     return [];
   }
+}
+
+/**
+ * Fetch recent website commits directly from GitHub API (public, unauthenticated).
+ * Returns commits from the last N days.
+ * 
+ * IMPORTANT: This is an OPTIONAL enhancement. Website commits are primarily
+ * available from build-time changelog.json (fetched with GITHUB_TOKEN in CI).
+ * 
+ * For private repos, this will return 404 - that's expected behavior.
+ * The build-time data already contains website commits.
+ * 
+ * Graceful degradation:
+ * - 404: Repo is private - returns empty (expected, build-time data has commits)
+ * - 403: Rate limited - returns empty (partial success allowed)
+ * - Other errors: Returns empty (partial success allowed)
+ */
+async function fetchRecentWebsiteCommits(): Promise<ChangelogDayWithHash[]> {
+  const sinceDate = new Date();
+  sinceDate.setDate(sinceDate.getDate() - RECENT_COMMITS_WINDOW_DAYS);
+  
+  const params = new URLSearchParams({
+    since: sinceDate.toISOString(),
+    per_page: '100', // Max allowed
+  });
+  
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout (faster than main fetch)
+  
+  try {
+    const response = await fetch(`${GITHUB_WEBSITE_COMMITS_API_URL}?${params.toString()}`, {
+      signal: controller.signal,
+      headers: {
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      // 403 could be rate limit, 404 could be repo not found or private
+      if (response.status === 404) {
+        logOutcome('stale-cache', 'Website commits: repo not found or private, skipping');
+      } else if (response.status === 403) {
+        logOutcome('stale-cache', 'Website commits: rate limited, skipping');
+      } else {
+        logOutcome('stale-cache', `GitHub API (website) returned ${response.status}, skipping`);
+      }
+      return [];
+    }
+    
+    const commits = await response.json() as GitHubCommit[];
+    
+    if (!Array.isArray(commits)) {
+      return [];
+    }
+    
+    return processGitHubCommits(commits, 'website');
+  } catch (error) {
+    clearTimeout(timeoutId);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logOutcome('stale-cache', `GitHub API (website) fetch failed: ${errorMessage}`);
+    return [];
+  }
+}
+
+/**
+ * Process GitHub commits into changelog format.
+ * Shared by toolkit and website commit fetchers.
+ */
+function processGitHubCommits(commits: GitHubCommit[], source: ChangelogSource): ChangelogDayWithHash[] {
+  const dayMap = new Map<string, ChangelogDayWithHash>();
+  
+  for (const commit of commits) {
+    const message = commit.commit?.message;
+    if (!message) continue;
+    
+    // Only parse first line (title)
+    const title = message.split('\n')[0];
+    const parsed = parseConventionalCommit(title);
+    
+    if (!parsed) {
+      // Not a conventional commit, skip
+      continue;
+    }
+    
+    // Get date from commit (use author date, not committer date)
+    const commitDate = commit.commit?.author?.date;
+    if (!commitDate) continue;
+    
+    // Convert to local date string (YYYY-MM-DD in viewer's timezone)
+    // This ensures commits group by the day as seen by the user
+    const dateStr = getLocalDateString(new Date(commitDate));
+    
+    const entry: ChangelogEntryWithHash = {
+      type: validateChangelogType(parsed.type),
+      description: parsed.description,
+      source,
+      ...(parsed.scope ? { scope: parsed.scope } : {}),
+      hash: commit.sha?.substring(0, 7), // Short hash for deduplication
+    };
+    
+    const existing = dayMap.get(dateStr);
+    if (existing) {
+      existing.changes.push(entry);
+    } else {
+      dayMap.set(dateStr, {
+        date: dateStr,
+        displayDate: formatDisplayDate(dateStr),
+        changes: [entry],
+      });
+    }
+  }
+  
+  // Sort by date descending
+  return Array.from(dayMap.values()).sort((a, b) => b.date.localeCompare(a.date));
 }
 
 // ============================================================================
@@ -501,15 +578,15 @@ export async function fetchToolkitChangelog(
     
     // Fetch all sources in parallel:
     // 1. toolkit-structure.json (baseline changelog)
-    // 2. Recent commits from toolkit repo
-    // 3. Recent commits from website repo
+    // 2. Recent commits from toolkit repo (direct GitHub API - public repo)
+    // 3. Recent commits from website repo (via internal API route - supports private repo)
     const [structureResponse, toolkitRecentCommits, websiteRecentCommits] = await Promise.all([
       fetch(TOOLKIT_CHANGELOG_URL, {
         signal: controller.signal,
         cache: 'no-store', // Always fetch fresh from network
       }),
-      fetchRecentCommits(GITHUB_TOOLKIT_COMMITS_API_URL, 'toolkit'),
-      fetchRecentCommits(GITHUB_WEBSITE_COMMITS_API_URL, 'website'),
+      fetchRecentToolkitCommits(),
+      fetchRecentWebsiteCommits(),
     ]);
     
     clearTimeout(timeoutId);

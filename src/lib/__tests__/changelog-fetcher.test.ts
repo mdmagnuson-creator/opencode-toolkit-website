@@ -8,6 +8,7 @@
  * - Partial failure resilience (one source fails, other succeeds)
  * - Network-first caching strategy (cache as fallback, not short-circuit)
  * - Local timezone date handling
+ * - Graceful degradation for private repos (website repo returns 404)
  */
 
 import { parseConventionalCommit, fetchToolkitChangelog, clearCache } from '../changelog-fetcher';
@@ -190,13 +191,14 @@ describe('fetchToolkitChangelog', () => {
     },
   ];
   
-  // Sample GitHub commits response for website
+  // Sample GitHub commits response for website (direct GitHub API)
+  // Same format as toolkit commits - array of GitHubCommit objects
   const validWebsiteCommitsResponse = [
     {
       sha: 'web1234567890',
       commit: {
-        author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T14:00:00Z' },
-        committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T14:00:00Z' },
+        author: { name: 'Author', email: 'author@example.com', date: '2026-02-22T14:00:00Z' },
+        committer: { name: 'Author', email: 'author@example.com', date: '2026-02-22T14:00:00Z' },
         message: 'feat(docs): add new documentation page',
       },
     },
@@ -411,6 +413,7 @@ describe('fetchToolkitChangelog', () => {
         },
       ];
       
+      // Website commit via direct GitHub API (same format as toolkit)
       const websiteCommit = [
         {
           sha: 'web1234567',
@@ -472,7 +475,7 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]),
+          json: () => Promise.resolve([]), // No website commits
         });
       global.fetch = fetchMock;
       
@@ -532,7 +535,7 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]), // No website commits
+          json: () => Promise.resolve([]), // No website commits (API route format)
         });
       global.fetch = fetchMock;
       
@@ -619,7 +622,7 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]),
+          json: () => Promise.resolve([]), // GitHub API format
         });
       global.fetch = fetchMock;
       
@@ -645,7 +648,7 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]), // No website commits
+          json: () => Promise.resolve([]), // No website commits (API route format)
         });
       global.fetch = fetchMock;
       
@@ -699,7 +702,7 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]),
+          json: () => Promise.resolve([]), // GitHub API format
         });
       global.fetch = fetchMock;
       
@@ -770,7 +773,7 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]),
+          json: () => Promise.resolve([]), // GitHub API format
         });
       global.fetch = fetchMock;
 
@@ -800,7 +803,7 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]),
+          json: () => Promise.resolve([]), // GitHub API format
         });
       global.fetch = fetchMock;
 
@@ -815,6 +818,120 @@ describe('fetchToolkitChangelog', () => {
       expect(displayDate).not.toMatch(/^\d{4}-\d{2}-\d{2}$/); // Not ISO format
       // Should contain the year and month in some format
       expect(displayDate).toContain('2026');
+    });
+  });
+
+  describe('website commits via internal API route', () => {
+    it('handles 401 (no token) gracefully - returns toolkit data only', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitCommitsResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 401, // No token configured
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      // Should still succeed with toolkit data
+      expect(result.outcome).toBe('success');
+      expect(result.data).not.toBeNull();
+      
+      // Should have toolkit entries
+      const toolkitEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'toolkit'));
+      expect(toolkitEntries.length).toBeGreaterThan(0);
+      
+      // Should NOT have website entries (token not configured)
+      const websiteEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'website'));
+      expect(websiteEntries.length).toBe(0);
+    });
+
+    it('handles 502 (GitHub error) gracefully - returns toolkit data only', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitCommitsResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 502, // GitHub API error
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      // Should still succeed with toolkit data
+      expect(result.outcome).toBe('success');
+      expect(result.data).not.toBeNull();
+      
+      // Should have toolkit entries
+      const toolkitEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'toolkit'));
+      expect(toolkitEntries.length).toBeGreaterThan(0);
+    });
+
+    it('processes website commits from GitHub API correctly', async () => {
+      const websiteCommitsResponse = [
+        {
+          sha: 'abc1234567890',
+          commit: {
+            author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T12:00:00Z' },
+            committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T12:00:00Z' },
+            message: 'feat(changelog): add private repo support',
+          },
+        },
+        {
+          sha: 'def5678901234',
+          commit: {
+            author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T11:00:00Z' },
+            committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T11:00:00Z' },
+            message: 'fix(ui): resolve dark mode issue',
+          },
+        },
+      ];
+      
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]), // No toolkit commits
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(websiteCommitsResponse),
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      expect(result.outcome).toBe('success');
+      expect(result.data).not.toBeNull();
+      
+      // Should have website entries with correct parsing
+      const websiteEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'website'));
+      expect(websiteEntries.length).toBe(2);
+      
+      const featEntry = websiteEntries.find(e => e.description === 'add private repo support');
+      expect(featEntry).toBeDefined();
+      expect(featEntry?.type).toBe('feat');
+      expect(featEntry?.scope).toBe('changelog');
+      
+      const fixEntry = websiteEntries.find(e => e.description === 'resolve dark mode issue');
+      expect(fixEntry).toBeDefined();
+      expect(fixEntry?.type).toBe('fix');
     });
   });
 });
