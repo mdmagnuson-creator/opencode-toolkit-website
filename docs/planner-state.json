@@ -1,13 +1,22 @@
 {
   "uiTodos": {
-    "flow": "updates",
-    "lastSyncedAt": "2026-02-23T03:06:00Z",
+    "flow": "draft-refinement",
+    "lastSyncedAt": "2026-02-23T17:58:56Z",
     "items": [
       {
-        "content": "2026-02-22-add-planning-considerations.md",
+        "content": "Walk through yo go PRD review questions",
         "status": "completed",
-        "priority": "medium",
-        "refId": "2026-02-22-add-planning-considerations.md"
+        "priority": "high"
+      },
+      {
+        "content": "Apply accepted refinements to draft PRD",
+        "status": "completed",
+        "priority": "high"
+      },
+      {
+        "content": "Finalize PRD for ready transition",
+        "status": "completed",
+        "priority": "medium"
       }
     ]
   }

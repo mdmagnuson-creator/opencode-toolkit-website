@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Toolkit for opencode",
+  title: "Yo Go for opencode",
   description:
     "57 specialized agents working together to build software. An agent system for opencode.",
 };

@@ -1,8 +1,8 @@
 {
   "$schema": "https://opencode.ai/schemas/toolkit-structure.json",
   "version": "1.0.0",
-  "generatedAt": "2026-02-23T03:33:31Z",
-  "repository": "https://github.com/mdmagnuson-creator/ai-toolkit",
+  "generatedAt": "2026-02-23T17:26:00Z",
+  "repository": "https://github.com/mdmagnuson-creator/yo-go",
   "agents": {
     "total": 63,
     "categories": {
@@ -791,7 +791,7 @@
   "configuration": {
     "opencode": {
       "file": "opencode.json",
-      "description": "OpenCode app configuration with MCP servers and defaults"
+      "description": "OpenCode app configuration with agent defaults"
     }
   },
   "workflows": {
@@ -1112,8 +1112,49 @@
     "generatedFrom": "git log --since='30 days ago'",
     "entries": [
       {
+        "date": "2026-02-23",
+        "changes": [
+          {
+            "type": "fix",
+            "scope": "toolkit",
+            "description": "enforce project-local temp artifact policy",
+            "hash": "d01253a"
+          },
+          {
+            "type": "refactor",
+            "scope": "toolkit",
+            "description": "remove Context7 references from prompts",
+            "hash": "df267c5"
+          },
+          {
+            "type": "fix",
+            "scope": "toolkit",
+            "description": "remove MCP docs integrations from default config",
+            "hash": "50541f5"
+          },
+          {
+            "type": "fix",
+            "scope": "toolkit",
+            "description": "scope post-change workflow to behavior changes",
+            "hash": "1969b91"
+          },
+          {
+            "type": "feat",
+            "scope": "toolkit",
+            "description": "automate builder architecture and E2E policies",
+            "hash": "3838614"
+          }
+        ]
+      },
+      {
         "date": "2026-02-22",
         "changes": [
+          {
+            "type": "feat",
+            "scope": "planner",
+            "description": "simplify integration skill provisioning workflow",
+            "hash": "55b29b4"
+          },
           {
             "type": "fix",
             "scope": "planner",

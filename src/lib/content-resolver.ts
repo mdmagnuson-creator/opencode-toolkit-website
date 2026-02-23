@@ -3,7 +3,7 @@ import path from "path";
 import toolkitStructure from "@/data/toolkit-structure.json";
 import { REPO_RAW_BASE } from "@/config/urls";
 
-const LOCAL_TOOLKIT_PATH = path.join(process.env.HOME || "~", "code", "ai-toolkit");
+const LOCAL_TOOLKIT_PATH = path.join(process.env.HOME || "~", ".config", "opencode");
 const GITHUB_RAW_BASE = REPO_RAW_BASE;
 
 interface AgentEntry {
@@ -55,7 +55,7 @@ function resolveSkillPath(slug: string): string {
 /**
  * Resolves content for an agent or skill by checking:
  * 1. Manifest content (if non-empty, return immediately)
- * 2. Local toolkit checkout at ~/code/ai-toolkit/
+ * 2. Local toolkit checkout at ~/.config/opencode/
  * 3. GitHub raw content as fallback
  * 
  * @param type - "agent" or "skill"

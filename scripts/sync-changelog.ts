@@ -26,7 +26,7 @@ import * as path from 'path';
 // ============================================================================
 
 const TOOLKIT_REPO_OWNER = 'mdmagnuson-creator';
-const TOOLKIT_REPO_NAME = 'ai-toolkit';
+const TOOLKIT_REPO_NAME = 'yo-go';
 const WEBSITE_REPO_OWNER = 'mdmagnuson-creator';
 const WEBSITE_REPO_NAME = 'opencode-toolkit-website';
 

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Automations | AI Toolkit",
+  title: "Automations | Yo Go",
   description: "Go CLI tools for CI triage, PRD generation, and release notes automation.",
 };
 
@@ -266,7 +266,7 @@ export default function AutomationsPage() {
           <ol className="mt-4 space-y-3 text-neutral-700 dark:text-neutral-300">
             <li className="flex gap-3">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">1</span>
-              <span>Clone the <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">ai-toolkit</code> repository and navigate to the automation directory</span>
+              <span>Clone the <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">yo-go</code> repository and navigate to the automation directory</span>
             </li>
             <li className="flex gap-3">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-medium text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">2</span>

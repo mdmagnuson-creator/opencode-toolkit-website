@@ -1,6 +1,6 @@
 # OpenCode Toolkit Website
 
-Documentation website for the OpenCode AI Toolkit system.
+Documentation website for the OpenCode Yo Go system.
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ Open [http://localhost:4004](http://localhost:4004) to view the site.
 ## Data Synchronization
 
 The site displays data from two repositories:
-- **Toolkit repo** (`ai-toolkit`) - public, no authentication needed
+- **Toolkit repo** (`yo-go`) - public, no authentication needed
 - **Website repo** (`opencode-toolkit-website`) - if private, requires token for changelog sync
 
 ### Build-time Changelog Sync

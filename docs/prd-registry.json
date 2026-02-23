@@ -1,6 +1,16 @@
 {
   "version": "1.0",
-  "prds": [],
+  "prds": [
+    {
+      "id": "prd-yo-go-brand-messaging",
+      "name": "yo go brand messaging refresh",
+      "status": "ready",
+      "filePath": "docs/prds/prd-yo-go-brand-messaging.md",
+      "jsonPath": "docs/prds/prd-yo-go-brand-messaging.json",
+      "createdAt": "2026-02-23",
+      "stories": ["US-001", "US-002", "US-003", "US-004"]
+    }
+  ],
   "completed": [
     {
       "id": "prd-hybrid-changelog-sync",

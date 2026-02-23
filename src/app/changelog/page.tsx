@@ -5,8 +5,8 @@ import { ChangelogClient } from "./ChangelogClient";
 import { REPO_BASE, RELEASES_URL } from "@/config/urls";
 
 export const metadata: Metadata = {
-  title: "Changelog | AI Toolkit",
-  description: "Recent updates and changes to the AI Toolkit and documentation website.",
+  title: "Changelog | Yo Go",
+  description: "Recent updates and changes to Yo Go and documentation website.",
 };
 
 // Baseline changelog from build-time data (SSR)
@@ -23,7 +23,7 @@ export default function ChangelogPage() {
           Changelog
         </h1>
         <p className="text-lg text-neutral-600 dark:text-neutral-400">
-          Recent updates and changes to the AI Toolkit and this documentation website.
+          Recent updates and changes to Yo Go and this documentation website.
           Stay informed about new agents, skills, and improvements to your development workflow.
         </p>
       </div>
@@ -46,7 +46,7 @@ export default function ChangelogPage() {
             rel="noopener noreferrer"
             className="font-medium text-blue-600 hover:underline dark:text-blue-400"
           >
-            ai-toolkit repository
+            yo-go repository
           </a>
           , while{" "}
           <span className="font-medium text-amber-600 dark:text-amber-400">Website</span> entries
