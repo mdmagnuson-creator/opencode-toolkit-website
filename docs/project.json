@@ -80,5 +80,36 @@
     "architecture": "docs/ARCHITECTURE.md",
     "conventions": "docs/CONVENTIONS.md",
     "designSystem": null
+  },
+
+  "planning": {
+    "considerations": [
+      {
+        "id": "permissions",
+        "label": "Authorization and permissions",
+        "required": true,
+        "appliesWhen": ["api", "admin-ui", "data-access"],
+        "scopeQuestions": [
+          "Which roles are affected?",
+          "Which actions need explicit allow/deny rules?",
+          "What is expected unauthorized behavior (401 vs 403)?"
+        ],
+        "acceptanceCriteriaHints": [
+          "Role matrix documented",
+          "Unauthorized path behavior defined",
+          "Permission checks covered by tests"
+        ]
+      },
+      {
+        "id": "support-docs",
+        "label": "Support documentation impact",
+        "required": false
+      },
+      {
+        "id": "ai-tools",
+        "label": "AI tool/chatbot impact",
+        "required": false
+      }
+    ]
   }
 }

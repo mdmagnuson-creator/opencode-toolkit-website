@@ -196,6 +196,10 @@ export default function WorkflowConceptPage() {
                   <span className="text-blue-600 dark:text-blue-400">•</span>
                   <span>Suggest branch name and scope boundaries</span>
                 </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-600 dark:text-blue-400">•</span>
+                  <span>Identify credential/service access requirements</span>
+                </li>
               </ul>
             </div>
           </div>
@@ -210,6 +214,39 @@ export default function WorkflowConceptPage() {
               <strong>Completion:</strong> PRD is saved to <code className="rounded bg-violet-100 px-1 dark:bg-violet-900">docs/prd.json</code> with
               status &quot;ready&quot; and all stories have clear acceptance criteria.
             </p>
+          </div>
+
+          {/* Credential Planning */}
+          <div className="mt-8 rounded-xl border border-violet-200 bg-white p-6 dark:border-violet-800 dark:bg-neutral-900">
+            <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
+              Credential Planning
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              When your feature requires API keys, secrets, or third-party service access,
+              the Planner captures this in the PRD&apos;s <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">credentialRequirements</code> section:
+            </p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <div className="flex items-center gap-2">
+                  <code className="rounded bg-green-100 px-2 py-1 text-sm font-semibold text-green-800 dark:bg-green-900 dark:text-green-200">
+                    upfront
+                  </code>
+                </div>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                  Credentials are requested before building begins. Use when the
+                  feature cannot be implemented without the service integration.
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <code className="rounded bg-amber-100 px-2 py-1 text-sm font-semibold text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+                  after-initial-build
+                </code>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                  Build starts with stubbed integration code. Credentials are requested
+                  before the story that first requires them.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -287,6 +324,39 @@ export default function WorkflowConceptPage() {
             <p className="text-sm text-blue-800 dark:text-blue-200">
               <strong>Completion:</strong> Each story is committed with <code className="rounded bg-blue-100 px-1 dark:bg-blue-900">passes: true</code> in the PRD,
               and <code className="rounded bg-blue-100 px-1 dark:bg-blue-900">progress.txt</code> documents learnings.
+            </p>
+          </div>
+
+          {/* Credential Prompts */}
+          <div className="mt-8 rounded-xl border border-blue-200 bg-white p-6 dark:border-blue-800 dark:bg-neutral-900">
+            <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
+              Credential Readiness Prompts
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Builder checks credential requirements at key moments during implementation:
+            </p>
+            <div className="mt-4 space-y-3 text-sm text-neutral-700 dark:text-neutral-400">
+              <div className="flex items-start gap-3">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">
+                  1
+                </div>
+                <p>
+                  <strong>At PRD start:</strong> If credentials are marked <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">upfront</code>,
+                  Builder prompts for them before implementing any stories.
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">
+                  2
+                </div>
+                <p>
+                  <strong>At story boundaries:</strong> For <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">after-initial-build</code> timing,
+                  Builder prompts when reaching a story that lists <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">requiredCredentials</code>.
+                </p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-blue-800 dark:text-blue-200">
+              This ensures you&apos;re not interrupted mid-implementation for credentials you don&apos;t have ready yet.
             </p>
           </div>
         </div>
@@ -564,14 +634,14 @@ export default function WorkflowConceptPage() {
               </div>
             </div>
             <div className="mt-4 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
-              <p className="text-neutral-400">// project.json</p>
+              <p className="text-neutral-400">{/* comment syntax */}{"//"} project.json</p>
               <p className="mt-1">{`{`}</p>
               <p className="ml-4">{`"agents": {`}</p>
               <p className="ml-8">
                 <span className="text-green-400">&quot;trunkMode&quot;</span>
                 <span className="text-neutral-400">: </span>
                 <span className="text-amber-400">&quot;branchless&quot;</span>
-                <span className="text-neutral-400"> // or &quot;pr-based&quot; (default)</span>
+                <span className="text-neutral-400"> {"//"} or &quot;pr-based&quot; (default)</span>
               </p>
               <p className="ml-4">{`}`}</p>
               <p>{`}`}</p>

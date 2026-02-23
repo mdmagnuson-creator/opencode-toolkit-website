@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/schemas/toolkit-structure.json",
   "version": "1.0.0",
-  "generatedAt": "2026-02-22T20:25:18Z",
+  "generatedAt": "2026-02-23T03:33:31Z",
   "repository": "https://github.com/mdmagnuson-creator/ai-toolkit",
   "agents": {
     "total": 63,
@@ -1114,6 +1114,30 @@
       {
         "date": "2026-02-22",
         "changes": [
+          {
+            "type": "fix",
+            "scope": "planner",
+            "description": "allow planning updates to docs/project.json",
+            "hash": "0f7ed34"
+          },
+          {
+            "type": "feat",
+            "scope": "planner",
+            "description": "add credential readiness to PRD lifecycle",
+            "hash": "5d2a33a"
+          },
+          {
+            "type": "feat",
+            "scope": "planner",
+            "description": "add planning consideration passthrough for PRD workflows",
+            "hash": "ff0aa73"
+          },
+          {
+            "type": "feat",
+            "scope": "toolkit",
+            "description": "harden dev-server readiness and local website-sync modes",
+            "hash": "2e0403b"
+          },
           {
             "type": "feat",
             "scope": "toolkit",

@@ -128,6 +128,13 @@ export default function ProjectsConceptPage() {
   // Agent behavior configuration
   "agents": {
     "trunkMode": "pr-based"  // "pr-based" (default) or "branchless"
+  },
+  
+  // Planning considerations passed through to PRDs
+  "planning": {
+    "considerations": {
+      // Project-level guidance for the Planner agent
+    }
   }
 }`}
             </pre>
@@ -160,6 +167,14 @@ export default function ProjectsConceptPage() {
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                 Third-party services your project uses. Agents can generate
                 integration-specific code patterns.
+              </p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">Planning Considerations</h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                The <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">planning.considerations</code> object
+                passes project-level guidance through to PRDs. Planner uses this for
+                consistent architectural decisions across features.
               </p>
             </div>
           </div>

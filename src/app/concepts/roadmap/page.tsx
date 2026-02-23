@@ -55,6 +55,54 @@ const draftPrds = [
       "Maintained or improved diagnostic quality on failures",
     ],
   },
+  {
+    id: "PRD-005",
+    name: "Integration Provisioning Automation",
+    status: "draft",
+    priority: "high",
+    effort: "low",
+    impact: "high",
+    summary:
+      "Lightweight automation for integration skill provisioning. Planner adds integration skill tasks when integrations are detected, Builder creates missing integration skills during build, and Builder always queues toolkit promotion updates for newly created integration skills.",
+    modes: [
+      {
+        name: "detect",
+        description:
+          "Planner identifies integration needs during PRD creation and adds skill provisioning tasks.",
+      },
+      {
+        name: "provision",
+        description:
+          "Builder creates missing integration skills during build when needed, using meta-skill generators.",
+      },
+      {
+        name: "promote",
+        description:
+          "Builder queues toolkit updates for newly created skills; Toolkit reviews and promotes mature patterns.",
+      },
+    ],
+    keyFeatures: [
+      "Planner adds integration skill tasks when integrations are detected in PRDs",
+      "Builder creates missing integration skills during build using meta-skill generators",
+      "Builder always queues toolkit promotion updates for newly created integration skills",
+      "Lightweight workflow with no blocking dependencies between stories",
+      "Integration registry tracking available meta-skills and their triggers",
+    ],
+    tickets: {
+      total: 12,
+      phases: [
+        { name: "Planner Detection", count: 3, ids: "IP-001 to IP-003" },
+        { name: "Builder Provisioning", count: 5, ids: "IP-004 to IP-008" },
+        { name: "Promotion Queue", count: 2, ids: "IP-009 to IP-010" },
+        { name: "Documentation", count: 2, ids: "IP-011 to IP-012" },
+      ],
+    },
+    successMetrics: [
+      "Integration skills created during the same build session they're needed",
+      "All new integration skills automatically queued for toolkit promotion review",
+      "50% reduction in repetitive integration setup across projects",
+    ],
+  },
 ];
 
 export default function RoadmapPage() {

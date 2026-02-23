@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-22T05:08:00Z",
-  "syncedAt": "2026-02-22T20:35:20.520Z",
-  "toolkitCommit": "ceb06d4",
+  "generatedAt": "2026-02-23T03:33:31Z",
+  "syncedAt": "2026-02-23T03:37:37.328Z",
+  "toolkitCommit": "0f7ed34",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
@@ -935,6 +935,36 @@
       "date": "2026-02-22",
       "displayDate": "February 22, 2026",
       "changes": [
+        {
+          "type": "fix",
+          "description": "allow planning updates to docs/project.json",
+          "scope": "planner"
+        },
+        {
+          "type": "feat",
+          "description": "add credential readiness to PRD lifecycle",
+          "scope": "planner"
+        },
+        {
+          "type": "feat",
+          "description": "add planning consideration passthrough for PRD workflows",
+          "scope": "planner"
+        },
+        {
+          "type": "feat",
+          "description": "harden dev-server readiness and local website-sync modes",
+          "scope": "toolkit"
+        },
+        {
+          "type": "feat",
+          "description": "streamline bootstrap and harden public repo setup",
+          "scope": "toolkit"
+        },
+        {
+          "type": "feat",
+          "description": "simplify root guidance and restore generic CVE skill",
+          "scope": "governance"
+        },
         {
           "type": "fix",
           "description": "author PRD definition of done by default",

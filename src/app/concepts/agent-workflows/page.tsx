@@ -7,6 +7,7 @@ const PAGE_SECTIONS = [
   { id: "primary-agents", label: "Primary Agents" },
   { id: "communication-flow", label: "Communication Flow" },
   { id: "update-queues", label: "Update Queues" },
+  { id: "integration-provisioning", label: "Integration Provisioning" },
   { id: "builder-startup", label: "Builder Startup Behavior" },
   { id: "todo-synchronization", label: "Todo Synchronization" },
   { id: "escalation-to-prd", label: "Escalation to PRD" },
@@ -623,7 +624,8 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                         @planner
                       </td>
                       <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                        PRD/documentation changes, architecture decisions
+                        PRD/documentation changes, architecture decisions, planning metadata in{" "}
+                        <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-700">docs/project.json</code>
                       </td>
                     </tr>
                     <tr>
@@ -641,6 +643,28 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            </div>
+
+            {/* Planner Allowlist */}
+            <div className="mt-6 rounded-lg bg-violet-50 p-4 dark:bg-violet-950">
+              <div className="flex items-start gap-3">
+                <svg className="mt-0.5 h-5 w-5 flex-shrink-0 text-violet-600 dark:text-violet-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                </svg>
+                <div>
+                  <p className="text-sm font-medium text-violet-900 dark:text-violet-100">
+                    Planner Write Allowlist
+                  </p>
+                  <p className="mt-1 text-sm text-violet-800 dark:text-violet-200">
+                    Planning-scope updates can target{" "}
+                    <code className="rounded bg-violet-100 px-1 py-0.5 text-xs font-mono dark:bg-violet-900">docs/project.json</code>{" "}
+                    for planning metadata changes (e.g., capability flags, PRD lifecycle settings). This file is included
+                    in the planner&apos;s write allowlist alongside PRD files and the prd-registry. @planner owns all
+                    planning metadata updates to{" "}
+                    <code className="rounded bg-violet-100 px-1 py-0.5 text-xs font-mono dark:bg-violet-900">docs/project.json</code>.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -717,6 +741,251 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                   file (or deletion fails silently), the update will be presented again on the
                   next session, leading to confusion or duplicate work. Verification ensures
                   the lifecycle completes cleanly.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Integration Provisioning */}
+      <section id="integration-provisioning" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Integration Provisioning Automation
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            When projects need integrations (Stripe, Resend, OpenAI, etc.), the agent system uses a
+            lightweight workflow to provision and promote integration-specific skills.
+          </p>
+
+          {/* Three Phase Flow */}
+          <div className="mt-10 rounded-xl border border-neutral-200 bg-neutral-50 p-8 dark:border-neutral-700 dark:bg-neutral-900">
+            <div className="space-y-8">
+              {/* Phase 1: Detect */}
+              <div className="flex gap-6">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-violet-600 text-lg font-bold text-white">
+                  1
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                    Planner Adds Integration Tasks
+                  </h3>
+                  <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    During PRD creation, @planner identifies integration needs by analyzing user stories
+                    and requirements. When an integration is detected (e.g., &quot;accept payments&quot; → Stripe),
+                    the planner:
+                  </p>
+                  <ul className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li className="flex items-start gap-2">
+                      <span className="text-violet-600 dark:text-violet-400">•</span>
+                      Sets capability flags in <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">docs/project.json</code> (e.g., <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">capabilities.payments: true</code>)
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-violet-600 dark:text-violet-400">•</span>
+                      Adds the integration to the <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">integrations</code> array
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-violet-600 dark:text-violet-400">•</span>
+                      Adds an integration skill task to the PRD (non-blocking, just part of the work)
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div className="flex justify-center">
+                <svg className="h-8 w-8 text-neutral-400 dark:text-neutral-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                </svg>
+              </div>
+
+              {/* Phase 2: Provision */}
+              <div className="flex gap-6">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">
+                  2
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                    Builder Creates Missing Skills
+                  </h3>
+                  <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    During build, @builder checks if integration skills exist and creates missing ones
+                    on-demand using meta-skill generators:
+                  </p>
+                  <ul className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 dark:text-blue-400">•</span>
+                      Checks <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">docs/project.json</code> for required integrations
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 dark:text-blue-400">•</span>
+                      Loads the appropriate meta-skill generator (e.g., <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">stripe-skill-generator</code>)
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 dark:text-blue-400">•</span>
+                      Generates the skill file to <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">docs/skills/&lt;integration&gt;/SKILL.md</code>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 dark:text-blue-400">•</span>
+                      Records the generated skill in <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">docs/project.json</code> → <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">skills.generated[]</code>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div className="flex justify-center">
+                <svg className="h-8 w-8 text-neutral-400 dark:text-neutral-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                </svg>
+              </div>
+
+              {/* Phase 3: Promote */}
+              <div className="flex gap-6">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-600 text-lg font-bold text-white">
+                  3
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                    Builder Queues Toolkit Promotion
+                  </h3>
+                  <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    After creating a new integration skill, @builder always queues a toolkit promotion
+                    update. @toolkit later reviews and promotes mature patterns:
+                  </p>
+                  <ul className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li className="flex items-start gap-2">
+                      <span className="text-amber-600 dark:text-amber-400">•</span>
+                      @builder queues promotion update to <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">pending-updates/</code> for every new skill
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-amber-600 dark:text-amber-400">•</span>
+                      @toolkit reviews queued updates and extracts reusable patterns
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-amber-600 dark:text-amber-400">•</span>
+                      Updates meta-skill generators with improved patterns
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-amber-600 dark:text-amber-400">•</span>
+                      Future projects automatically benefit from the promoted patterns
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Meta-Skill Generators */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Available Meta-Skill Generators
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              These generators create project-specific skills based on detected capabilities and integrations.
+            </p>
+
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+                <thead className="bg-neutral-50 dark:bg-neutral-800">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Generator
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Triggered By
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Generates
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                        auth-skill-generator
+                      </code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">capabilities.authentication</code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      Auth flow patterns, session handling
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                        stripe-skill-generator
+                      </code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">integrations: [&quot;stripe&quot;]</code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      Payment flows, webhook handling
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                        email-skill-generator
+                      </code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">capabilities.email</code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      Transactional email templates, delivery
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                        crud-skill-generator
+                      </code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      Any project with database
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      Entity patterns, validation, API routes
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                        ai-tools-skill-generator
+                      </code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">capabilities.ai</code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      AI tool definitions, chatbot patterns
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Benefit Callout */}
+          <div className="mt-8 rounded-lg bg-green-50 p-4 dark:bg-green-950">
+            <div className="flex items-start gap-3">
+              <svg className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p className="text-sm font-medium text-green-900 dark:text-green-100">
+                  Lightweight Integration Workflow
+                </p>
+                <p className="mt-1 text-sm text-green-800 dark:text-green-200">
+                  Integration skills are created on-demand during build, with no blocking dependencies.
+                  Builder automatically queues promotion updates, ensuring patterns flow back to the toolkit
+                  for future projects.
                 </p>
               </div>
             </div>
