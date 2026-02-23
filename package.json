@@ -15,7 +15,8 @@
     "typecheck": "tsc --noEmit",
     "fetch-data": "npx tsx scripts/fetch-toolkit-manifest.ts",
     "transform-data": "npx tsx scripts/transform-toolkit-structure.ts",
-    "prepare-data": "npm run fetch-data && npm run transform-data"
+    "sync-changelog": "npx tsx scripts/sync-changelog.ts",
+    "prepare-data": "npm run fetch-data && npm run transform-data && npm run sync-changelog"
   },
   "dependencies": {
     "next": "16.1.6",

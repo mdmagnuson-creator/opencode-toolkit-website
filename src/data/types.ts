@@ -66,6 +66,27 @@ export interface ChangelogDayWithSource {
   changes: ChangelogEntryWithSource[];
 }
 
+/**
+ * Build-time changelog output format (from scripts/sync-changelog.ts)
+ */
+export interface ChangelogOutput {
+  generatedAt: string;
+  sources: {
+    toolkit: {
+      fetched: boolean;
+      commitCount: number;
+      error?: string;
+    };
+    website: {
+      fetched: boolean;
+      commitCount: number;
+      error?: string;
+      tokenAvailable: boolean;
+    };
+  };
+  changelog: ChangelogDayWithSource[];
+}
+
 export interface ToolkitManifest {
   version: string;
   generatedAt: string;

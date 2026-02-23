@@ -37,6 +37,13 @@ jobs:
       - name: Transform manifest data
         run: npm run transform-data
 
+      - name: Sync changelog (toolkit + website commits)
+        run: npm run sync-changelog
+        env:
+          # Uses the default GITHUB_TOKEN which has read access to the website repo
+          # For private repos, this token automatically has access within the same org/user
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build static site
         run: npm run build
 

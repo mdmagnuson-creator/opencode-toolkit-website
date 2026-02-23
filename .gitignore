@@ -44,3 +44,6 @@ docs/builder-state.json
 
 # generated data (committed manually, updated periodically)
 # src/data/toolkit-manifest.json
+
+# build-time generated changelog (regenerated on each build)
+src/data/changelog.json
