@@ -15,7 +15,7 @@ Open [http://localhost:4004](http://localhost:4004) to view the site.
 
 The site displays data from two repositories:
 - **Toolkit repo** (`ai-toolkit`) - public, no authentication needed
-- **Website repo** (`opencode-toolkit-website`) - private, requires token for changelog sync
+- **Website repo** (`opencode-toolkit-website`) - if private, requires token for changelog sync
 
 ### Build-time Changelog Sync
 
@@ -26,7 +26,7 @@ The changelog is synchronized at build time by `scripts/sync-changelog.ts`:
 npm run sync-changelog
 
 # With token (full sync including website commits)
-GITHUB_TOKEN=ghp_xxx npm run sync-changelog
+GITHUB_TOKEN=YOUR_GITHUB_TOKEN npm run sync-changelog
 ```
 
 ### GitHub Actions
@@ -46,7 +46,7 @@ The `GITHUB_TOKEN` is automatically provided by GitHub Actions and has read acce
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `GITHUB_TOKEN` | Optional | GitHub personal access token or CI token. Enables fetching commits from private website repo. |
+| `GITHUB_TOKEN` | Optional | GitHub token for private-repo changelog reads. Set as local env var or GitHub Secret; never commit token values. |
 
 ### Local Development
 
@@ -54,11 +54,17 @@ The `GITHUB_TOKEN` is automatically provided by GitHub Actions and has read acce
    
 2. **With token**: Export `GITHUB_TOKEN` to include website commits:
    ```bash
-   export GITHUB_TOKEN=ghp_your_token_here
+   export GITHUB_TOKEN=YOUR_GITHUB_TOKEN
    npm run dev
    ```
 
 3. **Using cached data**: The `src/data/changelog.json` file is generated at build time. If it exists from a previous build, it will be used.
+
+### Public Repo Safety
+
+- Copy `.env.example` values locally only. Do not commit real credentials.
+- Store CI credentials in GitHub Secrets.
+- Run a secret scan before release and after major sync changes.
 
 ### Data Flow
 
