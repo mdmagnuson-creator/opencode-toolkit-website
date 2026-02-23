@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface NavSection {
   id: string;
@@ -26,6 +26,9 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
   const [activeId, setActiveId] = useState<string>(() => sections[0]?.id ?? "");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopCollapsed, setDesktopCollapsed] = useState(true);
+  
+  // Track if a click-initiated scroll is in progress to avoid URL update loops
+  const isClickScrollingRef = useRef(false);
 
   // Simple toggle for desktop collapse state
   const handleDesktopCollapse = useCallback((collapsed: boolean) => {
@@ -44,7 +47,17 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
     const observerCallback: IntersectionObserverCallback = (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
-          setActiveId(entry.target.id);
+          const newId = entry.target.id;
+          setActiveId(newId);
+          
+          // Update URL hash on scroll (replaceState to avoid polluting back-stack)
+          // Skip if this is from a click-initiated scroll (click already set the hash)
+          if (!isClickScrollingRef.current) {
+            const currentHash = window.location.hash.slice(1);
+            if (currentHash !== newId) {
+              window.history.replaceState(null, "", `#${newId}`);
+            }
+          }
         }
       }
     };
@@ -66,10 +79,18 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
     setMobileOpen(false);
     const element = document.getElementById(id);
     if (element) {
+      // Mark that we're doing a click-initiated scroll
+      isClickScrollingRef.current = true;
+      
       // Update URL hash for shareable anchor links
       // Use history.pushState to avoid the browser's default jump behavior
       window.history.pushState(null, "", `#${id}`);
       element.scrollIntoView({ behavior: "smooth", block: "start" });
+      
+      // Clear the flag after smooth scroll completes (estimate ~500ms for smooth scroll)
+      setTimeout(() => {
+        isClickScrollingRef.current = false;
+      }, 600);
     }
   };
 
