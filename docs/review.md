@@ -1,173 +1,166 @@
-# Code Review: prd-human-in-the-loop-modes (US-001 & US-002)
+# Security Compliance / Public-Readiness Audit
 
-**Date:** 2026-02-21  
-**Reviewer:** Critic Agent  
-**Scope:** US-001 (Entry point) and US-002 (Planner section)
-
-## Summary
-
-**Status: Mostly correct with one critical gap.** US-002 is incorrectly marked as `passes: true` in `docs/prd.json` while US-001 remains `passes: false` — but both have complete implementations. Additionally, the PRD file structure has ambiguity (PRD in both `docs/prd.json` and `docs/prds/`). Test coverage is excellent.
+**Repository:** opencode-toolkit-website  
+**Date:** February 23, 2026  
+**Audit Type:** Read-only security and public-readiness analysis  
+**Purpose:** Determine whether anything in this repository should block making it public
 
 ---
 
-## Critical Issues
+## Executive Summary
 
-### 1. PRD state inconsistency: US-001 marked `passes: false` despite complete implementation
+**Recommendation: GO — Safe to make public**
 
-**File:** `docs/prd.json:20`  
-**Severity:** Critical  
-**Story:** US-001
+This repository is a static documentation website built with Next.js. No hardcoded secrets, credentials, or sensitive infrastructure details were found. The repository follows good security hygiene with proper `.gitignore` patterns excluding `.env*` files, build artifacts, and temporary directories.
 
-US-001 acceptance criteria are met:
-- ✅ Concepts area includes Human-in-the-Loop Modes entry point (`src/app/concepts/page.tsx:184-204`)
-- ✅ Entry has clear title and description
-- ✅ Navigation works on desktop/mobile
-- ✅ Typecheck passes
-- ✅ Lint passes
-- ✅ Works in light/dark mode
-
-However, `docs/prd.json` shows `"passes": false` for US-001. The story should be marked as passing.
-
-**Fix:** Update `docs/prd.json` line 20: change `"passes": false` to `"passes": true` and add notes.
+Minor findings exist that are either informational or low-risk and do not block public release.
 
 ---
 
-## Warnings
+## Findings
 
-### 2. E2E tests exist but weren't verified as passing
+### High Severity
+**None**
 
-**Files:** `e2e/us-001-human-work-modes-entry.spec.ts`, `e2e/us-002-planner-section.spec.ts`  
-**Severity:** Warning  
-**Story:** US-001, US-002
+### Medium Severity
+**None**
 
-The PRD specifies `e2eRequired: true` for both stories. E2E test files exist with comprehensive coverage (91 lines for US-001, 287 lines for US-002), but verification that they pass wasn't included in the commit workflow.
+### Low Severity
 
-**Recommendation:** Run `npx playwright test` to confirm E2E tests pass before marking stories complete.
+#### 1. [docs/session-locks.json, test-results/.last-run.json] — Non-sensitive but unnecessary tracked files
+**Category:** Information Disclosure  
+**Severity:** Low  
+**Likely False Positive:** Partial — files contain no sensitive data
 
----
+These files are tracked in git but add minimal value for public consumers:
+- `docs/session-locks.json` — AI agent session state (currently empty: `{"sessions":[]}`)
+- `test-results/.last-run.json` — Playwright test run metadata
 
-### 3. Heading hierarchy skip in Planner section (h4 without explicit semantic level)
+**Assessment:** Neither file contains sensitive information. They are development workflow artifacts that could be gitignored but don't pose a security risk.
 
-**File:** `src/app/concepts/human-work-modes/page.tsx:180, 199, 214, 229`  
-**Severity:** Warning  
-**Category:** Accessibility
-
-The journey step headings (Create a Draft PRD, Refine Requirements, etc.) use `<h4>` but aren't wrapped in semantic structure. For accessibility, consider either:
-- Using `<h3>` as these are subsections of "The Draft-to-Ready Journey" (which is h3)
-- Adding `aria-labelledby` to connect the timeline to its heading
-
-This is acceptable but noted for future accessibility improvements.
-
----
-
-## Suggestions
-
-### 4. Consider extracting agent card data to a shared constant
-
-**File:** `src/app/concepts/human-work-modes/page.tsx:36-118`  
-**Category:** DRY Principle  
-**Severity:** Minor
-
-The three agent overview cards (Planner, Builder, Toolkit) define color schemes and icons inline. These same colors appear in the Planner section below. Extracting to a constant like `AGENT_THEMES` would improve maintainability.
-
-```ts
-// Suggested: src/constants/agent-themes.ts
-export const AGENT_THEMES = {
-  planner: { border: 'violet', bg: 'violet', icon: BookIcon },
-  builder: { border: 'blue', bg: 'blue', icon: ToolIcon },
-  toolkit: { border: 'amber', bg: 'amber', icon: SettingsIcon }
-}
+**Suggested remediation (optional):**
+```gitignore
+# Add to .gitignore
+test-results/
+docs/session-locks.json
 ```
 
----
+#### 2. [README.md:57] — Example token placeholder in documentation
+**Category:** Documentation Best Practice  
+**Severity:** Low (Informational)  
+**Likely False Positive:** Yes — this is intentional documentation
 
-### 5. Prompt code blocks could have copy-to-clipboard functionality
+The README contains example syntax `export GITHUB_TOKEN=ghp_your_token_here` which shows users how to configure a token. This is standard documentation practice and poses no security risk since it's a clearly marked placeholder.
 
-**File:** `src/app/concepts/human-work-modes/page.tsx:378-476`  
-**Category:** UX Enhancement  
-**Severity:** Minor
+**Assessment:** No action required.
 
-The practical prompts are described as "copy-ready" in the intro text, but there's no copy button. Consider adding clipboard functionality for better UX.
+#### 3. [src/config/urls.ts, scripts/sync-changelog.ts] — GitHub username/org hardcoded
+**Category:** Configuration  
+**Severity:** Low (Informational)
 
----
+The repository owner `mdmagnuson-creator` is hardcoded in:
+- `src/config/urls.ts` (lines 12, 16)
+- `scripts/sync-changelog.ts` (lines 28, 30)
+- `scripts/fetch-toolkit-manifest.ts` (line 12)
 
-### 6. Progress log entry missing for US-001
+**Assessment:** This is expected for a project-specific website. Making the repo public inherently exposes the owner name. No remediation needed.
 
-**File:** `docs/progress.txt`  
-**Category:** Documentation  
-**Severity:** Minor
+#### 4. [.tmp/ directory] — Development artifacts in untracked directory
+**Category:** Build Artifacts  
+**Severity:** Low  
+**Not a finding:** Directory is NOT git-tracked
 
-The progress log has an entry for US-002 (lines 352-387) but no entry for US-001. US-001 appears to have been implemented alongside US-002 but wasn't logged separately.
+`.tmp/` contains dev server logs and screenshots but is properly excluded via `.gitignore` (via the `docs/builder-state.json` entry pattern and `.DS_Store` patterns). Verified via `git ls-files --cached '.tmp/*'` returning empty.
 
----
-
-## What's Done Well
-
-### Correctness Against Story Requirements
-
-- ✅ **US-001 AC1:** Concepts area includes Human-in-the-Loop Modes entry point with icon, title, and description
-- ✅ **US-001 AC2:** Clear title "Human-in-the-Loop Modes" with explanation "Practical collaboration workflows..."
-- ✅ **US-001 AC3:** Navigation path is obvious — card in grid layout matches other concept entries
-- ✅ **US-002 AC1:** Working with Planner section with violet theming consistent with overview card
-- ✅ **US-002 AC2:** Draft refinement (4-step journey), scope clarification (In/Out of Scope sections), move-to-ready flow explained
-- ✅ **US-002 AC3:** 5 practical prompts with category badges (New Feature, Refine Draft, Edge Cases, Scope Check, Mark Ready)
-
-### Documentation & Content Quality
-
-- ✅ **Clear visual hierarchy:** Timeline-style journey with numbered steps and connecting lines
-- ✅ **Actionable content:** Refinement tips use active language ("Challenge the stories", "Split large stories")
-- ✅ **Comparison table:** "When to Use Planner vs Builder" provides clear decision guidance
-- ✅ **Pro tips:** Non-goals suggestion adds practical value
-- ✅ **Code examples:** Prompt templates show exact format with `@planner` prefix
-
-### Test Quality
-
-- ✅ **Unit test coverage:** 39 tests covering both US-001 and US-002 — all pass
-- ✅ **E2E test structure:** Tests match PRD acceptance criteria closely
-- ✅ **Test organization:** Describe blocks mirror story structure (section structure, draft refinement, scope clarification, prompts)
-- ✅ **Accessibility testing:** Dark mode tests verify content visibility
-
-### Code Quality
-
-- ✅ **TypeScript:** No type errors
-- ✅ **ESLint:** 0 new errors (5 pre-existing warnings in unrelated files)
-- ✅ **Dark mode:** All Tailwind classes include `dark:` variants
-- ✅ **Semantic HTML:** Proper heading levels (h1 → h2 → h3), table structure, list semantics
-- ✅ **Responsive design:** Grid layouts adjust for mobile (`sm:grid-cols-2`, `lg:grid-cols-3`)
+**Assessment:** No action required — directory will not be included in public repo.
 
 ---
 
-## Quality Gates
+## Security Controls Verified
 
+### Secrets & Credentials
 | Check | Status |
 |-------|--------|
-| TypeScript | ✅ Pass |
-| ESLint | ✅ Pass (0 errors in changed files) |
-| Unit Tests | ✅ Pass (39/39) |
-| E2E Tests | ⚠️ Not verified (files exist) |
+| `.env*` files gitignored | ✅ Yes (line 34 of `.gitignore`) |
+| No hardcoded API keys (OpenAI, AWS, etc.) | ✅ None found |
+| No hardcoded GitHub tokens | ✅ None found |
+| No AWS account IDs | ✅ None found |
+| No private URLs/IPs (internal services) | ✅ None found |
+
+### GitHub Actions / CI
+| Check | Status |
+|-------|--------|
+| Workflow uses `secrets.GITHUB_TOKEN` properly | ✅ Yes — uses the default token, not a hardcoded value |
+| Minimal permissions requested | ✅ Only `contents: read`, `pages: write`, `id-token: write` |
+| No dangerous actions (force push, etc.) | ✅ Standard deploy-pages workflow |
+
+### Sensitive Files
+| Check | Status |
+|-------|--------|
+| No `.pem`, `.key` files | ✅ None found |
+| No `terraform.tfstate` | ✅ None found |
+| No log files tracked | ✅ None found |
+| `node_modules/` gitignored | ✅ Yes |
+| `.next/` gitignored | ✅ Yes |
+| `out/` gitignored | ✅ Yes |
+
+### Documentation
+| Check | Status |
+|-------|--------|
+| No internal hostnames/IPs | ✅ Only `localhost:4004` for local dev |
+| No proprietary architecture details | ✅ Public toolkit documentation |
+| No customer/user data | ✅ None found |
+| PRD files contain no sensitive operational details | ✅ Standard feature planning docs |
 
 ---
 
-## Files Changed (18 files)
+## Files Reviewed
 
-| File | Category | Notes |
-|------|----------|-------|
-| `src/app/concepts/page.tsx` | Feature | Added Human-in-the-Loop Modes entry |
-| `src/app/concepts/human-work-modes/page.tsx` | Feature | New 603-line page with Planner section |
-| `docs/prd.json` | Config | Active PRD (US-001 passes flag incorrect) |
-| `docs/prd-registry.json` | Config | Registered new PRD |
-| `docs/progress.txt` | Docs | Added US-002 learnings |
-| `package.json` / `package-lock.json` | Deps | Added Jest, Playwright, testing-library |
-| Other files | Infrastructure | Test setup, manifest updates |
+### Configuration Files
+- `.gitignore` — Properly excludes sensitive patterns
+- `package.json` — No credentials
+- `.github/workflows/deploy.yml` — Standard GitHub Pages deployment
+- `docs/setup/ai-toolkit-trigger-workflow.yml` — Template with placeholder `YOUR_ORG`
+
+### Scripts
+- `scripts/sync-changelog.ts` — Reads `GITHUB_TOKEN` from environment (not hardcoded)
+- `scripts/fetch-toolkit-manifest.ts` — Fetches public manifest, no auth required
+- `scripts/transform-toolkit-structure.ts` — Data transformation, no sensitive ops
+
+### Source Code
+- `src/config/urls.ts` — Public GitHub URLs only
+- `src/data/*.json` — Generated toolkit data, no credentials
+- `src/app/**/*.tsx` — React components, no secrets
+
+### Documentation
+- `docs/project.json` — Project configuration (safe)
+- `docs/prd-registry.json` — Feature tracking with public PR URLs
+- `docs/CONVENTIONS.md` — Development conventions
+- `README.md` — Setup instructions with example placeholders
 
 ---
 
-## Verdict
+## Remediation Checklist
 
-**Needs minor fix before marking complete.** 
+### Required Before Public Release
+**None** — Repository is ready for public release.
 
-1. **Required:** Update US-001 to `passes: true` in `docs/prd.json`
-2. **Recommended:** Run E2E tests to verify they pass
-3. **Optional:** Add progress log entry for US-001
+### Recommended (Optional)
+- [ ] Add `test-results/` to `.gitignore` to avoid tracking Playwright metadata
+- [ ] Add `docs/session-locks.json` to `.gitignore` if agent session state shouldn't be public
+- [ ] Consider removing `docs/builder-state.json` from gitignore exception (currently gitignored via line 43)
 
-Implementation quality is excellent — comprehensive content, thorough testing, consistent styling.
+---
+
+## Conclusion
+
+This repository passes the public-readiness audit. No blocking issues were found.
+
+The codebase demonstrates good security practices:
+1. All secrets/tokens are environment-based, not hardcoded
+2. Proper `.gitignore` patterns exclude sensitive files
+3. CI/CD uses minimal permissions
+4. No internal infrastructure details are exposed
+5. Documentation uses placeholders for user-specific values
+
+**Final Recommendation: SAFE TO MAKE PUBLIC**
