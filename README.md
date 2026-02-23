@@ -1,6 +1,6 @@
 # OpenCode Toolkit Website
 
-Documentation website for the OpenCode Yo Go system.
+Documentation website for the OpenCode yo, go system.
 
 ## Getting Started
 

@@ -20,19 +20,19 @@ function buildStaticPages(): SearchResult[] {
     {
       type: "page",
       title: "Home",
-      description: "Yo Go for opencode - landing page",
+      description: "yo, go for opencode - landing page",
       href: "/",
     },
     {
       type: "page",
       title: "Getting Started",
-      description: "Install opencode and configure Yo Go in 4 simple steps",
+      description: "Install opencode and configure yo, go in 4 simple steps",
       href: "/getting-started",
     },
     {
       type: "page",
       title: "Concepts Overview",
-      description: "The big picture - how opencode and Yo Go work together",
+      description: "The big picture - how opencode and yo, go work together",
       href: "/concepts",
     },
     {
@@ -98,7 +98,7 @@ function buildStaticPages(): SearchResult[] {
     {
       type: "page",
       title: "Changelog",
-      description: "Recent updates and changes to Yo Go",
+      description: "Recent updates and changes to yo, go",
       href: "/changelog",
     },
   ];

@@ -11,7 +11,7 @@ const PAGE_SECTIONS = [
 ];
 
 export const metadata = {
-  title: "Meta-Skills | Yo Go",
+  title: "Meta-Skills | yo, go",
   description: "Learn how meta-skills generate project-specific patterns based on your stack and configuration.",
 };
 

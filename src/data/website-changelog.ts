@@ -7,7 +7,7 @@
  * dual-source runtime fetching implementation.
  * 
  * This file was previously used to manually track changes to the documentation
- * website itself, separate from the Yo Go repository changes.
+ * website itself, separate from the yo, go repository changes.
  */
 import type { ChangelogDay } from './types';
 
@@ -75,7 +75,7 @@ export const websiteChangelog: ChangelogDay[] = [
     changes: [
       {
         type: "feat",
-        description: "Launch Yo Go documentation website",
+        description: "Launch yo, go documentation website",
       },
       {
         type: "feat",

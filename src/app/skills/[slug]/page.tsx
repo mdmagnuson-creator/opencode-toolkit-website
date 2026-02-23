@@ -23,7 +23,7 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
       return { title: "Skill Not Found" };
     }
     return {
-      title: `${skill.name} | Yo Go`,
+      title: `${skill.name} | yo, go`,
       description: skill.description,
     };
   });
