@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-23T03:33:31Z",
-  "syncedAt": "2026-02-23T05:25:29.483Z",
-  "toolkitCommit": "0f7ed34",
+  "generatedAt": "2026-02-23T17:26:00Z",
+  "syncedAt": "2026-02-23T19:11:42.537Z",
+  "toolkitCommit": "d01253a",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
@@ -932,9 +932,45 @@
   ],
   "changelog": [
     {
+      "date": "2026-02-23",
+      "displayDate": "February 23, 2026",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "enforce project-local temp artifact policy",
+          "scope": "toolkit"
+        },
+        {
+          "type": "refactor",
+          "description": "remove Context7 references from prompts",
+          "scope": "toolkit"
+        },
+        {
+          "type": "fix",
+          "description": "remove MCP docs integrations from default config",
+          "scope": "toolkit"
+        },
+        {
+          "type": "fix",
+          "description": "scope post-change workflow to behavior changes",
+          "scope": "toolkit"
+        },
+        {
+          "type": "feat",
+          "description": "automate builder architecture and E2E policies",
+          "scope": "toolkit"
+        }
+      ]
+    },
+    {
       "date": "2026-02-22",
       "displayDate": "February 22, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "simplify integration skill provisioning workflow",
+          "scope": "planner"
+        },
         {
           "type": "fix",
           "description": "allow planning updates to docs/project.json",

@@ -10,7 +10,7 @@
 
 // Toolkit repository
 export const REPO_OWNER = "mdmagnuson-creator";
-export const REPO_NAME = "ai-toolkit";
+export const REPO_NAME = "yo-go";
 
 // Website repository
 export const WEBSITE_REPO_OWNER = "mdmagnuson-creator";

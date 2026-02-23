@@ -114,7 +114,7 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-8 dark:border-neutral-800 sm:flex-row">
           <div className="flex items-center gap-2">
             <span className="text-lg font-semibold text-neutral-900 dark:text-white">
-              AI Toolkit
+              Yo Go
             </span>
             <span className="rounded-full bg-neutral-200 px-2 py-0.5 text-xs font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
               for opencode

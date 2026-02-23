@@ -523,7 +523,7 @@ export function ChangelogClient({ baselineChangelog }: ChangelogClientProps) {
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2">
                   <SourceBadge source="toolkit" />
-                  <span className="text-sm text-neutral-600 dark:text-neutral-400">AI Toolkit repository changes</span>
+                  <span className="text-sm text-neutral-600 dark:text-neutral-400">Yo Go repository changes</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <SourceBadge source="website" />

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "MCP Servers | AI Toolkit",
+  title: "MCP Servers | Yo Go",
   description: "Model Context Protocol (MCP) servers extend opencode with external tools like browser automation, documentation lookup, and more.",
 };
 
@@ -132,7 +132,7 @@ export default function McpPage() {
             <div>
               <h3 className="font-medium text-green-900 dark:text-green-300">MCP is Optional</h3>
               <p className="mt-2 text-sm text-green-800 dark:text-green-400">
-                MCP servers are <strong>optional enhancements</strong>, not requirements. The AI Toolkit 
+                MCP servers are <strong>optional enhancements</strong>, not requirements. Yo Go 
                 works without any MCP servers configured. When an MCP tool is unavailable, agents 
                 automatically fall back to alternative approaches:
               </p>
@@ -143,7 +143,7 @@ export default function McpPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1 text-green-600 dark:text-green-500">•</span>
-                  <span><strong>Documentation lookup:</strong> Uses Context7 tools if available, otherwise upstream docs</span>
+                  <span><strong>Documentation lookup:</strong> Uses documentation tools if available, otherwise upstream docs</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1 text-green-600 dark:text-green-500">•</span>
@@ -256,7 +256,7 @@ export default function McpPage() {
       <section className="mb-12">
         <SectionHeading id="popular-servers">Popular MCP Servers</SectionHeading>
         <p className="mb-6 text-neutral-700 dark:text-neutral-300">
-          Here are some commonly used MCP servers that work well with the AI Toolkit:
+          Here are some commonly used MCP servers that work well with Yo Go:
         </p>
 
         <div className="space-y-6">

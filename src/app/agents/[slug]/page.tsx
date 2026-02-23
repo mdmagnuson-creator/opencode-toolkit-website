@@ -55,7 +55,7 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
       return { title: "Agent Not Found" };
     }
     return {
-      title: `${agent.name} | AI Toolkit`,
+      title: `${agent.name} | Yo Go`,
       description: agent.description,
     };
   });
