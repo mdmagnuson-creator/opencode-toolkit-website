@@ -66,6 +66,9 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
     setMobileOpen(false);
     const element = document.getElementById(id);
     if (element) {
+      // Update URL hash for shareable anchor links
+      // Use history.pushState to avoid the browser's default jump behavior
+      window.history.pushState(null, "", `#${id}`);
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
@@ -165,8 +168,12 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
             <ul className="space-y-1 p-3">
               {sections.map((section) => (
                 <li key={section.id}>
-                  <button
-                    onClick={() => handleClick(section.id)}
+                  <a
+                    href={`#${section.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleClick(section.id);
+                    }}
                     className={`block w-full rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
                       activeId === section.id
                         ? "bg-violet-100 font-medium text-violet-700 dark:bg-violet-900/40 dark:text-violet-300"
@@ -175,7 +182,7 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
                     tabIndex={desktopCollapsed ? -1 : 0}
                   >
                     {section.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -228,8 +235,12 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
             <ul className="space-y-0.5">
               {sections.map((section) => (
                 <li key={section.id}>
-                  <button
-                    onClick={() => handleClick(section.id)}
+                  <a
+                    href={`#${section.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleClick(section.id);
+                    }}
                     className={`block w-full rounded-md px-3 py-2 text-left text-sm transition-colors ${
                       activeId === section.id
                         ? "bg-violet-100 font-medium text-violet-700 dark:bg-violet-900/40 dark:text-violet-300"
@@ -237,7 +248,7 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
                     }`}
                   >
                     {section.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
