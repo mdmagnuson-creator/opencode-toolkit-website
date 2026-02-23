@@ -4,13 +4,53 @@
  * ChangelogClient - Client component for hybrid changelog (US-003, US-004, US-005, US-006)
  * 
  * Receives baseline SSR data and enhances with runtime GitHub fetch.
+ * 
+ * HYDRATION SAFETY:
+ * - SSR renders with en-US locale dates (formatDisplayDate in changelog-fetcher.ts)
+ * - Client initially uses SSR displayDate values unchanged to avoid hydration mismatch
+ * - After mount (useEffect), client re-renders with user's locale via formatLocalizedDate
+ * - This prevents visible text flicker and React hydration warnings
  */
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { mergeChangelogs } from "@/data";
 import { fetchToolkitChangelog, clearCache, trackOutcome, type FetchOutcome } from "@/lib/changelog-fetcher";
 import type { ChangelogEntryWithSource, ChangelogDayWithSource, ChangelogSource, ChangelogEntryType } from "@/data/types";
 import { REPO_BASE } from "@/config/urls";
+
+// ============================================================================
+// Locale-aware Date Formatting
+// ============================================================================
+
+/**
+ * Format a YYYY-MM-DD date string using the user's locale.
+ * Parses the date as local (not UTC) to avoid timezone shifts.
+ */
+function formatLocalizedDate(dateStr: string): string {
+  try {
+    // Parse YYYY-MM-DD as local date (not UTC)
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    return date.toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return dateStr;
+  }
+}
+
+/**
+ * Apply locale-aware date formatting to changelog entries.
+ * Called ONLY after hydration to avoid SSR/client text mismatch.
+ */
+function applyLocalizedDates(changelog: ChangelogDayWithSource[]): ChangelogDayWithSource[] {
+  return changelog.map((day) => ({
+    ...day,
+    displayDate: formatLocalizedDate(day.date),
+  }));
+}
 
 // ============================================================================
 // Badge Components
@@ -337,6 +377,7 @@ interface ChangelogClientProps {
 }
 
 export function ChangelogClient({ baselineChangelog }: ChangelogClientProps) {
+  // Changelog data - starts with baseline from SSR
   const [changelog, setChangelog] = useState<ChangelogDayWithSource[]>(baselineChangelog);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -344,6 +385,15 @@ export function ChangelogClient({ baselineChangelog }: ChangelogClientProps) {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isStale, setIsStale] = useState(false);
   const initialFetchDone = useRef(false);
+  
+  // HYDRATION SAFETY: Track if we've mounted (client-side)
+  // SSR: hasMounted = false → use SSR displayDate as-is (no hydration mismatch)
+  // Client after mount: hasMounted = true → apply user's locale formatting
+  const [hasMounted, setHasMounted] = useState(false);
+  
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   // Perform runtime fetch
   const doFetch = useCallback(async (forceRefresh: boolean = false) => {
@@ -399,13 +449,25 @@ export function ChangelogClient({ baselineChangelog }: ChangelogClientProps) {
     doFetch(true);
   }, [doFetch]);
 
-  const hasChangelog = changelog && changelog.length > 0;
+  // HYDRATION-SAFE DATE FORMATTING:
+  // Before mount (SSR + first client paint): use SSR displayDate values unchanged
+  // After mount: apply user's locale formatting for localized dates
+  const localizedChangelog = useMemo(() => {
+    if (!hasMounted) {
+      // Pre-hydration: return changelog with SSR displayDate values unchanged
+      return changelog;
+    }
+    // Post-hydration: apply user's locale formatting
+    return applyLocalizedDates(changelog);
+  }, [changelog, hasMounted]);
+
+  const hasChangelog = localizedChangelog && localizedChangelog.length > 0;
   
   const totalChanges = hasChangelog 
-    ? changelog.reduce((sum, day) => sum + day.changes.length, 0)
+    ? localizedChangelog.reduce((sum, day) => sum + day.changes.length, 0)
     : 0;
   const totalFeatures = hasChangelog
-    ? changelog.reduce(
+    ? localizedChangelog.reduce(
         (sum, day) => sum + day.changes.filter((c) => c.type === "feat").length,
         0
       )
@@ -450,7 +512,7 @@ export function ChangelogClient({ baselineChangelog }: ChangelogClientProps) {
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              Last {changelog.length} days
+              Last {localizedChangelog.length} days
             </span>
           </div>
 
@@ -498,7 +560,7 @@ export function ChangelogClient({ baselineChangelog }: ChangelogClientProps) {
 
           {/* Changelog entries */}
           <div className="space-y-8">
-            {changelog.map((day) => (
+            {localizedChangelog.map((day) => (
               <DaySection key={day.date} day={day} />
             ))}
           </div>

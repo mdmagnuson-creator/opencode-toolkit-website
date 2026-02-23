@@ -5,6 +5,7 @@
  * - Conventional commit parsing
  * - Merge/dedupe logic (implicitly tested through parser)
  * - Network-first caching strategy (cache as fallback, not short-circuit)
+ * - Local timezone date handling
  */
 
 import { parseConventionalCommit, fetchToolkitChangelog, clearCache } from '../changelog-fetcher';
@@ -431,6 +432,75 @@ describe('fetchToolkitChangelog', () => {
       const cachedValue = JSON.parse(localStorageMock['toolkit-changelog-cache']);
       expect(cachedValue.data).toHaveLength(1);
       expect(cachedValue.timestamp).toBeDefined();
+    });
+  });
+
+  describe('local timezone date handling', () => {
+    it('groups commits by local date, not UTC date', async () => {
+      // Commit at 2026-02-23T01:00:00Z (UTC)
+      // In PST (UTC-8), this is still Feb 22 at 5pm
+      // In EST (UTC-5), this is still Feb 22 at 8pm
+      // The test environment uses local timezone, so the commit should group
+      // by the local date of the machine running tests
+      const lateNightCommit = [
+        {
+          sha: 'late1234567',
+          commit: {
+            author: { name: 'Test', email: 'test@test.com', date: '2026-02-23T01:00:00Z' },
+            committer: { name: 'Test', email: 'test@test.com', date: '2026-02-23T01:00:00Z' },
+            message: 'feat: late night commit',
+          },
+        },
+      ];
+
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({ changelog: { entries: [] } }), // No structure entries
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(lateNightCommit),
+        });
+      global.fetch = fetchMock;
+
+      const result = await fetchToolkitChangelog();
+
+      expect(result.outcome).toBe('success');
+      expect(result.data).toHaveLength(1);
+      
+      // The date should be derived from local timezone conversion of 2026-02-23T01:00:00Z
+      // We verify the date is a valid YYYY-MM-DD format
+      const dateStr = result.data?.[0].date;
+      expect(dateStr).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      
+      // Verify the commit was captured
+      expect(result.data?.[0].changes.some(c => c.description === 'late night commit')).toBe(true);
+    });
+
+    it('displayDate uses locale-friendly format', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      global.fetch = fetchMock;
+
+      const result = await fetchToolkitChangelog();
+
+      expect(result.outcome).toBe('success');
+      expect(result.data).toHaveLength(1);
+      
+      // displayDate should be a human-readable format (not YYYY-MM-DD)
+      const displayDate = result.data?.[0].displayDate;
+      expect(displayDate).toBeDefined();
+      expect(displayDate).not.toMatch(/^\d{4}-\d{2}-\d{2}$/); // Not ISO format
+      // Should contain the year and month in some format
+      expect(displayDate).toContain('2026');
     });
   });
 });

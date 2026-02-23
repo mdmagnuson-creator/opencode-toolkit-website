@@ -108,14 +108,30 @@ function validateChangelogType(type: string): ChangelogEntryType {
     : 'chore';
 }
 
+/**
+ * Convert a Date to a local YYYY-MM-DD string.
+ * Used for grouping commits by the viewer's local day.
+ */
+function getLocalDateString(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Format display date for server-side rendering.
+ * Uses a neutral format that works for SSR. Client will re-format with locale.
+ */
 function formatDisplayDate(dateStr: string): string {
   try {
-    const date = new Date(dateStr + 'T00:00:00Z');
+    // Parse as local date (YYYY-MM-DD treated as local midnight)
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-      timeZone: 'UTC',
     });
   } catch {
     return dateStr;
@@ -260,7 +276,9 @@ async function fetchRecentCommits(): Promise<ChangelogDayWithHash[]> {
       const commitDate = commit.commit?.author?.date;
       if (!commitDate) continue;
       
-      const dateStr = commitDate.split('T')[0]; // YYYY-MM-DD
+      // Convert to local date string (YYYY-MM-DD in viewer's timezone)
+      // This ensures commits group by the day as seen by the user
+      const dateStr = getLocalDateString(new Date(commitDate));
       
       const entry: ChangelogEntryWithHash = {
         type: validateChangelogType(parsed.type),
