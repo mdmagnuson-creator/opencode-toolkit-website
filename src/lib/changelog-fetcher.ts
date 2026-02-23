@@ -5,28 +5,31 @@
  * 
  * Baseline Sources (build-time):
  *   - toolkit-manifest.json → changelog (bundled at build)
- *   - website-changelog.ts → website entries (bundled at build)
  * 
- * Runtime Source:
+ * Runtime Sources:
  *   - GitHub raw URL for toolkit-structure.json → changelog entries
+ *   - GitHub API for toolkit repo commits (recent)
+ *   - GitHub API for website repo commits (recent)
  * 
  * Precedence Rules:
- *   1. If runtime fetch succeeds → use runtime toolkit data + website entries
- *   2. If runtime fetch fails but cache exists and is within TTL → use cached data
- *   3. If runtime fetch fails and no valid cache → fallback to baseline
+ *   1. If runtime fetch succeeds → use runtime data (merged toolkit + website)
+ *   2. If one source fails, other succeeds → use successful source data
+ *   3. If runtime fetch fails but cache exists → use cached data
+ *   4. If runtime fetch fails and no valid cache → fallback to baseline
  * 
  * TTL: 15 minutes (900000ms) default
  */
 
-import type { ChangelogDay, ChangelogEntry, ChangelogEntryType } from '@/data/types';
-import { REPO_RAW_BASE, REPO_OWNER, REPO_NAME } from '@/config/urls';
+import type { ChangelogEntry, ChangelogEntryType, ChangelogSource } from '@/data/types';
+import { REPO_RAW_BASE, REPO_OWNER, REPO_NAME, WEBSITE_REPO_OWNER, WEBSITE_REPO_NAME } from '@/config/urls';
 
 // ============================================================================
 // Configuration
 // ============================================================================
 
 const TOOLKIT_CHANGELOG_URL = `${REPO_RAW_BASE}/toolkit-structure.json`;
-const GITHUB_COMMITS_API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits`;
+const GITHUB_TOOLKIT_COMMITS_API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits`;
+const GITHUB_WEBSITE_COMMITS_API_URL = `https://api.github.com/repos/${WEBSITE_REPO_OWNER}/${WEBSITE_REPO_NAME}/commits`;
 
 const CACHE_KEY = 'toolkit-changelog-cache';
 const DEFAULT_TTL_MS = 15 * 60 * 1000; // 15 minutes
@@ -42,12 +45,12 @@ export type FetchOutcome = 'success' | 'stale-cache' | 'fallback' | 'failure';
 
 export interface CachedChangelog {
   timestamp: number;
-  data: ChangelogDay[];
+  data: ChangelogDayWithSource[];
 }
 
 export interface FetchResult {
   outcome: FetchOutcome;
-  data: ChangelogDay[] | null;
+  data: ChangelogDayWithSource[] | null;
   cachedAt?: number;
   error?: string;
 }
@@ -86,12 +89,24 @@ interface GitHubCommit {
 // Internal type for changelog entries with hash for deduplication
 interface ChangelogEntryWithHash extends ChangelogEntry {
   hash?: string;
+  source?: ChangelogSource;
 }
 
 interface ChangelogDayWithHash {
   date: string;
   displayDate: string;
   changes: ChangelogEntryWithHash[];
+}
+
+// Re-export from types for consumers - entries WITH source tagging
+export interface ChangelogEntryWithSource extends ChangelogEntry {
+  source: ChangelogSource;
+}
+
+export interface ChangelogDayWithSource {
+  date: string;
+  displayDate: string;
+  changes: ChangelogEntryWithSource[];
 }
 
 // ============================================================================
@@ -141,7 +156,7 @@ function formatDisplayDate(dateStr: string): string {
 /**
  * Normalize changelog to include hashes for deduplication
  */
-function normalizeChangelogWithHashes(raw: ToolkitStructureChangelog): ChangelogDayWithHash[] {
+function normalizeChangelogWithHashes(raw: ToolkitStructureChangelog, source: ChangelogSource): ChangelogDayWithHash[] {
   const entries = raw?.changelog?.entries;
   
   if (!Array.isArray(entries)) {
@@ -167,6 +182,7 @@ function normalizeChangelogWithHashes(raw: ToolkitStructureChangelog): Changelog
         .map((change) => ({
           type: validateChangelogType(change.type || 'chore'),
           description: change.description,
+          source,
           ...(change.scope ? { scope: change.scope } : {}),
           ...(change.hash ? { hash: change.hash } : {}),
         })),
@@ -221,7 +237,10 @@ export function parseConventionalCommit(message: string): { type: string; scope?
  * Note: Unauthenticated requests are rate-limited to 60/hour per IP.
  * This is acceptable for browser-side fetching with caching.
  */
-async function fetchRecentCommits(): Promise<ChangelogDayWithHash[]> {
+async function fetchRecentCommits(
+  apiUrl: string,
+  source: ChangelogSource
+): Promise<ChangelogDayWithHash[]> {
   const sinceDate = new Date();
   sinceDate.setDate(sinceDate.getDate() - RECENT_COMMITS_WINDOW_DAYS);
   
@@ -234,7 +253,7 @@ async function fetchRecentCommits(): Promise<ChangelogDayWithHash[]> {
   const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout (faster than main fetch)
   
   try {
-    const response = await fetch(`${GITHUB_COMMITS_API_URL}?${params.toString()}`, {
+    const response = await fetch(`${apiUrl}?${params.toString()}`, {
       signal: controller.signal,
       headers: {
         'Accept': 'application/vnd.github+json',
@@ -246,7 +265,7 @@ async function fetchRecentCommits(): Promise<ChangelogDayWithHash[]> {
     
     if (!response.ok) {
       // 403 could be rate limit, 404 could be repo not found
-      logOutcome('stale-cache', `GitHub API returned ${response.status}, skipping recent commits`);
+      logOutcome('stale-cache', `GitHub API (${source}) returned ${response.status}, skipping recent commits`);
       return [];
     }
     
@@ -283,6 +302,7 @@ async function fetchRecentCommits(): Promise<ChangelogDayWithHash[]> {
       const entry: ChangelogEntryWithHash = {
         type: validateChangelogType(parsed.type),
         description: parsed.description,
+        source,
         ...(parsed.scope ? { scope: parsed.scope } : {}),
         hash: commit.sha?.substring(0, 7), // Short hash for deduplication
       };
@@ -304,7 +324,7 @@ async function fetchRecentCommits(): Promise<ChangelogDayWithHash[]> {
   } catch (error) {
     clearTimeout(timeoutId);
     const errorMessage = error instanceof Error ? error.message : String(error);
-    logOutcome('stale-cache', `GitHub API fetch failed: ${errorMessage}`);
+    logOutcome('stale-cache', `GitHub API (${source}) fetch failed: ${errorMessage}`);
     return [];
   }
 }
@@ -314,91 +334,83 @@ async function fetchRecentCommits(): Promise<ChangelogDayWithHash[]> {
 // ============================================================================
 
 /**
- * Merge toolkit-structure changelog with recent GitHub commits.
- * Deduplication strategy:
- * 1. If both have hash, match by hash
- * 2. Otherwise, match by date + type + description similarity
+ * Create a source-scoped fingerprint for deduplication.
+ * Fingerprint includes source to avoid accidentally deduping across sources.
+ */
+function createFingerprint(source: ChangelogSource, date: string, type: string, description: string): string {
+  return `${source}|${date}|${type}|${description.toLowerCase().trim()}`;
+}
+
+/**
+ * Create a source-scoped hash key for deduplication.
+ */
+function createHashKey(source: ChangelogSource, hash: string): string {
+  return `${source}|${hash}`;
+}
+
+/**
+ * Merge multiple changelog sources with deduplication.
+ * Deduplication is ONLY done within same source (toolkit vs toolkit, website vs website).
+ * Same description from different sources is kept (not deduped across sources).
  */
 function mergeAndDedupeChangelogs(
-  structureChangelog: ChangelogDayWithHash[],
-  recentCommits: ChangelogDayWithHash[]
-): ChangelogDay[] {
-  // Build a set of known hashes from structure changelog
+  ...sources: ChangelogDayWithHash[][]
+): ChangelogDayWithSource[] {
+  // Track known hashes BY SOURCE to avoid deduping across sources
   const knownHashes = new Set<string>();
-  for (const day of structureChangelog) {
-    for (const change of day.changes) {
-      if (change.hash) {
-        knownHashes.add(change.hash);
-      }
-    }
-  }
   
-  // Build a set of "fingerprints" for entries without hashes (for fuzzy dedupe)
+  // Track fingerprints BY SOURCE for entries without hashes
   const knownFingerprints = new Set<string>();
-  for (const day of structureChangelog) {
-    for (const change of day.changes) {
-      // Fingerprint: date + type + normalized description
-      const fingerprint = `${day.date}|${change.type}|${change.description.toLowerCase().trim()}`;
-      knownFingerprints.add(fingerprint);
-    }
-  }
   
   // Merge into a single day map
-  const dayMap = new Map<string, ChangelogDayWithHash>();
+  const dayMap = new Map<string, ChangelogDayWithSource>();
   
-  // First, add all structure changelog entries
-  for (const day of structureChangelog) {
-    dayMap.set(day.date, {
-      date: day.date,
-      displayDate: day.displayDate,
-      changes: [...day.changes],
-    });
-  }
-  
-  // Then, add new entries from recent commits (deduplicated)
-  for (const day of recentCommits) {
-    const existing = dayMap.get(day.date);
-    
-    for (const change of day.changes) {
-      // Skip if hash is already known
-      if (change.hash && knownHashes.has(change.hash)) {
-        continue;
+  for (const sourceData of sources) {
+    for (const day of sourceData) {
+      for (const change of day.changes) {
+        const source = change.source || 'toolkit';
+        
+        // Check for duplicate by hash (within same source)
+        if (change.hash) {
+          const hashKey = createHashKey(source, change.hash);
+          if (knownHashes.has(hashKey)) {
+            continue;
+          }
+          knownHashes.add(hashKey);
+        }
+        
+        // Check for duplicate by fingerprint (within same source)
+        const fingerprint = createFingerprint(source, day.date, change.type, change.description);
+        if (knownFingerprints.has(fingerprint)) {
+          continue;
+        }
+        knownFingerprints.add(fingerprint);
+        
+        // Create entry without hash for output
+        const entry: ChangelogEntryWithSource = {
+          type: change.type,
+          description: change.description,
+          source,
+          ...(change.scope ? { scope: change.scope } : {}),
+        };
+        
+        const existing = dayMap.get(day.date);
+        if (existing) {
+          existing.changes.push(entry);
+        } else {
+          dayMap.set(day.date, {
+            date: day.date,
+            displayDate: formatDisplayDate(day.date),
+            changes: [entry],
+          });
+        }
       }
-      
-      // Skip if fingerprint matches (fuzzy dedupe)
-      const fingerprint = `${day.date}|${change.type}|${change.description.toLowerCase().trim()}`;
-      if (knownFingerprints.has(fingerprint)) {
-        continue;
-      }
-      
-      // This is a new entry, add it
-      if (existing) {
-        existing.changes.push(change);
-      } else {
-        dayMap.set(day.date, {
-          date: day.date,
-          displayDate: formatDisplayDate(day.date),
-          changes: [change],
-        });
-      }
-      
-      // Track to avoid adding duplicates from same batch
-      if (change.hash) {
-        knownHashes.add(change.hash);
-      }
-      knownFingerprints.add(fingerprint);
     }
   }
   
-  // Sort by date descending and strip hashes from output
+  // Sort by date descending
   return Array.from(dayMap.values())
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .map((day) => ({
-      date: day.date,
-      displayDate: day.displayDate,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      changes: day.changes.map(({ hash: _hash, ...rest }) => rest),
-    }));
+    .sort((a, b) => b.date.localeCompare(a.date));
 }
 
 // ============================================================================
@@ -435,7 +447,7 @@ function getCache(): CachedChangelog | null {
   }
 }
 
-function setCache(data: ChangelogDay[]): void {
+function setCache(data: ChangelogDayWithSource[]): void {
   if (typeof window === 'undefined') return;
   
   try {
@@ -487,59 +499,75 @@ export async function fetchToolkitChangelog(
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
     
-    // Fetch both toolkit-structure changelog and recent commits in parallel
-    const [structureResponse, recentCommits] = await Promise.all([
+    // Fetch all sources in parallel:
+    // 1. toolkit-structure.json (baseline changelog)
+    // 2. Recent commits from toolkit repo
+    // 3. Recent commits from website repo
+    const [structureResponse, toolkitRecentCommits, websiteRecentCommits] = await Promise.all([
       fetch(TOOLKIT_CHANGELOG_URL, {
         signal: controller.signal,
         cache: 'no-store', // Always fetch fresh from network
       }),
-      fetchRecentCommits(), // This has its own timeout and error handling
+      fetchRecentCommits(GITHUB_TOOLKIT_COMMITS_API_URL, 'toolkit'),
+      fetchRecentCommits(GITHUB_WEBSITE_COMMITS_API_URL, 'website'),
     ]);
     
     clearTimeout(timeoutId);
     
+    // Handle toolkit structure response
+    let structureChangelog: ChangelogDayWithHash[] = [];
+    let structureFailed = false;
+    
     if (!structureResponse.ok) {
-      // HTTP 404 is a permanent error - resource definitively doesn't exist
-      // Skip stale cache and go directly to fallback (neutral state)
       if (structureResponse.status === 404) {
-        // Even if structure file is missing, we might have recent commits
-        if (recentCommits.length > 0) {
-          const merged = mergeAndDedupeChangelogs([], recentCommits);
-          setCache(merged);
-          logOutcome('success', `Fetched ${merged.length} changelog days from recent commits only`);
-          return {
-            outcome: 'success',
-            data: merged,
-            cachedAt: Date.now(),
-          };
-        }
-        
-        const errorMessage = `HTTP 404: Resource not found`;
-        logOutcome('fallback', `Permanent error (404), using baseline: ${errorMessage}`);
+        // HTTP 404 is a permanent error - resource doesn't exist
+        logOutcome('stale-cache', 'toolkit-structure.json not found (404), using commits only');
+        structureFailed = true;
+      } else {
+        throw new Error(`HTTP ${structureResponse.status}: ${structureResponse.statusText}`);
+      }
+    } else {
+      const raw = await structureResponse.json() as ToolkitStructureChangelog;
+      structureChangelog = normalizeChangelogWithHashes(raw, 'toolkit');
+    }
+    
+    // Determine if we have any usable data
+    const hasToolkitData = structureChangelog.length > 0 || toolkitRecentCommits.length > 0;
+    const hasWebsiteData = websiteRecentCommits.length > 0;
+    
+    if (!hasToolkitData && !hasWebsiteData) {
+      // No data from any source
+      if (structureFailed) {
+        // Structure file missing and no commits - fallback
+        const errorMessage = 'No changelog data available from any source';
+        logOutcome('fallback', errorMessage);
         return {
           outcome: 'fallback',
           data: null,
           error: errorMessage,
         };
       }
-      throw new Error(`HTTP ${structureResponse.status}: ${structureResponse.statusText}`);
+      throw new Error('No valid changelog entries in response');
     }
     
-    const raw = await structureResponse.json() as ToolkitStructureChangelog;
-    const structureChangelog = normalizeChangelogWithHashes(raw);
-    
-    // Merge structure changelog with recent commits
-    const merged = mergeAndDedupeChangelogs(structureChangelog, recentCommits);
+    // Merge all sources with deduplication
+    const merged = mergeAndDedupeChangelogs(
+      structureChangelog,
+      toolkitRecentCommits,
+      websiteRecentCommits
+    );
     
     if (merged.length === 0) {
-      throw new Error('No valid changelog entries in response');
+      throw new Error('No valid changelog entries after merge');
     }
     
     // Cache the successful result
     setCache(merged);
     
-    const newFromCommits = recentCommits.reduce((sum, day) => sum + day.changes.length, 0);
-    logOutcome('success', `Fetched ${merged.length} changelog days (${newFromCommits} from recent commits)`);
+    const toolkitCommitCount = toolkitRecentCommits.reduce((sum, day) => sum + day.changes.length, 0);
+    const websiteCommitCount = websiteRecentCommits.reduce((sum, day) => sum + day.changes.length, 0);
+    logOutcome('success', `Fetched ${merged.length} changelog days (${toolkitCommitCount} toolkit commits, ${websiteCommitCount} website commits)`);
+    
     return {
       outcome: 'success',
       data: merged,

@@ -5,22 +5,18 @@
  * 1. SSR displayDate values are preserved on initial client render (no hydration mismatch)
  * 2. After mount, locale-aware formatting is applied
  * 3. The component handles the baseline → runtime data transition correctly
+ * 4. Source badges work correctly for both toolkit and website entries
  */
 
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { ChangelogClient } from '../ChangelogClient';
-import type { ChangelogDayWithSource } from '@/data/types';
+import type { ChangelogDayWithSource } from '@/lib/changelog-fetcher';
 
 // Mock the changelog fetcher module
 jest.mock('@/lib/changelog-fetcher', () => ({
   fetchToolkitChangelog: jest.fn(),
   clearCache: jest.fn(),
   trackOutcome: jest.fn(),
-}));
-
-// Mock the data merge function
-jest.mock('@/data', () => ({
-  mergeChangelogs: jest.fn((data) => data),
 }));
 
 // Import mocked modules for manipulation
@@ -51,14 +47,10 @@ describe('ChangelogClient', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     
-    // Default: runtime fetch succeeds with same data
+    // Default: runtime fetch succeeds with same data (already has source tags)
     mockFetchToolkitChangelog.mockResolvedValue({
       outcome: 'success',
-      data: baselineChangelog.map(day => ({
-        date: day.date,
-        displayDate: day.displayDate,
-        changes: day.changes.map(c => ({ type: c.type, description: c.description })),
-      })),
+      data: baselineChangelog,
       cachedAt: Date.now(),
     });
   });
@@ -170,11 +162,7 @@ describe('ChangelogClient', () => {
     it('shows stale cache warning when using cached data', async () => {
       mockFetchToolkitChangelog.mockResolvedValue({
         outcome: 'stale-cache',
-        data: baselineChangelog.map(day => ({
-          date: day.date,
-          displayDate: day.displayDate,
-          changes: day.changes.map(c => ({ type: c.type, description: c.description })),
-        })),
+        data: baselineChangelog,
         cachedAt: Date.now() - 20 * 60 * 1000, // 20 minutes ago
       });
       
@@ -182,6 +170,64 @@ describe('ChangelogClient', () => {
       
       await waitFor(() => {
         expect(screen.getByText('Using cached data')).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('dual-source display', () => {
+    it('displays entries from both toolkit and website sources', async () => {
+      const dualSourceData: ChangelogDayWithSource[] = [
+        {
+          date: '2026-02-22',
+          displayDate: 'February 22, 2026',
+          changes: [
+            { type: 'feat', description: 'New toolkit feature', source: 'toolkit' },
+            { type: 'feat', description: 'New website feature', source: 'website' },
+            { type: 'fix', description: 'Toolkit bug fix', source: 'toolkit' },
+          ],
+        },
+      ];
+      
+      mockFetchToolkitChangelog.mockResolvedValue({
+        outcome: 'success',
+        data: dualSourceData,
+        cachedAt: Date.now(),
+      });
+      
+      render(<ChangelogClient baselineChangelog={baselineChangelog} />);
+      
+      await waitFor(() => {
+        expect(screen.getByText('New toolkit feature')).toBeInTheDocument();
+        expect(screen.getByText('New website feature')).toBeInTheDocument();
+        expect(screen.getByText('Toolkit bug fix')).toBeInTheDocument();
+      });
+    });
+
+    it('shows correct source counts in day summary', async () => {
+      const dualSourceData: ChangelogDayWithSource[] = [
+        {
+          date: '2026-02-22',
+          displayDate: 'February 22, 2026',
+          changes: [
+            { type: 'feat', description: 'Toolkit feat 1', source: 'toolkit' },
+            { type: 'feat', description: 'Toolkit feat 2', source: 'toolkit' },
+            { type: 'feat', description: 'Website feat 1', source: 'website' },
+          ],
+        },
+      ];
+      
+      mockFetchToolkitChangelog.mockResolvedValue({
+        outcome: 'success',
+        data: dualSourceData,
+        cachedAt: Date.now(),
+      });
+      
+      render(<ChangelogClient baselineChangelog={baselineChangelog} />);
+      
+      await waitFor(() => {
+        // Should show "2 toolkit · 1 website" in the day summary
+        expect(screen.getByText('2 toolkit')).toBeInTheDocument();
+        expect(screen.getByText('1 website')).toBeInTheDocument();
       });
     });
   });

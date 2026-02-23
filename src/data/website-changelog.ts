@@ -1,7 +1,13 @@
 /**
  * Website-specific changelog entries.
- * This file tracks changes to the documentation website itself,
- * separate from the AI Toolkit repository changes.
+ * 
+ * DEPRECATED: This file is kept for backwards compatibility but is no longer used.
+ * Website changelog entries are now fetched at runtime from the GitHub API
+ * alongside toolkit commits. See src/lib/changelog-fetcher.ts for the
+ * dual-source runtime fetching implementation.
+ * 
+ * This file was previously used to manually track changes to the documentation
+ * website itself, separate from the AI Toolkit repository changes.
  */
 import type { ChangelogDay } from './types';
 

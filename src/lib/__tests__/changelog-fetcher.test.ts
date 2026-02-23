@@ -3,7 +3,9 @@
  * 
  * Covers:
  * - Conventional commit parsing
- * - Merge/dedupe logic (implicitly tested through parser)
+ * - Dual-source fetching (toolkit + website repos)
+ * - Merge/dedupe logic with source-scoped deduplication
+ * - Partial failure resilience (one source fails, other succeeds)
  * - Network-first caching strategy (cache as fallback, not short-circuit)
  * - Local timezone date handling
  */
@@ -146,7 +148,7 @@ describe('parseConventionalCommit', () => {
 });
 
 // ============================================================================
-// fetchToolkitChangelog Tests - Network-First Strategy
+// fetchToolkitChangelog Tests - Dual-Source Fetching
 // ============================================================================
 
 describe('fetchToolkitChangelog', () => {
@@ -162,7 +164,7 @@ describe('fetchToolkitChangelog', () => {
     clear: jest.fn(() => { Object.keys(localStorageMock).forEach(k => delete localStorageMock[k]); }),
   };
   
-  // Sample valid changelog response
+  // Sample valid toolkit changelog response
   const validToolkitResponse = {
     changelog: {
       entries: [
@@ -176,14 +178,26 @@ describe('fetchToolkitChangelog', () => {
     },
   };
   
-  // Sample GitHub commits response
-  const validGitHubCommitsResponse = [
+  // Sample GitHub commits response for toolkit
+  const validToolkitCommitsResponse = [
     {
       sha: 'def5678abcdef',
       commit: {
         author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
         committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
         message: 'fix: resolve bug in parser',
+      },
+    },
+  ];
+  
+  // Sample GitHub commits response for website
+  const validWebsiteCommitsResponse = [
+    {
+      sha: 'web1234567890',
+      commit: {
+        author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T14:00:00Z' },
+        committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T14:00:00Z' },
+        message: 'feat(docs): add new documentation page',
       },
     },
   ];
@@ -208,12 +222,276 @@ describe('fetchToolkitChangelog', () => {
     global.fetch = originalFetch;
   });
 
+  describe('dual-source fetching', () => {
+    it('fetches from both toolkit and website repos', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitCommitsResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validWebsiteCommitsResponse),
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      // Should have called fetch 3 times: structure, toolkit commits, website commits
+      expect(fetchMock).toHaveBeenCalledTimes(3);
+      expect(result.outcome).toBe('success');
+      
+      // Should have entries from both sources
+      expect(result.data).not.toBeNull();
+      const toolkitEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'toolkit'));
+      const websiteEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'website'));
+      
+      expect(toolkitEntries.length).toBeGreaterThan(0);
+      expect(websiteEntries.length).toBeGreaterThan(0);
+    });
+
+    it('tags entries with correct source (toolkit vs website)', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitCommitsResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validWebsiteCommitsResponse),
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      expect(result.outcome).toBe('success');
+      
+      // Find the website entry and verify source
+      const websiteEntry = result.data!.flatMap(d => d.changes).find(c => c.description === 'add new documentation page');
+      expect(websiteEntry?.source).toBe('website');
+      
+      // Find toolkit entries and verify source
+      const toolkitEntry = result.data!.flatMap(d => d.changes).find(c => c.description === 'add new feature');
+      expect(toolkitEntry?.source).toBe('toolkit');
+    });
+
+    it('merges entries from same day into single day entry', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitCommitsResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validWebsiteCommitsResponse),
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      // All commits are from 2026-02-22, should be in one day
+      expect(result.data).toHaveLength(1);
+      expect(result.data![0].date).toBe('2026-02-22');
+      // Should have entries from both sources in that day
+      expect(result.data![0].changes.length).toBeGreaterThanOrEqual(2);
+    });
+  });
+
+  describe('partial failure resilience', () => {
+    it('returns toolkit data when website fetch fails', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitCommitsResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 500,
+          statusText: 'Internal Server Error',
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      // Should still succeed with toolkit data
+      expect(result.outcome).toBe('success');
+      expect(result.data).not.toBeNull();
+      
+      // Should have toolkit entries
+      const toolkitEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'toolkit'));
+      expect(toolkitEntries.length).toBeGreaterThan(0);
+      
+      // Should NOT have website entries (fetch failed)
+      const websiteEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'website'));
+      expect(websiteEntries.length).toBe(0);
+    });
+
+    it('returns website data when toolkit fetch fails', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 404,
+          statusText: 'Not Found',
+        })
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 500,
+          statusText: 'Internal Server Error',
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validWebsiteCommitsResponse),
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      // Should still succeed with website data only
+      expect(result.outcome).toBe('success');
+      expect(result.data).not.toBeNull();
+      
+      // Should have website entries
+      const websiteEntries = result.data!.flatMap(d => d.changes.filter(c => c.source === 'website'));
+      expect(websiteEntries.length).toBeGreaterThan(0);
+    });
+
+    it('returns fallback when both sources fail completely', async () => {
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 404,
+          statusText: 'Not Found',
+        })
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 500,
+          statusText: 'Internal Server Error',
+        })
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 500,
+          statusText: 'Internal Server Error',
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      expect(result.outcome).toBe('fallback');
+      expect(result.data).toBeNull();
+    });
+  });
+
+  describe('source-scoped deduplication', () => {
+    it('does NOT dedupe identical descriptions across different sources', async () => {
+      // Same description but different sources
+      const toolkitCommit = [
+        {
+          sha: 'tool1234567',
+          commit: {
+            author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
+            committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
+            message: 'feat: shared feature description',
+          },
+        },
+      ];
+      
+      const websiteCommit = [
+        {
+          sha: 'web1234567',
+          commit: {
+            author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
+            committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
+            message: 'feat: shared feature description', // Same description!
+          },
+        },
+      ];
+      
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({ changelog: { entries: [] } }),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(toolkitCommit),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(websiteCommit),
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      expect(result.outcome).toBe('success');
+      
+      // Should have BOTH entries (not deduped because different sources)
+      const entries = result.data!.flatMap(d => d.changes.filter(c => c.description === 'shared feature description'));
+      expect(entries.length).toBe(2);
+      expect(entries.some(e => e.source === 'toolkit')).toBe(true);
+      expect(entries.some(e => e.source === 'website')).toBe(true);
+    });
+
+    it('DOES dedupe identical entries within same source', async () => {
+      // Same commit appearing in structure and recent commits
+      const toolkitCommits = [
+        {
+          sha: 'abc1234', // Same hash as in structure
+          commit: {
+            author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
+            committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
+            message: 'feat: add new feature', // Same as in structure
+          },
+        },
+      ];
+      
+      const fetchMock = jest.fn()
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validToolkitResponse), // Has 'add new feature' with hash abc1234
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(toolkitCommits), // Duplicate
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      global.fetch = fetchMock;
+      
+      const result = await fetchToolkitChangelog();
+      
+      expect(result.outcome).toBe('success');
+      
+      // Should have only ONE entry for 'add new feature' (deduped by hash within toolkit)
+      const entries = result.data!.flatMap(d => d.changes.filter(c => c.description === 'add new feature'));
+      expect(entries.length).toBe(1);
+    });
+  });
+
   describe('network-first strategy', () => {
     it('always fetches from network even when valid cache exists', async () => {
       // Pre-populate cache with valid data
       const cachedData = {
         timestamp: Date.now(), // Fresh cache
-        data: [{ date: '2026-02-20', displayDate: 'February 20, 2026', changes: [{ type: 'chore' as const, description: 'cached entry' }] }],
+        data: [{ date: '2026-02-20', displayDate: 'February 20, 2026', changes: [{ type: 'chore' as const, description: 'cached entry', source: 'toolkit' as const }] }],
       };
       localStorageMock['toolkit-changelog-cache'] = JSON.stringify(cachedData);
       
@@ -225,7 +503,11 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve(validGitHubCommitsResponse),
+          json: () => Promise.resolve(validToolkitCommitsResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validWebsiteCommitsResponse),
         });
       global.fetch = fetchMock;
       
@@ -246,7 +528,11 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]), // No GitHub commits
+          json: () => Promise.resolve([]), // No recent toolkit commits
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]), // No website commits
         });
       global.fetch = fetchMock;
       
@@ -264,7 +550,7 @@ describe('fetchToolkitChangelog', () => {
       // Pre-populate cache
       const cachedData = {
         timestamp: Date.now() - 1000, // 1 second ago
-        data: [{ date: '2026-02-20', displayDate: 'February 20, 2026', changes: [{ type: 'chore' as const, description: 'cached entry' }] }],
+        data: [{ date: '2026-02-20', displayDate: 'February 20, 2026', changes: [{ type: 'chore' as const, description: 'cached entry', source: 'toolkit' as const }] }],
       };
       localStorageMock['toolkit-changelog-cache'] = JSON.stringify(cachedData);
       
@@ -297,7 +583,7 @@ describe('fetchToolkitChangelog', () => {
       // Pre-populate with expired cache (20 minutes old)
       const cachedData = {
         timestamp: Date.now() - (20 * 60 * 1000),
-        data: [{ date: '2026-02-18', displayDate: 'February 18, 2026', changes: [{ type: 'fix' as const, description: 'old cached entry' }] }],
+        data: [{ date: '2026-02-18', displayDate: 'February 18, 2026', changes: [{ type: 'fix' as const, description: 'old cached entry', source: 'toolkit' as const }] }],
       };
       localStorageMock['toolkit-changelog-cache'] = JSON.stringify(cachedData);
       
@@ -318,7 +604,7 @@ describe('fetchToolkitChangelog', () => {
       // Pre-populate cache
       const cachedData = {
         timestamp: Date.now(),
-        data: [{ date: '2026-02-20', displayDate: 'February 20, 2026', changes: [{ type: 'chore' as const, description: 'cached' }] }],
+        data: [{ date: '2026-02-20', displayDate: 'February 20, 2026', changes: [{ type: 'chore' as const, description: 'cached', source: 'toolkit' as const }] }],
       };
       localStorageMock['toolkit-changelog-cache'] = JSON.stringify(cachedData);
       
@@ -326,6 +612,10 @@ describe('fetchToolkitChangelog', () => {
         .mockResolvedValueOnce({
           ok: true,
           json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]),
         })
         .mockResolvedValueOnce({
           ok: true,
@@ -342,7 +632,7 @@ describe('fetchToolkitChangelog', () => {
   });
 
   describe('HTTP error handling', () => {
-    it('returns fallback on HTTP 404 with no commits', async () => {
+    it('returns fallback on HTTP 404 with no commits from any source', async () => {
       const fetchMock = jest.fn()
         .mockResolvedValueOnce({
           ok: false,
@@ -351,7 +641,11 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]), // No GitHub commits either
+          json: () => Promise.resolve([]), // No toolkit commits
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]), // No website commits
         });
       global.fetch = fetchMock;
       
@@ -370,7 +664,11 @@ describe('fetchToolkitChangelog', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve(validGitHubCommitsResponse),
+          json: () => Promise.resolve(validToolkitCommitsResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validWebsiteCommitsResponse),
         });
       global.fetch = fetchMock;
       
@@ -385,7 +683,7 @@ describe('fetchToolkitChangelog', () => {
       // Pre-populate cache
       const cachedData = {
         timestamp: Date.now(),
-        data: [{ date: '2026-02-20', displayDate: 'February 20, 2026', changes: [{ type: 'chore' as const, description: 'cached' }] }],
+        data: [{ date: '2026-02-20', displayDate: 'February 20, 2026', changes: [{ type: 'chore' as const, description: 'cached', source: 'toolkit' as const }] }],
       };
       localStorageMock['toolkit-changelog-cache'] = JSON.stringify(cachedData);
       
@@ -394,6 +692,10 @@ describe('fetchToolkitChangelog', () => {
           ok: false,
           status: 500,
           statusText: 'Internal Server Error',
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]),
         })
         .mockResolvedValueOnce({
           ok: true,
@@ -418,6 +720,10 @@ describe('fetchToolkitChangelog', () => {
         .mockResolvedValueOnce({
           ok: true,
           json: () => Promise.resolve([]),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(validWebsiteCommitsResponse),
         });
       global.fetch = fetchMock;
       
@@ -430,7 +736,7 @@ describe('fetchToolkitChangelog', () => {
       );
       
       const cachedValue = JSON.parse(localStorageMock['toolkit-changelog-cache']);
-      expect(cachedValue.data).toHaveLength(1);
+      expect(cachedValue.data.length).toBeGreaterThan(0);
       expect(cachedValue.timestamp).toBeDefined();
     });
   });
@@ -461,6 +767,10 @@ describe('fetchToolkitChangelog', () => {
         .mockResolvedValueOnce({
           ok: true,
           json: () => Promise.resolve(lateNightCommit),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]),
         });
       global.fetch = fetchMock;
 
@@ -483,6 +793,10 @@ describe('fetchToolkitChangelog', () => {
         .mockResolvedValueOnce({
           ok: true,
           json: () => Promise.resolve(validToolkitResponse),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([]),
         })
         .mockResolvedValueOnce({
           ok: true,

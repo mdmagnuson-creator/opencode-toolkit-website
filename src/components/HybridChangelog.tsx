@@ -7,16 +7,14 @@
  *   - Receives baseline (SSR) data as initial state for instant render
  *   - Attempts runtime fetch from GitHub on mount
  *   - Shows loading indicator during fetch
- *   - Merges runtime toolkit data with website entries
+ *   - Runtime fetcher now handles both toolkit + website entries
  *   - Shows stale/fallback messaging when applicable
  *   - Provides manual refresh control
  *   - Instruments outcomes for debugging
  */
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { mergeChangelogs } from "@/data";
-import { fetchToolkitChangelog, clearCache, trackOutcome, type FetchOutcome } from "@/lib/changelog-fetcher";
-import type { ChangelogDayWithSource } from "@/data/types";
+import { fetchToolkitChangelog, clearCache, trackOutcome, type FetchOutcome, type ChangelogDayWithSource } from "@/lib/changelog-fetcher";
 
 interface HybridChangelogProps {
   /** Baseline changelog (SSR data) for instant render */
@@ -58,9 +56,8 @@ export function HybridChangelog({ baselineChangelog, children }: HybridChangelog
       setOutcome(result.outcome);
       
       if (result.data) {
-        // Merge runtime toolkit data with website entries (US-003)
-        const merged = mergeChangelogs(result.data);
-        setChangelog(merged);
+        // Runtime fetcher now returns pre-merged toolkit + website data with source tags
+        setChangelog(result.data);
         setLastUpdated(result.cachedAt ? new Date(result.cachedAt) : new Date());
         setIsStale(result.outcome === 'stale-cache');
       } else {

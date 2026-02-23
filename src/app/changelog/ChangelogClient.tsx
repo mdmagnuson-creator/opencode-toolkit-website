@@ -13,9 +13,8 @@
  */
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { mergeChangelogs } from "@/data";
-import { fetchToolkitChangelog, clearCache, trackOutcome, type FetchOutcome } from "@/lib/changelog-fetcher";
-import type { ChangelogEntryWithSource, ChangelogDayWithSource, ChangelogSource, ChangelogEntryType } from "@/data/types";
+import { fetchToolkitChangelog, clearCache, trackOutcome, type FetchOutcome, type ChangelogDayWithSource } from "@/lib/changelog-fetcher";
+import type { ChangelogEntryWithSource, ChangelogSource, ChangelogEntryType } from "@/data/types";
 import { REPO_BASE } from "@/config/urls";
 
 // ============================================================================
@@ -411,9 +410,8 @@ export function ChangelogClient({ baselineChangelog }: ChangelogClientProps) {
       setOutcome(result.outcome);
       
       if (result.data) {
-        // Merge runtime toolkit data with website entries (US-003)
-        const merged = mergeChangelogs(result.data);
-        setChangelog(merged);
+        // Runtime fetcher now returns pre-merged toolkit + website data with source tags
+        setChangelog(result.data);
         setLastUpdated(result.cachedAt ? new Date(result.cachedAt) : new Date());
         setIsStale(result.outcome === 'stale-cache');
       } else {

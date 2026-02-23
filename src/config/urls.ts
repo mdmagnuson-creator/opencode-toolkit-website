@@ -8,11 +8,18 @@
  * with the appropriate organization/username when forking or self-hosting.
  */
 
+// Toolkit repository
 export const REPO_OWNER = "mdmagnuson-creator";
 export const REPO_NAME = "ai-toolkit";
 
+// Website repository
+export const WEBSITE_REPO_OWNER = "mdmagnuson-creator";
+export const WEBSITE_REPO_NAME = "opencode-toolkit-website";
+
 export const REPO_BASE = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;
 export const REPO_RAW_BASE = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main`;
+
+export const WEBSITE_REPO_BASE = `https://github.com/${WEBSITE_REPO_OWNER}/${WEBSITE_REPO_NAME}`;
 
 export const INSTALL_SCRIPT_URL = `${REPO_RAW_BASE}/install.sh`;
 export const RELEASES_URL = `${REPO_BASE}/releases`;

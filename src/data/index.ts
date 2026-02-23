@@ -1,77 +1,56 @@
 import type { ToolkitManifest, Skill, SkillCategory, ChangelogDay, ChangelogDayWithSource, ChangelogSource } from './types';
 import manifestData from './toolkit-manifest.json';
-import { websiteChangelog } from './website-changelog';
 
 export const manifest = manifestData as ToolkitManifest;
 
-// Re-export website changelog for use in hybrid system
-export { websiteChangelog };
-
 /**
- * HYBRID CHANGELOG MERGE FUNCTION (US-003)
+ * BASELINE CHANGELOG FUNCTION (build-time only)
  * 
- * Merges toolkit changelog (from any source) with website changelog into a single timeline.
- * Entries from the same day are combined. Sorted by date descending (newest first).
+ * Converts baseline toolkit changelog (from manifest) to source-tagged format.
+ * Used for SSR/static rendering as initial state before runtime fetch.
  * 
- * @param toolkitChangelog - Toolkit changelog entries (from runtime fetch or baseline)
- * @returns Combined changelog with source badges
+ * NOTE: This does NOT include website entries. Website entries are now fetched
+ * at runtime from GitHub API alongside toolkit entries.
+ * 
+ * @returns Baseline changelog with toolkit source tags
  */
-export function mergeChangelogs(toolkitChangelog: ChangelogDay[]): ChangelogDayWithSource[] {
-  // Create a map of date -> merged day
-  const dayMap = new Map<string, ChangelogDayWithSource>();
-  
-  // Add toolkit entries
-  toolkitChangelog.forEach((day: ChangelogDay) => {
-    const existing = dayMap.get(day.date);
-    const changesWithSource = day.changes.map(change => ({
+export function getCombinedChangelog(): ChangelogDayWithSource[] {
+  return manifest.changelog.map((day: ChangelogDay) => ({
+    date: day.date,
+    displayDate: day.displayDate,
+    changes: day.changes.map(change => ({
       ...change,
       source: 'toolkit' as ChangelogSource,
-    }));
-    
-    if (existing) {
-      existing.changes.push(...changesWithSource);
-    } else {
-      dayMap.set(day.date, {
-        date: day.date,
-        displayDate: day.displayDate,
-        changes: changesWithSource,
-      });
-    }
-  });
-  
-  // Add website entries
-  websiteChangelog.forEach((day: ChangelogDay) => {
-    const existing = dayMap.get(day.date);
-    const changesWithSource = day.changes.map(change => ({
-      ...change,
-      source: 'website' as ChangelogSource,
-    }));
-    
-    if (existing) {
-      existing.changes.push(...changesWithSource);
-    } else {
-      dayMap.set(day.date, {
-        date: day.date,
-        displayDate: day.displayDate,
-        changes: changesWithSource,
-      });
-    }
-  });
-  
-  // Sort by date descending (newest first)
-  const sortedDays = Array.from(dayMap.values()).sort((a, b) => 
-    b.date.localeCompare(a.date)
-  );
-  
-  return sortedDays;
+    })),
+  }));
 }
 
 /**
- * Get combined changelog using baseline (build-time) toolkit data.
- * For SSR and static rendering. Use HybridChangelog component for runtime enhancement.
+ * Legacy merge function - kept for compatibility but simplified.
+ * 
+ * Since runtime fetcher now returns ChangelogDayWithSource[] directly with
+ * both toolkit and website entries pre-merged, this function is only used
+ * as a pass-through for type compatibility in consumers.
+ * 
+ * @param changelog - Already source-tagged changelog from runtime fetcher
+ * @returns Same changelog (already has source tags from fetcher)
  */
-export function getCombinedChangelog(): ChangelogDayWithSource[] {
-  return mergeChangelogs(manifest.changelog);
+export function mergeChangelogs(changelog: ChangelogDay[]): ChangelogDayWithSource[] {
+  // The runtime fetcher now returns data with source tags already applied.
+  // This function is kept for backwards compatibility with consumers that
+  // expect to call mergeChangelogs(result.data).
+  // 
+  // If the input already has source tags, pass through as-is.
+  // If not (legacy baseline data), tag as toolkit.
+  return changelog.map((day: ChangelogDay) => ({
+    date: day.date,
+    displayDate: day.displayDate,
+    changes: day.changes.map(change => ({
+      ...change,
+      // Use existing source if present, otherwise default to toolkit
+      source: ('source' in change ? (change as { source: ChangelogSource }).source : 'toolkit') as ChangelogSource,
+    })),
+  }));
 }
 
 /**
