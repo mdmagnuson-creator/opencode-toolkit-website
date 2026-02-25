@@ -86,12 +86,16 @@ describe('ChangelogClient', () => {
     it('applies locale-aware dates after mount', async () => {
       // Mock Date.toLocaleDateString to return a different format
       const originalToLocaleDateString = Date.prototype.toLocaleDateString;
-      Date.prototype.toLocaleDateString = function(locale, options) {
-        if (locale === undefined && options?.month === 'long') {
+      Date.prototype.toLocaleDateString = function(
+        this: Date,
+        locales?: Intl.LocalesArgument,
+        options?: Intl.DateTimeFormatOptions
+      ): string {
+        if (locales === undefined && options?.month === 'long') {
           // Simulate a non-en-US locale (e.g., day-first format for testing)
           return `${this.getDate()} ${originalToLocaleDateString.call(this, 'en-US', { month: 'long' })} ${this.getFullYear()}`;
         }
-        return originalToLocaleDateString.call(this, locale, options);
+        return originalToLocaleDateString.call(this, locales, options);
       };
 
       render(<ChangelogClient baselineChangelog={baselineChangelog} />);

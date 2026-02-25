@@ -627,9 +627,24 @@ export async function fetchToolkitChangelog(
       throw new Error('No valid changelog entries in response');
     }
     
+    // TIMEZONE FIX: Filter structure changelog to exclude recent entries.
+    // The structure changelog has UTC-based dates (from build time), but the API
+    // commits are grouped by local date (computed in the browser). For recent
+    // commits (last 7 days), we prefer the API data which has accurate local dates.
+    // This prevents the same commit from appearing with different dates (UTC vs local).
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - RECENT_COMMITS_WINDOW_DAYS);
+    const cutoffDateStr = getLocalDateString(cutoffDate);
+    
+    // Only include structure entries older than the cutoff (API handles recent entries)
+    const filteredStructureChangelog = structureChangelog.filter(day => day.date < cutoffDateStr);
+    
     // Merge all sources with deduplication
+    // - filteredStructureChangelog: older entries from toolkit-structure.json (UTC dates, but old enough that it doesn't matter)
+    // - toolkitRecentCommits: recent entries from GitHub API (local dates - accurate for user's timezone)
+    // - websiteRecentCommits: recent website commits from GitHub API (local dates)
     const merged = mergeAndDedupeChangelogs(
-      structureChangelog,
+      filteredStructureChangelog,
       toolkitRecentCommits,
       websiteRecentCommits
     );

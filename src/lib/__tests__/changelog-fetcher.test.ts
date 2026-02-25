@@ -166,21 +166,32 @@ describe('fetchToolkitChangelog', () => {
   };
   
   // Sample valid toolkit changelog response
+  // NOTE: Structure entries from recent dates (last 7 days) are filtered out in favor of
+  // API commits, which have more accurate local timezone dates. Use old dates for structure
+  // entries that should NOT be filtered.
   const validToolkitResponse = {
     changelog: {
       entries: [
         {
-          date: '2026-02-22',
+          date: '2026-02-10', // Old date - outside 7-day window, won't be filtered
           changes: [
-            { type: 'feat', description: 'add new feature', hash: 'abc1234' },
+            { type: 'chore', description: 'old structure entry', hash: 'old1234' },
           ],
         },
       ],
     },
   };
   
-  // Sample GitHub commits response for toolkit
+  // Sample GitHub commits response for toolkit - these are from API and won't be filtered
   const validToolkitCommitsResponse = [
+    {
+      sha: 'abc1234567890', // 'add new feature' - will be primary source for recent dates
+      commit: {
+        author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
+        committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
+        message: 'feat: add new feature',
+      },
+    },
     {
       sha: 'def5678abcdef',
       commit: {
@@ -286,10 +297,11 @@ describe('fetchToolkitChangelog', () => {
     });
 
     it('merges entries from same day into single day entry', async () => {
+      // Use empty structure since we want to test merging of API commits on same day
       const fetchMock = jest.fn()
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve(validToolkitResponse),
+          json: () => Promise.resolve({ changelog: { entries: [] } }), // Empty structure
         })
         .mockResolvedValueOnce({
           ok: true,
@@ -452,14 +464,23 @@ describe('fetchToolkitChangelog', () => {
     });
 
     it('DOES dedupe identical entries within same source', async () => {
-      // Same commit appearing in structure and recent commits
+      // Same commit appearing in recent commits twice (e.g., from different API calls)
+      // Note: Structure entries are filtered for recent dates, so we test deduping in API commits
       const toolkitCommits = [
         {
-          sha: 'abc1234', // Same hash as in structure
+          sha: 'abc1234',
           commit: {
             author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
             committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T10:00:00Z' },
-            message: 'feat: add new feature', // Same as in structure
+            message: 'feat: add new feature',
+          },
+        },
+        {
+          sha: 'abc1234', // Duplicate hash - should be deduped
+          commit: {
+            author: { name: 'Test', email: 'test@test.com', date: '2026-02-22T11:00:00Z' },
+            committer: { name: 'Test', email: 'test@test.com', date: '2026-02-22T11:00:00Z' },
+            message: 'feat: add new feature',
           },
         },
       ];
@@ -467,11 +488,11 @@ describe('fetchToolkitChangelog', () => {
       const fetchMock = jest.fn()
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve(validToolkitResponse), // Has 'add new feature' with hash abc1234
+          json: () => Promise.resolve({ changelog: { entries: [] } }),
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve(toolkitCommits), // Duplicate
+          json: () => Promise.resolve(toolkitCommits),
         })
         .mockResolvedValueOnce({
           ok: true,
@@ -524,10 +545,24 @@ describe('fetchToolkitChangelog', () => {
     });
 
     it('returns success with fresh network data', async () => {
+      // Use an old date that won't be filtered out
+      const oldStructureResponse = {
+        changelog: {
+          entries: [
+            {
+              date: '2026-02-10', // Old date - outside 7-day window
+              changes: [
+                { type: 'feat', description: 'old feature', hash: 'old1234' },
+              ],
+            },
+          ],
+        },
+      };
+      
       const fetchMock = jest.fn()
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve(validToolkitResponse),
+          json: () => Promise.resolve(oldStructureResponse),
         })
         .mockResolvedValueOnce({
           ok: true,
@@ -543,7 +578,7 @@ describe('fetchToolkitChangelog', () => {
       
       expect(result.outcome).toBe('success');
       expect(result.data).toHaveLength(1);
-      expect(result.data?.[0].date).toBe('2026-02-22');
+      expect(result.data?.[0].date).toBe('2026-02-10');
       expect(result.cachedAt).toBeDefined();
     });
   });
@@ -614,11 +649,11 @@ describe('fetchToolkitChangelog', () => {
       const fetchMock = jest.fn()
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve(validToolkitResponse),
+          json: () => Promise.resolve({ changelog: { entries: [] } }), // Empty structure
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve([]),
+          json: () => Promise.resolve(validToolkitCommitsResponse), // API commits with 'add new feature'
         })
         .mockResolvedValueOnce({
           ok: true,
@@ -792,10 +827,24 @@ describe('fetchToolkitChangelog', () => {
     });
 
     it('displayDate uses locale-friendly format', async () => {
+      // Use an old date that won't be filtered out
+      const oldStructureResponse = {
+        changelog: {
+          entries: [
+            {
+              date: '2026-02-10', // Old date - outside 7-day window
+              changes: [
+                { type: 'feat', description: 'old feature', hash: 'old1234' },
+              ],
+            },
+          ],
+        },
+      };
+      
       const fetchMock = jest.fn()
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve(validToolkitResponse),
+          json: () => Promise.resolve(oldStructureResponse),
         })
         .mockResolvedValueOnce({
           ok: true,
