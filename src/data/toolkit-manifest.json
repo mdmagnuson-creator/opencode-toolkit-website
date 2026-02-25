@@ -1,23 +1,23 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-23T17:26:00Z",
-  "syncedAt": "2026-02-23T19:11:42.537Z",
-  "toolkitCommit": "d01253a",
+  "generatedAt": "2026-02-26T02:00:00Z",
+  "syncedAt": "2026-02-25T15:38:31.734Z",
+  "toolkitCommit": "9c8bde2",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
     "subagents": 60,
-    "skills": 31,
+    "skills": 34,
     "metaSkills": 10,
     "scaffolds": 3,
     "agentTemplates": 14
   },
   "categories": {
-    "critics": 28,
+    "critics": 25,
     "developers": 15,
     "testers": 9,
     "orchestrators": 3,
-    "utilities": 8
+    "utilities": 11
   },
   "templateCategories": [
     "backend",
@@ -72,7 +72,7 @@
       "name": "Backend Critic Go",
       "description": "Reviews backend Go code for API design, concurrency, error handling, and best practices (Gin, Lambda)",
       "mode": "subagent",
-      "category": "critics",
+      "category": "utilities",
       "content": ""
     },
     {
@@ -80,7 +80,7 @@
       "name": "Backend Critic Java",
       "description": "Reviews backend Java code for API design, concurrency, error handling, and best practices (Netty, Lambda)",
       "mode": "subagent",
-      "category": "critics",
+      "category": "utilities",
       "content": ""
     },
     {
@@ -88,7 +88,7 @@
       "name": "Backend Critic Ts",
       "description": "Reviews backend TypeScript code for API design, async patterns, error handling, and best practices (Express, Lambda)",
       "mode": "subagent",
-      "category": "critics",
+      "category": "utilities",
       "content": ""
     },
     {
@@ -536,23 +536,34 @@
     {
       "slug": "adhoc-workflow",
       "name": "Adhoc Workflow",
-      "description": "Ad-hoc mode workflow for Builder. Use when handling direct requests without a PRD, quick fixes, or one-off tasks.",
-      "triggers": [],
+      "description": "Ad-hoc mode workflow for Builder. Use when handling direct requests without a PRD, quick fixes, or one-off tasks. Triggers on: ad-hoc mode, quick fix, direct request, one-off task.",
+      "triggers": [
+        "ad-hoc mode",
+        "quick fix",
+        "direct request",
+        "one-off task"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "agent-audit",
       "name": "Agent Audit",
-      "description": "Audit AI toolkit agents for compliance and coverage gaps.",
-      "triggers": [],
+      "description": "Audit AI toolkit agents for compliance and coverage gaps. Use when you need to check if agents follow conventions, or find missing agents for a project's stack. Triggers on: audit agents, agent compliance, toolkit gaps, missing agents, stack coverage.",
+      "triggers": [
+        "audit agents",
+        "agent compliance",
+        "toolkit gaps",
+        "missing agents",
+        "stack coverage"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "agent-onboard",
       "name": "Agent Onboard",
-      "description": "Onboard new or modified agents to ensure they are project-context aware and follow established conventions.",
+      "description": "No description provided",
       "triggers": [],
       "isMeta": false,
       "content": ""
@@ -560,40 +571,75 @@
     {
       "slug": "ai-tools-skill-generator",
       "name": "Ai Tools Skill Generator",
-      "description": "Generate a project-specific AI tools skill.",
-      "triggers": [],
+      "description": "Generate a project-specific AI tools skill. Use when a project has ai: true and aiTools configuration. Triggers on: generate ai tools skill, create chatbot tools, ai-tools-skill-generator.",
+      "triggers": [
+        "generate ai tools skill",
+        "create chatbot tools",
+        "ai-tools-skill-generator"
+      ],
       "isMeta": true,
       "content": ""
     },
     {
       "slug": "api-endpoint-skill-generator",
       "name": "Api Endpoint Skill Generator",
-      "description": "Generate a project-specific API patterns skill.",
-      "triggers": [],
+      "description": "Generate a project-specific API patterns skill. Use when a project has api: true to document endpoint creation patterns. Triggers on: generate api skill, create endpoint patterns, api-endpoint-skill-generator.",
+      "triggers": [
+        "generate api skill",
+        "create endpoint patterns",
+        "api-endpoint-skill-generator"
+      ],
       "isMeta": true,
       "content": ""
     },
     {
       "slug": "auth-skill-generator",
       "name": "Auth Skill Generator",
-      "description": "Generate a project-specific auth-flow skill.",
-      "triggers": [],
+      "description": "Generate a project-specific auth-flow skill. Use when a project has authentication: true but no auth-flow skill. Triggers on: generate auth skill, create auth patterns, auth-skill-generator.",
+      "triggers": [
+        "generate auth skill",
+        "create auth patterns",
+        "auth-skill-generator"
+      ],
       "isMeta": true,
+      "content": ""
+    },
+    {
+      "slug": "browser-debugging",
+      "name": "Browser Debugging",
+      "description": "Browser debugging escalation protocol for when tests pass but the feature doesn't work in the user's browser. Triggers on: tests pass but doesn't work, feature broken in browser, works in playwright but not browser, console screenshot, browser debugging.",
+      "triggers": [
+        "tests pass but doesn't work",
+        "feature broken in browser",
+        "works in playwright but not browser",
+        "console screenshot",
+        "browser debugging"
+      ],
+      "isMeta": false,
       "content": ""
     },
     {
       "slug": "builder-state",
       "name": "Builder State",
-      "description": "Manage builder session state for resumability. Use when reading/writing builder-state.json, updating heartbeat, or resuming sessions.",
-      "triggers": [],
+      "description": "Manage builder session state for resumability. Use when reading/writing builder-state.json, updating heartbeat, or resuming sessions. Triggers on: session state, builder state, heartbeat, resume session.",
+      "triggers": [
+        "session state",
+        "builder state",
+        "heartbeat",
+        "resume session"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "crud-skill-generator",
       "name": "Crud Skill Generator",
-      "description": "Generate a project-specific CRUD patterns skill.",
-      "triggers": [],
+      "description": "Generate a project-specific CRUD patterns skill. Use for any project with a database to document entity creation patterns. Triggers on: generate crud skill, create crud patterns, crud-skill-generator.",
+      "triggers": [
+        "generate crud skill",
+        "create crud patterns",
+        "crud-skill-generator"
+      ],
       "isMeta": true,
       "content": ""
     },
@@ -608,55 +654,100 @@
     {
       "slug": "database-migration-skill-generator",
       "name": "Database Migration Skill Generator",
-      "description": "Generate a project-specific database migration skill.",
-      "triggers": [],
+      "description": "Generate a project-specific database migration skill. Use for any project with a database to document migration patterns. Triggers on: generate migration skill, create migration patterns, database-migration-skill-generator.",
+      "triggers": [
+        "generate migration skill",
+        "create migration patterns",
+        "database-migration-skill-generator"
+      ],
       "isMeta": true,
       "content": ""
     },
     {
       "slug": "e2e-quality",
       "name": "E2e Quality",
-      "description": "Quality-beyond-correctness E2E testing patterns. Catches visual glitches, performance issues, layout shifts.",
-      "triggers": [],
+      "description": "Quality-beyond-correctness E2E testing patterns. Catches visual glitches, performance issues, layout shifts, and intermediate bad states. Triggers on: flicker test, visual stability, performance budget, negative assertion, CLS test, drag drop test, animation test.",
+      "triggers": [
+        "flicker test",
+        "visual stability",
+        "performance budget",
+        "negative assertion",
+        "CLS test",
+        "drag drop test",
+        "animation test"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "email-skill-generator",
       "name": "Email Skill Generator",
-      "description": "Generate a project-specific transactional email skill.",
-      "triggers": [],
+      "description": "Generate a project-specific transactional email skill. Use when a project has email: true or email integration (resend, sendgrid, etc). Triggers on: generate email skill, create email patterns, email-skill-generator.",
+      "triggers": [
+        "generate email skill",
+        "create email patterns",
+        "email-skill-generator"
+      ],
       "isMeta": true,
       "content": ""
     },
     {
       "slug": "form-skill-generator",
       "name": "Form Skill Generator",
-      "description": "Generate a project-specific form patterns skill.",
-      "triggers": [],
+      "description": "Generate a project-specific form patterns skill. Use for frontend apps to document form handling. Triggers on: generate form skill, create form patterns, form-skill-generator.",
+      "triggers": [
+        "generate form skill",
+        "create form patterns",
+        "form-skill-generator"
+      ],
       "isMeta": true,
+      "content": ""
+    },
+    {
+      "slug": "git-sync",
+      "name": "Git Sync",
+      "description": "Team synchronization for multi-machine collaboration. Provides pull/push protocols for keeping repos in sync across team members. Triggers on: team sync, git sync, pull latest, push changes.",
+      "triggers": [
+        "team sync",
+        "git sync",
+        "pull latest",
+        "push changes"
+      ],
+      "isMeta": false,
       "content": ""
     },
     {
       "slug": "marketing-copy",
       "name": "Marketing Copy",
-      "description": "Generate marketing copy from product documentation and PRDs.",
-      "triggers": [],
+      "description": "Generate marketing copy from product documentation and PRDs. Use when you need to write headlines, value propositions, feature descriptions, CTAs, or other marketing text derived from the product. Triggers on: write marketing copy, generate headlines, create tagline, feature benefits, value proposition.",
+      "triggers": [
+        "write marketing copy",
+        "generate headlines",
+        "create tagline",
+        "feature benefits",
+        "value proposition"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "merge-conflicts",
       "name": "Merge Conflicts",
-      "description": "Resolve merge conflicts on a pull request by merging the target branch into the source branch.",
-      "triggers": [],
+      "description": "Resolve merge conflicts on a pull request by merging the target branch into the source branch and fixing conflicts. Use when a PR has merge conflicts, a branch needs to be updated, or when asked to fix conflicts. Triggers on: fix merge conflicts, resolve conflicts, merge conflicts on PR, update branch, rebase PR.",
+      "triggers": [
+        "fix merge conflicts",
+        "resolve conflicts",
+        "merge conflicts on PR",
+        "update branch",
+        "rebase PR"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "multi-session",
       "name": "Multi Session",
-      "description": "Multi-session coordination for parallel AI sessions. Provides session locks, heartbeat, and merge queue management.",
+      "description": "Multi-session coordination for parallel AI sessions. Provides session locks, heartbeat, and merge queue management. Only active when agents.multiSession: true in project.json.",
       "triggers": [],
       "isMeta": false,
       "content": ""
@@ -664,87 +755,142 @@
     {
       "slug": "multi-tenant-skill-generator",
       "name": "Multi Tenant Skill Generator",
-      "description": "Generate a project-specific tenant-context skill.",
-      "triggers": [],
+      "description": "Generate a project-specific tenant-context skill. Use when a project has multiTenant: true but no tenant-context skill. Triggers on: generate tenant skill, create multi-tenant patterns, multi-tenant-skill-generator.",
+      "triggers": [
+        "generate tenant skill",
+        "create multi-tenant patterns",
+        "multi-tenant-skill-generator"
+      ],
       "isMeta": true,
       "content": ""
     },
     {
       "slug": "post-completion",
       "name": "Post Completion",
-      "description": "Post-completion polish steps for Developer. Use when all PRD stories pass but before declaring COMPLETE.",
-      "triggers": [],
+      "description": "Post-completion polish steps for Developer. Use when all PRD stories pass but before declaring COMPLETE. Triggers on: post-completion, polish, aesthetic review, support articles, final checks.",
+      "triggers": [
+        "post-completion",
+        "polish",
+        "aesthetic review",
+        "support articles",
+        "final checks"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "prd",
       "name": "Prd",
-      "description": "Generate a Product Requirements Document (PRD) for a new feature.",
-      "triggers": [],
+      "description": "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan this feature, requirements for, spec out.",
+      "triggers": [
+        "create a prd",
+        "write prd for",
+        "plan this feature",
+        "requirements for",
+        "spec out"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "prd-to-json",
       "name": "Prd To Json",
-      "description": "Convert PRDs to prd.json format for the Developer autonomous agent system.",
-      "triggers": [],
+      "description": "Convert PRDs to prd.json format for the Developer autonomous agent system. Use when you have an existing PRD and need to convert it to Developer's JSON format. Triggers on: convert this prd, turn this into developer format, create prd.json from this, developer json.",
+      "triggers": [
+        "convert this prd",
+        "turn this into developer format",
+        "create prd.json from this",
+        "developer json"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "prd-workflow",
       "name": "Prd Workflow",
-      "description": "PRD mode workflow for Builder. Use when building features from PRDs, implementing user stories, or managing PRD state transitions.",
-      "triggers": [],
+      "description": "PRD mode workflow for Builder. Use when building features from PRDs, implementing user stories, or managing PRD state transitions. Triggers on: PRD mode, build PRD, implement stories, ship PRD.",
+      "triggers": [
+        "PRD mode",
+        "build PRD",
+        "implement stories",
+        "ship PRD"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "product-screenshots",
       "name": "Product Screenshots",
-      "description": "Capture and maintain product screenshots for marketing and support use.",
-      "triggers": [],
+      "description": "Capture and maintain product screenshots for marketing and support use. Use when you need to capture UI screenshots, refresh outdated screenshots, or check if screenshots need updating after UI changes. Triggers on: capture screenshots, update product images, refresh screenshots, screenshot the feature, marketing screenshots.",
+      "triggers": [
+        "capture screenshots",
+        "update product images",
+        "refresh screenshots",
+        "screenshot the feature",
+        "marketing screenshots"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "project-bootstrap",
       "name": "Project Bootstrap",
-      "description": "Bootstrap a new or existing project with stack detection and project.json generation.",
-      "triggers": [],
+      "description": "Bootstrap a new or existing project with stack detection and project.json generation. Use when adding a new project, setting up agent system, or generating project manifest. Triggers on: add project, new project, bootstrap project, setup project, detect stack.",
+      "triggers": [
+        "add project",
+        "new project",
+        "bootstrap project",
+        "setup project",
+        "detect stack"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "project-scaffold",
       "name": "Project Scaffold",
-      "description": "Generate project boilerplate from scaffold templates.",
-      "triggers": [],
+      "description": "Generate project boilerplate from scaffold templates. Use when creating a new project after stack selection. Triggers on: scaffold project, generate boilerplate, create from template.",
+      "triggers": [
+        "scaffold project",
+        "generate boilerplate",
+        "create from template"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "public-page",
       "name": "Public Page",
-      "description": "Generate public-facing pages (marketing, legal, error, changelog).",
-      "triggers": [],
+      "description": "Generate public-facing pages (marketing, legal, error, changelog). Use when building landing pages, feature pages, pricing pages, terms of service, 404/500 pages, or changelogs. Triggers on: create landing page, build pricing page, new feature page, create 404 page, terms of service, changelog page.",
+      "triggers": [
+        "create landing page",
+        "build pricing page",
+        "new feature page",
+        "create 404 page",
+        "terms of service",
+        "changelog page"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "screenshot",
       "name": "Screenshot",
-      "description": "Capture authenticated screenshots of web pages for visual verification.",
-      "triggers": [],
+      "description": "Capture authenticated screenshots of web pages for visual verification. Use when you need to see rendered UI, verify dark mode styling, or check visual changes. Triggers on: take screenshot, capture screenshot, show me the page, visual check, verify styling.",
+      "triggers": [
+        "take screenshot",
+        "capture screenshot",
+        "show me the page",
+        "visual check",
+        "verify styling"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "spec-analyzer",
       "name": "Spec Analyzer",
-      "description": "Extract structured requirements from unstructured project specifications.",
+      "description": "No description provided",
       "triggers": [],
       "isMeta": false,
       "content": ""
@@ -752,32 +898,60 @@
     {
       "slug": "stack-advisor",
       "name": "Stack Advisor",
-      "description": "Recommend technology stacks based on project requirements.",
+      "description": "No description provided",
       "triggers": [],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "start-dev-server",
+      "name": "Start Dev Server",
+      "description": "Start the development server for a project and wait for it to be ready. Use when you need to run the dev server for building, testing, or verification. Triggers on: start dev server, start server, run dev, npm run dev, start development server.",
+      "triggers": [
+        "start dev server",
+        "start server",
+        "run dev",
+        "npm run dev",
+        "start development server"
+      ],
       "isMeta": false,
       "content": ""
     },
     {
       "slug": "stripe-skill-generator",
       "name": "Stripe Skill Generator",
-      "description": "Generate a project-specific payments skill for Stripe integration.",
-      "triggers": [],
+      "description": "Generate a project-specific payments skill for Stripe integration. Use when a project has stripe in integrations. Triggers on: generate stripe skill, create payment patterns, stripe-skill-generator.",
+      "triggers": [
+        "generate stripe skill",
+        "create payment patterns",
+        "stripe-skill-generator"
+      ],
       "isMeta": true,
       "content": ""
     },
     {
       "slug": "table-skill-generator",
       "name": "Table Skill Generator",
-      "description": "Generate a project-specific data table patterns skill.",
-      "triggers": [],
+      "description": "Generate a project-specific data table patterns skill. Use for frontend apps to document table/list handling. Triggers on: generate table skill, create table patterns, table-skill-generator.",
+      "triggers": [
+        "generate table skill",
+        "create table patterns",
+        "table-skill-generator"
+      ],
       "isMeta": true,
       "content": ""
     },
     {
       "slug": "test-flow",
       "name": "Test Flow",
-      "description": "Automatic test generation and execution flows for Builder.",
-      "triggers": [],
+      "description": "Automatic test generation and execution flows for Builder. Use when generating unit/E2E tests, handling test failures, or managing E2E deferral. Triggers on: generate tests, run tests, test failures, E2E deferral, test flow.",
+      "triggers": [
+        "generate tests",
+        "run tests",
+        "test failures",
+        "E2E deferral",
+        "test flow"
+      ],
       "isMeta": false,
       "content": ""
     }
@@ -786,19 +960,19 @@
     {
       "slug": "go-chi-postgres",
       "name": "Go Chi Postgres",
-      "description": "Go + Chi router + PostgreSQL backend",
+      "description": "go-chi-postgres scaffold template",
       "files": []
     },
     {
       "slug": "nextjs-prisma",
       "name": "Nextjs Prisma",
-      "description": "Next.js 15 + Prisma + PostgreSQL + Tailwind + TypeScript",
+      "description": "nextjs-prisma scaffold template",
       "files": []
     },
     {
       "slug": "nextjs-supabase",
       "name": "Nextjs Supabase",
-      "description": "Next.js 15 + Supabase + Tailwind + TypeScript",
+      "description": "nextjs-supabase scaffold template",
       "files": []
     }
   ],
@@ -932,9 +1106,147 @@
   ],
   "changelog": [
     {
+      "date": "2026-02-26",
+      "displayDate": "February 26, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add codeRoot and toolkitPath to projects.json for configurable directory structure",
+          "scope": "config"
+        },
+        {
+          "type": "fix",
+          "description": "extend autoCommit enforcement to all commit locations (prd-impact-analyzer, merge-conflicts, public-page, project-scaffold)",
+          "scope": "agents"
+        },
+        {
+          "type": "fix",
+          "description": "add hardened identity locks and intent mismatch detection to prevent role drift after compaction",
+          "scope": "agents"
+        }
+      ]
+    },
+    {
+      "date": "2026-02-25",
+      "displayDate": "February 25, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add git.autoCommit setting to disable agent commits",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "support no-local-runtime projects with devPort: null",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add git-sync skill for team synchronization across multiple machines",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add team sync (auto pull/push) to planner, builder, and toolkit agents",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "add git.teamSync configuration to project schema",
+          "scope": "schema"
+        },
+        {
+          "type": "fix",
+          "description": "add CI mode enforcement to prevent orphaned test processes (Vitest/Jest watch mode)",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "add visual debugging escalation protocol to builder and developer agents",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "enhance browser-debugging skill with explicit escalation triggers",
+          "scope": "skills"
+        },
+        {
+          "type": "fix",
+          "description": "add automatic dependency recovery to start-dev-server skill for model consistency",
+          "scope": "skills"
+        },
+        {
+          "type": "fix",
+          "description": "add comprehensive CI=true enforcement across all test command examples and agent templates",
+          "scope": "agents"
+        },
+        {
+          "type": "fix",
+          "description": "kill orphaned dev server processes on timeout/failure in start-dev-server skill",
+          "scope": "skills"
+        }
+      ]
+    },
+    {
+      "date": "2026-02-24",
+      "displayDate": "February 24, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add browser-debugging skill for tests-pass-but-browser-fails scenarios",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add React StrictMode/stale closure awareness to frontend-critic and react-dev",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "add bootstrap/onboard capability to toolkit agent",
+          "scope": "toolkit"
+        },
+        {
+          "type": "fix",
+          "description": "handle missing projects.json gracefully in builder/planner startup",
+          "scope": "toolkit"
+        }
+      ]
+    },
+    {
       "date": "2026-02-23",
       "displayDate": "February 23, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "support multi-service dev environments in schema and start-dev-server skill",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "allow both Builder and Planner to handle any project update",
+          "scope": "toolkit"
+        },
+        {
+          "type": "feat",
+          "description": "add environments configuration to project schema",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add start-dev-server skill for automatic dev server startup",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "set username to 'yo' for Yo Go branding",
+          "scope": "toolkit"
+        },
+        {
+          "type": "feat",
+          "description": "rename toolkit branding to yo-go",
+          "scope": "toolkit"
+        },
         {
           "type": "fix",
           "description": "enforce project-local temp artifact policy",
@@ -947,7 +1259,7 @@
         },
         {
           "type": "fix",
-          "description": "remove MCP docs integrations from default config",
+          "description": "remove MCP and Context7 from default config",
           "scope": "toolkit"
         },
         {
@@ -966,21 +1278,6 @@
       "date": "2026-02-22",
       "displayDate": "February 22, 2026",
       "changes": [
-        {
-          "type": "feat",
-          "description": "simplify integration skill provisioning workflow",
-          "scope": "planner"
-        },
-        {
-          "type": "fix",
-          "description": "allow planning updates to docs/project.json",
-          "scope": "planner"
-        },
-        {
-          "type": "feat",
-          "description": "add credential readiness to PRD lifecycle",
-          "scope": "planner"
-        },
         {
           "type": "feat",
           "description": "add planning consideration passthrough for PRD workflows",
