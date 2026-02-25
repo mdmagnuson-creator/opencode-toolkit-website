@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
   "generatedAt": "2026-02-26T02:30:00Z",
-  "syncedAt": "2026-02-25T15:57:25.962Z",
-  "toolkitCommit": "6bd7342",
+  "syncedAt": "2026-02-25T17:20:04.822Z",
+  "toolkitCommit": "f65c2f8",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
@@ -1109,6 +1109,11 @@
       "date": "2026-02-26",
       "displayDate": "February 26, 2026",
       "changes": [
+        {
+          "type": "fix",
+          "description": "constrain screenshot height to 4000px to avoid Claude vision API rejection (8000px limit)",
+          "scope": "skills"
+        },
         {
           "type": "fix",
           "description": "fix critic collision bug - critics now return findings to parent instead of writing to shared docs/review.md",
