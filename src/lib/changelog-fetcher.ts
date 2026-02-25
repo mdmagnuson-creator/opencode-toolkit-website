@@ -485,7 +485,32 @@ function mergeAndDedupeChangelogs(
     }
   }
   
-  // Sort by date descending
+  // Sort each day's changes by type priority (feat > fix > refactor > docs > others)
+  // This intersperses toolkit and website entries instead of grouping by source
+  const typePriority: Record<ChangelogEntryType, number> = {
+    feat: 0,
+    fix: 1,
+    refactor: 2,
+    perf: 3,
+    docs: 4,
+    test: 5,
+    style: 6,
+    build: 7,
+    ci: 8,
+    chore: 9,
+  };
+  
+  for (const day of dayMap.values()) {
+    day.changes.sort((a, b) => {
+      // Primary sort: by type priority
+      const typeDiff = typePriority[a.type] - typePriority[b.type];
+      if (typeDiff !== 0) return typeDiff;
+      // Secondary sort: alphabetically by description for stability
+      return a.description.localeCompare(b.description);
+    });
+  }
+  
+  // Sort days by date descending
   return Array.from(dayMap.values())
     .sort((a, b) => b.date.localeCompare(a.date));
 }
