@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-26T02:30:00Z",
-  "syncedAt": "2026-02-25T17:20:04.822Z",
-  "toolkitCommit": "f65c2f8",
+  "generatedAt": "2026-02-25T22:30:00Z",
+  "syncedAt": "2026-02-25T19:53:18.205Z",
+  "toolkitCommit": "535b51c",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
     "subagents": 60,
-    "skills": 34,
+    "skills": 41,
     "metaSkills": 10,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -593,6 +593,43 @@
       "content": ""
     },
     {
+      "slug": "auth-generic",
+      "name": "Auth Generic",
+      "description": "Generic/custom authentication implementation for any provider. Use when project uses custom auth or unsupported provider. Triggers on: custom auth, generic login, auth-generic.",
+      "triggers": [
+        "custom auth",
+        "generic login",
+        "auth-generic"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "auth-headless",
+      "name": "Auth Headless",
+      "description": "Headless authentication using API calls and session injection. Skips UI login for faster tests. Triggers on: headless auth, skip login ui, inject session, auth-headless.",
+      "triggers": [
+        "headless auth",
+        "skip login ui",
+        "inject session",
+        "auth-headless"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "auth-nextauth-credentials",
+      "name": "Auth Nextauth Credentials",
+      "description": "NextAuth credentials (email/password) authentication for AI agents. Triggers on: nextauth login, nextauth credentials, auth-nextauth-credentials.",
+      "triggers": [
+        "nextauth login",
+        "nextauth credentials",
+        "auth-nextauth-credentials"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "auth-skill-generator",
       "name": "Auth Skill Generator",
       "description": "Generate a project-specific auth-flow skill. Use when a project has authentication: true but no auth-flow skill. Triggers on: generate auth skill, create auth patterns, auth-skill-generator.",
@@ -602,6 +639,30 @@
         "auth-skill-generator"
       ],
       "isMeta": true,
+      "content": ""
+    },
+    {
+      "slug": "auth-supabase-otp",
+      "name": "Auth Supabase Otp",
+      "description": "Supabase passwordless OTP authentication for AI agents. Handles magic link and email code flows. Triggers on: supabase otp, supabase magic link, auth-supabase-otp.",
+      "triggers": [
+        "supabase otp",
+        "supabase magic link",
+        "auth-supabase-otp"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "auth-supabase-password",
+      "name": "Auth Supabase Password",
+      "description": "Supabase email/password authentication for AI agents. Triggers on: supabase password, supabase email login, auth-supabase-password.",
+      "triggers": [
+        "supabase password",
+        "supabase email login",
+        "auth-supabase-password"
+      ],
+      "isMeta": false,
       "content": ""
     },
     {
@@ -888,6 +949,19 @@
       "content": ""
     },
     {
+      "slug": "setup-auth",
+      "name": "Setup Auth",
+      "description": "Interactive authentication configuration for AI agents. Scans codebase for auth providers, walks through configuration options, and writes to project.json. Triggers on: setup auth, configure authentication, /setup-auth, auth config.",
+      "triggers": [
+        "setup auth",
+        "configure authentication",
+        "/setup-auth",
+        "auth config"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "spec-analyzer",
       "name": "Spec Analyzer",
       "description": "No description provided",
@@ -951,6 +1025,18 @@
         "test failures",
         "E2E deferral",
         "test flow"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-user-cleanup",
+      "name": "Test User Cleanup",
+      "description": "Clean up dynamically created test users from the database. Prevents test user accumulation. Triggers on: cleanup test users, delete test accounts, test-user-cleanup.",
+      "triggers": [
+        "cleanup test users",
+        "delete test accounts",
+        "test-user-cleanup"
       ],
       "isMeta": false,
       "content": ""
@@ -1106,40 +1192,99 @@
   ],
   "changelog": [
     {
-      "date": "2026-02-26",
-      "displayDate": "February 26, 2026",
+      "date": "2026-02-25",
+      "displayDate": "February 25, 2026",
       "changes": [
         {
+          "type": "feat",
+          "description": "add inline auth setup flow to Builder - checks for auth config before auth-dependent tasks",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add setup-auth skill for interactive auth configuration",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add session reuse support to auth skills",
+          "scope": "auth"
+        },
+        {
+          "type": "docs",
+          "description": "add authentication configuration documentation",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "update E2E testing agents to use auth config",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "update screenshot skill to use auth config",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add auth-headless skill for fast E2E tests",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add test-user-cleanup skill",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add auth-generic skill for custom auth systems",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add auth-nextauth-credentials skill",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add auth-supabase-password skill",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add authentication schema and auth-supabase-otp skill",
+          "scope": "auth"
+        },
+        {
+          "type": "feat",
+          "description": "add project authentication configuration PRD",
+          "scope": "prd"
+        },
+        {
           "type": "fix",
-          "description": "constrain screenshot height to 4000px to avoid Claude vision API rejection (8000px limit)",
+          "description": "constrain screenshot height to 4000px for Claude vision API",
           "scope": "skills"
         },
         {
           "type": "fix",
-          "description": "fix critic collision bug - critics now return findings to parent instead of writing to shared docs/review.md",
+          "description": "critics return findings to parent instead of writing to shared docs/review.md",
           "scope": "agents"
         },
         {
           "type": "feat",
-          "description": "add codeRoot and toolkitPath to projects.json for configurable directory structure",
+          "description": "add codeRoot and toolkitPath for configurable directory structure",
           "scope": "config"
         },
         {
           "type": "fix",
-          "description": "extend autoCommit enforcement to all commit locations (prd-impact-analyzer, merge-conflicts, public-page, project-scaffold)",
+          "description": "extend autoCommit enforcement to all commit locations",
           "scope": "agents"
         },
         {
           "type": "fix",
           "description": "add hardened identity locks and intent mismatch detection to prevent role drift after compaction",
           "scope": "agents"
-        }
-      ]
-    },
-    {
-      "date": "2026-02-25",
-      "displayDate": "February 25, 2026",
-      "changes": [
+        },
         {
           "type": "feat",
           "description": "add git.autoCommit setting to disable agent commits",
@@ -1151,48 +1296,18 @@
           "scope": "schema"
         },
         {
-          "type": "feat",
-          "description": "add git-sync skill for team synchronization across multiple machines",
-          "scope": "skills"
-        },
-        {
-          "type": "feat",
-          "description": "add team sync (auto pull/push) to planner, builder, and toolkit agents",
-          "scope": "agents"
-        },
-        {
-          "type": "feat",
-          "description": "add git.teamSync configuration to project schema",
-          "scope": "schema"
-        },
-        {
           "type": "fix",
-          "description": "add CI mode enforcement to prevent orphaned test processes (Vitest/Jest watch mode)",
-          "scope": "agents"
-        },
-        {
-          "type": "feat",
-          "description": "add visual debugging escalation protocol to builder and developer agents",
-          "scope": "agents"
-        },
-        {
-          "type": "feat",
-          "description": "enhance browser-debugging skill with explicit escalation triggers",
+          "description": "kill orphaned dev server processes on timeout/failure",
           "scope": "skills"
         },
         {
           "type": "fix",
-          "description": "add automatic dependency recovery to start-dev-server skill for model consistency",
-          "scope": "skills"
-        },
-        {
-          "type": "fix",
-          "description": "add comprehensive CI=true enforcement across all test command examples and agent templates",
+          "description": "add comprehensive CI=true enforcement to prevent orphaned test processes",
           "scope": "agents"
         },
         {
           "type": "fix",
-          "description": "kill orphaned dev server processes on timeout/failure in start-dev-server skill",
+          "description": "add automatic dependency recovery to start-dev-server skill",
           "scope": "skills"
         }
       ]
