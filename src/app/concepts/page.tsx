@@ -457,6 +457,396 @@ export default function ConceptsPage() {
         </div>
       </section>
 
+      {/* Primary Agents Section */}
+      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Working with the Primary Agents
+          </h2>
+          <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
+            These three agents are your entry points to the system. Each has a
+            distinct role—Planner helps you think, Builder helps you ship,
+            Toolkit helps you improve.
+          </p>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-1 lg:grid-cols-3">
+            {/* Planner Card */}
+            <div className="rounded-xl border border-violet-200 bg-violet-50 p-5 transition-all hover:border-violet-300 hover:shadow-md dark:border-violet-800 dark:bg-violet-950 dark:hover:border-violet-700">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-100 text-violet-700 dark:bg-violet-900 dark:text-violet-300">
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-violet-900 dark:text-violet-100">
+                  Planner
+                </h3>
+              </div>
+              <p className="mt-2 text-sm font-medium text-violet-800 dark:text-violet-200">
+                Turn ideas into implementation-ready PRDs
+              </p>
+              <ul className="mt-3 space-y-1 text-sm text-violet-700 dark:text-violet-300">
+                <li>• Creates and refines PRDs with user stories</li>
+                <li>• Asks clarifying questions to tighten scope</li>
+                <li>• Defines acceptance criteria</li>
+                <li>• Never writes code—planning only</li>
+              </ul>
+              <div className="mt-4 rounded-md bg-violet-100 px-3 py-2 dark:bg-violet-900/50">
+                <p className="text-xs font-medium text-violet-600 dark:text-violet-400">
+                  How you use it:
+                </p>
+                <code className="text-xs text-violet-800 dark:text-violet-200">
+                  @planner I want to add [feature]...
+                </code>
+              </div>
+              <Link
+                href="/concepts/the-human-in-the-loop#planner"
+                className="mt-4 flex items-center text-sm font-medium text-violet-900 dark:text-violet-200"
+              >
+                Learn more
+                <svg
+                  className="ml-1 h-4 w-4 transition-transform hover:translate-x-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Builder Card */}
+            <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 transition-all hover:border-blue-300 hover:shadow-md dark:border-blue-800 dark:bg-blue-950 dark:hover:border-blue-700">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+                  Builder
+                </h3>
+              </div>
+              <p className="mt-2 text-sm font-medium text-blue-800 dark:text-blue-200">
+                Execute PRDs and handle ad-hoc tasks
+              </p>
+              <ul className="mt-3 space-y-1 text-sm text-blue-700 dark:text-blue-300">
+                <li>• Implements user stories from PRDs</li>
+                <li>• Delegates to specialist sub-agents</li>
+                <li>• Runs quality gates and commits code</li>
+                <li>• Handles quick fixes without PRDs</li>
+              </ul>
+              <div className="mt-4 rounded-md bg-blue-100 px-3 py-2 dark:bg-blue-900/50">
+                <p className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                  How you use it:
+                </p>
+                <code className="text-xs text-blue-800 dark:text-blue-200">
+                  @builder Implement the PRD
+                </code>
+                <span className="text-xs text-blue-600 dark:text-blue-400">
+                  {" "}
+                  or{" "}
+                </span>
+                <code className="text-xs text-blue-800 dark:text-blue-200">
+                  @builder Fix the login bug
+                </code>
+              </div>
+              <Link
+                href="/concepts/the-human-in-the-loop#builder"
+                className="mt-4 flex items-center text-sm font-medium text-blue-900 dark:text-blue-200"
+              >
+                Learn more
+                <svg
+                  className="ml-1 h-4 w-4 transition-transform hover:translate-x-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Toolkit Card */}
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 transition-all hover:border-amber-300 hover:shadow-md dark:border-amber-800 dark:bg-amber-950 dark:hover:border-amber-700">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-amber-900 dark:text-amber-100">
+                  Toolkit
+                </h3>
+              </div>
+              <p className="mt-2 text-sm font-medium text-amber-800 dark:text-amber-200">
+                Evolve the agent system itself
+              </p>
+              <ul className="mt-3 space-y-1 text-sm text-amber-700 dark:text-amber-300">
+                <li>• Processes pending updates from agents</li>
+                <li>• Creates and modifies agents, skills, scaffolds</li>
+                <li>• Maintains toolkit-wide consistency</li>
+                <li>• Used less frequently than Planner/Builder</li>
+              </ul>
+              <div className="mt-4 rounded-md bg-amber-100 px-3 py-2 dark:bg-amber-900/50">
+                <p className="text-xs font-medium text-amber-600 dark:text-amber-400">
+                  How you use it:
+                </p>
+                <code className="text-xs text-amber-800 dark:text-amber-200">
+                  @toolkit Review pending updates
+                </code>
+              </div>
+              <Link
+                href="/concepts/the-human-in-the-loop#toolkit"
+                className="mt-4 flex items-center text-sm font-medium text-amber-900 dark:text-amber-200"
+              >
+                Learn more
+                <svg
+                  className="ml-1 h-4 w-4 transition-transform hover:translate-x-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </div>
+
+          {/* How They Work Together - US-005 */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl dark:text-neutral-50">
+              How They Work Together
+            </h3>
+            <ol className="mt-6 space-y-4">
+              <li className="flex gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-100 text-sm font-bold text-violet-700 dark:bg-violet-900 dark:text-violet-300">
+                  1
+                </span>
+                <div className="pt-0.5">
+                  <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                    Plan
+                  </span>
+                  <span className="text-neutral-700 dark:text-neutral-400">
+                    {" "}
+                    — Start with{" "}
+                    <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                      @planner
+                    </code>{" "}
+                    to create a PRD with user stories
+                  </span>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                  2
+                </span>
+                <div className="pt-0.5">
+                  <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                    Build
+                  </span>
+                  <span className="text-neutral-700 dark:text-neutral-400">
+                    {" "}
+                    — Hand the ready PRD to{" "}
+                    <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                      @builder
+                    </code>{" "}
+                    for implementation
+                  </span>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-100 text-sm font-bold text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+                  3
+                </span>
+                <div className="pt-0.5">
+                  <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                    Improve
+                  </span>
+                  <span className="text-neutral-700 dark:text-neutral-400">
+                    {" "}
+                    — Agents discover gaps and queue updates for{" "}
+                    <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
+                      @toolkit
+                    </code>
+                  </span>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-200 text-sm font-bold text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300">
+                  4
+                </span>
+                <div className="pt-0.5">
+                  <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                    Repeat
+                  </span>
+                  <span className="text-neutral-700 dark:text-neutral-400">
+                    {" "}
+                    — Better agents lead to better planning and building
+                  </span>
+                </div>
+              </li>
+            </ol>
+            <p className="mt-6 text-sm text-neutral-600 dark:text-neutral-400">
+              This is the Agent Loop. Each phase has clear ownership between you
+              and the agents.
+            </p>
+            <Link
+              href="/concepts/workflow"
+              className="mt-3 inline-flex items-center text-sm font-medium text-neutral-900 hover:text-neutral-700 dark:text-neutral-200 dark:hover:text-neutral-400"
+            >
+              See the full Agent Loop →
+            </Link>
+          </div>
+
+          {/* Which Agent Should I Use? - US-006 */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl dark:text-neutral-50">
+              Which Agent Should I Use?
+            </h3>
+            <div className="mt-6 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-neutral-100 dark:bg-neutral-800">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold text-neutral-900 dark:text-neutral-100">
+                      Scenario
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-neutral-900 dark:text-neutral-100">
+                      Agent
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-neutral-900 dark:text-neutral-100">
+                      Why
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                  <tr className="bg-white dark:bg-neutral-900">
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                      New multi-story feature
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="rounded-md bg-violet-100 px-2 py-1 text-xs font-medium text-violet-700 dark:bg-violet-900 dark:text-violet-300">
+                        Planner
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Needs requirements before code
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                      Quick bug fix
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="rounded-md bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                        Builder
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Scope is clear, just implement
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-900">
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                      Implement a ready PRD
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="rounded-md bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                        Builder
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Planning done, time to ship
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                      Refine unclear requirements
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="rounded-md bg-violet-100 px-2 py-1 text-xs font-medium text-violet-700 dark:bg-violet-900 dark:text-violet-300">
+                        Planner
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Need to explore before building
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-900">
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                      Improve an agent&apos;s behavior
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="rounded-md bg-amber-100 px-2 py-1 text-xs font-medium text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+                        Toolkit
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Meta-level toolkit change
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+              For detailed decision trees, see the{" "}
+              <Link
+                href="/concepts/the-human-in-the-loop"
+                className="font-medium text-neutral-900 hover:text-neutral-700 dark:text-neutral-200 dark:hover:text-neutral-400"
+              >
+                Human in the Loop guide
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Concept Cards */}
       <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
