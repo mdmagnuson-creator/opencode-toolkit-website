@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-25T22:30:00Z",
-  "syncedAt": "2026-02-25T19:53:18.205Z",
-  "toolkitCommit": "535b51c",
+  "generatedAt": "2026-02-26T01:00:00Z",
+  "syncedAt": "2026-02-26T03:20:22.199Z",
+  "toolkitCommit": "3dcfbed",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
@@ -1195,6 +1195,31 @@
       "date": "2026-02-25",
       "displayDate": "February 25, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "consolidate root cause analysis with UI diagnostic protocol",
+          "scope": "developer"
+        },
+        {
+          "type": "feat",
+          "description": "unify per-task quality checks across ad-hoc and PRD modes",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add root cause analysis requirements to prevent band-aid fixes",
+          "scope": "skills"
+        },
+        {
+          "type": "fix",
+          "description": "add context block requirements to adhoc-workflow and simplify test-flow for adhoc mode",
+          "scope": "skills"
+        },
+        {
+          "type": "chore",
+          "description": "update toolkit-structure.json and README for auth skills",
+          "scope": null
+        },
         {
           "type": "feat",
           "description": "add inline auth setup flow to Builder - checks for auth config before auth-dependent tasks",
