@@ -34,7 +34,7 @@ export function Hero({ counts }: HeroProps) {
 
         {/* Subheadline */}
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-800 sm:text-xl dark:text-neutral-300">
-          {counts.agents} specialized agents working together to build software.
+          {counts.agents} specialized agents that act on your intent
         </p>
 
         {/* CTA Buttons */}
@@ -44,7 +44,7 @@ export function Hero({ counts }: HeroProps) {
             href="#getting-started"
             className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-neutral-900 px-8 text-base font-medium text-white transition-colors hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 sm:w-auto dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:ring-offset-neutral-900"
           >
-            Get Started
+            Start Building
           </a>
 
           {/* Secondary CTA */}

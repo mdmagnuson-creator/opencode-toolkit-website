@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Automations | Yo Go",
+  title: "Automations | yo, go",
   description: "Go CLI tools for CI triage, PRD generation, and release notes automation.",
 };
 

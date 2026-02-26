@@ -3,7 +3,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { manifest } from "@/data";
 
 export const metadata: Metadata = {
-  title: "Agent Templates | Yo Go",
+  title: "Agent Templates | yo, go",
   description: "Create project-specific agents from templates for backend, frontend, testing, and more.",
 };
 

@@ -5,8 +5,8 @@ import { ChangelogClient } from "./ChangelogClient";
 import { REPO_BASE, RELEASES_URL } from "@/config/urls";
 
 export const metadata: Metadata = {
-  title: "Changelog | Yo Go",
-  description: "Recent updates and changes to Yo Go and documentation website.",
+  title: "Changelog | yo, go",
+  description: "Recent updates and changes to yo, go and documentation website.",
 };
 
 // Baseline changelog from build-time data (SSR)
@@ -23,7 +23,7 @@ export default function ChangelogPage() {
           Changelog
         </h1>
         <p className="text-lg text-neutral-600 dark:text-neutral-400">
-          Recent updates and changes to Yo Go and this documentation website.
+          Recent updates and changes to yo, go and this documentation website.
           Stay informed about new agents, skills, and improvements to your development workflow.
         </p>
       </div>

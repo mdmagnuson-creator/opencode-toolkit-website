@@ -5,8 +5,8 @@ import { manifest } from '@/data';
 import { getInstallCommand } from '@/config/urls';
 
 export const metadata = {
-  title: 'Getting Started | Yo Go',
-  description: 'Step-by-step guide to setting up and using Yo Go for agentic development.',
+  title: 'Getting Started | yo, go',
+  description: 'Set up and start building with yo, go for agentic development.',
 };
 
 export default function GettingStartedPage() {
@@ -293,7 +293,7 @@ Which project? _`}</code></pre>
                 Extend the Toolkit
               </h3>
               <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                Modify agents, skills, and scaffolds in Yo Go itself.
+                Modify agents, skills, and scaffolds in yo, go itself.
               </p>
             </Link>
           </div>

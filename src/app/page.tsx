@@ -27,31 +27,27 @@ export default function Home() {
       >
         <div className="mx-auto max-w-3xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-            What is an agent system?
+            Agents that act
           </h2>
 
           <div className="mt-8 space-y-6 text-base leading-7 text-neutral-700 sm:text-lg sm:leading-8 dark:text-neutral-400">
             <p>
-              Traditional AI assistants wait for you to type, respond once, and
-              stop. An <strong className="text-neutral-900 dark:text-neutral-200">agentic</strong> AI
-              is different—it can take actions on your behalf. It reads files,
-              runs commands, browses the web, and iterates on its own work until
-              the job is done.
+              Traditional AI assistants respond once and stop. An{" "}
+              <strong className="text-neutral-900 dark:text-neutral-200">agentic</strong> AI
+              is different—it takes action. It reads files, runs commands,
+              browses the web, and iterates until the work is done.
             </p>
 
             <p>
-              This toolkit gives you a collection of{" "}
-              <strong className="text-neutral-900 dark:text-neutral-200">{counts.agents} specialized agents</strong>,
-              each designed for a specific development task. Some write code.
-              Some review it. Some run tests or deploy infrastructure. When you
-              work with a primary agent, it automatically calls on specialists
-              as needed—so you get expert help without managing each step
-              yourself.
+              This toolkit includes{" "}
+              <strong className="text-neutral-900 dark:text-neutral-200">{counts.agents} specialized agents</strong>.
+              Some write code. Some review it. Some run tests or deploy
+              infrastructure. Primary agents call on specialists as needed—expert
+              help, orchestrated automatically.
             </p>
 
             <p>
-              Think of it as a team of focused collaborators, ready to help you
-              build software faster and more reliably.
+              A team of focused collaborators. Your ideas, realized.
             </p>
           </div>
 
@@ -60,7 +56,7 @@ export default function Home() {
               href="/concepts/agents" 
               className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
-              Learn more about agents →
+              Explore agents →
             </Link>
           </div>
         </div>
@@ -186,7 +182,7 @@ export default function Home() {
               href="/concepts/the-human-in-the-loop" 
               className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
-              Learn about human-agent collaboration →
+              Explore human-agent collaboration →
             </Link>
           </div>
         </div>
@@ -206,11 +202,11 @@ export default function Home() {
               {counts.agents} Agents
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-              Specialist Categories
+              Specialists on Call
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 sm:text-lg dark:text-neutral-400">
-              Sub-agents that get delegated to automatically when primary agents
-              need specialized help.
+              When primary agents need focused expertise, specialists step in
+              automatically.
             </p>
           </div>
 
@@ -319,12 +315,12 @@ export default function Home() {
               {counts.skills} Skills
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-              On-Demand Workflows
+              Workflows That Load When Needed
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 sm:text-lg dark:text-neutral-400">
-              Skills are specialized instruction sets that agents load on-demand
-              for complex, multi-step workflows. Unlike agents, skills provide
-              situational expertise—loaded when needed, not always active.
+              Skills are specialized instruction sets for complex, multi-step
+              work. Agents load them on-demand—situational expertise, not
+              always-on overhead.
             </p>
           </div>
 
@@ -365,10 +361,10 @@ export default function Home() {
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-              Getting Started
+              Set Up in Minutes
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 sm:text-lg dark:text-neutral-400">
-              Get up and running in a few minutes.
+              Three steps. Then you&apos;re building.
             </p>
           </div>
 
@@ -380,11 +376,11 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Install OpenCode
+                  Grab OpenCode
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  Get the OpenCode desktop app for your platform. It&apos;s the
-                  AI-native code editor that powers the agent system.
+                  The AI-native code editor that powers the agent system.
+                  Download it for your platform.
                 </p>
                 <a
                   href="https://opencode.ai/download"
@@ -402,10 +398,10 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Connect Provider
+                  Pick a Provider
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  Open the OpenCode command palette with{" "}
+                  Open the command palette with{" "}
                   <kbd className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
                     Ctrl+P
                   </kbd>
@@ -413,9 +409,7 @@ export default function Home() {
                   <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
                     provider
                   </code>
-                  , and select{" "}
-                  <strong>&quot;Connect Provider&quot;</strong>. Then choose how
-                  you want to connect to a model.
+                  , and connect to your model of choice.
                 </p>
               </div>
             </div>
@@ -427,10 +421,10 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Run the setup script
+                  Run the Installer
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  Open a terminal and run the toolkit installer:
+                  One command. Everything changes.
                 </p>
                 <CodeBlockWithCopy
                   code={getInstallCommand()}
@@ -445,7 +439,7 @@ export default function Home() {
               href="/getting-started" 
               className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
-              Full getting started guide →
+              Full setup guide →
             </Link>
           </div>
         </div>

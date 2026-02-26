@@ -2,16 +2,27 @@
   "version": "1.0",
   "prds": [
     {
-      "id": "prd-yo-go-brand-messaging",
-      "name": "yo go brand messaging refresh",
+      "id": "prd-concepts-primary-agents",
+      "name": "Concepts Page - Primary Agents Sections",
       "status": "ready",
-      "filePath": "docs/prds/prd-yo-go-brand-messaging.md",
-      "jsonPath": "docs/prds/prd-yo-go-brand-messaging.json",
-      "createdAt": "2026-02-23",
-      "stories": ["US-001", "US-002", "US-003", "US-004"]
+      "filePath": "docs/prds/prd-concepts-primary-agents.md",
+      "jsonPath": "docs/prds/prd-concepts-primary-agents.json",
+      "createdAt": "2026-02-25",
+      "stories": ["US-001", "US-002", "US-003", "US-004", "US-005", "US-006"]
     }
   ],
   "completed": [
+    {
+      "id": "prd-yo-go-brand-messaging",
+      "name": "yo, go brand messaging refresh",
+      "status": "completed",
+      "filePath": "docs/prds/prd-yo-go-brand-messaging.md",
+      "jsonPath": "docs/prds/prd-yo-go-brand-messaging.json",
+      "createdAt": "2026-02-23",
+      "startedAt": "2026-02-25",
+      "completedAt": "2026-02-25",
+      "stories": ["US-001", "US-002", "US-003", "US-004"]
+    },
     {
       "id": "prd-hybrid-changelog-sync",
       "name": "Hybrid Changelog Sync and Merge",
