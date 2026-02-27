@@ -41,6 +41,9 @@ export default function MemoPage() {
           <p className="mt-4 text-base text-neutral-600 dark:text-neutral-400">
             February 2026
           </p>
+          <p className="mt-2 text-sm italic text-neutral-500 dark:text-neutral-500">
+            in claude we trust
+          </p>
         </div>
       </section>
 
