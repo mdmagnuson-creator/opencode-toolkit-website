@@ -91,17 +91,12 @@ export default function MemoPage() {
             <p>
               No interface designed by humans will be more efficient than a personal agent that already knows what a user needs and can act on their behalf. The app, the dashboard, the form: these are all mechanisms for bridging a gap between human intent and machine action. When that gap closes, the bridges become irrelevant.
             </p>
-
-            <PullQuote>
-              There is no UI you can design that would be more efficient than your personal agent just answering on your behalf
-            </PullQuote>
-
             <p>
               Software creation, as currently understood, has no value proposition in this future. The skills, tools, and practices that define the profession today are oriented around a constraint (context) that will not persist. The work of translating human intent into machine action, which has employed millions and generated trillions in value, approaches obsolescence.
             </p>
 
             <PullQuote>
-              Software as we understand it dissolves
+              Software as we know, build and understand it will dissolve
             </PullQuote>
 
             <h2 id="the-current-window">The Current Window</h2>
