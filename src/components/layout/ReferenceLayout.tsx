@@ -64,7 +64,7 @@ export function ReferenceLayout({ sidebar, mobileSidebar, children }: ReferenceL
           />
           
           {/* Sidebar panel */}
-          <aside className="absolute left-0 top-0 h-full w-80 max-w-[85vw] overflow-y-auto bg-white px-6 py-8 shadow-xl dark:bg-neutral-900">
+          <aside className="absolute left-0 top-16 h-[calc(100%-4rem)] w-80 max-w-[85vw] overflow-y-auto bg-white px-6 py-8 shadow-xl dark:bg-neutral-900">
             {/* Close button */}
             <button
               onClick={closeMobileMenu}
@@ -74,8 +74,14 @@ export function ReferenceLayout({ sidebar, mobileSidebar, children }: ReferenceL
               <XMarkIcon className="h-5 w-5" />
             </button>
             
-            {/* Sidebar content */}
-            <div onClick={closeMobileMenu}>
+            {/* Sidebar content - close menu only when clicking links, not expand buttons */}
+            <div onClick={(e) => {
+              // Only close menu if the click was on a link (navigation)
+              const target = e.target as HTMLElement;
+              if (target.closest('a')) {
+                closeMobileMenu();
+              }
+            }}>
               {mobileSidebar ?? sidebar}
             </div>
           </aside>

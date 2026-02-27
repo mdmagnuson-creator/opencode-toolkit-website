@@ -28,6 +28,14 @@ const CATEGORY_ICONS: Record<string, React.ComponentType<React.SVGProps<SVGSVGEl
   "agent-templates": DocumentDuplicateIcon,
 };
 
+/**
+ * Converts a name to a URL slug (kebab-case).
+ * e.g., "Primary" -> "primary", "My Category" -> "my-category"
+ */
+function toSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, '-');
+}
+
 // Search result types
 interface SearchMatch {
   item: NavItem;
@@ -441,22 +449,31 @@ export function ReferenceSidebar() {
 
                   return (
                     <div key={subcatKey}>
-                      <button
-                        onClick={() => toggleL2(subcatKey)}
-                        className="group flex w-full items-center justify-between rounded-md px-2 py-1 text-left text-sm transition-colors text-neutral-600 hover:bg-neutral-50 dark:text-neutral-400 dark:hover:bg-neutral-800/50"
-                      >
-                        <span className="flex items-center gap-1.5">
+                      <div className="group flex w-full items-center justify-between rounded-md text-sm transition-colors text-neutral-600 hover:bg-neutral-50 dark:text-neutral-400 dark:hover:bg-neutral-800/50">
+                        {/* Link to subcategory page */}
+                        <Link
+                          href={`${category.href}/${toSlug(subcat.name)}`}
+                          className="flex flex-1 items-center gap-1.5 px-2 py-1 hover:text-neutral-900 dark:hover:text-neutral-200"
+                        >
                           <span>{subcat.name}</span>
                           <span className="text-xs text-neutral-400 dark:text-neutral-500">
                             ({subcat.count})
                           </span>
-                        </span>
-                        {subcatExpanded ? (
-                          <ChevronDownIcon className="h-3.5 w-3.5 shrink-0 text-neutral-400" />
-                        ) : (
-                          <ChevronRightIcon className="h-3.5 w-3.5 shrink-0 text-neutral-400" />
-                        )}
-                      </button>
+                        </Link>
+                        {/* Toggle expand/collapse button */}
+                        <button
+                          onClick={() => toggleL2(subcatKey)}
+                          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:bg-neutral-700 lg:h-6 lg:w-6"
+                          aria-label={subcatExpanded ? `Collapse ${subcat.name}` : `Expand ${subcat.name}`}
+                          aria-expanded={subcatExpanded}
+                        >
+                          {subcatExpanded ? (
+                            <ChevronDownIcon className="h-3.5 w-3.5 text-neutral-400" />
+                          ) : (
+                            <ChevronRightIcon className="h-3.5 w-3.5 text-neutral-400" />
+                          )}
+                        </button>
+                      </div>
 
                       {/* Level 3: Individual Items */}
                       {subcatExpanded && (
