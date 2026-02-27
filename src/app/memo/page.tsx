@@ -22,8 +22,10 @@ function PullQuote({ children }: { children: React.ReactNode }) {
 export default function MemoPage() {
   return (
     <main className="min-h-screen">
-      {/* On This Page Navigation */}
-      <OnThisPageNav sections={PAGE_SECTIONS} />
+      {/* On This Page Navigation - Desktop only at top level */}
+      <div className="hidden lg:block">
+        <OnThisPageNav sections={PAGE_SECTIONS} />
+      </div>
 
       {/* Hero Section */}
       <section className="px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
@@ -44,6 +46,11 @@ export default function MemoPage() {
       {/* Main Content */}
       <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-3xl">
+          {/* On This Page Navigation - Mobile only, inside content */}
+          <div className="mb-8 lg:hidden">
+            <OnThisPageNav sections={PAGE_SECTIONS} />
+          </div>
+          
           <article className="prose prose-neutral max-w-none dark:prose-invert prose-headings:tracking-tight prose-p:leading-7 prose-a:text-blue-600 dark:prose-a:text-blue-400">
             <h2 id="from-knowledge-constrained-to-context-constrained">
               From Knowledge-Constrained to Context-Constrained
