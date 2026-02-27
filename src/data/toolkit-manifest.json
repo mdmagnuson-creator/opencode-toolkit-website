@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-27T05:51:41Z",
-  "syncedAt": "2026-02-27T05:54:38.236Z",
-  "toolkitCommit": "8eab08d",
+  "generatedAt": "2026-02-28T04:30:00Z",
+  "syncedAt": "2026-02-27T22:19:10.879Z",
+  "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
     "subagents": 60,
-    "skills": 41,
+    "skills": 42,
     "metaSkills": 10,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -733,6 +733,18 @@
       "content": ""
     },
     {
+      "slug": "e2e-electron",
+      "name": "E2e Electron",
+      "description": "Playwright E2E testing patterns for Electron desktop applications. Covers app launch, main/renderer process testing, IPC mocking, and native dialog handling. Triggers on: electron test, desktop app test, e2e-electron.",
+      "triggers": [
+        "electron test",
+        "desktop app test",
+        "e2e-electron"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "e2e-quality",
       "name": "E2e Quality",
       "description": "Quality-beyond-correctness E2E testing patterns. Catches visual glitches, performance issues, layout shifts, and intermediate bad states. Triggers on: flicker test, visual stability, performance budget, negative assertion, CLS test, drag drop test, animation test.",
@@ -1199,6 +1211,48 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-02-28",
+      "displayDate": "February 28, 2026",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "fix state file commit ordering to prevent PRD state drift",
+          "scope": "agents"
+        }
+      ]
+    },
+    {
+      "date": "2026-02-27",
+      "displayDate": "February 27, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add multi-platform app support (desktop, mobile) to project.json apps",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add e2e-electron skill for Playwright Electron testing",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add skill-mapping.json for framework-to-skill lookups",
+          "scope": "data"
+        },
+        {
+          "type": "feat",
+          "description": "update e2e-playwright, tester, builder, planner for multi-platform support",
+          "scope": "agents"
+        },
+        {
+          "type": "docs",
+          "description": "add multi-platform apps and electron testing PRD",
+          "scope": "prd"
+        }
+      ]
+    },
     {
       "date": "2026-02-26",
       "displayDate": "February 26, 2026",
