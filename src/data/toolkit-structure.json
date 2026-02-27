@@ -1,14 +1,19 @@
 {
   "$schema": "https://opencode.ai/schemas/toolkit-structure.json",
   "version": "1.0.0",
-  "generatedAt": "2026-02-26T15:31:54Z",
+  "generatedAt": "2026-02-27T05:51:41Z",
   "repository": "https://github.com/mdmagnuson-creator/yo-go",
   "agents": {
-    "total": 63,
+    "total": 64,
     "categories": {
       "primary": {
         "description": "User-invokable primary agents",
         "agents": [
+          {
+            "name": "coder",
+            "file": "agents/coder.md",
+            "description": "Default interactive coding assistant"
+          },
           {
             "name": "builder",
             "file": "agents/builder.md",
@@ -157,7 +162,7 @@
           {
             "name": "api-critic",
             "file": "agents/api-critic.md",
-            "description": "Reviews API design for usability — confusing endpoints, inconsistent conventions, missing pagination, poor error responses"
+            "description": "Reviews API design for usability \u2014 confusing endpoints, inconsistent conventions, missing pagination, poor error responses"
           },
           {
             "name": "backend-aws-critic",
@@ -172,7 +177,7 @@
           {
             "name": "comment-critic",
             "file": "agents/comment-critic.md",
-            "description": "Reviews comments and removes noise — flags obvious comments that just restate the code"
+            "description": "Reviews comments and removes noise \u2014 flags obvious comments that just restate the code"
           },
           {
             "name": "copy-critic",
@@ -192,7 +197,7 @@
           {
             "name": "exploit-critic",
             "file": "agents/exploit-critic.md",
-            "description": "Adversarial review that attempts to exploit code — finds injection, auth bypass, privilege escalation, and data exfiltration paths"
+            "description": "Adversarial review that attempts to exploit code \u2014 finds injection, auth bypass, privilege escalation, and data exfiltration paths"
           },
           {
             "name": "frontend-critic",
@@ -212,7 +217,7 @@
           {
             "name": "oddball-critic",
             "file": "agents/oddball-critic.md",
-            "description": "Reviews code for consistency with the existing codebase — flags patterns that look different from established conventions"
+            "description": "Reviews code for consistency with the existing codebase \u2014 flags patterns that look different from established conventions"
           },
           {
             "name": "policy-testability-critic",
@@ -232,7 +237,7 @@
           {
             "name": "quality-critic",
             "file": "agents/quality-critic.md",
-            "description": "Reviews UI for quality beyond correctness — visual regression, CLS, accessibility, and performance"
+            "description": "Reviews UI for quality beyond correctness \u2014 visual regression, CLS, accessibility, and performance"
           },
           {
             "name": "requirements-critic",
@@ -242,7 +247,7 @@
           {
             "name": "security-critic",
             "file": "agents/security-critic.md",
-            "description": "Reviews code for security scan findings — CSP, CORS, XSRF, SSRF, dependency CVEs, and compliance issues"
+            "description": "Reviews code for security scan findings \u2014 CSP, CORS, XSRF, SSRF, dependency CVEs, and compliance issues"
           },
           {
             "name": "semantic-critic",
@@ -806,6 +811,18 @@
       {
         "date": "2026-02-26",
         "changes": [
+          {
+            "type": "feat",
+            "scope": null,
+            "description": "allow primary agents to update project registry",
+            "hash": "8eab08d"
+          },
+          {
+            "type": "chore",
+            "scope": null,
+            "description": "queue toolkit website sync",
+            "hash": "1dafb88"
+          },
           {
             "type": "feat",
             "scope": null,

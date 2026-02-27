@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-26T15:31:54Z",
-  "syncedAt": "2026-02-27T03:21:33.277Z",
-  "toolkitCommit": "9cf499d",
+  "generatedAt": "2026-02-27T05:51:41Z",
+  "syncedAt": "2026-02-27T05:54:38.236Z",
+  "toolkitCommit": "8eab08d",
   "counts": {
-    "agents": 63,
-    "primaryAgents": 3,
+    "agents": 64,
+    "primaryAgents": 4,
     "subagents": 60,
     "skills": 41,
     "metaSkills": 10,
@@ -14,7 +14,7 @@
   },
   "categories": {
     "critics": 25,
-    "developers": 15,
+    "developers": 16,
     "testers": 9,
     "orchestrators": 3,
     "utilities": 11
@@ -105,6 +105,14 @@
       "description": "Reviews CloudFormation templates for security, best practices, and operational safety",
       "mode": "subagent",
       "category": "critics",
+      "content": ""
+    },
+    {
+      "slug": "coder",
+      "name": "Coder",
+      "description": "Default interactive coding assistant",
+      "mode": "primary",
+      "category": "developers",
       "content": ""
     },
     {
@@ -1195,6 +1203,16 @@
       "date": "2026-02-26",
       "displayDate": "February 26, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "allow primary agents to update project registry",
+          "scope": null
+        },
+        {
+          "type": "chore",
+          "description": "queue toolkit website sync",
+          "scope": null
+        },
         {
           "type": "feat",
           "description": "add rate limit resilience across primary agents",

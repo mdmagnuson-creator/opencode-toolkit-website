@@ -53,14 +53,15 @@ export default function MemoPage() {
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      {/* Content wrapper - contains sticky nav and article */}
+      <div className="px-6 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-3xl">
-          {/* On This Page Navigation - Mobile only, inside content */}
-          <div className="mb-8 lg:hidden">
+          {/* On This Page Navigation - Mobile sticky */}
+          <div className="lg:hidden">
             <OnThisPageNav sections={PAGE_SECTIONS} />
           </div>
-          
+
+          {/* Main Content */}
           <article className="prose prose-neutral max-w-none dark:prose-invert prose-headings:tracking-tight prose-p:leading-7 prose-a:text-blue-600 dark:prose-a:text-blue-400">
             <h2 id="from-knowledge-constrained-to-context-constrained">
               From Knowledge-Constrained to Context-Constrained
@@ -138,7 +139,7 @@ export default function MemoPage() {
             </blockquote>
           </aside>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

@@ -20,19 +20,61 @@ interface OnThisPageNavProps {
  * Desktop: Floating sticky sidebar on the right with collapse/expand toggle.
  *          Starts collapsed by default; user can expand/collapse manually.
  * Mobile: Compact jump list at the top (hidden by default, shown via toggle)
+ *         Uses scroll detection to switch to fixed positioning when scrolled past.
  */
 export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNavProps) {
   // Initialize with first section to avoid setState in effect
   const [activeId, setActiveId] = useState<string>(() => sections[0]?.id ?? "");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopCollapsed, setDesktopCollapsed] = useState(true);
+  // Track if mobile nav should be fixed (scrolled past initial position)
+  const [mobileFixed, setMobileFixed] = useState(false);
   
   // Track if a click-initiated scroll is in progress to avoid URL update loops
   const isClickScrollingRef = useRef(false);
+  // Track the mobile nav's initial offset for scroll detection
+  const mobileNavRef = useRef<HTMLDivElement>(null);
+  const mobileNavInitialOffsetRef = useRef<number | null>(null);
 
   // Simple toggle for desktop collapse state
   const handleDesktopCollapse = useCallback((collapsed: boolean) => {
     setDesktopCollapsed(collapsed);
+  }, []);
+
+  // Mobile: detect scroll position to switch to fixed positioning
+  useEffect(() => {
+    // Only run on mobile (lg:hidden means this only matters below 1024px)
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    if (mediaQuery.matches) return; // Desktop, skip scroll detection
+
+    const handleScroll = () => {
+      if (!mobileNavRef.current) return;
+      
+      // Capture initial offset on first scroll (after initial render)
+      if (mobileNavInitialOffsetRef.current === null) {
+        const rect = mobileNavRef.current.getBoundingClientRect();
+        // Store the initial offset from top of viewport when not scrolled
+        // Account for any initial scroll position
+        mobileNavInitialOffsetRef.current = rect.top + window.scrollY;
+      }
+      
+      // Calculate threshold: when nav would scroll past top-16 (64px) position
+      const threshold = mobileNavInitialOffsetRef.current - 64; // 64px = top-16
+      const shouldBeFixed = window.scrollY > threshold;
+      
+      setMobileFixed(shouldBeFixed);
+    };
+
+    // Capture initial position on mount
+    if (mobileNavRef.current) {
+      const rect = mobileNavRef.current.getBoundingClientRect();
+      mobileNavInitialOffsetRef.current = rect.top + window.scrollY;
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Check initial state
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -211,70 +253,83 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
         </div>
       </nav>
 
-      {/* Mobile: Compact toggle-able jump list */}
-      <div className="sticky top-16 z-40 mb-6 lg:hidden">
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-white/90 px-4 py-2.5 text-sm font-medium text-neutral-700 shadow-sm backdrop-blur-sm transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900/90 dark:text-neutral-300 dark:hover:bg-neutral-800"
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-page-nav"
+      {/* Mobile: Compact toggle-able jump list with scroll-triggered fixed positioning */}
+      <div className="mb-6 lg:hidden" ref={mobileNavRef}>
+        {/* Placeholder to prevent layout shift when nav becomes fixed */}
+        {mobileFixed && <div className="h-[46px]" aria-hidden="true" />}
+        
+        <div
+          className={`z-40 ${
+            mobileFixed
+              ? "fixed left-0 right-0 top-16 px-6 sm:px-8"
+              : ""
+          }`}
         >
-          <span className="flex items-center gap-2">
-            <svg
-              className="h-4 w-4 text-neutral-500 dark:text-neutral-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
+          <div className={mobileFixed ? "mx-auto max-w-3xl" : ""}>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-white/90 px-4 py-2.5 text-sm font-medium text-neutral-700 shadow-sm backdrop-blur-sm transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900/90 dark:text-neutral-300 dark:hover:bg-neutral-800"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-page-nav"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-              />
-            </svg>
-            {title}
-          </span>
-          <svg
-            className={`h-4 w-4 text-neutral-500 transition-transform dark:text-neutral-400 ${
-              mobileOpen ? "rotate-180" : ""
-            }`}
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
-        </button>
+              <span className="flex items-center gap-2">
+                <svg
+                  className="h-4 w-4 text-neutral-500 dark:text-neutral-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                  />
+                </svg>
+                {title}
+              </span>
+              <svg
+                className={`h-4 w-4 text-neutral-500 transition-transform dark:text-neutral-400 ${
+                  mobileOpen ? "rotate-180" : ""
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
 
-        {mobileOpen && (
-          <div
-            id="mobile-page-nav"
-            className="absolute left-0 right-0 top-full mt-1 rounded-lg border border-neutral-200 bg-white p-2 shadow-lg dark:border-neutral-700 dark:bg-neutral-900"
-          >
-            <ul className="space-y-0.5">
-              {sections.map((section) => (
-                <li key={section.id}>
-                  <a
-                    href={`#${section.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleClick(section.id);
-                    }}
-                    className={`block w-full rounded-md px-3 py-2 text-left text-sm transition-colors ${
-                      activeId === section.id
-                        ? "bg-violet-100 font-medium text-violet-700 dark:bg-violet-900/40 dark:text-violet-300"
-                        : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
-                    }`}
-                  >
-                    {section.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {mobileOpen && (
+              <div
+                id="mobile-page-nav"
+                className="absolute left-0 right-0 top-full mt-1 rounded-lg border border-neutral-200 bg-white p-2 shadow-lg dark:border-neutral-700 dark:bg-neutral-900"
+              >
+                <ul className="space-y-0.5">
+                  {sections.map((section) => (
+                    <li key={section.id}>
+                      <a
+                        href={`#${section.id}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleClick(section.id);
+                        }}
+                        className={`block w-full rounded-md px-3 py-2 text-left text-sm transition-colors ${
+                          activeId === section.id
+                            ? "bg-violet-100 font-medium text-violet-700 dark:bg-violet-900/40 dark:text-violet-300"
+                            : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                        }`}
+                      >
+                        {section.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </>
   );
