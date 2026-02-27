@@ -13,9 +13,11 @@
   "apps": {
     "web": {
       "path": ".",
+      "type": "frontend",
       "framework": "nextjs",
       "router": "app",
-      "entryPoint": "app/"
+      "entryPoint": "app/",
+      "platforms": ["browser"]
     }
   },
   
