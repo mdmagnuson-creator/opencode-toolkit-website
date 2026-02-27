@@ -58,6 +58,7 @@ function buildNavigation(): NavItem[] {
     },
     { name: "Get Started", href: "/getting-started" },
     { name: "Changelog", href: "/changelog" },
+    { name: "Memo", href: "/memo" },
   ];
 }
 

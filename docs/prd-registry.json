@@ -1,17 +1,18 @@
 {
   "version": "1.0",
-  "prds": [
+  "prds": [],
+  "completed": [
     {
       "id": "prd-memo",
       "name": "Memo Page",
-      "status": "ready",
+      "status": "completed",
       "filePath": "docs/prds/prd-memo.md",
       "jsonPath": "docs/prds/prd-memo.json",
       "createdAt": "2026-02-26",
+      "startedAt": "2026-02-26",
+      "completedAt": "2026-02-26",
       "stories": ["US-001", "US-002", "US-003", "US-004", "US-005"]
-    }
-  ],
-  "completed": [
+    },
     {
       "id": "prd-developer-reference",
       "name": "Developer Reference Restructure",

@@ -60,6 +60,7 @@ const footerLinks = {
     links: [
       { name: "Quick Start", href: "/getting-started" },
       { name: "Changelog", href: "/changelog" },
+      { name: "Memo", href: "/memo" },
     ],
   },
   resources: {
