@@ -1,5 +1,11 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Memo: in claude we trust",
+  description: "A meditation on the shift from knowledge-constrained to context-constrained software development, and the dissolution of software as we know it.",
+};
 
 const PAGE_SECTIONS = [
   { id: "from-knowledge-constrained-to-context-constrained", label: "From Knowledge-Constrained to Context-Constrained" },
