@@ -192,7 +192,7 @@ Which project? _`}</code></pre>
               <ul className="ml-4 list-disc space-y-1 text-neutral-600 dark:text-neutral-300">
                 <li>Enter your project name and a brief description (paste text, images, or a spec)</li>
                 <li>Optionally provide a GitHub repo URL to clone</li>
-                <li>Auto-detect your tech stack from the codebase or create from a <Link href="/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">scaffold</Link></li>
+                <li>Auto-detect your tech stack from the codebase or create from a <Link href="/reference/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">scaffold</Link></li>
                 <li>Generate <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/project.json</code> with your configuration</li>
                 <li>Create <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">docs/CONVENTIONS.md</code> with coding patterns</li>
                 <li>Set up the PRD registry for tracking features</li>
@@ -249,7 +249,7 @@ Which project? _`}</code></pre>
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <Link
-              href="/agents/builder"
+              href="/reference/agents/builder"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
               <code className="rounded bg-blue-100 px-2 py-1 text-sm font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">@builder</code>
@@ -261,7 +261,7 @@ Which project? _`}</code></pre>
               </p>
             </Link>
             <Link
-              href="/agents/planner"
+              href="/reference/agents/planner"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
               <code className="rounded bg-green-100 px-2 py-1 text-sm font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">@planner</code>
@@ -273,7 +273,7 @@ Which project? _`}</code></pre>
               </p>
             </Link>
             <Link
-              href="/agents/e2e-tester"
+              href="/reference/agents/e2e-tester"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
               <code className="rounded bg-purple-100 px-2 py-1 text-sm font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">@e2e-tester</code>
@@ -285,7 +285,7 @@ Which project? _`}</code></pre>
               </p>
             </Link>
             <Link
-              href="/agents/toolkit"
+              href="/reference/agents/toolkit"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
               <code className="rounded bg-orange-100 px-2 py-1 text-sm font-medium text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">@toolkit</code>
@@ -317,7 +317,7 @@ Which project? _`}</code></pre>
               </p>
             </Link>
             <Link
-              href="/agents"
+              href="/reference/agents"
               className="group rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-blue-500 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-blue-400"
             >
               <h3 className="font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
@@ -328,7 +328,7 @@ Which project? _`}</code></pre>
               </p>
             </Link>
             <Link
-              href="/skills"
+              href="/reference/skills"
               className="group rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-blue-500 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-blue-400"
             >
               <h3 className="font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">

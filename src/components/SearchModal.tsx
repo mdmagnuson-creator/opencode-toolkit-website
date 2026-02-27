@@ -63,37 +63,37 @@ function buildStaticPages(): SearchResult[] {
       type: "page",
       title: "All Agents",
       description: `Browse all ${manifest.counts.agents} agents - critics, developers, testers, and more`,
-      href: "/agents",
+      href: "/reference/agents",
     },
     {
       type: "page",
       title: "All Skills",
       description: `Browse all ${manifest.counts.skills} skills - regular and meta-skills`,
-      href: "/skills",
+      href: "/reference/skills",
     },
     {
       type: "page",
       title: "Scaffolds",
       description: "Project templates for Go, Next.js, and more",
-      href: "/scaffolds",
+      href: "/reference/scaffolds",
     },
     {
       type: "page",
       title: "MCP Servers",
       description: "Model Context Protocol servers for external tools and integrations",
-      href: "/mcp",
+      href: "/reference/mcp",
     },
     {
       type: "page",
       title: "Automations",
       description: "GitHub Actions workflows for CI triage, PRD generation, and more",
-      href: "/automations",
+      href: "/reference/automations",
     },
     {
       type: "page",
       title: "Agent Templates",
       description: "Framework-specific agent patterns with Handlebars variables",
-      href: "/agent-templates",
+      href: "/reference/agent-templates",
     },
     {
       type: "page",
@@ -113,7 +113,7 @@ function buildSearchIndex(): SearchResult[] {
       type: "agent",
       title: agent.name,
       description: agent.description,
-      href: `/agents/${agent.slug}`,
+      href: `/reference/agents/${agent.slug}`,
       category: agent.category,
     });
   });
@@ -124,7 +124,7 @@ function buildSearchIndex(): SearchResult[] {
       type: "skill",
       title: skill.name,
       description: skill.description,
-      href: `/skills/${skill.slug}`,
+      href: `/reference/skills/${skill.slug}`,
       category: skill.isMeta ? "meta" : "regular",
     });
   });
@@ -135,7 +135,7 @@ function buildSearchIndex(): SearchResult[] {
       type: "scaffold",
       title: scaffold.name,
       description: scaffold.description || `Project scaffold with ${scaffold.files.length} files`,
-      href: `/scaffolds#${scaffold.slug}`,
+      href: `/reference/scaffolds#${scaffold.slug}`,
     });
   });
 

@@ -83,7 +83,7 @@ function SkillCard({ skill }: { skill: Skill }) {
 
   return (
     <Link
-      href={`/skills/${skill.slug}`}
+      href={`/reference/skills/${skill.slug}`}
       className="group block rounded-xl border border-neutral-200 bg-white p-5 transition-all hover:border-neutral-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
     >
       <div className="flex items-start justify-between gap-3">

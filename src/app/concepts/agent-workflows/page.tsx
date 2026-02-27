@@ -1719,7 +1719,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
           </h3>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             <Link
-              href="/skills/builder-state"
+              href="/reference/skills/builder-state"
               className="group rounded-xl border border-neutral-200 bg-white p-4 transition-all hover:border-neutral-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <h4 className="font-semibold text-neutral-900 group-hover:text-violet-600 dark:text-neutral-50 dark:group-hover:text-violet-400">
@@ -1731,7 +1731,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
             </Link>
 
             <Link
-              href="/skills/prd-workflow"
+              href="/reference/skills/prd-workflow"
               className="group rounded-xl border border-neutral-200 bg-white p-4 transition-all hover:border-neutral-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <h4 className="font-semibold text-neutral-900 group-hover:text-violet-600 dark:text-neutral-50 dark:group-hover:text-violet-400">
@@ -1743,7 +1743,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
             </Link>
 
             <Link
-              href="/skills/adhoc-workflow"
+              href="/reference/skills/adhoc-workflow"
               className="group rounded-xl border border-neutral-200 bg-white p-4 transition-all hover:border-neutral-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <h4 className="font-semibold text-neutral-900 group-hover:text-violet-600 dark:text-neutral-50 dark:group-hover:text-violet-400">

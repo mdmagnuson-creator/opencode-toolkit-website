@@ -104,7 +104,7 @@ export default function Home() {
 
           <div className="mt-8 text-center">
             <Link 
-              href="/agents" 
+              href="/reference/agents" 
               className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
               View all agents →
@@ -213,7 +213,7 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
             {/* Critics */}
             <Link 
-              href="/agents?category=critics"
+              href="/reference/agents?category=critics"
               className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-5 transition-all hover:shadow-md hover:border-neutral-300 cursor-pointer dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
@@ -230,7 +230,7 @@ export default function Home() {
 
             {/* Developers */}
             <Link 
-              href="/agents?category=developers"
+              href="/reference/agents?category=developers"
               className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-5 transition-all hover:shadow-md hover:border-neutral-300 cursor-pointer dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
@@ -246,7 +246,7 @@ export default function Home() {
 
             {/* Testers */}
             <Link 
-              href="/agents?category=testers"
+              href="/reference/agents?category=testers"
               className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-5 transition-all hover:shadow-md hover:border-neutral-300 cursor-pointer dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
@@ -262,7 +262,7 @@ export default function Home() {
 
             {/* Orchestrators */}
             <Link 
-              href="/agents?category=orchestrators"
+              href="/reference/agents?category=orchestrators"
               className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-5 transition-all hover:shadow-md hover:border-neutral-300 cursor-pointer dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
@@ -278,7 +278,7 @@ export default function Home() {
 
             {/* Utilities */}
             <Link 
-              href="/agents?category=utilities"
+              href="/reference/agents?category=utilities"
               className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-5 transition-all hover:shadow-md hover:border-neutral-300 cursor-pointer dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
             >
               <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
@@ -295,7 +295,7 @@ export default function Home() {
 
           <div className="mt-8 text-center">
             <Link 
-              href="/agents" 
+              href="/reference/agents" 
               className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
               Browse all agents →
@@ -343,7 +343,7 @@ export default function Home() {
           {remainingSkillsCount > 0 && (
             <p className="mt-6 text-center text-sm text-neutral-600 dark:text-neutral-500">
               <Link 
-                href="/skills" 
+                href="/reference/skills" 
                 className="font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
               >
                 View all {counts.skills} skills →

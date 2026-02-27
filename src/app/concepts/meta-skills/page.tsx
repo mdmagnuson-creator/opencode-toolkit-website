@@ -216,7 +216,7 @@ export default function MetaSkillsConceptPage() {
             {metaSkills.map((skill) => (
               <Link
                 key={skill.slug}
-                href={`/skills/${skill.slug}`}
+                href={`/reference/skills/${skill.slug}`}
                 className="group rounded-xl border border-purple-200 bg-purple-50 p-5 transition-all hover:border-purple-300 hover:shadow-md dark:border-purple-800 dark:bg-purple-950/50 dark:hover:border-purple-700"
               >
                 <div className="flex items-center gap-2">
@@ -293,7 +293,7 @@ export default function MetaSkillsConceptPage() {
             Browse the available meta-skills and start generating project-specific patterns.
           </p>
           <Link
-            href="/skills?type=meta"
+            href="/reference/skills?type=meta"
             className="mt-6 inline-flex items-center gap-2 rounded-lg bg-purple-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-purple-700"
           >
             Browse Meta-Skills

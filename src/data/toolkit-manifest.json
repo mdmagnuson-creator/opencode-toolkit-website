@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-26T02:00:00Z",
-  "syncedAt": "2026-02-26T14:26:34.786Z",
-  "toolkitCommit": "0107872",
+  "generatedAt": "2026-02-26T15:31:54Z",
+  "syncedAt": "2026-02-27T03:02:31.504Z",
+  "toolkitCommit": "9cf499d",
   "counts": {
     "agents": 63,
     "primaryAgents": 3,
@@ -1195,6 +1195,31 @@
       "date": "2026-02-26",
       "displayDate": "February 26, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add rate limit resilience across primary agents",
+          "scope": null
+        },
+        {
+          "type": "feat",
+          "description": "add compaction resilience with currentTask state",
+          "scope": "toolkit"
+        },
+        {
+          "type": "docs",
+          "description": "add PRD for context compaction resilience",
+          "scope": null
+        },
+        {
+          "type": "feat",
+          "description": "add commit gate to prevent skipping post-change workflow",
+          "scope": "toolkit"
+        },
+        {
+          "type": "chore",
+          "description": "update toolkit-structure.json changelog for recent commits",
+          "scope": null
+        },
         {
           "type": "feat",
           "description": "add tool error recovery for 499/timeout failures",

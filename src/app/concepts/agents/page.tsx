@@ -433,7 +433,7 @@ export default function AgentsConceptPage() {
 
           <div className="mt-8 text-center">
             <Link
-              href="/agents"
+              href="/reference/agents"
               className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
             >
               Browse All {manifest.counts.agents} Agents

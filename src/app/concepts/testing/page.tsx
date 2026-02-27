@@ -624,7 +624,7 @@ export default function TestingConceptPage() {
           {/* Link to full agent page */}
           <div className="mt-8">
             <Link
-              href="/agents/tester"
+              href="/reference/agents/tester"
               className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-700"
             >
               View full tester agent documentation
@@ -1407,7 +1407,7 @@ export default function TestingConceptPage() {
               <strong>Canonical Reference:</strong> Per-story test behavior is
               defined in the{" "}
               <Link
-                href="/skills/test-flow"
+                href="/reference/skills/test-flow"
                 className="font-medium underline hover:text-indigo-600 dark:hover:text-indigo-400"
               >
                 test-flow skill
@@ -1891,7 +1891,7 @@ export default function TestingConceptPage() {
           {/* Link to full skill page */}
           <div className="mt-8">
             <Link
-              href="/skills/test-flow"
+              href="/reference/skills/test-flow"
               className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
             >
               View full test-flow skill documentation
@@ -2251,7 +2251,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/jest-tester"
+                  href="/reference/agents/jest-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   View full agent documentation
@@ -2373,7 +2373,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/react-tester"
+                  href="/reference/agents/react-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
                 >
                   View full agent documentation
@@ -2492,7 +2492,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/go-tester"
+                  href="/reference/agents/go-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
                 >
                   View full agent documentation
@@ -2927,7 +2927,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/e2e-reviewer"
+                  href="/reference/agents/e2e-reviewer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300"
                 >
                   View full agent documentation
@@ -3049,7 +3049,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/e2e-playwright"
+                  href="/reference/agents/e2e-playwright"
                   className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
                 >
                   View full agent documentation
@@ -3174,7 +3174,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/playwright-dev"
+                  href="/reference/agents/playwright-dev"
                   className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
                 >
                   View full agent documentation
@@ -3299,7 +3299,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/e2e-tester"
+                  href="/reference/agents/e2e-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
                 >
                   View full agent documentation
@@ -3891,7 +3891,7 @@ test.beforeAll(async ({ browser }) => {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/qa"
+                  href="/reference/agents/qa"
                   className="inline-flex items-center gap-2 text-sm font-medium text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
                 >
                   View full agent documentation
@@ -4018,7 +4018,7 @@ test.beforeAll(async ({ browser }) => {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/qa-explorer"
+                  href="/reference/agents/qa-explorer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                 >
                   View full agent documentation
@@ -4144,7 +4144,7 @@ test.beforeAll(async ({ browser }) => {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/agents/qa-browser-tester"
+                  href="/reference/agents/qa-browser-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
                 >
                   View full agent documentation
@@ -4777,7 +4777,7 @@ await expectMutualExclusivity(
                   or see the full documentation.
                 </p>
                 <Link
-                  href="/skills/e2e-quality"
+                  href="/reference/skills/e2e-quality"
                   className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300"
                 >
                   View e2e-quality skill documentation

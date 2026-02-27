@@ -19,6 +19,7 @@
     "prepare-data": "npm run fetch-data && npm run transform-data && npm run sync-changelog"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",

@@ -276,7 +276,7 @@ export default function SkillsConceptPage() {
         <div className="mx-auto max-w-4xl">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
             <Link
-              href="/skills?type=regular"
+              href="/reference/skills?type=regular"
               className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
             >
               Browse Project Skills

@@ -15,9 +15,13 @@ interface BreadcrumbsProps {
 // Map of path segments to display names
 const pathNames: Record<string, string> = {
   concepts: "Concepts",
+  reference: "Reference",
   agents: "Agents",
   skills: "Skills",
   scaffolds: "Scaffolds",
+  "agent-templates": "Agent Templates",
+  automations: "Automations",
+  mcp: "MCP Servers",
   "getting-started": "Getting Started",
   workflow: "The Agent Loop",
   projects: "Project Toolkit Structure",

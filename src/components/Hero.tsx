@@ -73,7 +73,7 @@ export function Hero({ counts }: HeroProps) {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 gap-4 border-t border-neutral-200 pt-10 sm:grid-cols-4 sm:gap-8 dark:border-neutral-800">
           <Link
-            href="/agents"
+            href="/reference/agents"
             className="block rounded-lg p-3 -m-3 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 dark:hover:bg-neutral-800 dark:focus-visible:ring-neutral-400"
           >
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
@@ -84,7 +84,7 @@ export function Hero({ counts }: HeroProps) {
             </p>
           </Link>
           <Link
-            href="/skills?type=regular"
+            href="/reference/skills?type=regular"
             className="block rounded-lg p-3 -m-3 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 dark:hover:bg-neutral-800 dark:focus-visible:ring-neutral-400"
           >
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
@@ -95,7 +95,7 @@ export function Hero({ counts }: HeroProps) {
             </p>
           </Link>
           <Link
-            href="/skills?type=meta"
+            href="/reference/skills?type=meta"
             className="block rounded-lg p-3 -m-3 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 dark:hover:bg-neutral-800 dark:focus-visible:ring-neutral-400"
           >
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
@@ -106,7 +106,7 @@ export function Hero({ counts }: HeroProps) {
             </p>
           </Link>
           <Link
-            href="/agents/primary"
+            href="/reference/agents/primary"
             className="block rounded-lg p-3 -m-3 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 dark:hover:bg-neutral-800 dark:focus-visible:ring-neutral-400"
           >
             <p className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl dark:text-neutral-50">
