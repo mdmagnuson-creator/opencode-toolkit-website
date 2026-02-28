@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-28T04:30:00Z",
-  "syncedAt": "2026-02-27T22:19:10.879Z",
+  "generatedAt": "2026-02-27T22:00:00Z",
+  "syncedAt": "2026-02-28T00:55:31.775Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
@@ -1212,39 +1212,43 @@
   ],
   "changelog": [
     {
-      "date": "2026-02-28",
-      "displayDate": "February 28, 2026",
-      "changes": [
-        {
-          "type": "fix",
-          "description": "fix state file commit ordering to prevent PRD state drift",
-          "scope": "agents"
-        }
-      ]
-    },
-    {
       "date": "2026-02-27",
       "displayDate": "February 27, 2026",
       "changes": [
         {
           "type": "feat",
-          "description": "add multi-platform app support (desktop, mobile) to project.json apps",
+          "description": "implement enhanced pending-updates system with cross-machine sync",
+          "scope": "updates"
+        },
+        {
+          "type": "feat",
+          "description": "add applied-updates, update-affinity-rules, update-registry schemas",
           "scope": "schema"
         },
         {
           "type": "feat",
-          "description": "add e2e-electron skill for Playwright Electron testing",
-          "scope": "skills"
+          "description": "add generate-project-updates and migrate-project-updates scripts",
+          "scope": "scripts"
+        },
+        {
+          "type": "docs",
+          "description": "add enhanced pending-updates system PRD",
+          "scope": "prd"
         },
         {
           "type": "feat",
-          "description": "add skill-mapping.json for framework-to-skill lookups",
-          "scope": "data"
+          "description": "add executablePath and devLaunchArgs to apps.testing",
+          "scope": "schema"
         },
         {
-          "type": "feat",
-          "description": "update e2e-playwright, tester, builder, planner for multi-platform support",
+          "type": "fix",
+          "description": "fix state file commit ordering to prevent PRD state drift",
           "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "implement multi-platform app support and Electron E2E testing (PRD-001)",
+          "scope": null
         },
         {
           "type": "docs",
