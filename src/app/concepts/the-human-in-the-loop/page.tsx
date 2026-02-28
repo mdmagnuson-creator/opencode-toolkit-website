@@ -19,6 +19,7 @@ const PAGE_SECTIONS = [
   { id: "toolkit", label: "Working with Toolkit" },
   { id: "multi-session", label: "Multi-Session Coordination" },
   { id: "loops", label: "End-to-End Operating Loops" },
+  { id: "agent-resilience", label: "Agent Resilience" },
   { id: "quick-start", label: "Quick Start Examples" },
 ];
 
@@ -3191,6 +3192,147 @@ export default function HumanWorkModesPage() {
                     <strong>Trust the completion criteria:</strong> A loop isn&apos;t done
                     until all criteria are met. Partial completion leads to drift.
                   </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Agent Resilience Section */}
+      <section
+        id="agent-resilience"
+        className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Agent Resilience
+          </h2>
+          <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
+            Agents are designed to handle real-world interruptions gracefully. Whether a network hiccup cuts a session short or the AI provider temporarily limits requests, agents save their state and resume cleanly — without losing work or requiring you to start over.
+          </p>
+
+          {/* Rate Limit Handling */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Rate Limit Handling
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              When the AI provider temporarily limits requests (HTTP 429), agents detect it immediately and pause gracefully instead of retrying in a loop.
+            </p>
+            <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+              <ol className="space-y-3 text-sm text-neutral-700 dark:text-neutral-300">
+                <li className="flex items-start gap-3">
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-xs font-semibold text-amber-900 dark:bg-amber-900 dark:text-amber-100">1</span>
+                  <span><strong>Detect the limit</strong> — Agent identifies the 429 response and stops making new requests immediately.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-xs font-semibold text-amber-900 dark:bg-amber-900 dark:text-amber-100">2</span>
+                  <span><strong>Save state</strong> — Current task description, last action, and context anchor are written to <code className="rounded bg-neutral-200 px-1 py-0.5 text-xs dark:bg-neutral-700">builder-state.json</code> before stopping.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-xs font-semibold text-amber-900 dark:bg-amber-900 dark:text-amber-100">3</span>
+                  <span><strong>Notify you</strong> — A clear message shows what was in progress, what was saved, and how to resume after waiting a few minutes.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-xs font-semibold text-amber-900 dark:bg-amber-900 dark:text-amber-100">4</span>
+                  <span><strong>Resume cleanly</strong> — When you return, the agent reads saved state and continues from where it left off.</span>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          {/* Session Resumability */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Session Resumability
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Builder tracks a <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">currentTask</code> in <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">builder-state.json</code> throughout every session. If a session ends unexpectedly — power loss, network drop, or a browser close — the next session starts by reading this state and offering to resume exactly where work stopped.
+            </p>
+            <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">What is saved per task:</p>
+              <ul className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                  <span>Task description and which story or ad-hoc todo was active</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                  <span>Last completed action (e.g., &quot;committed US-003, about to start US-004&quot;)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                  <span>Context anchor — a short summary of what the agent knew at pause time</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                  <span>Rate limit timestamp, if that was the reason for stopping</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Tool Error Recovery */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Tool Error Recovery
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Transient errors — network timeouts, brief disconnects — are retried automatically once before escalating. Rate limits are never auto-retried; they always pause and notify you.
+            </p>
+            <div className="mt-4 overflow-x-auto">
+              <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+                <thead className="bg-neutral-50 dark:bg-neutral-800">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">Error Type</th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">Behavior</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                  <tr>
+                    <td className="px-4 py-3 text-sm font-mono text-neutral-900 dark:text-neutral-100">429 Rate Limit</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Save state, notify, pause — no auto-retry</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm font-mono text-neutral-900 dark:text-neutral-100">499 / Timeout</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Retry once automatically, then ask you</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm font-mono text-neutral-900 dark:text-neutral-100">Network drop</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Retry once automatically, then ask you</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm font-mono text-neutral-900 dark:text-neutral-100">Sub-agent failure</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Check partial work, retry with context, report after 2 failures</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Commit Gate */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Commit Gate
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Builder will not commit code for a completed story if the required post-change checks have not passed. This prevents half-finished work from landing in your codebase silently.
+            </p>
+            <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950">
+              <p className="text-sm font-medium text-amber-900 dark:text-amber-100">Required before any commit:</p>
+              <ul className="mt-3 space-y-2 text-sm text-amber-800 dark:text-amber-200">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500" />
+                  <span>Typecheck must pass (<code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">tsc --noEmit</code>)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500" />
+                  <span>Unit tests must pass (if story has <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">testIntensity &gt; low</code>)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500" />
+                  <span>Story status in PRD JSON updated to <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">passes: true</code></span>
                 </li>
               </ul>
             </div>

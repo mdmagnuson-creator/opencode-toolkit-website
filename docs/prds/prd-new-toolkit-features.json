@@ -48,8 +48,9 @@
         "Verify in browser"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "completedAt": "2026-02-28T09:20:00Z",
+      "notes": "Added Agent Resilience section to HITL page with rate limit handling, session resumability, tool error recovery, and commit gate subsections.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
