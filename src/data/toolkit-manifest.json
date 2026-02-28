@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-27T23:45:00Z",
-  "syncedAt": "2026-02-28T03:18:11.812Z",
+  "generatedAt": "2026-02-28T15:30:00Z",
+  "syncedAt": "2026-02-28T12:20:51.138Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
     "subagents": 60,
-    "skills": 42,
+    "skills": 43,
     "metaSkills": 10,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -1060,6 +1060,19 @@
       ],
       "isMeta": false,
       "content": ""
+    },
+    {
+      "slug": "vectorize",
+      "name": "Vectorize",
+      "description": "Vectorize codebase and database schemas for semantic search. Uses OpenAI/Voyage embeddings with optional Contextual Retrieval. Triggers on: semantic search, vectorize codebase, code search, find similar code.",
+      "triggers": [
+        "semantic search",
+        "vectorize codebase",
+        "code search",
+        "find similar code"
+      ],
+      "isMeta": false,
+      "content": ""
     }
   ],
   "scaffolds": [
@@ -1211,6 +1224,32 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-02-28",
+      "displayDate": "February 28, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add vectorize skill for codebase and database schema semantic search",
+          "scope": "vectorization"
+        },
+        {
+          "type": "feat",
+          "description": "add vectorization configuration to project.schema.json",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "integrate vectorization setup into project-bootstrap flow",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add vectorization prompt to builder session startup",
+          "scope": "agents"
+        }
+      ]
+    },
     {
       "date": "2026-02-27",
       "displayDate": "February 27, 2026",
