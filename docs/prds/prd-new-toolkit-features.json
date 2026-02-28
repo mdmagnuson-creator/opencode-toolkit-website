@@ -76,8 +76,9 @@
         "Verify in browser"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "completedAt": "2026-02-28T09:25:00Z",
+      "notes": "Added new project.json fields (codeRoot, toolkitPath, environments, authentication, git config) plus Multi-Platform Apps section with apps[] array examples and Git Configuration section.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
