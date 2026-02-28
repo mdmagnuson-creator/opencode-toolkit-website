@@ -57,9 +57,15 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
     if (!agent) {
       return { title: "Agent Not Found" };
     }
+    const title = `${agent.name} | yo, go`;
     return {
-      title: `${agent.name} | Yo Go`,
+      title,
       description: agent.description,
+      openGraph: {
+        title,
+        description: agent.description,
+        images: ["/og/reference-agents.png"],
+      },
     };
   });
 }

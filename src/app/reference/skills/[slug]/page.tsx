@@ -56,9 +56,15 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
     if (!skill) {
       return { title: "Skill Not Found" };
     }
+    const title = `${skill.name} | yo, go`;
     return {
-      title: `${skill.name} | Yo Go`,
+      title,
       description: skill.description,
+      openGraph: {
+        title,
+        description: skill.description,
+        images: ["/og/reference-skills.png"],
+      },
     };
   });
 }
