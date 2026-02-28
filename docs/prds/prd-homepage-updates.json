@@ -19,8 +19,9 @@
         "Verify in browser — confirm four cards render in both light and dark mode"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "completedAt": "2026-02-28T00:00:00Z",
+      "notes": "SKIPPED — @coder was removed from the toolkit in commit 3f8f633. No Coder references exist on the homepage so nothing to add or remove. Marked N/A.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
