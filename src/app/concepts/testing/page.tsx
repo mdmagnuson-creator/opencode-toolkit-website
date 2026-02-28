@@ -18,7 +18,7 @@ const PAGE_SECTIONS = [
   { id: "tester-orchestrator", label: "Tester Orchestrator" },
   { id: "failure-output-policy", label: "Test Failure Output Policy" },
   { id: "operational-modes", label: "Operational Modes" },
-  { id: "rigor-profiles", label: "Testing Rigor Profiles" },
+  { id: "automatic-test-selection", label: "Automatic Test Activity Selection" },
   { id: "story-intensity", label: "Per-Story Test Intensity" },
   { id: "test-flow", label: "Test Flow Automation" },
   { id: "layer-deep-dive", label: "Layer Deep Dive" },
@@ -951,155 +951,128 @@ export default function TestingConceptPage() {
         </div>
       </section>
 
-      {/* Testing Rigor Profiles */}
-      <section id="rigor-profiles" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+      {/* Automatic Test Activity Selection */}
+      <section id="automatic-test-selection" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-            Testing Rigor Profiles
+            Automatic Test Activity Selection
           </h2>
           <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
-            When starting a PRD, you select a testing rigor profile that controls
-            baseline behavior for test generation, critic strictness, and quality
-            checks throughout the entire PRD lifecycle.
+            The toolkit automatically determines what testing to run for each user story by reading metadata signals from the PRD JSON. There is no manual rigor profile prompt — the system derives the right level of testing from story metadata.
           </p>
 
-          {/* Profile Selection */}
+          {/* How it works */}
           <div className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
             <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
-              Profile Selection at PRD Start
+              How Signals Drive Activity
             </h3>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              When you select a PRD to work on, Builder prompts you to choose a
-              testing rigor level. This choice is persisted in{" "}
-              <code className="rounded bg-neutral-200 px-1 py-0.5 text-xs dark:bg-neutral-700">
-                builder-state.json
-              </code>{" "}
-              and used throughout the PRD.
+              Each story in the PRD JSON carries metadata flags that Builder reads automatically. No prompt, no choice — the right tests run based on what was specified when the story was written.
             </p>
             <div className="mt-4 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
-              <p className="text-neutral-400"># PRD start prompt</p>
-              <p className="mt-2">
-                <span className="text-green-400">Select testing rigor:</span>
+              <p className="text-neutral-400">{"// prd.json story metadata"}</p>
+              <p className="mt-2">{"{"}</p>
+              <p className="ml-4 text-blue-400">
+                {'"testIntensity"'}: <span className="text-amber-400">{'"high"'}</span>,
               </p>
-              <p className="mt-1">
-                <span className="text-blue-400">[R]</span> Rapid — speed-first, skip auto-generation
+              <p className="ml-4 text-blue-400">
+                {'"e2eRequired"'}: <span className="text-green-400">true</span>,
               </p>
-              <p>
-                <span className="text-blue-400">[S]</span> Standard — balanced default (recommended)
+              <p className="ml-4 text-blue-400">
+                {'"documentationRequired"'}: <span className="text-green-400">false</span>
               </p>
-              <p>
-                <span className="text-blue-400">[T]</span> Strict — high confidence, quality checks
-              </p>
-              <p>
-                <span className="text-blue-400">[C]</span> Compliance — no bypass on failures
-              </p>
+              <p>{"}"}</p>
             </div>
           </div>
 
-          {/* Profile Comparison Table */}
+          {/* Signal-to-Activity Mapping Table */}
           <div className="mt-10">
             <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              Profile Comparison
+              Signal → Activity Mapping
             </h3>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Each profile configures baseline test behavior for the PRD:
+              The <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">testIntensity</code> field controls how much unit/integration testing is generated. Other boolean flags activate specific activities independently.
             </p>
             <div className="mt-4 overflow-x-auto">
               <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
                 <thead className="bg-neutral-50 dark:bg-neutral-800">
                   <tr>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Profile
+                      Signal
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Auto-Generate
+                      Value
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Critic Mode
-                    </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Quality Checks
-                    </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Policy
+                      Activity Triggered
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
                   <tr>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-amber-100 px-1.5 py-0.5 text-sm font-medium text-amber-900 dark:bg-amber-900 dark:text-amber-100">
-                        rapid
-                      </code>
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">testIntensity</code>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-amber-100 px-1.5 py-0.5 text-sm font-medium text-amber-900 dark:bg-amber-900 dark:text-amber-100">low</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <span className="text-red-600 dark:text-red-400">false</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      fast
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <span className="text-red-600 dark:text-red-400">false</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Speed-first
+                      Smoke tests only — fast pass/fail check
                     </td>
                   </tr>
                   <tr>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-blue-100 px-1.5 py-0.5 text-sm font-medium text-blue-900 dark:bg-blue-900 dark:text-blue-100">
-                        standard
-                      </code>
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">testIntensity</code>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-blue-100 px-1.5 py-0.5 text-sm font-medium text-blue-900 dark:bg-blue-900 dark:text-blue-100">medium</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <span className="text-green-600 dark:text-green-400">true</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      balanced
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <span className="text-red-600 dark:text-red-400">false</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Balanced default
+                      Unit + integration tests for changed modules
                     </td>
                   </tr>
                   <tr>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-purple-100 px-1.5 py-0.5 text-sm font-medium text-purple-900 dark:bg-purple-900 dark:text-purple-100">
-                        strict
-                      </code>
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">testIntensity</code>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-purple-100 px-1.5 py-0.5 text-sm font-medium text-purple-900 dark:bg-purple-900 dark:text-purple-100">high</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <span className="text-green-600 dark:text-green-400">true</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      strict
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <span className="text-green-600 dark:text-green-400">true</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      High confidence
+                      Full unit, integration, and edge-case tests
                     </td>
                   </tr>
                   <tr>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-red-100 px-1.5 py-0.5 text-sm font-medium text-red-900 dark:bg-red-900 dark:text-red-100">
-                        compliance
-                      </code>
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">testIntensity</code>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-red-100 px-1.5 py-0.5 text-sm font-medium text-red-900 dark:bg-red-900 dark:text-red-100">critical</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <span className="text-green-600 dark:text-green-400">true</span>
+                      Full tests + mutation testing + quality critic
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">e2eRequired</code>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <span className="text-green-600 dark:text-green-400 text-sm font-medium">true</span>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      strict
+                      E2E tests written and run via <code className="rounded bg-purple-100 px-1 py-0.5 text-xs dark:bg-purple-900">e2e-playwright</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">documentationRequired</code>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
+                      <span className="text-green-600 dark:text-green-400 text-sm font-medium">true</span>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <span className="text-green-600 dark:text-green-400">true</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      No bypass allowed
+                      Support article generated or updated
                     </td>
                   </tr>
                 </tbody>
@@ -1107,137 +1080,24 @@ export default function TestingConceptPage() {
             </div>
           </div>
 
-          {/* Profile Resolution */}
-          <div className="mt-10">
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              Profile Resolution Order
-            </h3>
-            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              The effective rigor profile is resolved in this order (highest priority first):
-            </p>
-            <ol className="mt-4 space-y-3">
-              <li className="flex items-start gap-3">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">
-                  1
-                </span>
-                <div>
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                    builder-state.json → activePrd.testingRigor
-                  </code>
-                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                    Selected at PRD start, overrides project default
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">
-                  2
-                </span>
-                <div>
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                    project.json → testing.rigorProfile
-                  </code>
-                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                    Project-level default rigor setting
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-neutral-400 text-xs font-semibold text-white dark:bg-neutral-600">
-                  3
-                </span>
-                <div>
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                    Fallback: standard
-                  </span>
-                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                    Used when no explicit setting is found
-                  </p>
-                </div>
-              </li>
-            </ol>
-          </div>
-
-          {/* When to Use Each */}
+          {/* Why automatic */}
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950">
-              <h4 className="font-semibold text-amber-900 dark:text-amber-100">
-                Use Rapid When...
-              </h4>
-              <ul className="mt-3 space-y-2 text-sm text-amber-800 dark:text-amber-200">
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 dark:text-amber-400">•</span>
-                  Prototyping or exploring an approach
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 dark:text-amber-400">•</span>
-                  Speed matters more than coverage
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 dark:text-amber-400">•</span>
-                  You&apos;ll write tests manually later
-                </li>
-              </ul>
-            </div>
-
             <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-950">
               <h4 className="font-semibold text-blue-900 dark:text-blue-100">
-                Use Standard When...
+                Set by Planner, Read by Builder
               </h4>
-              <ul className="mt-3 space-y-2 text-sm text-blue-800 dark:text-blue-200">
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400">•</span>
-                  Normal feature development
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400">•</span>
-                  Want auto-generated tests without overhead
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400">•</span>
-                  Default choice for most work
-                </li>
-              </ul>
+              <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
+                Test intensity and activity flags are set when the story is written in the PRD JSON. Builder reads them automatically — no prompt, no manual step.
+              </p>
             </div>
 
-            <div className="rounded-xl border border-purple-200 bg-purple-50 p-5 dark:border-purple-800 dark:bg-purple-950">
-              <h4 className="font-semibold text-purple-900 dark:text-purple-100">
-                Use Strict When...
+            <div className="rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-950">
+              <h4 className="font-semibold text-green-900 dark:text-green-100">
+                Override at Runtime
               </h4>
-              <ul className="mt-3 space-y-2 text-sm text-purple-800 dark:text-purple-200">
-                <li className="flex items-start gap-2">
-                  <span className="text-purple-600 dark:text-purple-400">•</span>
-                  Critical features (auth, payments)
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-purple-600 dark:text-purple-400">•</span>
-                  Need quality checks (a11y, visual)
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-purple-600 dark:text-purple-400">•</span>
-                  Want extra confidence before release
-                </li>
-              </ul>
-            </div>
-
-            <div className="rounded-xl border border-red-200 bg-red-50 p-5 dark:border-red-800 dark:bg-red-950">
-              <h4 className="font-semibold text-red-900 dark:text-red-100">
-                Use Compliance When...
-              </h4>
-              <ul className="mt-3 space-y-2 text-sm text-red-800 dark:text-red-200">
-                <li className="flex items-start gap-2">
-                  <span className="text-red-600 dark:text-red-400">•</span>
-                  Regulated environments (healthcare, finance)
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-red-600 dark:text-red-400">•</span>
-                  All checks must pass, no exceptions
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-red-600 dark:text-red-400">•</span>
-                  Audit trail requirements
-                </li>
-              </ul>
+              <p className="mt-2 text-sm text-green-800 dark:text-green-200">
+                Builder can escalate intensity if it discovers complexity during implementation — for example, upgrading a <code className="rounded bg-green-100 px-1 py-0.5 text-xs dark:bg-green-900">medium</code> story to <code className="rounded bg-green-100 px-1 py-0.5 text-xs dark:bg-green-900">high</code> when touching auth logic.
+              </p>
             </div>
           </div>
         </div>
