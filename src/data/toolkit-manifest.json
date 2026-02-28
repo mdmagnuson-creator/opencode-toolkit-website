@@ -13,11 +13,11 @@
     "agentTemplates": 14
   },
   "categories": {
-    "critics": 25,
+    "critics": 28,
     "developers": 15,
     "testers": 9,
     "orchestrators": 3,
-    "utilities": 11
+    "utilities": 8
   },
   "templateCategories": [
     "backend",
@@ -72,7 +72,7 @@
       "name": "Backend Critic Go",
       "description": "Reviews backend Go code for API design, concurrency, error handling, and best practices (Gin, Lambda)",
       "mode": "subagent",
-      "category": "utilities",
+      "category": "critics",
       "content": ""
     },
     {
@@ -80,7 +80,7 @@
       "name": "Backend Critic Java",
       "description": "Reviews backend Java code for API design, concurrency, error handling, and best practices (Netty, Lambda)",
       "mode": "subagent",
-      "category": "utilities",
+      "category": "critics",
       "content": ""
     },
     {
@@ -88,7 +88,7 @@
       "name": "Backend Critic Ts",
       "description": "Reviews backend TypeScript code for API design, async patterns, error handling, and best practices (Express, Lambda)",
       "mode": "subagent",
-      "category": "utilities",
+      "category": "critics",
       "content": ""
     },
     {

@@ -48,8 +48,9 @@
         "Verify in browser — confirm category counts match actual agent counts"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "completedAt": "2026-02-28T00:00:00Z",
+      "notes": "Fixed backend-critic-go/java/ts miscategorization: changed from utilities to critics in manifest and transform script. Critics: 25→28, Utilities: 11→8.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],

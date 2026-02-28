@@ -262,6 +262,10 @@ function mapCategory(
   structureCategory: string,
   agentSlug?: string
 ): 'critics' | 'developers' | 'testers' | 'orchestrators' | 'utilities' {
+  // Agents with 'critic' in their slug are always critics regardless of structure category
+  if (agentSlug && agentSlug.toLowerCase().includes('critic')) {
+    return 'critics';
+  }
   switch (structureCategory) {
     case 'primary':
       // Primary agents get categorized based on their function
