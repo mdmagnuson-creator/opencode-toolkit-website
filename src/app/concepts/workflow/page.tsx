@@ -20,6 +20,7 @@ const PAGE_SECTIONS = [
   { id: "ship", label: "Ship" },
   { id: "trunk-based", label: "Trunk-Based Git Workflow" },
   { id: "multi-session", label: "Multi-Session Coordination" },
+  { id: "pending-updates", label: "Pending Updates System" },
   { id: "best-practices", label: "Best Practices" },
 ];
 
@@ -733,6 +734,154 @@ export default function WorkflowConceptPage() {
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                 When multiple PRDs complete in parallel, they enter a merge queue. Each branch rebases from
                 trunk before merging, ensuring clean integration without conflicts.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pending Updates System */}
+      <section id="pending-updates" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Pending Updates System
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            As agents work on your projects, they sometimes discover improvements needed for
+            project-specific configuration, conventions, or toolkit settings. These changes
+            are queued as <strong>pending updates</strong> for review before being applied.
+          </p>
+
+          <h3 className="mt-8 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Update Sources
+          </h3>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Updates can come from three locations, checked in priority order:
+          </p>
+
+          <div className="mt-6 space-y-4">
+            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
+              <div className="flex items-start gap-3">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">
+                  1
+                </div>
+                <div>
+                  <h4 className="font-semibold text-blue-900 dark:text-blue-100">Project-Local</h4>
+                  <p className="mt-1 text-sm text-blue-800 dark:text-blue-200">
+                    <code className="rounded bg-blue-100 px-1 text-xs dark:bg-blue-900">docs/pending-updates/</code>{" "}
+                    — Updates specific to this project. Applied first.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-800 dark:bg-purple-950">
+              <div className="flex items-start gap-3">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-600 text-xs font-semibold text-white">
+                  2
+                </div>
+                <div>
+                  <h4 className="font-semibold text-purple-900 dark:text-purple-100">Central Registry</h4>
+                  <p className="mt-1 text-sm text-purple-800 dark:text-purple-200">
+                    <code className="rounded bg-purple-100 px-1 text-xs dark:bg-purple-900">~/.config/opencode/pending-updates/</code>{" "}
+                    — Cross-project updates with affinity rules.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex items-start gap-3">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-neutral-600 text-xs font-semibold text-white">
+                  3
+                </div>
+                <div>
+                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-100">Legacy Per-Project</h4>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">~/pending-updates/</code>{" "}
+                    — Legacy location for backward compatibility.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 className="mt-8 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Affinity Rules
+          </h3>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Central registry updates can target specific projects using affinity rules in the
+            update file&apos;s frontmatter:
+          </p>
+
+          <div className="mt-6 overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-900 dark:border-neutral-700">
+            <pre className="p-6 text-sm leading-relaxed text-neutral-100">
+{`---
+createdBy: developer
+date: 2026-02-28
+priority: normal
+affinity:
+  projectId: my-saas-app      # Match by project ID
+  stack:
+    frontend: react           # Match by stack
+    backend: node
+  integrations:
+    - stripe                  # Match if project uses Stripe
+---
+
+# Update Request: Add Stripe webhook patterns
+
+## What to change
+Add webhook handler patterns to CONVENTIONS.md...`}
+            </pre>
+          </div>
+
+          <div className="mt-6 rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+            <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">Matching Logic</h4>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Updates without affinity rules are shown to all projects. Updates with affinity
+              rules only appear for projects that match <strong>all</strong> specified criteria.
+            </p>
+          </div>
+
+          <h3 className="mt-8 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Applied Updates Tracking
+          </h3>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Each project tracks which updates have been applied in{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">docs/applied-updates.json</code>:
+          </p>
+
+          <div className="mt-6 overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-900 dark:border-neutral-700">
+            <pre className="p-6 text-sm leading-relaxed text-neutral-100">
+{`{
+  "appliedUpdates": [
+    {
+      "filename": "2026-02-28-add-stripe-patterns.md",
+      "appliedAt": "2026-02-28T14:30:00Z",
+      "appliedBy": "builder"
+    }
+  ]
+}`}
+            </pre>
+          </div>
+
+          <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+            This prevents the same update from being applied multiple times. When an update is applied,
+            agents delete the source file and record it here.
+          </p>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">Who Writes Updates</h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Any agent can queue updates: @developer for conventions, @builder for PRD patterns,
+                @toolkit for system improvements. You can also create them manually.
+              </p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">When They&apos;re Applied</h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                @planner checks for pending updates at the start of each session. It presents
+                matching updates for review before proceeding with project work.
               </p>
             </div>
           </div>

@@ -169,8 +169,9 @@
         "Verify in browser"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "completedAt": "2026-02-28T09:55:00Z",
+      "notes": "Added Pending Updates System section to workflow page documenting three update sources (project-local, central registry, legacy), affinity rules with frontmatter example, applied-updates.json tracking, and who writes/applies updates.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
