@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-27T22:00:00Z",
-  "syncedAt": "2026-02-28T00:55:31.775Z",
+  "generatedAt": "2026-02-27T23:45:00Z",
+  "syncedAt": "2026-02-28T03:18:11.812Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
@@ -1215,6 +1215,31 @@
       "date": "2026-02-27",
       "displayDate": "February 27, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "implement automatic test activity selection - signal-based test routing replaces manual rigor selection",
+          "scope": "testing"
+        },
+        {
+          "type": "feat",
+          "description": "add test-activity-rules and test-debt schemas for automatic test selection",
+          "scope": "schema"
+        },
+        {
+          "type": "refactor",
+          "description": "remove rigor profile selection from prd-workflow and test-flow skills",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add dependency smoke testing to e2e-reviewer agent",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "add central registry sync for cross-machine project updates",
+          "scope": "updates"
+        },
         {
           "type": "feat",
           "description": "implement enhanced pending-updates system with cross-machine sync",
