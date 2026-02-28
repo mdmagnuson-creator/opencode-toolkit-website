@@ -31,6 +31,69 @@ export default function Home() {
         primaryAgents: counts.primaryAgents,
       }} />
 
+      {/* What's New Section */}
+      <section className="border-t border-neutral-200 px-6 py-12 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+                What&apos;s New
+              </span>
+              <span className="text-sm text-neutral-500 dark:text-neutral-400">Latest additions to the toolkit</span>
+            </div>
+            <a href="/changelog" className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+              View all changes →
+            </a>
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Authentication System */}
+            <a href="/concepts/authentication" className="rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600 dark:hover:bg-neutral-800">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+                {/* Lock icon */}
+                <svg className="h-4 w-4 text-blue-700 dark:text-blue-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+              </div>
+              <h3 className="mt-3 text-sm font-semibold text-neutral-900 dark:text-neutral-50">Authentication System</h3>
+              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">Agents authenticate to your app to test protected pages.</p>
+            </a>
+            {/* Electron Desktop Testing */}
+            <a href="/concepts/testing#electron-testing" className="rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600 dark:hover:bg-neutral-800">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900">
+                {/* Desktop icon */}
+                <svg className="h-4 w-4 text-purple-700 dark:text-purple-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" />
+                </svg>
+              </div>
+              <h3 className="mt-3 text-sm font-semibold text-neutral-900 dark:text-neutral-50">Electron Desktop Testing</h3>
+              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">E2E tests for Electron apps using the Playwright Electron API.</p>
+            </a>
+            {/* Agent Resilience */}
+            <a href="/concepts/the-human-in-the-loop#agent-resilience" className="rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600 dark:hover:bg-neutral-800">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900">
+                {/* Shield icon */}
+                <svg className="h-4 w-4 text-amber-700 dark:text-amber-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                </svg>
+              </div>
+              <h3 className="mt-3 text-sm font-semibold text-neutral-900 dark:text-neutral-50">Agent Resilience</h3>
+              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">Rate limit handling, session resumability, and auto-retry.</p>
+            </a>
+            {/* Vectorized Search */}
+            <a href="/concepts/vectorization" className="rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600 dark:hover:bg-neutral-800">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900">
+                {/* Magnifying glass / search icon */}
+                <svg className="h-4 w-4 text-emerald-700 dark:text-emerald-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z" />
+                </svg>
+              </div>
+              <h3 className="mt-3 text-sm font-semibold text-neutral-900 dark:text-neutral-50">Vectorized Search</h3>
+              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">Semantic code search with 49% fewer retrieval failures.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* What Is It Section */}
       <section
         id="what-is-it"

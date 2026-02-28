@@ -78,8 +78,9 @@
         "Verify in browser — confirm section appears in both light and dark mode"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "completedAt": "2026-02-28T00:00:00Z",
+      "notes": "Added What's New section after Hero, before What Is It. 4-card grid highlighting Authentication, Electron Testing, Agent Resilience, and Vectorized Search with View all changes link to /changelog.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
