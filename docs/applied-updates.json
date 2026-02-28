@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "applied": [
+    {
+      "id": "2026-02-28-toolkit-sync",
+      "appliedAt": "2026-02-28T23:50:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
+    }
+  ]
+}

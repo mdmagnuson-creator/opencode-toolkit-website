@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 const PAGE_SECTIONS = [
   { id: "architecture", label: "Architecture Overview" },
   { id: "tester-orchestrator", label: "Tester Orchestrator" },
+  { id: "failure-output-policy", label: "Test Failure Output Policy" },
   { id: "operational-modes", label: "Operational Modes" },
   { id: "rigor-profiles", label: "Testing Rigor Profiles" },
   { id: "story-intensity", label: "Per-Story Test Intensity" },
@@ -653,6 +654,94 @@ export default function TestingConceptPage() {
                 />
               </svg>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Test Failure Output Policy */}
+      <section id="failure-output-policy" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Test Failure Output Policy
+          </h2>
+          <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
+            All testing agents follow a strict output policy to ensure failures are never hidden. This helps you debug issues quickly without missing critical error information.
+          </p>
+
+          <div className="mt-8 rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              The Rule
+            </h3>
+            <div className="mt-4 space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
+                  <svg className="h-4 w-4 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-neutral-900 dark:text-neutral-50">Passing Tests</p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    Can be summarized: <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">&quot;42 tests passed&quot;</code>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-900">
+                  <svg className="h-4 w-4 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-neutral-900 dark:text-neutral-50">Failing Tests</p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    Must show complete output — <strong>never truncated</strong>. Full stack traces, assertion messages, and context are always preserved.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-lg bg-amber-50 p-4 dark:bg-amber-950">
+            <div className="flex items-start gap-3">
+              <svg className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              </svg>
+              <div>
+                <p className="font-medium text-amber-900 dark:text-amber-100">Why this matters</p>
+                <p className="mt-1 text-sm text-amber-800 dark:text-amber-200">
+                  Truncated failure output is the #1 cause of wasted debugging time. When a test fails, you need to see exactly what went wrong — not a summary that hides the actual error.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Agents with this policy
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              All 6 testing agents enforce this policy:
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {[
+                "tester",
+                "jest-tester", 
+                "react-tester",
+                "go-tester",
+                "e2e-playwright",
+                "qa-browser-tester",
+              ].map((agent) => (
+                <Link
+                  key={agent}
+                  href={`/reference/agents/${agent}`}
+                  className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-900 transition-colors hover:border-green-300 hover:bg-green-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:border-green-700 dark:hover:bg-green-950"
+                >
+                  {agent}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>

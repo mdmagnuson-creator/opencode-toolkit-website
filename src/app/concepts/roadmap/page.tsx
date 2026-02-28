@@ -4,10 +4,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Roadmap | yo, go",
-  description: "Upcoming features and improvements for yo, go. View draft PRDs for planned capabilities like dynamic output verbosity, agent model tiering, and more.",
+  description: "Upcoming features and improvements for yo, go. View draft PRDs for planned capabilities like integration provisioning automation, and recently shipped features like dynamic output verbosity.",
   openGraph: {
     title: "Roadmap | yo, go",
-    description: "Upcoming features and improvements for yo, go. View draft PRDs for planned capabilities like dynamic output verbosity, agent model tiering, and more.",
+    description: "Upcoming features and improvements for yo, go. View draft PRDs for planned capabilities like integration provisioning automation, and recently shipped features like dynamic output verbosity.",
     images: ["/og/concepts-roadmap.png"],
   },
 };
@@ -21,34 +21,24 @@ const draftPrds = [
   {
     id: "PRD-004",
     name: "Dynamic Output Verbosity Modes",
-    status: "draft",
+    status: "shipped",
     priority: "high",
     effort: "medium",
     impact: "high",
     summary:
-      "Introduce dynamic output verbosity controls so agents minimize token usage on happy paths while preserving debugging quality when tasks fail.",
+      "Agents now automatically minimize token usage on happy paths while preserving debugging quality when tasks fail. Implemented with a slimmed approach that achieves the core goals without complex configuration.",
     modes: [
       {
-        name: "lean",
+        name: "automatic",
         description:
-          "One-line status for routine operations. No log streaming. Minimal file read windows.",
-      },
-      {
-        name: "balanced",
-        description:
-          "Concise success output. Short failure reason and key evidence. Expand only when needed. This is the default mode.",
-      },
-      {
-        name: "debug",
-        description:
-          "Full or near-full logs and read windows. Deep diagnostics for investigation.",
+          "Agents automatically summarize successful operations and show complete output on failures. No manual mode selection needed.",
       },
     ],
     keyFeatures: [
-      "Static defaults by operation type (dev-server: lean, build/test: balanced)",
-      "Automatic escalation on failure signals (non-zero exit, timeout, repeated failure)",
-      "Task-based routing without expensive meta-reasoning",
-      "Bounded evidence in escalation unless explicitly in debug mode",
+      "Automatic output minimization on success paths",
+      "Full output preservation on failures — never truncated",
+      "Test failure output policy enforced across all testing agents",
+      "No configuration required — works out of the box",
     ],
     tickets: {
       total: 43,

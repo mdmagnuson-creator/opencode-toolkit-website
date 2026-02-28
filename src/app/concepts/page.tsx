@@ -243,9 +243,9 @@ const concepts = [
     name: "Roadmap",
     href: "/concepts/roadmap",
     description:
-      "Upcoming features and draft PRDs. See what's being planned including dynamic verbosity modes for token optimization.",
+      "Upcoming features and draft PRDs. See what's being planned and recently shipped capabilities.",
     subLinks: [
-      { name: "PRD 004: Verbosity Modes", href: "/concepts/roadmap#prd-004" },
+      { name: "PRD 004: Verbosity Modes (shipped)", href: "/concepts/roadmap#prd-004" },
     ],
     icon: (
       <svg
