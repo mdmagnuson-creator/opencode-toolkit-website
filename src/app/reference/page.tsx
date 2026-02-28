@@ -3,6 +3,12 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { VersionBadge } from "@/components/VersionBadge";
 import { LastSyncedTimestamp } from "@/components/LastSyncedTimestamp";
 import { manifest } from "@/data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reference | yo, go",
+  description: "Complete reference documentation for yo, go. Browse all 64 agents, 43 skills, scaffolds, agent templates, and MCP servers.",
+};
 
 // Category card data with icons, descriptions, and links
 const CATEGORIES = [

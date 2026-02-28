@@ -1,5 +1,11 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Roadmap | yo, go",
+  description: "Upcoming features and improvements for yo, go. View draft PRDs for planned capabilities like dynamic output verbosity, agent model tiering, and more.",
+};
 
 const PAGE_SECTIONS = [
   { id: "draft-prds", label: "Draft PRDs" },

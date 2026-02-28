@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Vectorization | yo, go",
+  description: "Semantic search for your codebase and database schemas. Learn how agents use vector embeddings to find relevant code, understand patterns, and navigate large codebases.",
+};
 
 const PAGE_SECTIONS = [
   { id: "overview", label: "Overview" },

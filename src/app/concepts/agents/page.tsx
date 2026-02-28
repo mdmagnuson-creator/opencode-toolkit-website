@@ -2,6 +2,12 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
 import { manifest, getPrimaryAgents, getAgentsByCategory } from "@/data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Agents | yo, go",
+  description: "Learn how AI agents work in yo, go. Primary agents like Builder and Planner orchestrate work, while sub-agents handle specialized tasks like code review and testing.",
+};
 
 const PAGE_SECTIONS = [
   { id: "primary-vs-sub-agents", label: "Primary vs Sub-Agents" },

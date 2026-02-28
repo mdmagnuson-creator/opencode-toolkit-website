@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Agent Workflows | yo, go",
+  description: "How agents communicate through asynchronous update queues. Learn about primary agents, delegation patterns, governance critics, and the self-improving agent system.",
+};
 
 const PAGE_SECTIONS = [
   { id: "key-principles", label: "Key Principles" },

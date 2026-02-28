@@ -1,5 +1,11 @@
 import { Suspense } from "react";
 import { SkillsPageContent } from "./SkillsPageContent";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Skills Reference | yo, go",
+  description: "Browse all 43 skills in yo, go. Authentication, testing, PRD workflows, screenshots, and more. Skills extend agent capabilities with specialized knowledge.",
+};
 
 export default function SkillsPage() {
   return (

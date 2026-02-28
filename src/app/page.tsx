@@ -4,6 +4,12 @@ import { TheLoop } from "@/components/TheLoop";
 import { manifest, getPrimaryAgents, getRegularSkills } from "@/data";
 import { getInstallCommand } from "@/config/urls";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "yo, go — AI Agents for Software Development",
+  description: "64 specialized AI agents working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code. An agent system for opencode.",
+};
 
 export default function Home() {
   const { counts, categories } = manifest;

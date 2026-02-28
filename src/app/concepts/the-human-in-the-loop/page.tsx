@@ -1,6 +1,12 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CodeBlockWithCopy } from "@/components/CodeBlockWithCopy";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "The Human in the Loop | yo, go",
+  description: "How humans work with AI agents in yo, go. Learn operating modes for Planner, Builder, and Toolkit agents, plus multi-session coordination patterns.",
+};
 
 const PAGE_SECTIONS = [
   { id: "planner", label: "Working with Planner" },

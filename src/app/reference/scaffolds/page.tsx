@@ -1,6 +1,12 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { manifest } from "@/data";
 import { REPO_BASE } from "@/config/urls";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Scaffolds | yo, go",
+  description: "Project scaffold templates for yo, go. Start new projects with Next.js + Prisma, Next.js + Supabase, or Go + Chi + PostgreSQL boilerplate.",
+};
 
 // Define stack info for each scaffold
 const SCAFFOLD_DETAILS: Record<

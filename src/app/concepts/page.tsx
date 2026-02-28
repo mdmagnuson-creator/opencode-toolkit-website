@@ -1,5 +1,11 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Concepts | yo, go",
+  description: "Learn the core concepts behind yo, go: agents, skills, workflows, testing, vectorization, and more. Understand how AI agents work together to build software.",
+};
 
 const concepts = [
   {

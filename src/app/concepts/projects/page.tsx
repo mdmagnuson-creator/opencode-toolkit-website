@@ -1,5 +1,11 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects | yo, go",
+  description: "Project structure and configuration in yo, go. Learn about the docs/ directory, project.json manifest, CONVENTIONS.md, PRDs, and project bootstrapping.",
+};
 
 const PAGE_SECTIONS = [
   { id: "docs-directory", label: "The docs/ Directory" },

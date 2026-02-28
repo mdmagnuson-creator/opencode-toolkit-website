@@ -2,6 +2,12 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
 import { getRegularSkills } from "@/data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Skills | yo, go",
+  description: "Understand how skills extend agent capabilities in yo, go. Skills provide specialized knowledge for authentication, testing, PRD workflows, and more.",
+};
 
 const PAGE_SECTIONS = [
   { id: "skills-vs-agents", label: "Skills vs Agents" },

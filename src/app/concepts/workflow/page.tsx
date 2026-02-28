@@ -1,5 +1,11 @@
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OnThisPageNav } from "@/components/OnThisPageNav";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Workflow | yo, go",
+  description: "The four-phase development workflow: Plan, Build, Test, Ship. Learn how yo, go agents coordinate through PRDs, trunk-based git, and multi-session collaboration.",
+};
 
 const PAGE_SECTIONS = [
   { id: "four-phases", label: "The Four Phases" },
