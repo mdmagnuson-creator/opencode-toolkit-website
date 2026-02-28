@@ -255,13 +255,12 @@ export default function TestingConceptPage() {
                 <p className="mb-3 text-center text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-500">
                   E2E Testing Layer
                 </p>
-                <div className="flex flex-wrap justify-center gap-3">
-                  {[
-                    { name: "e2e-playwright", desc: "Writes E2E tests" },
-                    { name: "e2e-reviewer", desc: "Identifies test gaps" },
-                    { name: "playwright-dev", desc: "Automation tasks" },
-                    { name: "e2e-tester", desc: "Runs full suites" },
-                  ].map((agent) => (
+                 <div className="flex flex-wrap justify-center gap-3">
+                   {[
+                     { name: "e2e-playwright", desc: "Writes E2E tests" },
+                     { name: "e2e-reviewer", desc: "Identifies test gaps" },
+                     { name: "playwright-dev", desc: "Automation tasks" },
+                   ].map((agent) => (
                     <div
                       key={agent.name}
                       className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-2 dark:border-purple-800 dark:bg-purple-950"
@@ -2130,7 +2129,7 @@ export default function TestingConceptPage() {
                   End-to-end testing using Playwright. Tests complete user flows
                   through the browser.
                 </p>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="mt-4 grid gap-4 sm:grid-cols-3">
                   <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
                     <code className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                       e2e-playwright
@@ -2156,15 +2155,6 @@ export default function TestingConceptPage() {
                     <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
                       Implements Playwright automation tasks, fixtures, and
                       utilities.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
-                    <code className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                      e2e-tester
-                    </code>
-                    <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
-                      Runs full E2E test suites and reports results. Primary
-                      agent for E2E execution.
                     </p>
                   </div>
                 </div>
@@ -2742,7 +2732,7 @@ export default function TestingConceptPage() {
           </h2>
           <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
             The toolkit includes a complete end-to-end testing pipeline using
-            Playwright. Four specialized agents work together to identify test
+            Playwright. Three specialized agents work together to identify test
             gaps, write comprehensive tests, and run full browser-based test
             suites.
           </p>
@@ -2865,7 +2855,7 @@ export default function TestingConceptPage() {
                 </svg>
               </div>
 
-              {/* Step 4: e2e-tester */}
+              {/* Step 4: Builder runs tests */}
               <div className="flex items-center gap-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-100 text-sm font-semibold text-green-700 dark:bg-green-900 dark:text-green-300">
                   4
@@ -2873,14 +2863,14 @@ export default function TestingConceptPage() {
                 <div className="flex-1 rounded-lg border-2 border-green-300 bg-green-50 px-4 py-3 dark:border-green-700 dark:bg-green-950">
                   <div className="flex items-center gap-2">
                     <code className="text-sm font-semibold text-green-900 dark:text-green-100">
-                      e2e-tester
+                      Builder
                     </code>
                     <span className="rounded bg-green-200 px-1.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-800 dark:text-green-200">
                       runs
                     </span>
                   </div>
                   <p className="mt-1 text-sm text-green-700 dark:text-green-400">
-                    Executes full E2E suite, generates failure reports
+                    Executes Playwright tests, handles failures, and ships
                   </p>
                 </div>
               </div>
@@ -3283,133 +3273,9 @@ export default function TestingConceptPage() {
               </div>
             </div>
 
-            {/* e2e-tester */}
-            <div className="rounded-xl border border-green-200 bg-white p-6 dark:border-green-800 dark:bg-neutral-900">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-600 text-white">
-                      <svg
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                        e2e-tester
-                      </h4>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        E2E Suite Runner
-                      </p>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-                    The primary agent for running full E2E test suites. Executes
-                    all Playwright tests, generates detailed failure reports, and
-                    creates draft PRDs for any failures that need fixing.
-                  </p>
-                </div>
-              </div>
-
-              {/* Details Grid */}
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                {/* On Failure */}
-                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    On Test Failure
-                  </p>
-                  <div className="mt-2">
-                    <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                      Creates draft PRD for fix
-                    </span>
-                  </div>
-                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                    Failures are tracked and queued for resolution
-                  </p>
-                </div>
-
-                {/* Dev Server */}
-                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Execution Environment
-                  </p>
-                  <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                    Uses dev server for testing
-                  </p>
-                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                    Tests run against local development server
-                  </p>
-                </div>
-
-                {/* Capabilities */}
-                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Key Capabilities
-                  </p>
-                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                      Full test suite execution
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                      Parallel browser testing
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                      Detailed failure reports with screenshots
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                      Automatic draft PRD generation
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                      Retry logic for flaky tests
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                      CI/CD integration support
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Link */}
-              <div className="mt-6">
-                <Link
-                  href="/reference/agents/e2e-tester"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
-                >
-                  View full agent documentation
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </div>
+            {/* Key Concepts */}
           </div>
 
-          {/* Key Concepts */}
           <div className="mt-12">
             <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
               Key Concepts
@@ -3500,8 +3366,8 @@ export default function TestingConceptPage() {
                     </h4>
                     <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                       When E2E tests fail, the{" "}
-                      <code className="rounded bg-green-100 px-1 py-0.5 text-xs dark:bg-green-900">
-                        e2e-tester
+                      <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">
+                        e2e-reviewer
                       </code>{" "}
                       automatically generates a draft PRD describing the issue.
                       This ensures failures are tracked and queued for
@@ -3582,11 +3448,8 @@ export default function TestingConceptPage() {
                       <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-700">
                         project.json
                       </code>
-                      . The{" "}
-                      <code className="rounded bg-green-100 px-1 py-0.5 text-xs dark:bg-green-900">
-                        e2e-tester
-                      </code>{" "}
-                      manages starting and stopping the server automatically.
+                      . Builder manages starting and stopping the server
+                      automatically.
                     </p>
                     <div className="mt-4 rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
                       <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
@@ -5464,7 +5327,7 @@ await expectMutualExclusivity(
                   </p>
                   <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
                     <code className="rounded bg-purple-100 px-1 py-0.5 text-xs text-purple-900 dark:bg-purple-900 dark:text-purple-100">
-                      e2e-tester
+                      e2e-playwright
                     </code>{" "}
                     runs full browser tests for complete coverage
                   </p>
