@@ -3337,6 +3337,72 @@ export default function HumanWorkModesPage() {
               </ul>
             </div>
           </div>
+
+          {/* Root Cause Analysis */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Root Cause Analysis Requirement
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Before attempting any fix, agents must diagnose the root cause first. This prevents
+              band-aid fixes that hide real bugs and create technical debt.
+            </p>
+            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-5 dark:border-red-800 dark:bg-red-950">
+              <p className="text-sm font-medium text-red-900 dark:text-red-100">Agents are instructed to stop if they catch themselves:</p>
+              <ul className="mt-3 space-y-2 text-sm text-red-800 dark:text-red-200">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-500" />
+                  <span>Adding <code className="rounded bg-red-100 px-1 py-0.5 text-xs dark:bg-red-900">setTimeout</code> or delays to mask timing issues</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-500" />
+                  <span>Using <code className="rounded bg-red-100 px-1 py-0.5 text-xs dark:bg-red-900">!important</code> in CSS instead of fixing specificity</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-500" />
+                  <span>Making multiple speculative changes in one edit</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-500" />
+                  <span>Swallowing errors with empty catch blocks</span>
+                </li>
+              </ul>
+            </div>
+            <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+              Instead, agents trace the problem systematically — checking for duplicate selectors,
+              cascade conflicts, conditional branches, and data flow — before forming a hypothesis
+              and making a targeted single-change fix.
+            </p>
+          </div>
+
+          {/* Identity Lock Protection */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Identity Lock Protection
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              When agents commit code, they verify the git identity matches your configured user
+              to prevent commits under the wrong identity. This is especially important when working
+              across multiple machines with different git configurations.
+            </p>
+            <div className="mt-4 rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-950">
+              <p className="text-sm font-medium text-green-900 dark:text-green-100">Protection includes:</p>
+              <ul className="mt-3 space-y-2 text-sm text-green-800 dark:text-green-200">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-500" />
+                  <span>Verify git user.name and user.email before committing</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-500" />
+                  <span>Alert if identity differs from expected configuration</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-500" />
+                  <span>Never modify git config — report and ask instead</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
