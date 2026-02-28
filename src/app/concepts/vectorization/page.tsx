@@ -853,9 +853,40 @@ export default function VectorizationPage() {
             Database Indexing
           </h2>
           <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
-            Vectorization can index your database schema and config tables,
-            giving agents full awareness of your data model.
+            Vectorization can index your database schema and configuration data,
+            giving agents full awareness of your data model and config-driven behaviors.
           </p>
+
+          {/* Why Database Context Matters */}
+          <div className="mt-10 rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-950">
+            <h3 className="flex items-center gap-2 font-semibold text-amber-900 dark:text-amber-100">
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+                />
+              </svg>
+              Why This Matters
+            </h3>
+            <p className="mt-3 text-sm text-amber-800 dark:text-amber-200">
+              Many applications have <strong>configuration-driven behavior</strong> where
+              rendering, logic, and features are determined by database values, not just code.
+              Without access to this data, agents can only see the &quot;how&quot; (code) but not the
+              &quot;what&quot; (the actual configurations that drive behavior).
+            </p>
+            <p className="mt-3 text-sm text-amber-700 dark:text-amber-300">
+              By indexing config tables, agents understand not just your schema structure,
+              but the actual settings, rules, and configurations that make your application
+              work the way it does.
+            </p>
+          </div>
 
           {/* What Gets Indexed */}
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
@@ -863,6 +894,9 @@ export default function VectorizationPage() {
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
                 Schema Extraction
               </h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                The database structure itself — what tables exist and how they relate.
+              </p>
               <ul className="mt-4 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
                 <li className="flex items-start gap-2">
                   <svg
@@ -931,27 +965,296 @@ export default function VectorizationPage() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
-              <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
-                Config Table Extraction
+            <div className="rounded-xl border border-purple-200 bg-purple-50 p-6 dark:border-purple-800 dark:bg-purple-950">
+              <h3 className="font-semibold text-purple-900 dark:text-purple-100">
+                Config Data Extraction
               </h3>
-              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                Designated config tables (like pricing_tiers, feature_flags)
-                have their rows indexed so agents understand your business
-                logic.
+              <p className="mt-2 text-sm text-purple-700 dark:text-purple-300">
+                Actual row data from configuration tables — the values that drive behavior.
               </p>
-              <div className="mt-4 rounded-lg bg-neutral-100 p-3 text-xs dark:bg-neutral-800">
-                <p className="font-medium text-neutral-700 dark:text-neutral-300">
-                  Example: pricing_tiers
+              <ul className="mt-4 space-y-2 text-sm text-purple-700 dark:text-purple-300">
+                <li className="flex items-start gap-2">
+                  <svg
+                    className="mt-0.5 h-4 w-4 shrink-0 text-purple-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                  Sample rows from designated tables
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg
+                    className="mt-0.5 h-4 w-4 shrink-0 text-purple-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                  Table descriptions for context
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg
+                    className="mt-0.5 h-4 w-4 shrink-0 text-purple-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                  Configurable row limits per table
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Config-Driven Behavior Explanation */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Understanding Config-Driven Behavior
+            </h3>
+            <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+              In many applications, code is generic and behavior is determined by database
+              configurations. Agents need access to this data to understand how your
+              application actually works.
+            </p>
+
+            {/* Examples Grid */}
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                  Feature Flags
                 </p>
-                <p className="mt-1 text-neutral-500 dark:text-neutral-400">
-                  Free: $0, 1 user, [&quot;basic&quot;]
+                <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  feature_flags
                 </p>
-                <p className="text-neutral-500 dark:text-neutral-400">
-                  Pro: $29, 5 users, [&quot;basic&quot;, &quot;api&quot;]
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Which features are enabled, for which users/tiers, rollout percentages
                 </p>
-                <p className="text-neutral-500 dark:text-neutral-400">
-                  Enterprise: $99, unlimited...
+              </div>
+
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                  Pricing & Limits
+                </p>
+                <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  pricing_tiers, subscription_limits
+                </p>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Plan names, prices, quotas, feature access by tier
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                  Permissions
+                </p>
+                <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  roles, permissions, role_permissions
+                </p>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  What each role can do, permission hierarchies
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                  Dynamic Forms
+                </p>
+                <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  form_definitions, field_configs
+                </p>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Form fields, validation rules, conditional logic stored in DB
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                  Workflows
+                </p>
+                <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  workflow_steps, state_machines
+                </p>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  State transitions, approval chains, automation rules
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                  UI Configuration
+                </p>
+                <p className="mt-2 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  menu_items, dashboard_widgets
+                </p>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Navigation structure, layout configs, theme settings
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Code vs Data Example */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Example: Code Alone Isn&apos;t Enough
+            </h3>
+            <div className="mt-6 grid gap-6 lg:grid-cols-2">
+              {/* Code side */}
+              <div>
+                <p className="mb-3 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                  The code is generic:
+                </p>
+                <div className="overflow-x-auto rounded-lg bg-neutral-900 p-4 text-sm dark:bg-neutral-950">
+                  <pre className="text-neutral-100">
+                    <code>{`function canAccessFeature(user, featureKey) {
+  const tier = user.subscriptionTier;
+  const tierConfig = await db.pricing_tiers
+    .findOne({ name: tier });
+  
+  return tierConfig.features
+    .includes(featureKey);
+}`}</code>
+                  </pre>
+                </div>
+                <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
+                  Without config data, an agent doesn&apos;t know what tiers exist or what
+                  features each tier includes.
+                </p>
+              </div>
+
+              {/* Data side */}
+              <div>
+                <p className="mb-3 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                  The config data explains behavior:
+                </p>
+                <div className="overflow-x-auto rounded-lg bg-neutral-900 p-4 text-sm dark:bg-neutral-950">
+                  <pre className="text-neutral-100">
+                    <code>{`-- pricing_tiers (indexed)
+| name       | features                    |
+|------------|----------------------------|
+| free       | ["basic_search"]           |
+| pro        | ["basic_search", "api",    |
+|            |  "export", "webhooks"]     |
+| enterprise | ["*"]                       |`}</code>
+                  </pre>
+                </div>
+                <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
+                  Now an agent knows: &quot;API access requires Pro tier, Enterprise gets
+                  everything.&quot;
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Configuration Example */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Configuring Config Tables
+            </h3>
+            <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+              Designate which tables contain configuration data in your{" "}
+              <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">
+                project.json
+              </code>
+              :
+            </p>
+            <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
+              <pre className="bg-neutral-900 p-6 text-sm text-neutral-100 dark:bg-neutral-950">
+                <code>{`{
+  "vectorization": {
+    "database": {
+      "enabled": true,
+      "configTables": [
+        {
+          "table": "public.pricing_tiers",
+          "description": "Subscription pricing and feature limits",
+          "sampleRows": 10
+        },
+        {
+          "table": "public.feature_flags",
+          "description": "Feature toggles and rollout config",
+          "sampleRows": 50
+        },
+        {
+          "table": "public.roles",
+          "description": "User roles and permission sets",
+          "sampleRows": 20
+        },
+        {
+          "table": "public.workflow_states",
+          "description": "State machine definitions for approval flows",
+          "sampleRows": 30
+        }
+      ]
+    }
+  }
+}`}</code>
+              </pre>
+            </div>
+            <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+              Each config table is indexed with its description and sample rows, making
+              the data searchable alongside your code.
+            </p>
+          </div>
+
+          {/* Agent Query Examples */}
+          <div className="mt-10 rounded-xl border border-blue-200 bg-blue-50 p-6 dark:border-blue-800 dark:bg-blue-950">
+            <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+              How Agents Use Config Data
+            </h3>
+            <div className="mt-4 space-y-4">
+              <div className="rounded-lg bg-blue-100 p-4 dark:bg-blue-900">
+                <p className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                  Agent query:
+                </p>
+                <p className="mt-1 text-sm font-medium text-blue-900 dark:text-blue-100">
+                  &quot;What features are available on the Pro plan?&quot;
+                </p>
+                <p className="mt-2 text-xs text-blue-700 dark:text-blue-300">
+                  → Returns pricing_tiers row for Pro with features array
+                </p>
+              </div>
+
+              <div className="rounded-lg bg-blue-100 p-4 dark:bg-blue-900">
+                <p className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                  Agent query:
+                </p>
+                <p className="mt-1 text-sm font-medium text-blue-900 dark:text-blue-100">
+                  &quot;How does the approval workflow work?&quot;
+                </p>
+                <p className="mt-2 text-xs text-blue-700 dark:text-blue-300">
+                  → Returns workflow_states showing state transitions + code that implements them
+                </p>
+              </div>
+
+              <div className="rounded-lg bg-blue-100 p-4 dark:bg-blue-900">
+                <p className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                  Agent query:
+                </p>
+                <p className="mt-1 text-sm font-medium text-blue-900 dark:text-blue-100">
+                  &quot;What permissions does the editor role have?&quot;
+                </p>
+                <p className="mt-2 text-xs text-blue-700 dark:text-blue-300">
+                  → Returns roles and role_permissions data for &quot;editor&quot;
                 </p>
               </div>
             </div>
