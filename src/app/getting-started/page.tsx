@@ -354,6 +354,28 @@ Which project? _`}</code></pre>
                 Learn the Plan-Build-Test-Ship development cycle
               </p>
             </Link>
+            <Link
+              href="/concepts/authentication"
+              className="group rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-blue-500 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-blue-400"
+            >
+              <h3 className="font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                Authentication →
+              </h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Configure auth for E2E tests and authenticated screenshots
+              </p>
+            </Link>
+            <Link
+              href="/concepts/testing"
+              className="group rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-blue-500 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-blue-400"
+            >
+              <h3 className="font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                Testing →
+              </h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Unit tests, E2E tests, and Electron desktop testing
+              </p>
+            </Link>
           </div>
         </section>
       </main>
