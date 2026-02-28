@@ -106,8 +106,9 @@
         "Verify in browser"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "completedAt": "2026-02-28T00:00:00Z",
+      "notes": "Skill count is fully dynamic — homepage reads from manifest.counts.skills throughout (line 23: remainingSkillsCount, line 326: count badge, line 360: 'View all' text). No hardcoded counts found. No code changes needed.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
