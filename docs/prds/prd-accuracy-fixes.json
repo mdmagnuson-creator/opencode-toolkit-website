@@ -17,8 +17,8 @@
         "Verify in browser"
       ],
       "priority": 1,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Replaced e2e-tester card with e2e-reviewer card on getting-started/page.tsx. Typecheck and lint clean.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],

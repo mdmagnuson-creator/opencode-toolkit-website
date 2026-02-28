@@ -278,15 +278,15 @@ Which project? _`}</code></pre>
               </p>
             </Link>
             <Link
-              href="/reference/agents/e2e-tester"
+              href="/reference/agents/e2e-reviewer"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
-              <code className="rounded bg-purple-100 px-2 py-1 text-sm font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">@e2e-tester</code>
+              <code className="rounded bg-purple-100 px-2 py-1 text-sm font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">@e2e-reviewer</code>
               <h3 className="mt-2 font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-                Test End-to-End
+                Review E2E Tests
               </h3>
               <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                Run and maintain Playwright E2E tests for your application.
+                Identifies UI areas changed by a PR and delegates E2E test writing to specialist agents.
               </p>
             </Link>
             <Link
