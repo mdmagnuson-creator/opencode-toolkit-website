@@ -7,6 +7,11 @@ import { REPO_BASE, RELEASES_URL } from "@/config/urls";
 export const metadata: Metadata = {
   title: "Changelog | yo, go",
   description: "Recent updates and changes to yo, go and documentation website.",
+  openGraph: {
+    title: "Changelog | yo, go",
+    description: "Recent updates and changes to yo, go and documentation website.",
+    images: ["/og/changelog.png"],
+  },
 };
 
 // Baseline changelog from build-time data (SSR)

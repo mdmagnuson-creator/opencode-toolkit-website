@@ -5,6 +5,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Skills Reference | yo, go",
   description: "Browse all 43 skills in yo, go. Authentication, testing, PRD workflows, screenshots, and more. Skills extend agent capabilities with specialized knowledge.",
+  openGraph: {
+    title: "Skills Reference | yo, go",
+    description: "Browse all 43 skills in yo, go. Authentication, testing, PRD workflows, screenshots, and more. Skills extend agent capabilities with specialized knowledge.",
+    images: ["/og/reference-skills.png"],
+  },
 };
 
 export default function SkillsPage() {

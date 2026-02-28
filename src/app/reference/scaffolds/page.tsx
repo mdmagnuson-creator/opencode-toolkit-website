@@ -6,6 +6,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Scaffolds | yo, go",
   description: "Project scaffold templates for yo, go. Start new projects with Next.js + Prisma, Next.js + Supabase, or Go + Chi + PostgreSQL boilerplate.",
+  openGraph: {
+    title: "Scaffolds | yo, go",
+    description: "Project scaffold templates for yo, go. Start new projects with Next.js + Prisma, Next.js + Supabase, or Go + Chi + PostgreSQL boilerplate.",
+    images: ["/og/reference-scaffolds.png"],
+  },
 };
 
 // Define stack info for each scaffold

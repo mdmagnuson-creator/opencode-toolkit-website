@@ -5,8 +5,13 @@ import { getRegularSkills } from "@/data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Skills | yo, go",
-  description: "Understand how skills extend agent capabilities in yo, go. Skills provide specialized knowledge for authentication, testing, PRD workflows, and more.",
+  title: "Skills",
+  description: "Extend agent capabilities with specialized knowledge and workflows.",
+  openGraph: {
+    title: "Skills | yo, go",
+    description: "Extend agent capabilities with specialized knowledge and workflows.",
+    images: ["/og/concepts-skills.png"],
+  },
 };
 
 const PAGE_SECTIONS = [

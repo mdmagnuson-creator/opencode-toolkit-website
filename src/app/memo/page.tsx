@@ -5,6 +5,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Memo: in claude we trust",
   description: "A meditation on the shift from knowledge-constrained to context-constrained software development, and the dissolution of software as we know it.",
+  openGraph: {
+    title: "Memo: in claude we trust | yo, go",
+    description: "A meditation on the shift from knowledge-constrained to context-constrained software development, and the dissolution of software as we know it.",
+    images: ["/og/memo.png"],
+  },
 };
 
 const PAGE_SECTIONS = [

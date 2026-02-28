@@ -6,6 +6,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Human in the Loop | yo, go",
   description: "How humans work with AI agents in yo, go. Learn operating modes for Planner, Builder, and Toolkit agents, plus multi-session coordination patterns.",
+  openGraph: {
+    title: "The Human in the Loop | yo, go",
+    description: "How humans work with AI agents in yo, go. Learn operating modes for Planner, Builder, and Toolkit agents, plus multi-session coordination patterns.",
+    images: ["/og/concepts-human-loop.png"],
+  },
 };
 
 const PAGE_SECTIONS = [

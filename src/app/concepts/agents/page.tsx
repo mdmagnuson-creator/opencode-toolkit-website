@@ -5,8 +5,13 @@ import { manifest, getPrimaryAgents, getAgentsByCategory } from "@/data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Agents | yo, go",
-  description: "Learn how AI agents work in yo, go. Primary agents like Builder and Planner orchestrate work, while sub-agents handle specialized tasks like code review and testing.",
+  title: "Agents",
+  description: "Primary and sub-agents that build software autonomously.",
+  openGraph: {
+    title: "Agents | yo, go",
+    description: "Primary and sub-agents that build software autonomously.",
+    images: ["/og/concepts-agents.png"],
+  },
 };
 
 const PAGE_SECTIONS = [

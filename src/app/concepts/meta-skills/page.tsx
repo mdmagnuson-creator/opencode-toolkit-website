@@ -13,6 +13,11 @@ const PAGE_SECTIONS = [
 export const metadata = {
   title: "Meta-Skills | yo, go",
   description: "Meta-skills generate project-specific patterns based on your stack and configuration.",
+  openGraph: {
+    title: "Meta-Skills | yo, go",
+    description: "Meta-skills generate project-specific patterns based on your stack and configuration.",
+    images: ["/og/concepts-meta-skills.png"],
+  },
 };
 
 export default function MetaSkillsConceptPage() {

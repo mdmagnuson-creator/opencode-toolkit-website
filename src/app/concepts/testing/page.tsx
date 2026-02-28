@@ -6,6 +6,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Testing System | yo, go",
   description: "Comprehensive test automation with specialized agents. Unit tests, E2E with Playwright, QA adversarial testing, mutation testing, and automatic test activity selection.",
+  openGraph: {
+    title: "Testing System | yo, go",
+    description: "Comprehensive test automation with specialized agents. Unit tests, E2E with Playwright, QA adversarial testing, mutation testing, and automatic test activity selection.",
+    images: ["/og/concepts-testing.png"],
+  },
 };
 
 const PAGE_SECTIONS = [

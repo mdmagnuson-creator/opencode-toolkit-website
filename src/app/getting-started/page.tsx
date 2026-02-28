@@ -7,6 +7,11 @@ import { getInstallCommand } from '@/config/urls';
 export const metadata = {
   title: 'Getting Started | yo, go',
   description: 'Set up and start building with yo, go for agentic development.',
+  openGraph: {
+    title: 'Getting Started | yo, go',
+    description: 'Set up and start building with yo, go for agentic development.',
+    images: ['/og/getting-started.png'],
+  },
 };
 
 export default function GettingStartedPage() {

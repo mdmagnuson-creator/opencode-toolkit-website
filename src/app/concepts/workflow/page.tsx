@@ -5,6 +5,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Workflow | yo, go",
   description: "The four-phase development workflow: Plan, Build, Test, Ship. Learn how yo, go agents coordinate through PRDs, trunk-based git, and multi-session collaboration.",
+  openGraph: {
+    title: "Workflow | yo, go",
+    description: "The four-phase development workflow: Plan, Build, Test, Ship. Learn how yo, go agents coordinate through PRDs, trunk-based git, and multi-session collaboration.",
+    images: ["/og/concepts-workflow.png"],
+  },
 };
 
 const PAGE_SECTIONS = [

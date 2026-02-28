@@ -4,8 +4,13 @@ import { OnThisPageNav } from "@/components/OnThisPageNav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Vectorization | yo, go",
-  description: "Semantic search for your codebase and database schemas. Learn how agents use vector embeddings to find relevant code, understand patterns, and navigate large codebases.",
+  title: "Vectorization",
+  description: "Semantic search for code and database schemas using vector embeddings.",
+  openGraph: {
+    title: "Vectorization | yo, go",
+    description: "Semantic search for code and database schemas using vector embeddings.",
+    images: ["/og/concepts-vectorization.png"],
+  },
 };
 
 const PAGE_SECTIONS = [
