@@ -1,20 +1,20 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-28T23:45:00Z",
-  "syncedAt": "2026-02-28T14:49:00.959Z",
-  "toolkitCommit": "540885b",
+  "generatedAt": "2026-02-28T14:55:41Z",
+  "syncedAt": "2026-02-28T14:59:50.482Z",
+  "toolkitCommit": "pending",
   "counts": {
-    "agents": 64,
-    "primaryAgents": 4,
+    "agents": 63,
+    "primaryAgents": 3,
     "subagents": 60,
-    "skills": 43,
-    "metaSkills": 10,
+    "skills": 44,
+    "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
   },
   "categories": {
     "critics": 25,
-    "developers": 16,
+    "developers": 15,
     "testers": 9,
     "orchestrators": 3,
     "utilities": 11
@@ -105,14 +105,6 @@
       "description": "Reviews CloudFormation templates for security, best practices, and operational safety",
       "mode": "subagent",
       "category": "critics",
-      "content": ""
-    },
-    {
-      "slug": "coder",
-      "name": "Coder",
-      "description": "Default interactive coding assistant",
-      "mode": "primary",
-      "category": "developers",
       "content": ""
     },
     {
@@ -1024,6 +1016,18 @@
       "content": ""
     },
     {
+      "slug": "supabase-skill-generator",
+      "name": "Supabase Skill Generator",
+      "description": "Generate a project-specific Supabase database skill covering RLS, client patterns, and query types. Use when a project has supabase in integrations. Triggers on: generate supabase skill, supabase patterns, supabase-skill-generator.",
+      "triggers": [
+        "generate supabase skill",
+        "supabase patterns",
+        "supabase-skill-generator"
+      ],
+      "isMeta": true,
+      "content": ""
+    },
+    {
       "slug": "table-skill-generator",
       "name": "Table Skill Generator",
       "description": "Generate a project-specific data table patterns skill. Use for frontend apps to document table/list handling. Triggers on: generate table skill, create table patterns, table-skill-generator.",
@@ -1224,6 +1228,27 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-03-01",
+      "displayDate": "March 1, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add supabase-skill-generator for database/RLS/client patterns",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add Phase 3B.2 to developer for auto-promoting generated skills to toolkit",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "add supabase trigger to meta-skill-triggers.json",
+          "scope": "data"
+        }
+      ]
+    },
     {
       "date": "2026-02-28",
       "displayDate": "February 28, 2026",

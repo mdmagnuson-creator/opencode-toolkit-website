@@ -7,10 +7,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Reference | yo, go",
-  description: "Complete reference documentation for yo, go. Browse all 64 agents, 43 skills, scaffolds, agent templates, and MCP servers.",
+  description: "Complete reference documentation for yo, go. Browse all 63 agents, 44 skills, scaffolds, agent templates, and MCP servers.",
   openGraph: {
     title: "Reference | yo, go",
-    description: "Complete reference documentation for yo, go. Browse all 64 agents, 43 skills, scaffolds, agent templates, and MCP servers.",
+    description: "Complete reference documentation for yo, go. Browse all 63 agents, 44 skills, scaffolds, agent templates, and MCP servers.",
     images: ["/og/reference.png"],
   },
 };
