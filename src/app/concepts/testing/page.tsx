@@ -25,6 +25,7 @@ const PAGE_SECTIONS = [
   { id: "unit-test-specialists", label: "Unit Test Specialists" },
   { id: "e2e-testing-system", label: "E2E Testing System" },
   { id: "quality-patterns", label: "E2E Quality Patterns" },
+  { id: "electron-desktop-testing", label: "Electron Desktop Testing" },
   { id: "qa-adversarial", label: "QA & Adversarial Testing" },
   { id: "mutation-testing", label: "Mutation Testing" },
 ];
@@ -5194,6 +5195,170 @@ await expectMutualExclusivity(
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Electron Desktop Testing */}
+      <section id="electron-desktop-testing" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Electron Desktop Testing
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            For Electron desktop apps, the toolkit uses Playwright&apos;s Electron API instead of
+            browser-based testing. The{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">e2e-electron</code>{" "}
+            skill is automatically loaded when your project includes an Electron app entry.
+          </p>
+
+          <div className="mt-8 rounded-xl border border-purple-200 bg-purple-50 p-6 dark:border-purple-800 dark:bg-purple-950">
+            <h3 className="font-semibold text-purple-900 dark:text-purple-100">
+              Playwright Web vs Playwright Electron
+            </h3>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2 text-sm">
+              <div>
+                <h4 className="font-medium text-purple-900 dark:text-purple-100">Web (Standard)</h4>
+                <ul className="mt-2 space-y-1 text-purple-800 dark:text-purple-200">
+                  <li>• Connects to URL via browser</li>
+                  <li>• Uses <code className="rounded bg-purple-100 px-1 text-xs dark:bg-purple-900">page.goto()</code></li>
+                  <li>• Standard DOM selectors</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-purple-900 dark:text-purple-100">Electron</h4>
+                <ul className="mt-2 space-y-1 text-purple-800 dark:text-purple-200">
+                  <li>• Launches Electron binary directly</li>
+                  <li>• Uses <code className="rounded bg-purple-100 px-1 text-xs dark:bg-purple-900">electron.launch()</code></li>
+                  <li>• Access to main + renderer processes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h3 className="mt-8 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            project.json Configuration
+          </h3>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Configure your Electron app in the{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">apps[]</code>{" "}
+            array:
+          </p>
+
+          <div className="mt-6 overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-900 dark:border-neutral-700">
+            <pre className="p-6 text-sm leading-relaxed text-neutral-100">
+{`{
+  "apps": [
+    {
+      "name": "desktop",
+      "type": "electron",
+      "devServer": {
+        "startCommand": "npm run electron:dev",
+        "port": null,  // Electron doesn't use HTTP port
+        "readyPattern": "Electron ready"
+      },
+      "electron": {
+        // Path to built executable (for production testing)
+        "executablePath": "dist/MyApp-darwin-arm64/MyApp.app",
+        
+        // Args to launch in dev mode (uses electron .)
+        "devLaunchArgs": [".", "--no-sandbox"]
+      }
+    }
+  ]
+}`}
+            </pre>
+          </div>
+
+          <div className="mt-8 space-y-4">
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">executablePath</h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Path to your built Electron app. On macOS, this is typically{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">.app</code> bundle.
+                On Windows/Linux, point to the executable directly.
+              </p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">devLaunchArgs</h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Arguments passed to <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">electron</code>{" "}
+                binary during development. The first arg is typically{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">&quot;.&quot;</code>{" "}
+                to run from project root.
+              </p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">port: null</h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Unlike web apps, Electron apps don&apos;t expose an HTTP port. Set{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">port: null</code>{" "}
+                to indicate Playwright should launch the binary directly instead of connecting to a URL.
+              </p>
+            </div>
+          </div>
+
+          <h3 className="mt-8 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            How the e2e-electron Skill Works
+          </h3>
+          <div className="mt-6 space-y-4">
+            <div className="flex items-start gap-4">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-600 text-sm font-semibold text-white">
+                1
+              </div>
+              <div>
+                <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                  Skill is loaded automatically
+                </p>
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  When <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">type: &quot;electron&quot;</code>{" "}
+                  is detected in your project config, the e2e-electron skill activates.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-600 text-sm font-semibold text-white">
+                2
+              </div>
+              <div>
+                <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                  Playwright launches Electron
+                </p>
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  Tests use <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">electron.launch()</code>{" "}
+                  with your devLaunchArgs or executablePath.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-600 text-sm font-semibold text-white">
+                3
+              </div>
+              <div>
+                <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                  Tests interact with the window
+                </p>
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  Standard Playwright page APIs work on the Electron renderer process.
+                  Main process can be accessed via <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">electronApp.evaluate()</code>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-950">
+            <h3 className="font-semibold text-amber-900 dark:text-amber-100">
+              Multi-Platform Testing
+            </h3>
+            <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+              If your project has both web and Electron targets in the <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">apps[]</code>{" "}
+              array, agents automatically detect which platform a test targets based on the test file location
+              or explicit annotations. See the{" "}
+              <Link href="/concepts/projects#multi-platform-apps" className="text-amber-600 hover:underline dark:text-amber-400">
+                Multi-Platform Apps
+              </Link>{" "}
+              section for configuration details.
+            </p>
           </div>
         </div>
       </section>
