@@ -12,6 +12,12 @@
       "appliedAt": "2026-03-01T00:05:00Z",
       "appliedBy": "builder",
       "updateType": "sync"
+    },
+    {
+      "id": "2026-02-28-intelligent-delegation-prds",
+      "appliedAt": "2026-02-28T14:30:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
     }
   ]
 }

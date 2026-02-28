@@ -1193,6 +1193,66 @@ export default function HumanWorkModesPage() {
             </div>
           </div>
 
+          {/* Advanced Reliability Features */}
+          <div className="mt-12">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Advanced Reliability Features
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Builder applies techniques from AI delegation research to ensure sub-agent work is verifiable, resumable, and recoverable — even under adverse conditions.
+            </p>
+            <div className="mt-6 space-y-4">
+              {/* Verification Contracts */}
+              <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900">
+                    <svg className="h-5 w-5 text-green-700 dark:text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">Verification Contracts</h4>
+                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      Before delegating a story or task to a sub-agent, Builder generates a <em>verification contract</em> — a structured spec of what &quot;done&quot; looks like: expected files, required behaviours, and validation checks. After delegation completes, Builder validates the output against the contract before marking the story as passing. This catches incomplete work that might otherwise silently pass.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* Checkpoint Serialization */}
+              <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
+                    <svg className="h-5 w-5 text-blue-700 dark:text-blue-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">Checkpoint Serialization</h4>
+                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      Builder saves a detailed checkpoint at each major milestone — story start, post-delegation, post-test, pre-commit. Checkpoints capture the completed steps, pending steps, and any decisions made. If a session ends mid-story (rate limit, network drop, browser close), the next session resumes from the exact checkpoint rather than the beginning of the story.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* Dynamic Reassignment */}
+              <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900">
+                    <svg className="h-5 w-5 text-purple-700 dark:text-purple-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 3M21 7.5H7.5" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">Dynamic Reassignment</h4>
+                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      When a sub-agent fails twice on the same task, Builder consults a <em>fallback chain</em> — an ordered list of alternative agents that can handle the same work. For example, if the primary React developer agent fails, Builder may reassign to a general developer agent. Fallback chains are defined in the toolkit and can be overridden per project in <code className="rounded bg-neutral-200 px-1 py-0.5 text-xs dark:bg-neutral-700">docs/project.json</code> under <code className="rounded bg-neutral-200 px-1 py-0.5 text-xs dark:bg-neutral-700">agents.fallbackChains</code>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Pro Tips */}
           <div className="mt-12">
             <div className="rounded-lg bg-blue-50 p-4 dark:bg-blue-950">
