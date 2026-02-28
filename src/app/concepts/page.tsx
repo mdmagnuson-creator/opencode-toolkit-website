@@ -273,6 +273,81 @@ export default function ConceptsPage() {
             conceptual overview is designed for technical people who want to
             grasp the mental model before diving into specifics.
           </p>
+
+          {/* Quick Links to All Concepts */}
+          <div className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+              Jump to a concept
+            </h2>
+            <ul className="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+              <li>
+                <Link href="/concepts/agents" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Agents</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Primary vs sub-agents</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/agent-workflows" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Agent Workflows</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Update queues & coordination</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/skills" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Skills</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Task-specific workflows</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/meta-skills" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Meta-Skills</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Generate project patterns</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/projects" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Project Configuration</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— project.json & structure</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/workflow" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">PRDs & Planning</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— The Agent Loop</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/testing" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Testing System</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Multi-layered architecture</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/vectorization" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Vectorization</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Semantic code search</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/scaffolds" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Scaffolds</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Project templates</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/the-human-in-the-loop" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">The Human in the Loop</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Your role in the system</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/concepts/roadmap" className="group flex items-center gap-2 text-sm">
+                  <span className="font-medium text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">Roadmap</span>
+                  <span className="text-neutral-500 dark:text-neutral-500">— Upcoming features</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
 

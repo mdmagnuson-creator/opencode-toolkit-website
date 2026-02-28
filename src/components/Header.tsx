@@ -38,6 +38,8 @@ function buildNavigation(): NavItem[] {
         { name: "Meta-Skills", href: "/concepts/meta-skills", description: "Generate project patterns" },
         { name: "Project Skills", href: "/concepts/skills", description: "Task-specific workflows" },
         { name: "Project Toolkit Structure", href: "/concepts/projects", description: "Configuration & structure" },
+        { name: "Testing System", href: "/concepts/testing", description: "Multi-layered test architecture" },
+        { name: "Vectorization", href: "/concepts/vectorization", description: "Semantic code search" },
         { name: "The Agent Loop", href: "/concepts/workflow", description: "Plan-Build-Test-Ship cycle" },
         { name: "The Human in the Loop (you)", href: "/concepts/the-human-in-the-loop", description: "Control AI autonomy" },
       ],
