@@ -495,23 +495,11 @@ export default function TestingConceptPage() {
                       Go testing + testify
                     </td>
                   </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                        *.py
-                      </code>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-blue-100 px-1.5 py-0.5 text-sm font-medium text-blue-900 dark:bg-blue-900 dark:text-blue-100">
-                        python-tester
-                      </code>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      pytest
-                    </td>
-                  </tr>
                 </tbody>
               </table>
+              <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-400 italic">
+                Note: Python files (<code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">*.py</code>) do not yet have a dedicated specialist agent. The orchestrator will route to a general-purpose agent for Python test generation.
+              </p>
             </div>
           </div>
 

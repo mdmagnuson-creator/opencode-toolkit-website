@@ -42,8 +42,8 @@
         "Lint passes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Removed python-tester row, added italicized note below table explaining Python has no dedicated specialist. Typecheck clean.",
       "documentationRequired": false,
       "documentationType": null,
       "relatedArticleSlugs": [],
