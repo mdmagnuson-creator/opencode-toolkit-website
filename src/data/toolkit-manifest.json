@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-28T15:30:00Z",
-  "syncedAt": "2026-02-28T12:27:07.997Z",
-  "toolkitCommit": "pending",
+  "generatedAt": "2026-02-28T23:45:00Z",
+  "syncedAt": "2026-02-28T14:41:48.359Z",
+  "toolkitCommit": "540885b",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1228,6 +1228,26 @@
       "date": "2026-02-28",
       "displayDate": "February 28, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add test failure output policy to all testing agents",
+          "scope": "agents"
+        },
+        {
+          "type": "fix",
+          "description": "fix website sync to write to website project repo for cross-machine sync",
+          "scope": "toolkit"
+        },
+        {
+          "type": "fix",
+          "description": "add website impact assessment to post-change workflow",
+          "scope": "toolkit"
+        },
+        {
+          "type": "fix",
+          "description": "add mandatory PRD story status updates to prd-workflow skill",
+          "scope": "skills"
+        },
         {
           "type": "feat",
           "description": "add vectorize skill for codebase and database schema semantic search",
