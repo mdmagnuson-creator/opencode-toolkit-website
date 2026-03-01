@@ -152,7 +152,7 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
           {/* Collapsed state: minimal pill with expand button */}
           <button
             onClick={() => handleDesktopCollapse(false)}
-            className={`group flex items-center gap-2 rounded-full border border-neutral-200 bg-white/90 px-3 py-2 shadow-sm backdrop-blur-sm transition-all duration-[350ms] ease-out hover:border-violet-300 hover:bg-violet-50 dark:border-neutral-700 dark:bg-neutral-900/90 dark:hover:border-violet-700 dark:hover:bg-violet-950 ${
+            className={`group flex items-center gap-2 rounded-full border border-violet-300 bg-violet-50 px-3 py-2 shadow-sm backdrop-blur-sm transition-all duration-[350ms] ease-out hover:border-violet-400 hover:bg-violet-100 dark:border-violet-700 dark:bg-violet-950 dark:hover:border-violet-600 dark:hover:bg-violet-900 ${
               desktopCollapsed
                 ? "pointer-events-auto translate-x-0 opacity-100"
                 : "pointer-events-none translate-x-8 opacity-0"
@@ -162,7 +162,7 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
             tabIndex={desktopCollapsed ? 0 : -1}
           >
             <svg
-              className="h-4 w-4 text-neutral-500 group-hover:text-violet-600 dark:text-neutral-400 dark:group-hover:text-violet-400"
+              className="h-4 w-4 text-violet-600 group-hover:text-violet-700 dark:text-violet-400 dark:group-hover:text-violet-300"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={2}
@@ -174,11 +174,11 @@ export function OnThisPageNav({ sections, title = "On this page" }: OnThisPageNa
                 d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
               />
             </svg>
-            <span className="max-w-[120px] truncate text-xs font-medium text-neutral-600 group-hover:text-violet-700 dark:text-neutral-400 dark:group-hover:text-violet-300">
+            <span className="max-w-[120px] truncate text-xs font-medium text-violet-700 group-hover:text-violet-800 dark:text-violet-300 dark:group-hover:text-violet-200">
               {activeSection?.label ?? title}
             </span>
             <svg
-              className="h-3 w-3 text-neutral-400 group-hover:text-violet-500 dark:text-neutral-500 dark:group-hover:text-violet-400"
+              className="h-3 w-3 text-violet-500 group-hover:text-violet-600 dark:text-violet-400 dark:group-hover:text-violet-300"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={2}
