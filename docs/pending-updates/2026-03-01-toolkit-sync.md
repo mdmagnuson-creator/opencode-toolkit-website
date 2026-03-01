@@ -9,7 +9,7 @@ updateType: sync
 
 ## Summary
 
-Added "Loop Detection and Bulk Fix" guidance to Builder agent to help it recognize and break out of repetitive one-by-one fix patterns.
+Multiple Builder agent enhancements: loop detection, expanded git.autoCommit modes, and e2e-auditor category fix.
 
 ## Changes
 
@@ -20,12 +20,21 @@ Added "Loop Detection and Bulk Fix" guidance to Builder agent to help it recogni
   - Example of good vs bad approach
   - Reporting template for switching to bulk mode
 
+- Modified: `agents/builder.md` — Expanded `git.autoCommit` from boolean to enum:
+  - `onStoryComplete` (default) — commit after each story/task
+  - `onFileChange` — commit after each file modification
+  - `manual` — stage only, never commit
+  - Legacy `true`/`false` still supported
+
+- Modified: `toolkit-structure.json` — Moved `e2e-auditor` from testing category to primary category (matches its `mode: primary` frontmatter)
+
 ## Affected Website Pages
 
-- [ ] Builder agent documentation page (if it documents Builder's recovery/resilience features)
+- [ ] Builder agent documentation page (auto-commit modes, loop detection)
 - [ ] Agent capabilities overview (if it lists agent self-correction features)
+- [ ] Agent index/listing (e2e-auditor category change)
 
 ## Source
 
-- Commit: pending
+- Commits: ee6c60c (loop detection), pending (autoCommit + e2e-auditor fix)
 - toolkit-structure.json: https://raw.githubusercontent.com/mdmagnuson-creator/yo-go/main/toolkit-structure.json
