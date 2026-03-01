@@ -23,6 +23,11 @@
             "name": "toolkit",
             "file": "agents/toolkit.md",
             "description": "Maintains the AI toolkit - agents, skills, templates, and scaffolds"
+          },
+          {
+            "name": "e2e-auditor",
+            "file": "agents/e2e-auditor.md",
+            "description": "Autonomous E2E test auditor that analyzes apps and generates comprehensive test coverage"
           }
         ]
       },
@@ -94,11 +99,6 @@
       "testing": {
         "description": "Test creation and QA agents",
         "agents": [
-          {
-            "name": "e2e-auditor",
-            "file": "agents/e2e-auditor.md",
-            "description": "Autonomous E2E test auditor that analyzes apps and generates comprehensive test coverage"
-          },
           {
             "name": "e2e-playwright",
             "file": "agents/e2e-playwright.md",
