@@ -41,9 +41,9 @@ export default function Home() {
               </span>
               <span className="text-sm text-neutral-500 dark:text-neutral-400">Latest additions to the toolkit</span>
             </div>
-            <a href="/changelog" className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+            <Link href="/changelog" className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
               View all changes →
-            </a>
+            </Link>
           </div>
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {/* Authentication System */}
