@@ -1,12 +1,12 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-28T18:45:00Z",
-  "syncedAt": "2026-03-01T13:13:28.944Z",
+  "generatedAt": "2026-03-01T11:30:00Z",
+  "syncedAt": "2026-03-01T13:31:03.061Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
-    "primaryAgents": 3,
-    "subagents": 61,
+    "primaryAgents": 4,
+    "subagents": 60,
     "skills": 45,
     "metaSkills": 11,
     "scaffolds": 3,
@@ -14,8 +14,8 @@
   },
   "categories": {
     "critics": 28,
-    "developers": 15,
-    "testers": 10,
+    "developers": 16,
+    "testers": 9,
     "orchestrators": 3,
     "utilities": 8
   },
@@ -175,8 +175,8 @@
       "slug": "e2e-auditor",
       "name": "E2e Auditor",
       "description": "Autonomous E2E test auditor that analyzes apps and generates comprehensive test coverage",
-      "mode": "subagent",
-      "category": "testers",
+      "mode": "primary",
+      "category": "developers",
       "content": ""
     },
     {
@@ -1248,6 +1248,27 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-03-01",
+      "displayDate": "March 1, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "expand git.autoCommit to support onStoryComplete, onFileChange, manual modes",
+          "scope": "builder"
+        },
+        {
+          "type": "fix",
+          "description": "move e2e-auditor from testing to primary category (matches mode: primary)",
+          "scope": "toolkit-structure"
+        },
+        {
+          "type": "feat",
+          "description": "add loop detection and bulk fix guidance to prevent repetitive one-by-one fixes",
+          "scope": "builder"
+        }
+      ]
+    },
     {
       "date": "2026-02-28",
       "displayDate": "February 28, 2026",

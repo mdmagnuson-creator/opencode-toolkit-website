@@ -792,7 +792,7 @@ export default function VectorizationPage() {
               </p>
               <div className="rounded-lg bg-blue-100 p-4 font-mono text-xs dark:bg-blue-900">
                 <p className="text-blue-600 dark:text-blue-400">
-                  // @builder implementing auth feature
+                  {/* @builder implementing auth feature */}
                 </p>
                 <p className="mt-2">
                   Before implementing, let me search for existing patterns:
