@@ -204,10 +204,10 @@ export function GettingStartedClient({
                 opencode works inside your project. You need to point your terminal at the folder you want to work on.
               </p>
               <div className="mt-4">
-                <CodeBlockWithCopy code="cd path/to/your-project" />
+                <CodeBlockWithCopy code="cd ~/code/your-project" />
               </div>
               <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-500">
-                Replace <code className="text-neutral-600 dark:text-neutral-400">path/to/your-project</code> with the actual path to your project.
+                Replace <code className="text-neutral-600 dark:text-neutral-400">your-project</code> with your project folder name.
               </p>
               
               <div className="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900/50 dark:bg-blue-900/20">
@@ -217,9 +217,9 @@ export function GettingStartedClient({
                 <div className="mt-3">
                   <div className="flex items-center gap-2">
                     <code className="flex-1 rounded bg-blue-100 px-3 py-2 text-sm text-blue-900 dark:bg-blue-900/40 dark:text-blue-100">
-                      mkdir my-project && cd my-project
+                      mkdir ~/code/my-project && cd ~/code/my-project
                     </code>
-                    <CopyButton text="mkdir my-project && cd my-project" />
+                    <CopyButton text="mkdir ~/code/my-project && cd ~/code/my-project" />
                   </div>
                 </div>
               </div>
@@ -266,58 +266,30 @@ export function GettingStartedClient({
 
               <div className="mt-6">
                 <h4 className="font-medium text-neutral-900 dark:text-white mb-3">
-                  Agents are invoked with @
+                  Select an agent
                 </h4>
                 <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-400 mb-4">
-                  Type <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@</code> followed by the agent name to invoke it. Here are some prompts to try:
+                  Press <kbd className="rounded bg-neutral-200 px-2 py-1 text-sm font-mono dark:bg-neutral-700">Tab</kbd> to open the agent selector, pick an agent (like <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@planner</code> or <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@builder</code>), then type your message.
                 </p>
 
-                <div className="space-y-4">
-                  {/* Prompt 1 */}
-                  <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
-                    <div className="flex items-start gap-3">
-                      <div className="flex-1">
-                        <code className="text-sm font-medium text-neutral-900 dark:text-white">
-                          @planner I want to build a task management app
-                        </code>
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                          Kicks off project setup and creates a PRD with user stories
-                        </p>
-                      </div>
-                      <CopyButton text="@planner I want to build a task management app" />
-                    </div>
-                  </div>
+                <TerminalMockup title="opencode">
+                  <code>{`┌─ opencode ─────────────────────────────────────────────┐
+│                                                        │
+│  ┌─ Select Agent ────────────────────────────────────┐ │
+│  │ ▸ @planner      Plan features and create PRDs     │ │
+│  │   @builder      Build and ship code               │ │
+│  │   @toolkit      Manage the agent toolkit          │ │
+│  │   @e2e-reviewer Review and write E2E tests        │ │
+│  └───────────────────────────────────────────────────┘ │
+│                                                        │
+│  > @planner _                                          │
+│                                                        │
+└────────────────────────────────────────────────────────┘`}</code>
+                </TerminalMockup>
 
-                  {/* Prompt 2 */}
-                  <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
-                    <div className="flex items-start gap-3">
-                      <div className="flex-1">
-                        <code className="text-sm font-medium text-neutral-900 dark:text-white">
-                          @builder implement the first user story
-                        </code>
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                          Starts building code based on an existing PRD
-                        </p>
-                      </div>
-                      <CopyButton text="@builder implement the first user story" />
-                    </div>
-                  </div>
-
-                  {/* Prompt 3 */}
-                  <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
-                    <div className="flex items-start gap-3">
-                      <div className="flex-1">
-                        <code className="text-sm font-medium text-neutral-900 dark:text-white">
-                          @toolkit audit my agents
-                        </code>
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                          Checks your toolkit installation and identifies gaps
-                        </p>
-                      </div>
-                      <CopyButton text="@toolkit audit my agents" />
-                    </div>
-                  </div>
-                </div>
+                <p className="mt-4 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                  For a simple first interaction, select <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@planner</code>, type <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">yo</code>, and press Enter.
+                </p>
               </div>
 
               <div className="mt-6">

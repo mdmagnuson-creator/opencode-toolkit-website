@@ -21,6 +21,9 @@ const steps = [
   { id: 'step-3', number: 3, title: 'Install the toolkit' },
   { id: 'step-4', number: 4, title: 'Go to your project' },
   { id: 'step-5', number: 5, title: 'Launch opencode' },
+  { id: 'step-6', number: 6, title: 'Select or add project' },
+  { id: 'step-7', number: 7, title: 'Bootstrap new projects' },
+  { id: 'step-8', number: 8, title: 'Define your first PRD' },
 ];
 
 export default function GettingStartedPage() {
@@ -78,10 +81,10 @@ export default function GettingStartedPage() {
           </p>
 
           <div className="space-y-8">
-            {/* Step 1: Project selection */}
-            <div>
+            {/* Step 6: Project selection */}
+            <section id="step-6" className="scroll-mt-24">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                1. Select or add a project
+                6. Select or add a project
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 The agent immediately shows you a project selection table:
@@ -103,12 +106,12 @@ Which project? _`}</code></pre>
               <p className="text-neutral-600 dark:text-neutral-300">
                 Select an existing project by number, or choose <strong>0</strong> to add a new one.
               </p>
-            </div>
+            </section>
 
-            {/* Step 2: Bootstrap */}
-            <div>
+            {/* Step 7: Bootstrap */}
+            <section id="step-7" className="scroll-mt-24">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                2. Bootstrap new projects
+                7. Bootstrap new projects
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 When you select &quot;Add New Project&quot;, the agent uses a streamlined quick intake flow:
@@ -124,12 +127,12 @@ Which project? _`}</code></pre>
               <p className="mt-4 text-neutral-600 dark:text-neutral-300">
                 After bootstrap, the agent automatically offers to create your first PRD with architecture options — so you can start building right away.
               </p>
-            </div>
+            </section>
 
-            {/* Step 3: First PRD */}
-            <div>
+            {/* Step 8: First PRD */}
+            <section id="step-8" className="scroll-mt-24">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                3. Define your first PRD
+                8. Define your first PRD
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 After setup, the agent immediately kicks off PRD creation. You&apos;ll define:
@@ -144,7 +147,7 @@ Which project? _`}</code></pre>
                 <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">@builder</code>{" "}
                 to start implementation.
               </p>
-            </div>
+            </section>
           </div>
         </section>
 
