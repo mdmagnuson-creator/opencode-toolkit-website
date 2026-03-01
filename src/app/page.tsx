@@ -450,18 +450,15 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Grab OpenCode
+                  Install opencode
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  The AI-native code editor that powers the agent system.
-                  Download it for your platform.
+                  A terminal-based AI coding tool. One command to install.
                 </p>
-                <a
-                  href="https://opencode.ai/download"
-                  className="mt-4 inline-flex h-11 min-w-[44px] items-center justify-center rounded-lg bg-neutral-900 px-6 text-sm font-medium text-white transition-colors hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:ring-offset-neutral-900"
-                >
-                  Download OpenCode
-                </a>
+                <CodeBlockWithCopy
+                  code="curl -fsSL https://opencode.ai/install.sh | bash"
+                  className="mt-3"
+                />
               </div>
             </div>
 
@@ -472,18 +469,14 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Pick a Provider
+                  Connect a provider
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  Open the command palette with{" "}
-                  <kbd className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
-                    Ctrl+P
-                  </kbd>
-                  , type{" "}
+                  Launch opencode and run{" "}
                   <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-xs sm:text-sm dark:bg-neutral-800">
-                    provider
-                  </code>
-                  , and connect to your model of choice.
+                    /connect
+                  </code>{" "}
+                  to link your AI provider (GitHub Copilot, Anthropic, OpenAI, etc.).
                 </p>
               </div>
             </div>
@@ -495,10 +488,10 @@ export default function Home() {
               </div>
               <div className="min-w-0 pt-0.5 sm:pt-1">
                 <h3 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-50">
-                  Run the Installer
+                  Install the toolkit
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-700 sm:text-base dark:text-neutral-400">
-                  One command. Everything changes.
+                  Add the agents, skills, and project templates.
                 </p>
                 <CodeBlockWithCopy
                   code={getInstallCommand()}
