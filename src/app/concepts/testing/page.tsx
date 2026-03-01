@@ -258,10 +258,11 @@ export default function TestingConceptPage() {
                 </p>
                  <div className="flex flex-wrap justify-center gap-3">
                    {[
-                     { name: "e2e-playwright", desc: "Writes E2E tests" },
-                     { name: "e2e-reviewer", desc: "Identifies test gaps" },
-                     { name: "playwright-dev", desc: "Automation tasks" },
-                   ].map((agent) => (
+                      { name: "e2e-playwright", desc: "Writes E2E tests" },
+                      { name: "e2e-reviewer", desc: "Identifies test gaps" },
+                      { name: "playwright-dev", desc: "Automation tasks" },
+                      { name: "e2e-auditor", desc: "Full app audits" },
+                    ].map((agent) => (
                     <div
                       key={agent.name}
                       className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-2 dark:border-purple-800 dark:bg-purple-950"
@@ -1990,7 +1991,7 @@ export default function TestingConceptPage() {
                   End-to-end testing using Playwright. Tests complete user flows
                   through the browser.
                 </p>
-                <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
                     <code className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                       e2e-playwright
@@ -2016,6 +2017,14 @@ export default function TestingConceptPage() {
                     <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
                       Implements Playwright automation tasks, fixtures, and
                       utilities.
+                    </p>
+                  </div>
+                  <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                    <code className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                      e2e-auditor
+                    </code>
+                    <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
+                      Comprehensive E2E test audits with 5-retry resilience.
                     </p>
                   </div>
                 </div>
@@ -2593,9 +2602,10 @@ export default function TestingConceptPage() {
           </h2>
           <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
             The toolkit includes a complete end-to-end testing pipeline using
-            Playwright. Three specialized agents work together to identify test
-            gaps, write comprehensive tests, and run full browser-based test
-            suites.
+            Playwright. Four specialized agents work together to identify test
+            gaps, write comprehensive tests, run full browser-based test
+            suites, and perform comprehensive test audits across your entire
+            application.
           </p>
 
           {/* E2E Workflow Diagram */}
@@ -3115,6 +3125,128 @@ export default function TestingConceptPage() {
                 <Link
                   href="/reference/agents/playwright-dev"
                   className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                >
+                  View full agent documentation
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* e2e-auditor */}
+            <div className="rounded-xl border border-teal-200 bg-white p-6 dark:border-teal-800 dark:bg-neutral-900">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-600 text-white">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                        e2e-auditor
+                      </h4>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        Comprehensive E2E Test Auditor
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+                    Autonomous agent for comprehensive E2E test audits. Analyzes
+                    your entire application, generates tests for all critical
+                    flows, and executes with 5-retry resilience—committing after
+                    each passing test to preserve progress.
+                  </p>
+                </div>
+              </div>
+
+              {/* Details Grid */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* Manifest Output */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Manifest Output
+                  </p>
+                  <div className="mt-2">
+                    <code className="rounded bg-teal-100 px-2 py-1 text-sm font-medium text-teal-900 dark:bg-teal-900 dark:text-teal-100">
+                      e2e-audit-manifest.json
+                    </code>
+                  </div>
+                </div>
+
+                {/* Use Cases */}
+                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Use Cases
+                  </p>
+                  <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
+                    <li>Full-app E2E audits</li>
+                    <li>Legacy app test bootstrapping</li>
+                    <li>Pre-release coverage checks</li>
+                  </ul>
+                </div>
+
+                {/* Capabilities */}
+                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                    Key Capabilities
+                  </p>
+                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Full-app analysis and test planning
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      5-retry resilience per test
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Per-test commits for progress preservation
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Continue-on-failure execution
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Manifest-driven test tracking
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      PRD integration for test manifests
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="mt-6">
+                <Link
+                  href="/reference/agents/e2e-auditor"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
                 >
                   View full agent documentation
                   <svg

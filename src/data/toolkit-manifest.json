@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-02-28T14:55:41Z",
-  "syncedAt": "2026-02-28T14:59:50.482Z",
+  "generatedAt": "2026-02-28T18:45:00Z",
+  "syncedAt": "2026-03-01T02:20:54.255Z",
   "toolkitCommit": "pending",
   "counts": {
-    "agents": 63,
+    "agents": 64,
     "primaryAgents": 3,
-    "subagents": 60,
-    "skills": 44,
+    "subagents": 61,
+    "skills": 45,
     "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -15,7 +15,7 @@
   "categories": {
     "critics": 28,
     "developers": 15,
-    "testers": 9,
+    "testers": 10,
     "orchestrators": 3,
     "utilities": 8
   },
@@ -169,6 +169,14 @@
       "description": "Reviews exported/public package APIs for testability, consistency, and developer experience",
       "mode": "subagent",
       "category": "critics",
+      "content": ""
+    },
+    {
+      "slug": "e2e-auditor",
+      "name": "E2e Auditor",
+      "description": "Autonomous E2E test auditor that analyzes apps and generates comprehensive test coverage",
+      "mode": "subagent",
+      "category": "testers",
       "content": ""
     },
     {
@@ -737,6 +745,18 @@
       "content": ""
     },
     {
+      "slug": "e2e-full-audit",
+      "name": "E2e Full Audit",
+      "description": "Comprehensive E2E test auditing workflow. Analyzes apps, generates test manifests, and executes with 5-retry resilience. Triggers on: e2e audit, full coverage audit, comprehensive e2e.",
+      "triggers": [
+        "e2e audit",
+        "full coverage audit",
+        "comprehensive e2e"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "e2e-quality",
       "name": "E2e Quality",
       "description": "Quality-beyond-correctness E2E testing patterns. Catches visual glitches, performance issues, layout shifts, and intermediate bad states. Triggers on: flicker test, visual stability, performance budget, negative assertion, CLS test, drag drop test, animation test.",
@@ -1229,30 +1249,49 @@
   ],
   "changelog": [
     {
-      "date": "2026-03-01",
-      "displayDate": "March 1, 2026",
+      "date": "2026-02-28",
+      "displayDate": "February 28, 2026",
       "changes": [
         {
           "type": "feat",
-          "description": "add supabase-skill-generator for database/RLS/client patterns",
-          "scope": "skills"
-        },
-        {
-          "type": "feat",
-          "description": "add Phase 3B.2 to developer for auto-promoting generated skills to toolkit",
+          "description": "add e2e-auditor agent for comprehensive autonomous E2E test auditing",
           "scope": "agents"
         },
         {
           "type": "feat",
-          "description": "add supabase trigger to meta-skill-triggers.json",
-          "scope": "data"
-        }
-      ]
-    },
-    {
-      "date": "2026-02-28",
-      "displayDate": "February 28, 2026",
-      "changes": [
+          "description": "add e2e-full-audit skill for audit workflow patterns and resilient execution",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add e2e-audit-manifest schema for test tracking with 5-retry resilience",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add audit-mode support to e2e-playwright agent",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "add e2e-auditor integration section to test-flow skill",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add dynamic reassignment with fallback chains (PRD #3)",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add checkpoint serialization for task resumption (PRD #2)",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add verification contracts for pre-delegation (PRD #1)",
+          "scope": "builder"
+        },
         {
           "type": "feat",
           "description": "add test failure output policy to all testing agents",
