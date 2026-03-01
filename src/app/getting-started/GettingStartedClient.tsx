@@ -1,25 +1,26 @@
 'use client';
 
+import Link from 'next/link';
 import { CopyButton } from '@/components/CopyButton';
 import { CodeBlockWithCopy } from '@/components/CodeBlockWithCopy';
-import { StepTracker, Step } from '@/components/StepTracker';
+import { OnThisPageNav, NavSection } from '@/components/OnThisPageNav';
 import { TerminalMockup } from '@/components/TerminalMockup';
 
 interface GettingStartedClientProps {
-  steps: Step[];
+  sections: NavSection[];
   opencodeInstallCommand: string;
   toolkitInstallCommand: string;
 }
 
 export function GettingStartedClient({
-  steps,
+  sections,
   opencodeInstallCommand,
   toolkitInstallCommand,
 }: GettingStartedClientProps) {
   return (
     <>
-      {/* Step tracker sidebar */}
-      <StepTracker steps={steps} />
+      {/* On this page navigation */}
+      <OnThisPageNav sections={sections} title="Steps" />
 
       {/* Main content */}
       <div className="flex-1 min-w-0 space-y-12">
@@ -317,6 +318,95 @@ Which project? _`}</code></pre>
                   Select an existing project or add a new one. The agent will then bootstrap project configuration and guide you through creating your first PRD.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Step 6: Select or add project */}
+        <section id="step-6" className="scroll-mt-24">
+          <div className="flex gap-6">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
+              6
+            </div>
+            <div className="pt-1 flex-1 min-w-0">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                Select or add a project
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                The agent immediately shows you a project selection table:
+              </p>
+              <div className="mt-4 rounded-lg bg-neutral-900 p-4 dark:bg-neutral-800">
+                <pre className="text-sm text-neutral-100 overflow-x-auto"><code>{`═══════════════════════════════════════════════════════════════
+                     SELECT PROJECT
+═══════════════════════════════════════════════════════════════
+
+  #   Project                    Agent System
+  1   My Web App                 ✅ Yes
+  2   API Service                ✅ Yes
+  3   New Project                ❌ No
+
+  0   ➕ Add New Project
+
+Which project? _`}</code></pre>
+              </div>
+              <p className="mt-4 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                Select an existing project by number, or choose <strong>0</strong> to add a new one.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Step 7: Bootstrap new projects */}
+        <section id="step-7" className="scroll-mt-24">
+          <div className="flex gap-6">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
+              7
+            </div>
+            <div className="pt-1 flex-1 min-w-0">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                Bootstrap new projects
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                When you select &quot;Add New Project&quot;, the agent uses a streamlined quick intake flow:
+              </p>
+              <ul className="mt-4 ml-4 list-disc space-y-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                <li>Enter your project name and a brief description (paste text, images, or a spec)</li>
+                <li>Optionally provide a GitHub repo URL to clone</li>
+                <li>Auto-detect your tech stack from the codebase or create from a <Link href="/reference/scaffolds" className="text-blue-600 hover:underline dark:text-blue-400">scaffold</Link></li>
+                <li>Generate <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">docs/project.json</code> with your configuration</li>
+                <li>Create <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">docs/CONVENTIONS.md</code> with coding patterns</li>
+                <li>Set up the PRD registry for tracking features</li>
+              </ul>
+              <p className="mt-4 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                After bootstrap, the agent automatically offers to create your first PRD with architecture options — so you can start building right away.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Step 8: Define your first PRD */}
+        <section id="step-8" className="scroll-mt-24">
+          <div className="flex gap-6">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
+              8
+            </div>
+            <div className="pt-1 flex-1 min-w-0">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                Define your first PRD
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                After setup, the agent immediately kicks off PRD creation. You&apos;ll define:
+              </p>
+              <ul className="mt-4 ml-4 list-disc space-y-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                <li>Feature scope and user stories</li>
+                <li>Architecture decisions (database schema, API design, etc.)</li>
+                <li>Acceptance criteria for each story</li>
+              </ul>
+              <p className="mt-4 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
+                Once the PRD is ready, hand off to{' '}
+                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@builder</code>{' '}
+                to start implementation.
+              </p>
             </div>
           </div>
         </section>

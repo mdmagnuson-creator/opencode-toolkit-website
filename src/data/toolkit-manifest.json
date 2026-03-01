@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-01T11:30:00Z",
-  "syncedAt": "2026-03-01T13:31:03.061Z",
+  "generatedAt": "2026-03-01T15:00:00Z",
+  "syncedAt": "2026-03-01T16:43:42.634Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
     "subagents": 60,
-    "skills": 45,
+    "skills": 52,
     "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -601,6 +601,18 @@
       "content": ""
     },
     {
+      "slug": "auth-config-check",
+      "name": "Auth Config Check",
+      "description": "Check authentication configuration before E2E tests. Validates project.json auth settings and credentials. Triggers on: auth config check, e2e auth, test authentication.",
+      "triggers": [
+        "auth config check",
+        "e2e auth",
+        "test authentication"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "auth-generic",
       "name": "Auth Generic",
       "description": "Generic/custom authentication implementation for any provider. Use when project uses custom auth or unsupported provider. Triggers on: custom auth, generic login, auth-generic.",
@@ -701,6 +713,18 @@
       "content": ""
     },
     {
+      "slug": "critic-dispatch",
+      "name": "Critic Dispatch",
+      "description": "Dispatch code reviews to appropriate critic agents based on file types. Routes to frontend, backend, security critics. Triggers on: critic dispatch, code review routing, dispatch critics.",
+      "triggers": [
+        "critic dispatch",
+        "code review routing",
+        "dispatch critics"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "crud-skill-generator",
       "name": "Crud Skill Generator",
       "description": "Generate a project-specific CRUD patterns skill. Use for any project with a database to document entity creation patterns. Triggers on: generate crud skill, create crud patterns, crud-skill-generator.",
@@ -730,6 +754,19 @@
         "database-migration-skill-generator"
       ],
       "isMeta": true,
+      "content": ""
+    },
+    {
+      "slug": "dynamic-reassignment",
+      "name": "Dynamic Reassignment",
+      "description": "Dynamic task reassignment on failure. Handles fallback chains, rate limit recovery, and escalation. Triggers on: agent failed, reassign task, fallback agent, escalate task.",
+      "triggers": [
+        "agent failed",
+        "reassign task",
+        "fallback agent",
+        "escalate task"
+      ],
+      "isMeta": false,
       "content": ""
     },
     {
@@ -805,6 +842,20 @@
         "git sync",
         "pull latest",
         "push changes"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "human-voice",
+      "name": "Human Voice",
+      "description": "Review and fix AI-generated writing patterns. Identifies em dash overuse, filler phrases, passive voice, hollow enthusiasm, and over-structuring. Triggers on: human voice, AI writing, natural tone, writing review, humanize content.",
+      "triggers": [
+        "human voice",
+        "AI writing",
+        "natural tone",
+        "writing review",
+        "humanize content"
       ],
       "isMeta": false,
       "content": ""
@@ -981,6 +1032,31 @@
       "content": ""
     },
     {
+      "slug": "self-correction",
+      "name": "Self Correction",
+      "description": "Self-correction loop for fixing test and build failures. Max 3 attempts before escalation. Triggers on: fix loop, self correction, retry failed tests.",
+      "triggers": [
+        "fix loop",
+        "self correction",
+        "retry failed tests"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "session-state",
+      "name": "Session State",
+      "description": "Session state management for resumability. Use when reading/writing session state, updating heartbeat, or recovering from compaction. Triggers on: session state, heartbeat, rate limit recovery, compaction recovery.",
+      "triggers": [
+        "session state",
+        "heartbeat",
+        "rate limit recovery",
+        "compaction recovery"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "setup-auth",
       "name": "Setup Auth",
       "description": "Interactive authentication configuration for AI agents. Scans codebase for auth providers, walks through configuration options, and writes to project.json. Triggers on: setup auth, configure authentication, /setup-auth, auth config.",
@@ -1094,6 +1170,18 @@
         "vectorize codebase",
         "code search",
         "find similar code"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "verification-contracts",
+      "name": "Verification Contracts",
+      "description": "Create verification contracts for task completion. Defines success criteria, edge cases, and test activities. Triggers on: verification contract, success criteria, task verification.",
+      "triggers": [
+        "verification contract",
+        "success criteria",
+        "task verification"
       ],
       "isMeta": false,
       "content": ""
