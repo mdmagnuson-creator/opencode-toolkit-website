@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { CopyButton } from '@/components/CopyButton';
 import { manifest } from '@/data';
 import { getInstallCommand } from '@/config/urls';
+import { GettingStartedClient } from './GettingStartedClient';
 
 export const metadata = {
   title: 'Getting Started | yo, go',
@@ -14,10 +14,22 @@ export const metadata = {
   },
 };
 
+// Define the steps for the step tracker
+const steps = [
+  { id: 'step-1', number: 1, title: 'Install opencode' },
+  { id: 'step-2', number: 2, title: 'Connect a provider' },
+  { id: 'step-3', number: 3, title: 'Install the toolkit' },
+  { id: 'step-4', number: 4, title: 'Go to your project' },
+  { id: 'step-5', number: 5, title: 'Launch opencode' },
+];
+
 export default function GettingStartedPage() {
+  const installCommand = getInstallCommand();
+  const opencodeInstallCommand = 'curl -fsSL https://opencode.ai/install.sh | bash';
+
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950">
-      <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="mb-8">
           <Breadcrumbs />
@@ -33,104 +45,28 @@ export default function GettingStartedPage() {
           </p>
         </div>
 
-        {/* Steps - 3 step process */}
-        <div className="space-y-8 mb-16">
-          {/* Step 1 */}
-          <div className="flex gap-6">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
-              1
-            </div>
-            <div className="pt-1">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                Install OpenCode
-              </h3>
-              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
-                Get the OpenCode desktop app for your platform. It&apos;s the
-                AI-native code editor that powers the agent system.
-              </p>
-              <a
-                href="https://opencode.ai/download"
-                className="mt-4 inline-flex h-11 min-w-[44px] items-center justify-center rounded-lg bg-neutral-900 px-6 text-sm font-medium text-white transition-colors hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:ring-offset-neutral-900"
-              >
-                Download OpenCode
-              </a>
-            </div>
-          </div>
-
-          {/* Step 2 */}
-          <div className="flex gap-6">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
-              2
-            </div>
-            <div className="pt-1">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                Connect Provider
-              </h3>
-              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
-                Open the OpenCode command palette with{" "}
-                <kbd className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
-                  Ctrl+P
-                </kbd>
-                , type{" "}
-                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
-                  provider
-                </code>
-                , and select{" "}
-                <strong>&quot;Connect Provider&quot;</strong>. Then choose how
-                you want to connect to a model.
-              </p>
-            </div>
-          </div>
-
-          {/* Step 3 */}
-          <div className="flex gap-6">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-base font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
-              3
-            </div>
-            <div className="pt-1">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                Run the setup script
-              </h3>
-              <p className="mt-2 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
-                Open a terminal and run the toolkit installer:
-              </p>
-              <div className="mt-4 rounded-lg bg-neutral-900 dark:bg-neutral-800">
-                <div className="flex items-start gap-2 p-3 sm:p-4">
-                  <pre className="min-w-0 flex-1 overflow-x-auto text-xs leading-relaxed text-neutral-100 sm:text-sm">
-                    <code className="block whitespace-pre-wrap break-all sm:whitespace-pre sm:break-normal">{getInstallCommand()}</code>
-                  </pre>
-                  <CopyButton text={getInstallCommand()} />
-                </div>
-              </div>
-              <p className="mt-4 text-base leading-relaxed text-neutral-700 dark:text-neutral-400">
-                This installs agents, skills, and scaffolds to{" "}
-                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
-                  ~/.config/opencode/
-                </code>
-                . After that, you&apos;re ready to start using{" "}
-                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
-                  @planner
-                </code>
-                ,{" "}
-                <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
-                  @builder
-                </code>
-                , and the rest of the agent system.
-              </p>
-              <div className="mt-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  <strong>Note:</strong> When piped to bash, the installer reads prompts from{" "}
-                  <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800/80">/dev/tty</code>{" "}
-                  so you can answer yes/no questions interactively. In non-interactive environments (like CI), 
-                  prompts default to <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800/80">n</code> (no) for safety.
-                </p>
-              </div>
-            </div>
-          </div>
+        {/* Two-column layout: sidebar + content */}
+        <div className="flex gap-8">
+          {/* Client component handles step tracker and interactive content */}
+          <GettingStartedClient
+            steps={steps}
+            opencodeInstallCommand={opencodeInstallCommand}
+            toolkitInstallCommand={installCommand}
+          />
         </div>
 
         {/* Divider */}
-        <div className="border-t border-neutral-200 dark:border-neutral-800 mb-16" />
+        <div className="border-t border-neutral-200 dark:border-neutral-800 my-16" />
+
+        {/* After Setup Section */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
+            After Setup
+          </h2>
+          <p className="mt-2 text-neutral-600 dark:text-neutral-300">
+            You&apos;re ready to build. Here&apos;s what happens next.
+          </p>
+        </div>
 
         {/* Starting Your First Project */}
         <section className="mb-12">
@@ -138,31 +74,14 @@ export default function GettingStartedPage() {
             Starting Your First Project
           </h2>
           <p className="text-neutral-600 dark:text-neutral-300 mb-6">
-            Once the toolkit is installed, open opencode and invoke any primary agent. The agent will immediately ask you to select or add a project.
+            When you invoke a primary agent, it will guide you through project setup automatically.
           </p>
 
           <div className="space-y-8">
-            {/* Step 1: Select a primary agent */}
+            {/* Step 1: Project selection */}
             <div>
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                1. Open opencode and select a primary agent
-              </h3>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                Launch opencode and press{" "}
-                <kbd className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
-                  Tab
-                </kbd>
-                {" "}to open the agent selector. Choose a primary agent like{" "}
-                <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">Planner</code>,{" "}
-                <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">Builder</code>, or{" "}
-                <code className="rounded bg-neutral-100 px-1 py-0.5 text-sm dark:bg-neutral-800">Toolkit</code>, then start chatting.
-              </p>
-            </div>
-
-            {/* Step 2: Project selection */}
-            <div>
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                2. Select or add a project
+                1. Select or add a project
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 The agent immediately shows you a project selection table:
@@ -186,10 +105,10 @@ Which project? _`}</code></pre>
               </p>
             </div>
 
-            {/* Step 3: Bootstrap */}
+            {/* Step 2: Bootstrap */}
             <div>
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                3. Bootstrap new projects
+                2. Bootstrap new projects
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 When you select &quot;Add New Project&quot;, the agent uses a streamlined quick intake flow:
@@ -207,10 +126,10 @@ Which project? _`}</code></pre>
               </p>
             </div>
 
-            {/* Step 4: First PRD */}
+            {/* Step 3: First PRD */}
             <div>
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">
-                4. Define your first PRD
+                3. Define your first PRD
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 After setup, the agent immediately kicks off PRD creation. You&apos;ll define:
