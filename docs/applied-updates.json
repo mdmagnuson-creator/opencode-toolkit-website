@@ -60,6 +60,12 @@
       "appliedAt": "2026-03-02T19:38:00Z",
       "appliedBy": "builder",
       "updateType": "sync"
+    },
+    {
+      "id": "2026-03-02-playwright-config",
+      "appliedAt": "2026-03-02T19:42:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
     }
   ]
 }
