@@ -83,7 +83,7 @@ export default function GettingStartedPage() {
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <Link
-              href="/reference/agents/builder"
+              href="/reference/agents/primary/builder"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
               <code className="rounded bg-blue-100 px-2 py-1 text-sm font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">@builder</code>
@@ -95,7 +95,7 @@ export default function GettingStartedPage() {
               </p>
             </Link>
             <Link
-              href="/reference/agents/planner"
+              href="/reference/agents/primary/planner"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
               <code className="rounded bg-green-100 px-2 py-1 text-sm font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">@planner</code>
@@ -107,7 +107,7 @@ export default function GettingStartedPage() {
               </p>
             </Link>
             <Link
-              href="/reference/agents/e2e-reviewer"
+              href="/reference/agents/sub/e2e-reviewer"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
               <code className="rounded bg-purple-100 px-2 py-1 text-sm font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">@e2e-reviewer</code>
@@ -119,7 +119,7 @@ export default function GettingStartedPage() {
               </p>
             </Link>
             <Link
-              href="/reference/agents/toolkit"
+              href="/reference/agents/primary/toolkit"
               className="group rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:border-blue-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-400"
             >
               <code className="rounded bg-orange-100 px-2 py-1 text-sm font-medium text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">@toolkit</code>

@@ -53,7 +53,7 @@ function CategoryBadge({ category }: { category: Agent["category"] }) {
 function AgentCard({ agent }: { agent: Agent }) {
   return (
     <Link
-      href={`/reference/agents/${agent.slug}`}
+      href={`/reference/agents/primary/${agent.slug}`}
       className="group block rounded-xl border border-neutral-200 bg-white p-6 transition-all hover:border-violet-300 hover:shadow-lg dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-violet-600"
     >
       <div className="flex items-start justify-between gap-3">

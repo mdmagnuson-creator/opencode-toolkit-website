@@ -48,6 +48,12 @@
       "appliedAt": "2026-03-02T12:00:00Z",
       "appliedBy": "builder",
       "updateType": "sync"
+    },
+    {
+      "id": "2026-03-02-toolkit-sync-ci-fix",
+      "appliedAt": "2026-03-02T19:45:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
     }
   ]
 }

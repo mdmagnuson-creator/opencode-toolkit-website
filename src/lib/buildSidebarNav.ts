@@ -21,6 +21,8 @@ export interface SubCategory {
   name: string;
   items: NavItem[];
   count: number;
+  /** URL slug for nested routes (e.g., "primary" or "sub" for agents) */
+  urlSlug?: string;
 }
 
 export interface TopCategory {
@@ -43,12 +45,13 @@ export interface SidebarNavData {
 // ============================================================================
 
 // Agent categories from toolkit-structure.json with display labels
-const AGENT_CATEGORY_CONFIG: Record<string, { label: string; order: number }> = {
-  primary: { label: 'Primary', order: 0 },
-  implementation: { label: 'Implementation', order: 1 },
-  testing: { label: 'Testing', order: 2 },
-  critics: { label: 'Critics', order: 3 },
-  operational: { label: 'Operational', order: 4 },
+// urlSlug maps to the nested route path: "primary" for Primary agents, "sub" for all sub-agents
+const AGENT_CATEGORY_CONFIG: Record<string, { label: string; order: number; urlSlug: string }> = {
+  primary: { label: 'Primary', order: 0, urlSlug: 'primary' },
+  implementation: { label: 'Implementation', order: 1, urlSlug: 'sub' },
+  testing: { label: 'Testing', order: 2, urlSlug: 'sub' },
+  critics: { label: 'Critics', order: 3, urlSlug: 'sub' },
+  operational: { label: 'Operational', order: 4, urlSlug: 'sub' },
 };
 
 // Skill categories from toolkit-structure.json with display labels
@@ -234,7 +237,7 @@ function buildAgentTemplateNav(): TopCategory {
     totalCount += items.length;
 
     subcategories.push({
-      name: typeof config === 'object' ? config.label : config,
+      name: config.label,
       items,
       count: items.length,
     });

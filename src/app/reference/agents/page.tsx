@@ -99,10 +99,18 @@ function ModeBadge({ mode }: { mode: Agent["mode"] }) {
   return null;
 }
 
+/**
+ * Get the correct href for an agent based on its mode.
+ */
+function getAgentHref(agent: Agent): string {
+  const category = agent.mode === "primary" ? "primary" : "sub";
+  return `/reference/agents/${category}/${agent.slug}`;
+}
+
 function AgentCard({ agent }: { agent: Agent }) {
   return (
     <Link
-      href={`/reference/agents/${agent.slug}`}
+      href={getAgentHref(agent)}
       className="group block rounded-xl border border-neutral-200 bg-white p-5 transition-all hover:border-neutral-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
     >
       <div className="flex items-start justify-between gap-3">
@@ -124,7 +132,7 @@ function AgentCard({ agent }: { agent: Agent }) {
 function PrimaryAgentCard({ agent }: { agent: Agent }) {
   return (
     <Link
-      href={`/reference/agents/${agent.slug}`}
+      href={getAgentHref(agent)}
       className="group block rounded-xl border-2 border-violet-200 bg-gradient-to-br from-violet-50 to-white p-5 transition-all hover:border-violet-300 hover:shadow-lg dark:border-violet-800 dark:from-violet-950/50 dark:to-neutral-900 dark:hover:border-violet-700"
     >
       <div className="flex items-start justify-between gap-2">

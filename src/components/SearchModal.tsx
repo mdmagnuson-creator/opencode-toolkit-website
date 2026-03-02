@@ -107,13 +107,14 @@ function buildStaticPages(): SearchResult[] {
 function buildSearchIndex(): SearchResult[] {
   const results: SearchResult[] = [...buildStaticPages()];
 
-  // Add agents
+  // Add agents with nested URL structure
   manifest.agents.forEach((agent: Agent) => {
+    const modeSlug = agent.mode === "primary" ? "primary" : "sub";
     results.push({
       type: "agent",
       title: agent.name,
       description: agent.description,
-      href: `/reference/agents/${agent.slug}`,
+      href: `/reference/agents/${modeSlug}/${agent.slug}`,
       category: agent.category,
     });
   });

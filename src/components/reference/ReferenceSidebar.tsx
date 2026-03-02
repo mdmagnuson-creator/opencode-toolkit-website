@@ -13,7 +13,7 @@ import {
   MagnifyingGlassIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { getSidebarCategories, type TopCategory as NavTopCategory, type NavItem } from "@/lib/buildSidebarNav";
+import { getSidebarCategories, type TopCategory as NavTopCategory, type NavItem, type SubCategory } from "@/lib/buildSidebarNav";
 
 // Extended type with icon for rendering
 interface TopCategory extends NavTopCategory {
@@ -42,10 +42,25 @@ interface SearchMatch {
   categoryId: string;
   categoryName: string;
   subcategoryName: string;
+  subcategoryUrlSlug?: string;
   href: string;
   score: number;
   matchType: 'name' | 'description' | 'category';
   matchedText?: string;
+}
+
+/**
+ * Generates the correct item URL path based on category and subcategory.
+ * For agents, uses nested routes: /reference/agents/primary/[slug] or /reference/agents/sub/[slug]
+ * For other categories, uses flat routes: /reference/[category]/[slug]
+ */
+function getItemPath(category: TopCategory, subcat: SubCategory, itemSlug: string): string {
+  if (category.id === 'agents' && subcat.urlSlug) {
+    // Agents use nested routes based on mode (primary vs sub)
+    return `${category.href}/${subcat.urlSlug}/${itemSlug}`;
+  }
+  // Other categories use flat routes
+  return `${category.href}/${itemSlug}`;
 }
 
 // Helper to compute path-based expansions
@@ -62,7 +77,9 @@ function computePathExpansions(
       cat.subcategories.forEach((subcat) => {
         const subcatKey = `${cat.id}-${subcat.name}`;
         subcat.items.forEach((item) => {
-          if (pathname === `${cat.href}/${item.slug}`) {
+          // Check if the current path matches this item's URL
+          const itemPath = getItemPath(cat, subcat, item.slug);
+          if (pathname === itemPath) {
             l2.add(subcatKey);
           }
         });
@@ -120,7 +137,7 @@ function scoreMatch(query: string, item: NavItem, categoryName: string, subcateg
     }
   }
 
-  return score > 0 ? { item, categoryId: '', categoryName, subcategoryName, href: '', score, matchType, matchedText } : null;
+  return score > 0 ? { item, categoryId: '', categoryName, subcategoryName, subcategoryUrlSlug: undefined, href: '', score, matchType, matchedText } : null;
 }
 
 // Highlight matching text in a string
@@ -175,7 +192,13 @@ export function ReferenceSidebar() {
           const match = scoreMatch(searchQuery, item, category.name, subcat.name);
           if (match) {
             match.categoryId = category.id;
-            match.href = `${category.href}/${item.slug}`;
+            match.subcategoryUrlSlug = subcat.urlSlug;
+            // Use nested URL for agents, flat URL for others
+            if (category.id === 'agents' && subcat.urlSlug) {
+              match.href = `${category.href}/${subcat.urlSlug}/${item.slug}`;
+            } else {
+              match.href = `${category.href}/${item.slug}`;
+            }
             results.push(match);
           }
         });
@@ -479,7 +502,7 @@ export function ReferenceSidebar() {
                       {subcatExpanded && (
                         <div className="ml-3 mt-0.5 space-y-0.5 border-l border-neutral-200 pl-3 dark:border-neutral-700">
                           {subcat.items.map((item) => {
-                            const itemPath = `${category.href}/${item.slug}`;
+                            const itemPath = getItemPath(category, subcat, item.slug);
                             const isActive = pathname === itemPath;
 
                             return (

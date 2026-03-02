@@ -625,7 +625,7 @@ export default function TestingConceptPage() {
           {/* Link to full agent page */}
           <div className="mt-8">
             <Link
-              href="/reference/agents/tester"
+              href="/reference/agents/sub/tester"
               className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-700"
             >
               View full tester agent documentation
@@ -724,7 +724,7 @@ export default function TestingConceptPage() {
               ].map((agent) => (
                 <Link
                   key={agent}
-                  href={`/reference/agents/${agent}`}
+                  href={`/reference/agents/sub/${agent}`}
                   className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-900 transition-colors hover:border-green-300 hover:bg-green-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:border-green-700 dark:hover:bg-green-950"
                 >
                   {agent}
@@ -2199,7 +2199,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/jest-tester"
+                  href="/reference/agents/sub/jest-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   View full agent documentation
@@ -2321,7 +2321,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/react-tester"
+                  href="/reference/agents/sub/react-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
                 >
                   View full agent documentation
@@ -2440,7 +2440,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/go-tester"
+                  href="/reference/agents/sub/go-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300"
                 >
                   View full agent documentation
@@ -2876,7 +2876,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/e2e-reviewer"
+                  href="/reference/agents/sub/e2e-reviewer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300"
                 >
                   View full agent documentation
@@ -2998,7 +2998,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/e2e-playwright"
+                  href="/reference/agents/sub/e2e-playwright"
                   className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
                 >
                   View full agent documentation
@@ -3123,7 +3123,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/playwright-dev"
+                  href="/reference/agents/sub/playwright-dev"
                   className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
                 >
                   View full agent documentation
@@ -3249,7 +3249,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/e2e-auditor"
+                  href="/reference/agents/sub/e2e-auditor"
                   className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
                 >
                   View full agent documentation
@@ -3839,7 +3839,7 @@ test.beforeAll(async ({ browser }) => {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/qa"
+                  href="/reference/agents/sub/qa"
                   className="inline-flex items-center gap-2 text-sm font-medium text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300"
                 >
                   View full agent documentation
@@ -3966,7 +3966,7 @@ test.beforeAll(async ({ browser }) => {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/qa-explorer"
+                  href="/reference/agents/sub/qa-explorer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                 >
                   View full agent documentation
@@ -4092,7 +4092,7 @@ test.beforeAll(async ({ browser }) => {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/qa-browser-tester"
+                  href="/reference/agents/sub/qa-browser-tester"
                   className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
                 >
                   View full agent documentation

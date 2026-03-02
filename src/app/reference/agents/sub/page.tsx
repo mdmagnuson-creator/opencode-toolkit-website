@@ -128,7 +128,7 @@ function AgentCard({ agent, showCrossRefs = false }: { agent: Agent; showCrossRe
   
   return (
     <Link
-      href={`/reference/agents/${agent.slug}`}
+      href={`/reference/agents/sub/${agent.slug}`}
       className="group block rounded-xl border border-neutral-200 bg-white p-5 transition-all hover:border-neutral-300 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
     >
       <div className="flex items-start justify-between gap-3">
