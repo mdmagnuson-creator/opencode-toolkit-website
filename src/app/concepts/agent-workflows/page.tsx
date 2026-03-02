@@ -1092,6 +1092,24 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                   </p>
                 </div>
               </li>
+              <li className="flex gap-4">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
+                  6
+                </span>
+                <div>
+                  <p className="font-medium text-neutral-900 dark:text-neutral-50">
+                    Detect available CLIs (optional)
+                  </p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    Check which service CLIs are installed and authenticated:{" "}
+                    <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">vercel</code>,{" "}
+                    <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">supabase</code>,{" "}
+                    <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">aws</code>,{" "}
+                    <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">gh</code>, etc.
+                    Authenticated CLIs are shown in the dashboard and stored for direct use throughout the session.
+                  </p>
+                </div>
+              </li>
             </ol>
           </div>
 

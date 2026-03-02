@@ -3216,6 +3216,10 @@ export default function TestingConceptPage() {
                   <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
                     <li className="flex items-center gap-2">
                       <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      Project selection on startup (like @builder)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
                       Full-app analysis and test planning
                     </li>
                     <li className="flex items-center gap-2">
