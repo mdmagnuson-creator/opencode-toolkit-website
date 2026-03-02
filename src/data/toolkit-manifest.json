@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-01T15:00:00Z",
-  "syncedAt": "2026-03-02T05:00:11.664Z",
+  "generatedAt": "2026-03-02T12:00:00Z",
+  "syncedAt": "2026-03-02T12:34:30.088Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
@@ -302,7 +302,7 @@
     {
       "slug": "planner",
       "name": "Planner",
-      "description": "Refine draft PRDs and prepare them for implementation",
+      "description": "Refine draft PRDs and prepare them for implementation. Picks up Task Spec promotion requests from Builder.",
       "mode": "primary",
       "category": "developers",
       "content": ""
@@ -544,12 +544,13 @@
     {
       "slug": "adhoc-workflow",
       "name": "Adhoc Workflow",
-      "description": "Ad-hoc mode workflow for Builder. Use when handling direct requests without a PRD, quick fixes, or one-off tasks. Triggers on: ad-hoc mode, quick fix, direct request, one-off task.",
+      "description": "Ad-hoc mode workflow for Builder with mandatory analysis phase. Generates Task Specs (TSK-### format) with alternatives, consequences, and optional promotion to PRD. Triggers on: ad-hoc mode, quick fix, direct request, one-off task, task spec.",
       "triggers": [
         "ad-hoc mode",
         "quick fix",
         "direct request",
-        "one-off task"
+        "one-off task",
+        "task spec"
       ],
       "isMeta": false,
       "content": ""
@@ -1336,6 +1337,37 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-03-02",
+      "displayDate": "March 2, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add task-registry schema for ad-hoc Task Spec lifecycle tracking",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add task-spec and task-promotion templates for ad-hoc analysis phase",
+          "scope": "templates"
+        },
+        {
+          "type": "feat",
+          "description": "add full analysis phase and Task Spec lifecycle to adhoc-workflow skill",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add Task Spec promotion pickup to Planner startup",
+          "scope": "planner"
+        },
+        {
+          "type": "docs",
+          "description": "promote ad-hoc analysis phase PRD to ready status",
+          "scope": "prd"
+        }
+      ]
+    },
     {
       "date": "2026-03-01",
       "displayDate": "March 1, 2026",
