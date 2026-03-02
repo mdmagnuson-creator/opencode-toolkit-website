@@ -123,6 +123,7 @@ function buildAgentNav(): TopCategory {
       name: config.label,
       items,
       count: items.length,
+      urlSlug: config.urlSlug,
     });
   }
 
