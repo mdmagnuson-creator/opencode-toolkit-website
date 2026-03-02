@@ -50,6 +50,13 @@ interface SearchMatch {
 }
 
 /**
+ * Normalizes a path by removing trailing slashes for consistent comparison.
+ */
+function normalizePath(path: string): string {
+  return path.endsWith('/') ? path.slice(0, -1) : path;
+}
+
+/**
  * Generates the correct item URL path based on category and subcategory.
  * For agents, uses nested routes: /reference/agents/primary/[slug] or /reference/agents/sub/[slug]
  * For other categories, uses flat routes: /reference/[category]/[slug]
@@ -70,16 +77,17 @@ function computePathExpansions(
 ): { l1: Set<string>; l2: Set<string> } {
   const l1 = new Set<string>();
   const l2 = new Set<string>();
+  const normalizedPathname = normalizePath(pathname);
 
   categories.forEach((cat) => {
-    if (pathname.startsWith(cat.href)) {
+    if (normalizedPathname.startsWith(cat.href)) {
       l1.add(cat.id);
       cat.subcategories.forEach((subcat) => {
         const subcatKey = `${cat.id}-${subcat.name}`;
         subcat.items.forEach((item) => {
           // Check if the current path matches this item's URL
           const itemPath = getItemPath(cat, subcat, item.slug);
-          if (pathname === itemPath) {
+          if (normalizedPathname === itemPath) {
             l2.add(subcatKey);
           }
         });
@@ -403,7 +411,7 @@ export function ReferenceSidebar() {
                       {/* Items */}
                       <div className="ml-3 mt-0.5 space-y-0.5 border-l border-neutral-200 pl-3 dark:border-neutral-700">
                         {matches.map((match) => {
-                          const isActive = pathname === match.href;
+                          const isActive = normalizePath(pathname) === match.href;
                           return (
                             <Link
                               key={match.href}
@@ -503,7 +511,7 @@ export function ReferenceSidebar() {
                         <div className="ml-3 mt-0.5 space-y-0.5 border-l border-neutral-200 pl-3 dark:border-neutral-700">
                           {subcat.items.map((item) => {
                             const itemPath = getItemPath(category, subcat, item.slug);
-                            const isActive = pathname === itemPath;
+                            const isActive = normalizePath(pathname) === itemPath;
 
                             return (
                               <Link
