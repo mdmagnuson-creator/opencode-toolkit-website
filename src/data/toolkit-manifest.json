@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-02T18:30:00Z",
-  "syncedAt": "2026-03-02T23:07:19.914Z",
-  "toolkitCommit": "fba9e0f",
+  "generatedAt": "2026-03-03T02:30:00Z",
+  "syncedAt": "2026-03-03T02:45:23.431Z",
+  "toolkitCommit": "7116696",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1340,6 +1340,51 @@
       "date": "2026-03-02",
       "displayDate": "March 2, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add semantic search integration to key agents (builder, planner, developer, tester, critic)",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "add database schema extraction with RLS and binary column support",
+          "scope": "vectorize"
+        },
+        {
+          "type": "feat",
+          "description": "add contextual retrieval with prompt caching for cost reduction",
+          "scope": "vectorize"
+        },
+        {
+          "type": "feat",
+          "description": "complete Phase 2 - relationships, git history, test mapping, summaries",
+          "scope": "vectorize"
+        },
+        {
+          "type": "feat",
+          "description": "complete Phase 1 - core search MVP with hybrid BM25+semantic search",
+          "scope": "vectorize"
+        },
+        {
+          "type": "docs",
+          "description": "enhance vectorization PRD v2.0 with relationship indexing",
+          "scope": "prd"
+        },
+        {
+          "type": "feat",
+          "description": "add Voyage AI embedding support",
+          "scope": "vectorize"
+        },
+        {
+          "type": "fix",
+          "description": "add no-webServer config pattern to prevent dev server shutdown",
+          "scope": "playwright"
+        },
+        {
+          "type": "feat",
+          "description": "add project extraction capability for monorepo splitting",
+          "scope": "toolkit"
+        },
         {
           "type": "fix",
           "description": "restore CI=true enforcement to adhoc-workflow to prevent orphaned vitest processes",
