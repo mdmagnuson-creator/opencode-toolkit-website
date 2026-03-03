@@ -1,15 +1,14 @@
 {
   "$schema": "https://opencode.ai/schemas/project.json",
-  
   "name": "Toolkit Website",
   "description": "Website explaining the AI toolkit system - primary agents, sub-agents, skills categorized with descriptions and counts, plus getting started instructions",
-  
   "stack": {
-    "languages": ["typescript"],
+    "languages": [
+      "typescript"
+    ],
     "runtime": "node",
     "packageManager": "npm"
   },
-  
   "apps": {
     "web": {
       "path": ".",
@@ -17,10 +16,11 @@
       "framework": "nextjs",
       "router": "app",
       "entryPoint": "app/",
-      "platforms": ["browser"]
+      "platforms": [
+        "browser"
+      ]
     }
   },
-  
   "styling": {
     "framework": "tailwind",
     "version": "4",
@@ -29,17 +29,14 @@
       "strategy": "class"
     }
   },
-  
   "testing": {
     "unit": "jest",
     "e2e": "playwright"
   },
-  
   "linting": {
     "eslint": true,
     "prettier": true
   },
-  
   "commands": {
     "dev": "npm run dev",
     "build": "npm run build",
@@ -47,12 +44,16 @@
     "lint": "npm run lint",
     "typecheck": "npm run typecheck"
   },
-  
   "qualityGates": {
-    "preCommit": ["lint", "typecheck"],
-    "preMerge": ["test", "build"]
+    "preCommit": [
+      "lint",
+      "typecheck"
+    ],
+    "preMerge": [
+      "test",
+      "build"
+    ]
   },
-  
   "capabilities": {
     "authentication": false,
     "multiTenant": false,
@@ -64,12 +65,28 @@
     "api": false,
     "realtime": false
   },
-  
   "workflows": {
-    "adhoc": ["build", "typecheck", "lint", "critic", "tester-scoped", "test", "commit", "report"],
-    "prd": ["build", "critic", "tester", "typecheck", "lint", "test", "e2e", "commit"]
+    "adhoc": [
+      "build",
+      "typecheck",
+      "lint",
+      "critic",
+      "tester-scoped",
+      "test",
+      "commit",
+      "report"
+    ],
+    "prd": [
+      "build",
+      "critic",
+      "tester",
+      "typecheck",
+      "lint",
+      "test",
+      "e2e",
+      "commit"
+    ]
   },
-  
   "agents": {
     "gitWorkflow": "trunk",
     "autoCommit": true,
@@ -77,13 +94,11 @@
     "browserVerification": true,
     "prReviewRequired": false
   },
-  
   "context": {
     "architecture": "docs/ARCHITECTURE.md",
     "conventions": "docs/CONVENTIONS.md",
     "designSystem": null
   },
-
   "relatedProjects": [
     {
       "projectId": "yo-go",
@@ -91,14 +106,17 @@
       "description": "The AI toolkit this site documents"
     }
   ],
-
   "planning": {
     "considerations": [
       {
         "id": "permissions",
         "label": "Authorization and permissions",
         "required": true,
-        "appliesWhen": ["api", "admin-ui", "data-access"],
+        "appliesWhen": [
+          "api",
+          "admin-ui",
+          "data-access"
+        ],
         "scopeQuestions": [
           "Which roles are affected?",
           "Which actions need explicit allow/deny rules?",
@@ -121,5 +139,42 @@
         "required": false
       }
     ]
+  },
+  "vectorization": {
+    "enabled": true,
+    "storage": "local",
+    "embeddingModel": "voyage",
+    "contextualRetrieval": "never",
+    "codebase": {
+      "include": [
+        "src/**",
+        "lib/**",
+        "app/**",
+        "docs/**"
+      ],
+      "exclude": [
+        "node_modules/**",
+        "dist/**",
+        "build/**",
+        ".git/**",
+        "*.test.ts",
+        "*.spec.ts"
+      ],
+      "chunkStrategy": "ast"
+    },
+    "search": {
+      "hybridWeight": 0.7,
+      "topK": 20
+    },
+    "refresh": {
+      "onGitChange": true,
+      "onSessionStart": true,
+      "maxAge": "24h"
+    },
+    "credentials": {
+      "openai": "env:OPENAI_API_KEY",
+      "anthropic": "env:ANTHROPIC_API_KEY",
+      "voyage": "env:VOYAGE_API_KEY"
+    }
   }
 }

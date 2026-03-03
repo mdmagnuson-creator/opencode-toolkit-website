@@ -50,3 +50,6 @@ docs/builder-state.json
 
 # build-time generated changelog (regenerated on each build)
 src/data/changelog.json
+
+# Vector index
+.vectorindex/

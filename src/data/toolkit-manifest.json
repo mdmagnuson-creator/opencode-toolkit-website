@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-03T12:00:00Z",
-  "syncedAt": "2026-03-03T13:49:06.095Z",
-  "toolkitCommit": "c1db447",
+  "generatedAt": "2026-03-03T18:00:00Z",
+  "syncedAt": "2026-03-03T15:52:45.467Z",
+  "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
     "subagents": 60,
-    "skills": 52,
+    "skills": 53,
     "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -1150,6 +1150,20 @@
       "content": ""
     },
     {
+      "slug": "test-url-resolution",
+      "name": "Test Url Resolution",
+      "description": "Resolve test base URL for E2E testing. Supports localhost, preview deployments (Vercel, Netlify, Railway, Render, Fly.io), and staging URLs. Triggers on: test url, resolve test url, preview url, staging url, TEST_BASE_URL.",
+      "triggers": [
+        "test url",
+        "resolve test url",
+        "preview url",
+        "staging url",
+        "TEST_BASE_URL"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "test-user-cleanup",
       "name": "Test User Cleanup",
       "description": "Clean up dynamically created test users from the database. Prevents test user accumulation. Triggers on: cleanup test users, delete test accounts, test-user-cleanup.",
@@ -1340,6 +1354,46 @@
       "date": "2026-03-03",
       "displayDate": "March 3, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add non-localhost testing support with URL resolution priority chain",
+          "scope": "testing"
+        },
+        {
+          "type": "feat",
+          "description": "add test-url-resolution skill for preview/staging URL resolution",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add agents.verification.testBaseUrl field for explicit URL override",
+          "scope": "schema"
+        },
+        {
+          "type": "refactor",
+          "description": "update e2e-playwright, playwright-dev, tester agents for URL resolution",
+          "scope": "agents"
+        },
+        {
+          "type": "refactor",
+          "description": "update secondary agents (qa-browser-tester, e2e-reviewer, screenshot-maintainer, support-article-writer)",
+          "scope": "agents"
+        },
+        {
+          "type": "refactor",
+          "description": "update test-flow and coding-playwright templates for TEST_BASE_URL pattern",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add remote health check with retry to start-dev-server skill",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add preview environment detection and CLI triggers",
+          "scope": "builder"
+        },
         {
           "type": "feat",
           "description": "add completion messages, skip patterns, and override mechanism for UI verification",
