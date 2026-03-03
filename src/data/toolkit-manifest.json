@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-03T18:00:00Z",
-  "syncedAt": "2026-03-03T16:14:36.724Z",
+  "generatedAt": "2026-03-03T22:00:00Z",
+  "syncedAt": "2026-03-03T17:45:25.625Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
@@ -1356,6 +1356,46 @@
       "changes": [
         {
           "type": "feat",
+          "description": "add prerequisite failure detection with @prerequisites/@feature-assertions markers",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add automated fix loop with classification (prerequisite vs feature vs environment)",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add 3-pass stability verification (requiredPasses config, pass counter, reset on fix)",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add environment prerequisite handling with skill-based recovery",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add skill creation request flow for missing environment skills",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add failure logging (verification-failures.json) and manual fallback options",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add blocker tracking (test-debt.json) and bulk re-verification command",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add verification config: requiredPasses, autoFixLoop, fixAttemptTimeoutMinutes, runBroaderTestsAfterFix",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
           "description": "add non-localhost testing support with URL resolution priority chain",
           "scope": "testing"
         },
@@ -1428,6 +1468,26 @@
           "type": "feat",
           "description": "add single-instance lock pattern to e2e-electron skill for preventing multiple app instances",
           "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add vectorization status section to fresh and resume dashboards",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add blocking stale index prompt with R/S/D options when index >24h old",
+          "scope": "builder"
+        },
+        {
+          "type": "docs",
+          "description": "document token-aware batching in SKILL.md",
+          "scope": "vectorize"
+        },
+        {
+          "type": "feat",
+          "description": "add verbosity control to embeddings (default summary, --verbose for details, --quiet for CI)",
+          "scope": "vectorize"
         }
       ]
     },

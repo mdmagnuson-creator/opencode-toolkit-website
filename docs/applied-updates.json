@@ -120,6 +120,12 @@
       "appliedAt": "2026-03-03T16:14:00Z",
       "appliedBy": "builder",
       "updateType": "sync"
+    },
+    {
+      "id": "2026-03-03-vectorization-visibility",
+      "appliedAt": "2026-03-03T16:52:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
     }
   ]
 }
