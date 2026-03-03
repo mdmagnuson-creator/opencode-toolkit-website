@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-03T22:00:00Z",
-  "syncedAt": "2026-03-03T17:45:25.625Z",
-  "toolkitCommit": "pending",
+  "generatedAt": "2026-03-03T23:45:00Z",
+  "syncedAt": "2026-03-03T18:24:16.540Z",
+  "toolkitCommit": "0007172",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1354,6 +1354,41 @@
       "date": "2026-03-03",
       "displayDate": "March 3, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add ANALYSIS GATE guardrail for ad-hoc enforcement (US-001)",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add out-of-scope request detection during PRD mode (US-002)",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add analysisCompleted state checkpoint enforcement (US-003)",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add mandatory completion report template (US-004)",
+          "scope": "adhoc-workflow"
+        },
+        {
+          "type": "feat",
+          "description": "enforce clarifying questions for MEDIUM/LOW confidence (US-005)",
+          "scope": "adhoc-workflow"
+        },
+        {
+          "type": "feat",
+          "description": "add explicit never auto-start prohibitions (US-006)",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add vectorization visibility improvements to Builder",
+          "scope": "vectorize"
+        },
         {
           "type": "feat",
           "description": "add prerequisite failure detection with @prerequisites/@feature-assertions markers",
