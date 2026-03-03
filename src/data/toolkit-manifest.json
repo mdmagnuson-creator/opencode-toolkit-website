@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-03T23:59:00Z",
-  "syncedAt": "2026-03-03T19:35:32.815Z",
+  "generatedAt": "2026-03-04T00:00:00Z",
+  "syncedAt": "2026-03-03T19:55:20.962Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
     "subagents": 60,
-    "skills": 53,
+    "skills": 54,
     "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -1189,6 +1189,19 @@
       "content": ""
     },
     {
+      "slug": "vercel-supabase-alignment",
+      "name": "Vercel Supabase Alignment",
+      "description": "Diagnose Vercel environment to Supabase project alignment issues. Helps identify which database is being targeted in multi-environment setups. Triggers on: database error, environment mismatch, wrong database, Vercel Supabase alignment.",
+      "triggers": [
+        "database error",
+        "environment mismatch",
+        "wrong database",
+        "Vercel Supabase alignment"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "verification-contracts",
       "name": "Verification Contracts",
       "description": "Create verification contracts for task completion. Defines success criteria, edge cases, and test activities. Triggers on: verification contract, success criteria, task verification.",
@@ -1350,6 +1363,27 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-03-04",
+      "displayDate": "March 4, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add environment-database context diagnosis protocol and vercel-supabase-alignment skill",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "extend project.schema.json environments with database, branch, vercelEnvironment, desktop mappings",
+          "scope": "schema"
+        },
+        {
+          "type": "docs",
+          "description": "add LLM techniques synthesis report with 6 actionable recommendations",
+          "scope": "research"
+        }
+      ]
+    },
     {
       "date": "2026-03-03",
       "displayDate": "March 3, 2026",
