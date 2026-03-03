@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-03T02:30:00Z",
-  "syncedAt": "2026-03-03T02:45:23.431Z",
-  "toolkitCommit": "7116696",
+  "generatedAt": "2026-03-03T04:00:00Z",
+  "syncedAt": "2026-03-03T03:28:55.152Z",
+  "toolkitCommit": "a846deb",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1340,6 +1340,36 @@
       "date": "2026-03-02",
       "displayDate": "March 2, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add project.json for toolkit with relatedProjects configuration",
+          "scope": "toolkit"
+        },
+        {
+          "type": "feat",
+          "description": "use relatedProjects for website sync lookup instead of name-based search",
+          "scope": "toolkit"
+        },
+        {
+          "type": "docs",
+          "description": "add related projects helper pattern documentation",
+          "scope": null
+        },
+        {
+          "type": "feat",
+          "description": "add related projects configuration step with inverse relationship support",
+          "scope": "bootstrap"
+        },
+        {
+          "type": "feat",
+          "description": "add relatedProjects array to project.json schema",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add CLI wrapper script for local execution",
+          "scope": "vectorize"
+        },
         {
           "type": "feat",
           "description": "add semantic search integration to key agents (builder, planner, developer, tester, critic)",
