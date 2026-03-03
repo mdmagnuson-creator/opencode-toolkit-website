@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-03T23:45:00Z",
-  "syncedAt": "2026-03-03T18:24:16.540Z",
-  "toolkitCommit": "0007172",
+  "generatedAt": "2026-03-03T23:59:00Z",
+  "syncedAt": "2026-03-03T19:35:32.815Z",
+  "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1354,6 +1354,16 @@
       "date": "2026-03-03",
       "displayDate": "March 3, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add examples to 41 agents for improved few-shot prompting (20 critics, 2 testers, 7 operational, 3 E2E/review, 9 implementation)",
+          "scope": "agents"
+        },
+        {
+          "type": "docs",
+          "description": "add PRD for agent examples enrichment",
+          "scope": "prd"
+        },
         {
           "type": "feat",
           "description": "add ANALYSIS GATE guardrail for ad-hoc enforcement (US-001)",
