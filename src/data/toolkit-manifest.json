@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "generatedAt": "2026-03-04T00:00:00Z",
-  "syncedAt": "2026-03-03T19:55:20.962Z",
+  "syncedAt": "2026-03-03T20:53:13.559Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
@@ -1367,6 +1367,16 @@
       "date": "2026-03-04",
       "displayDate": "March 4, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add CLI state persistence and proactive CLI usage triggers for compaction resilience",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add availableCLIs to builder-state schema for CLI state persistence",
+          "scope": "schema"
+        },
         {
           "type": "feat",
           "description": "add environment-database context diagnosis protocol and vercel-supabase-alignment skill",
