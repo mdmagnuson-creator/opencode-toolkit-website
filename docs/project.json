@@ -84,6 +84,14 @@
     "designSystem": null
   },
 
+  "relatedProjects": [
+    {
+      "projectId": "yo-go",
+      "relationship": "documented-project",
+      "description": "The AI toolkit this site documents"
+    }
+  ],
+
   "planning": {
     "considerations": [
       {
