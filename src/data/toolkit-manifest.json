@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-03T04:00:00Z",
-  "syncedAt": "2026-03-03T03:28:55.152Z",
-  "toolkitCommit": "a846deb",
+  "generatedAt": "2026-03-03T12:00:00Z",
+  "syncedAt": "2026-03-03T13:49:06.095Z",
+  "toolkitCommit": "c1db447",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1336,6 +1336,47 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-03-03",
+      "displayDate": "March 3, 2026",
+      "changes": [
+        {
+          "type": "feat",
+          "description": "add completion messages, skip patterns, and override mechanism for UI verification",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add flaky test detection and resolution with quarantine option",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add verification mode to e2e-playwright and test review to quality-critic",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add UI verification enforcement to workflows (test-flow, adhoc, prd, builder)",
+          "scope": "verification"
+        },
+        {
+          "type": "feat",
+          "description": "add agents.verification config schema and bootstrap defaults",
+          "scope": "verification"
+        },
+        {
+          "type": "fix",
+          "description": "add token-aware batching for Voyage API to handle large codebases",
+          "scope": "vectorize"
+        },
+        {
+          "type": "feat",
+          "description": "add single-instance lock pattern to e2e-electron skill for preventing multiple app instances",
+          "scope": "skills"
+        }
+      ]
+    },
     {
       "date": "2026-03-02",
       "displayDate": "March 2, 2026",
