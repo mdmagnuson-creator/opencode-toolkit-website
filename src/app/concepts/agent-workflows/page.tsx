@@ -20,6 +20,7 @@ const PAGE_SECTIONS = [
   { id: "update-queues", label: "Update Queues" },
   { id: "integration-provisioning", label: "Integration Provisioning" },
   { id: "builder-startup", label: "Builder Startup Behavior" },
+  { id: "token-budget", label: "Token Budget Management" },
   { id: "todo-synchronization", label: "Todo Synchronization" },
   { id: "escalation-to-prd", label: "Escalation to PRD" },
   { id: "governance-critics", label: "Governance Critics" },
@@ -1150,6 +1151,212 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                   Load state → Check/start dev server → Show dashboard (blocks user while server starts)
                 </p>
               </div>
+            </div>
+          </div>
+
+          {/* Token Budget Management */}
+          <div id="token-budget" className="mt-10 scroll-mt-20">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Token Budget Management
+            </h3>
+            <p className="mt-3 text-neutral-700 dark:text-neutral-400">
+              Builder startup enforces token-light file reads to preserve context window capacity for actual work.
+            </p>
+
+            {/* Why It Matters */}
+            <div className="mt-6 rounded-lg bg-amber-50 p-4 dark:bg-amber-950">
+              <div className="flex items-start gap-3">
+                <svg className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+                <div>
+                  <p className="text-sm font-medium text-amber-900 dark:text-amber-100">
+                    Why This Matters
+                  </p>
+                  <p className="mt-1 text-sm text-amber-800 dark:text-amber-200">
+                    AI agents have ~128K token context limits. Careless file reads during startup can consume{" "}
+                    <strong>15,000+ tokens from a single file</strong> — for example,{" "}
+                    <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">prd-registry.json</code>{" "}
+                    at 50KB+. This leaves insufficient capacity for implementation, debugging, and iterative conversation.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Token-Light Read Rules */}
+            <div className="mt-8">
+              <h4 className="text-sm font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                Token-Light Read Rules
+              </h4>
+              <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+                <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+                  <thead className="bg-neutral-50 dark:bg-neutral-800">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                        File Type
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                        Strategy
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-900 dark:text-neutral-100">
+                        JSON files &gt;10KB
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Use <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">jq</code> to extract only needed fields
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-900 dark:text-neutral-100">
+                        Text files &gt;50 lines
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Use offset/limit reads — specific sections only
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-900 dark:text-neutral-100">
+                        Log files
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Never read in full — use <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">tail</code> or{" "}
+                        <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">grep</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-900 dark:text-neutral-100">
+                        Source code
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Read specific files, not entire directories
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Before/After Example */}
+            <div className="mt-8">
+              <h4 className="text-sm font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                Example: Reading prd-registry.json
+              </h4>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-lg bg-white p-4 dark:bg-neutral-900">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-red-700 dark:text-red-400">
+                    Wasteful (~50KB)
+                  </p>
+                  <div className="mt-2 overflow-hidden rounded border border-neutral-200 dark:border-neutral-700">
+                    <pre className="overflow-x-auto bg-neutral-50 px-3 py-2 text-sm dark:bg-neutral-800">
+                      <code className="text-neutral-800 dark:text-neutral-200">cat docs/prd-registry.json</code>
+                    </pre>
+                  </div>
+                </div>
+                <div className="rounded-lg bg-white p-4 dark:bg-neutral-900">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-green-700 dark:text-green-400">
+                    Token-Efficient (~2KB)
+                  </p>
+                  <div className="mt-2 overflow-hidden rounded border border-neutral-200 dark:border-neutral-700">
+                    <pre className="overflow-x-auto bg-neutral-50 px-3 py-2 text-sm dark:bg-neutral-800">
+                      <code className="text-neutral-800 dark:text-neutral-200">{`jq '[.prds[] | {id, name, status}]' \\
+  docs/prd-registry.json`}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Skills Loading Strategy */}
+            <div className="mt-8">
+              <h4 className="text-sm font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                Skills Loading Strategy
+              </h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Skills are loaded on-demand, never eagerly at session start. Large skills are deferred until actually needed:
+              </p>
+              <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+                <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+                  <thead className="bg-neutral-50 dark:bg-neutral-800">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                        Skill
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                        Size / Tokens
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                        Load When
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                          test-flow
+                        </code>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        133KB / ~33K tokens
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        First test execution
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                          adhoc-workflow
+                        </code>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        61KB / ~15K tokens
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Entering ad-hoc mode
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                          prd-workflow
+                        </code>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        34KB / ~9K tokens
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Selecting a PRD
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                          builder-state
+                        </code>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        23KB / ~6K tokens
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Reference in-line, rarely need full skill
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Key Rule */}
+            <div className="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
+              <p className="text-sm text-blue-800 dark:text-blue-200">
+                <strong>Key Rule:</strong> Startup file reads should total{" "}
+                <strong>&lt;10KB</strong>. Skills are loaded on-demand, never eagerly at session start.
+                This preserves context capacity for the actual implementation work.
+              </p>
             </div>
           </div>
         </div>
