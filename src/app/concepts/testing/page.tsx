@@ -28,6 +28,7 @@ const PAGE_SECTIONS = [
   { id: "electron-desktop-testing", label: "Electron Desktop Testing" },
   { id: "qa-adversarial", label: "QA & Adversarial Testing" },
   { id: "mutation-testing", label: "Mutation Testing" },
+  { id: "cors-browser-verification", label: "CORS & Browser Verification" },
 ];
 
 export default function TestingConceptPage() {
@@ -5494,6 +5495,130 @@ await expectMutualExclusivity(
                 Multi-Platform Apps
               </Link>{" "}
               section for configuration details.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CORS & Browser Verification */}
+      <section
+        id="cors-browser-verification"
+        className="scroll-mt-8 border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            CORS & Browser Verification
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-300">
+            Cross-Origin Resource Sharing (CORS) is a browser security mechanism that controls which domains
+            can access resources from another domain. This has important implications for how agents verify
+            API behavior.
+          </p>
+
+          <div className="mt-8 rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-800 dark:bg-red-950">
+            <h3 className="font-semibold text-red-900 dark:text-red-100">
+              ⚠️ Critical: CORS Is Browser-Enforced
+            </h3>
+            <p className="mt-2 text-sm text-red-800 dark:text-red-200">
+              Agents must <strong>never</strong> use <code className="rounded bg-red-100 px-1 text-xs dark:bg-red-900">curl</code>,{" "}
+              <code className="rounded bg-red-100 px-1 text-xs dark:bg-red-900">wget</code>, or similar CLI tools to verify
+              CORS behavior. CORS headers are enforced by browsers, not by servers or CLI tools.
+            </p>
+          </div>
+
+          <h3 className="mt-10 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Why CLI Tools Cannot Test CORS
+          </h3>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-300">
+            CORS works as follows:
+          </p>
+          <ol className="mt-4 list-inside list-decimal space-y-2 text-neutral-700 dark:text-neutral-300">
+            <li>Browser makes a preflight <code className="rounded bg-neutral-100 px-1 text-sm dark:bg-neutral-800">OPTIONS</code> request</li>
+            <li>Server responds with CORS headers (<code className="rounded bg-neutral-100 px-1 text-sm dark:bg-neutral-800">Access-Control-Allow-Origin</code>, etc.)</li>
+            <li><strong>Browser</strong> decides whether to allow or block the actual request</li>
+          </ol>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-300">
+            CLI tools like <code className="rounded bg-neutral-100 px-1 text-sm dark:bg-neutral-800">curl</code> skip step 3 entirely—they
+            receive the response regardless of CORS headers. A <code className="rounded bg-neutral-100 px-1 text-sm dark:bg-neutral-800">curl</code> request
+            succeeding tells you nothing about whether a browser would allow the same request.
+          </p>
+
+          <h3 className="mt-10 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Correct CORS Verification Methods
+          </h3>
+          <div className="mt-4 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+            <table className="w-full text-sm">
+              <thead className="bg-neutral-100 dark:bg-neutral-800">
+                <tr>
+                  <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Method</th>
+                  <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">When to Use</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                <tr className="bg-white dark:bg-neutral-900">
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">Playwright E2E test</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Primary method—runs in a real browser context
+                  </td>
+                </tr>
+                <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">Browser DevTools (manual)</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Quick verification during development
+                  </td>
+                </tr>
+                <tr className="bg-white dark:bg-neutral-900">
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">QA adversarial agent</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Exploratory testing of cross-origin scenarios
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 className="mt-10 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Example: Playwright CORS Test
+          </h3>
+          <pre className="mt-4 overflow-x-auto rounded-xl bg-neutral-900 p-4 text-sm text-neutral-100 dark:bg-neutral-950">
+            <code>{`test('API allows cross-origin requests from allowed domain', async ({ page }) => {
+  // Navigate to the allowed origin
+  await page.goto('https://allowed-origin.example.com');
+  
+  // Make cross-origin request from browser context
+  const response = await page.evaluate(async () => {
+    const res = await fetch('https://api.example.com/data');
+    return { ok: res.ok, status: res.status };
+  });
+  
+  expect(response.ok).toBe(true);
+});
+
+test('API blocks cross-origin requests from disallowed domain', async ({ page }) => {
+  await page.goto('https://disallowed-origin.example.com');
+  
+  // This should fail due to CORS
+  const error = await page.evaluate(async () => {
+    try {
+      await fetch('https://api.example.com/data');
+      return null;
+    } catch (e) {
+      return e.message;
+    }
+  });
+  
+  expect(error).toContain('CORS');
+});`}</code>
+          </pre>
+
+          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-950">
+            <h3 className="font-semibold text-amber-900 dark:text-amber-100">
+              Agent Enforcement
+            </h3>
+            <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+              The security-critic and backend-critic agents are configured to flag any CORS verification
+              that uses CLI tools. If you see a CORS test using <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">curl</code>,
+              the test is invalid and must be rewritten to use browser-based verification.
             </p>
           </div>
         </div>

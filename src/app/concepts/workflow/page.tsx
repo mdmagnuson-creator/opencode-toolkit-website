@@ -516,6 +516,59 @@ export default function WorkflowConceptPage() {
             </div>
           </div>
 
+          {/* Unified Git Completion Workflow */}
+          <div className="mt-8 rounded-xl border border-green-200 bg-green-50 p-6 dark:border-green-800 dark:bg-green-950">
+            <h3 className="font-semibold text-green-900 dark:text-green-100">
+              Git Completion Workflow (7 Steps)
+            </h3>
+            <p className="mt-2 text-sm text-green-800 dark:text-green-200">
+              Both PRD mode and ad-hoc mode use the same canonical git shipping process,
+              driven by the <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">git.agentWorkflow</code> configuration:
+            </p>
+            <ol className="mt-4 space-y-2 text-sm text-green-800 dark:text-green-200">
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">1</span>
+                <span><strong>Validate config</strong> — Check <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">git.agentWorkflow</code> exists (fail fast if missing)</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">2</span>
+                <span><strong>Stage &amp; commit</strong> — Run <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">git add .</code> and commit with descriptive message</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">3</span>
+                <span><strong>Push to remote</strong> — Push to <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">pushTo</code> branch</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">4</span>
+                <span><strong>Check protection</strong> — Is <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">createPrTo</code> in <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">requiresHumanApproval</code>?</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">5</span>
+                <span><strong>Prompt user</strong> — &quot;Create PR to [branch]? (y/n)&quot;</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">6</span>
+                <span><strong>Create PR</strong> — Run <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">gh pr create</code> to <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">createPrTo</code> branch</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-semibold text-white">7</span>
+                <span><strong>Auto-merge?</strong> — Only if target is NOT in <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">requiresHumanApproval</code></span>
+              </li>
+            </ol>
+          </div>
+
+          {/* User Prompt Before PR */}
+          <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
+            <h4 className="font-semibold text-blue-900 dark:text-blue-100">
+              User Prompt Before PR Creation
+            </h4>
+            <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
+              Both PRD mode and ad-hoc mode now prompt the user before creating a PR.
+              This ensures you always have the opportunity to review changes before they
+              become a pull request. The prompt shows the target branch and a summary of commits.
+            </p>
+          </div>
+
           <div className="mt-6 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
             <span className="text-green-400">@builder</span>{" "}
             <span className="text-neutral-400">Create a PR for this branch with a summary of all changes.</span>
@@ -608,56 +661,108 @@ export default function WorkflowConceptPage() {
             </p>
           </div>
 
-          {/* Trunk Mode Configuration */}
+          {/* Agent Workflow Configuration */}
           <div className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
             <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
-              Trunk Mode Configuration
+              Agent Workflow Configuration
             </h3>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Control how Builder handles branching via the{" "}
+              Control where agents push code and create PRs via the{" "}
               <code className="rounded bg-neutral-200 px-1.5 py-0.5 text-xs dark:bg-neutral-700">
-                agents.trunkMode
+                git.agentWorkflow
               </code>{" "}
               setting in your project.json:
             </p>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
-                <div className="flex items-center gap-2">
-                  <code className="rounded bg-violet-100 px-2 py-1 text-sm font-semibold text-violet-800 dark:bg-violet-900 dark:text-violet-200">
-                    pr-based
-                  </code>
-                  <span className="rounded bg-neutral-200 px-1.5 py-0.5 text-xs text-neutral-600 dark:bg-neutral-600 dark:text-neutral-300">
-                    default
-                  </span>
-                </div>
-                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                  Builder creates feature branches and opens PRs for review before merging.
-                  Standard workflow for teams with code review requirements.
-                </p>
-              </div>
-              <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
-                <code className="rounded bg-violet-100 px-2 py-1 text-sm font-semibold text-violet-800 dark:bg-violet-900 dark:text-violet-200">
-                  branchless
-                </code>
-                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                  Builder commits directly to trunk (main/master). Ideal for solo developers
-                  or projects with strong CI gates that catch issues automatically.
-                </p>
-              </div>
-            </div>
             <div className="mt-4 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
-              <p className="text-neutral-400">{/* comment syntax */}{"//"} project.json</p>
-              <p className="mt-1">{`{`}</p>
-              <p className="ml-4">{`"agents": {`}</p>
-              <p className="ml-8">
-                <span className="text-green-400">&quot;trunkMode&quot;</span>
-                <span className="text-neutral-400">: </span>
-                <span className="text-amber-400">&quot;branchless&quot;</span>
-                <span className="text-neutral-400"> {"//"} or &quot;pr-based&quot; (default)</span>
-              </p>
-              <p className="ml-4">{`}`}</p>
-              <p>{`}`}</p>
+{`{
+  "git": {
+    "defaultBranch": "main",
+    "autoCommit": true,
+    "agentWorkflow": {
+      "workBranch": "main",
+      "pushTo": "main",
+      "createPrTo": "main",
+      "requiresHumanApproval": ["production"]
+    }
+  }
+}`}
             </div>
+            <div className="mt-4 space-y-3">
+              <div className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+                <code className="rounded bg-neutral-200 px-1 text-xs dark:bg-neutral-700">workBranch</code>
+                <span>— Where agents create feature branches from</span>
+              </div>
+              <div className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+                <code className="rounded bg-neutral-200 px-1 text-xs dark:bg-neutral-700">pushTo</code>
+                <span>— Where to push changes (same as workBranch for trunk-based)</span>
+              </div>
+              <div className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+                <code className="rounded bg-neutral-200 px-1 text-xs dark:bg-neutral-700">createPrTo</code>
+                <span>— Target branch for PRs</span>
+              </div>
+              <div className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+                <code className="rounded bg-neutral-200 px-1 text-xs dark:bg-neutral-700">requiresHumanApproval</code>
+                <span>— Branches where agents can create PRs but cannot auto-merge</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Protected Branch Behavior */}
+          <div className="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
+            <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+              Protected Branch Behavior
+            </h3>
+            <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
+              For branches listed in <code className="rounded bg-blue-100 px-1 text-xs dark:bg-blue-900">requiresHumanApproval</code>:
+            </p>
+            <ul className="mt-2 space-y-1 text-sm text-blue-800 dark:text-blue-200">
+              <li>• <strong>Direct push</strong> — BLOCKED (agents cannot push directly)</li>
+              <li>• <strong>Create PR</strong> — ALLOWED (agents can create PRs for review)</li>
+              <li>• <strong>Auto-merge</strong> — BLOCKED (human must approve and merge)</li>
+            </ul>
+          </div>
+
+          {/* Workflow Modes */}
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
+              <div className="flex items-center gap-2">
+                <code className="rounded bg-violet-100 px-2 py-1 text-sm font-semibold text-violet-800 dark:bg-violet-900 dark:text-violet-200">
+                  PR-based
+                </code>
+                <span className="rounded bg-neutral-200 px-1.5 py-0.5 text-xs text-neutral-600 dark:bg-neutral-600 dark:text-neutral-300">
+                  default
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Agent creates feature branches and opens PRs for review before merging.
+                Standard workflow for teams with code review requirements.
+              </p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
+              <code className="rounded bg-violet-100 px-2 py-1 text-sm font-semibold text-violet-800 dark:bg-violet-900 dark:text-violet-200">
+                Direct push
+              </code>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                When <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">pushTo</code> equals <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">workBranch</code>,
+                agent commits directly to trunk. Ideal for solo developers.
+              </p>
+            </div>
+          </div>
+
+          {/* Deprecated Settings */}
+          <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
+            <h4 className="font-semibold text-amber-900 dark:text-amber-100">
+              Deprecated Settings
+            </h4>
+            <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+              The following settings are deprecated and replaced by <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">git.agentWorkflow</code>:
+            </p>
+            <ul className="mt-2 space-y-1 text-sm text-amber-800 dark:text-amber-200">
+              <li>• <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">agents.trunkMode</code></li>
+              <li>• <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">agents.autoPush</code></li>
+              <li>• <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">git.trunkMode</code></li>
+              <li>• <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">git.autoPush</code></li>
+            </ul>
           </div>
         </div>
       </section>

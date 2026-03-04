@@ -162,9 +162,14 @@ export default function ProjectsConceptPage() {
   
   // Git workflow configuration
   "git": {
+    "defaultBranch": "main",
     "autoCommit": true,      // Set to false for manual commit control
-    "autoPush": true,
-    "trunkMode": "pr-based"  // "pr-based" (default) or "branchless"
+    "agentWorkflow": {
+      "workBranch": "main",        // Where agents work
+      "pushTo": "main",            // Where to push changes
+      "createPrTo": "main",        // PR target branch
+      "requiresHumanApproval": []  // Branches that block auto-merge
+    }
   },
   
   // Integration-specific configurations
@@ -246,7 +251,7 @@ export default function ProjectsConceptPage() {
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                 Control commit behavior with{" "}
                 <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">autoCommit</code> and{" "}
-                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">autoPush</code>. See{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">agentWorkflow</code>. See{" "}
                 <a href="#git-configuration" className="text-blue-600 hover:underline dark:text-blue-400">Git Configuration</a>{" "}
                 below.
               </p>
@@ -377,15 +382,63 @@ export default function ProjectsConceptPage() {
             <pre className="p-6 text-sm leading-relaxed text-neutral-100">
 {`{
   "git": {
-    "autoCommit": true,     // Agents create commits automatically
-    "autoPush": true,       // Push commits to remote after creating
-    "trunkMode": "pr-based" // "pr-based" or "branchless"
+    "defaultBranch": "main",
+    "autoCommit": true,
+    "agentWorkflow": {
+      "workBranch": "main",
+      "pushTo": "main",
+      "createPrTo": "main",
+      "requiresHumanApproval": ["production"]
+    }
   }
 }`}
             </pre>
           </div>
 
           <div className="mt-6 space-y-4">
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                agentWorkflow
+              </h3>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Defines where agents push code and create PRs. This replaces the deprecated{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">trunkMode</code> and{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">autoPush</code> settings.
+              </p>
+              <ul className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                <li className="flex items-start gap-2">
+                  <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">workBranch</code>
+                  <span>— Where agents create feature branches from</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">pushTo</code>
+                  <span>— Where to push changes (same as workBranch for trunk-based)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">createPrTo</code>
+                  <span>— Target branch for PRs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">requiresHumanApproval</code>
+                  <span>— Branches where agents can create PRs but cannot auto-merge</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
+              <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+                Protected Branch Behavior
+              </h3>
+              <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
+                For branches in <code className="rounded bg-blue-100 px-1 text-xs dark:bg-blue-900">requiresHumanApproval</code>:
+              </p>
+              <ul className="mt-2 space-y-1 text-sm text-blue-800 dark:text-blue-200">
+                <li>• <strong>Direct push</strong> — BLOCKED (agents cannot push directly)</li>
+                <li>• <strong>Create PR</strong> — ALLOWED (agents can create PRs for review)</li>
+                <li>• <strong>Auto-merge</strong> — BLOCKED (human must approve and merge)</li>
+              </ul>
+            </div>
+
             <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
               <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
                 autoCommit: true <span className="text-xs font-normal text-neutral-500">(default)</span>
