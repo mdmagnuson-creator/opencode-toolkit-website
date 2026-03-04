@@ -315,7 +315,10 @@ export default function ProjectsConceptPage() {
       "electron": {
         "executablePath": "dist/MyApp-darwin-arm64/MyApp.app",
         "devLaunchArgs": [".", "--no-sandbox"]
-      }
+      },
+      // Architecture detection for verification strategy
+      "webContent": "bundled",  // bundled | remote | hybrid
+      "remoteUrl": null         // Only for remote/hybrid apps
     }
   ]
 }`}
@@ -341,6 +344,15 @@ export default function ProjectsConceptPage() {
                   Electron Desktop Testing
                 </a>{" "}
                 section for details.
+              </p>
+            </div>
+            <div className="rounded-lg border border-indigo-200 bg-indigo-50 p-4 dark:border-indigo-800 dark:bg-indigo-950">
+              <h3 className="font-semibold text-indigo-900 dark:text-indigo-100">Desktop Architecture Detection</h3>
+              <p className="mt-2 text-sm text-indigo-800 dark:text-indigo-200">
+                The <code className="rounded bg-indigo-100 px-1 text-xs dark:bg-indigo-900">webContent</code> field tells agents
+                how the app loads its UI: <strong>bundled</strong> (file:// protocol),{" "}
+                <strong>remote</strong> (loads from URL), or <strong>hybrid</strong> (shell + remote content).
+                This enables architecture-aware verification strategy selection.
               </p>
             </div>
           </div>

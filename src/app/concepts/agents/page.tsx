@@ -19,6 +19,7 @@ const PAGE_SECTIONS = [
   { id: "how-agents-are-invoked", label: "How Agents Are Invoked" },
   { id: "delegation-pattern", label: "The Delegation Pattern" },
   { id: "agent-communication", label: "How Agents Communicate" },
+  { id: "test-doc-sync", label: "Test Documentation Sync" },
   { id: "agent-categories", label: "Agent Categories" },
 ];
 
@@ -364,6 +365,76 @@ export default function AgentsConceptPage() {
               <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400">
                 Each tool call returns results that agents use to decide next steps.
                 Read, Write, Edit, Bash, and more—all produce visible outputs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Test Documentation Sync */}
+      <section id="test-doc-sync" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Test Documentation Sync
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Both <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@builder</code> and{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@developer</code> enforce
+            test documentation sync <strong>before every commit</strong>. This prevents stale test references
+            from being committed.
+          </p>
+
+          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-950">
+            <h3 className="font-semibold text-amber-900 dark:text-amber-100">
+              Pre-Commit Detection
+            </h3>
+            <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+              Before staging files for commit, agents scan for stale test references—deleted test files that are
+              still referenced in configuration, old function names that have been renamed, or missing test utilities.
+            </p>
+          </div>
+
+          <div className="mt-8 space-y-4">
+            <div className="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                What Gets Checked
+              </h4>
+              <ul className="mt-3 space-y-2 text-sm text-neutral-700 dark:text-neutral-400">
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  Test file imports match existing source files
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  Jest/Vitest config references valid test patterns
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  Playwright config test directories exist
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  Mock/fixture references point to valid files
+                </li>
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                When Issues Are Found
+              </h4>
+              <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400">
+                If stale references are detected, the agent automatically fixes them before proceeding with
+                the commit. This typically involves updating import paths, removing references to deleted
+                files, or renaming function calls to match current implementations.
               </p>
             </div>
           </div>

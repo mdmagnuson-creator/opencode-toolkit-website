@@ -1310,6 +1310,10 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                     <span className="text-violet-600 dark:text-violet-400">•</span>
                     Reference ID: adhoc-###
                   </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-violet-600 dark:text-violet-400">•</span>
+                    Pre-analysis screenshot captured before code analysis (Step 0.0a)
+                  </li>
                 </ul>
               </div>
 

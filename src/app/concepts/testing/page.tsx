@@ -1838,6 +1838,57 @@ export default function TestingConceptPage() {
             </div>
           </div>
 
+          {/* Architecture-Aware Verification */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Architecture-Aware Verification
+            </h3>
+            <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+              For desktop and multi-platform apps, test-flow automatically selects the
+              appropriate verification strategy based on the app&apos;s{" "}
+              <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">webContent</code>{" "}
+              architecture:
+            </p>
+
+            <div className="mt-6 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+              <table className="w-full text-sm">
+                <thead className="bg-neutral-100 dark:bg-neutral-800">
+                  <tr>
+                    <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Architecture</th>
+                    <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Verification Strategy</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                  <tr className="bg-white dark:bg-neutral-900">
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">bundled</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                      Electron-native Playwright tests with direct app launch
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">remote</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                      Standard browser tests against remoteUrl, then Electron shell test
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-900">
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">hybrid</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                      Combined strategy: shell via Electron, remote content via browser
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-4 rounded-xl border border-indigo-200 bg-indigo-50 p-4 dark:border-indigo-800 dark:bg-indigo-950">
+              <p className="text-sm text-indigo-800 dark:text-indigo-200">
+                <strong>Pre-check:</strong> Before running desktop tests, test-flow performs a zombie process
+                pre-check to clean up any orphaned Electron instances from previous runs.
+              </p>
+            </div>
+          </div>
+
           {/* Link to full skill page */}
           <div className="mt-8">
             <Link
@@ -5400,7 +5451,10 @@ await expectMutualExclusivity(
         
         // Args to launch in dev mode (uses electron .)
         "devLaunchArgs": [".", "--no-sandbox"]
-      }
+      },
+      // Architecture detection for verification strategy
+      "webContent": "bundled",  // bundled | remote | hybrid
+      "remoteUrl": null         // Only for remote/hybrid apps
     }
   ]
 }`}
@@ -5433,6 +5487,66 @@ await expectMutualExclusivity(
                 to indicate Playwright should launch the binary directly instead of connecting to a URL.
               </p>
             </div>
+            <div className="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-700 dark:bg-purple-900/30">
+              <h4 className="font-semibold text-purple-900 dark:text-purple-100">webContent</h4>
+              <p className="mt-2 text-sm text-purple-800 dark:text-purple-200">
+                Describes how the app loads its UI content. Used for architecture-aware verification strategy selection:
+              </p>
+              <ul className="mt-2 space-y-1 text-sm text-purple-800 dark:text-purple-200">
+                <li>• <code className="rounded bg-purple-100 px-1 text-xs dark:bg-purple-800">bundled</code> — UI is packaged with the app (file:// protocol)</li>
+                <li>• <code className="rounded bg-purple-100 px-1 text-xs dark:bg-purple-800">remote</code> — UI loads from a remote URL</li>
+                <li>• <code className="rounded bg-purple-100 px-1 text-xs dark:bg-purple-800">hybrid</code> — Mix of bundled shell with remote content</li>
+              </ul>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">remoteUrl</h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                For <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">remote</code> or{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">hybrid</code> apps, specify the URL
+                where the UI content is loaded from. Set to <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">null</code>{" "}
+                for bundled apps.
+              </p>
+            </div>
+          </div>
+
+          <h3 className="mt-8 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Zombie Process Cleanup
+          </h3>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Electron apps can leave zombie processes if tests fail or are interrupted. The e2e-electron skill
+            includes a <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">globalSetup.ts</code>{" "}
+            pattern that cleans up orphaned processes before each test run:
+          </p>
+          <div className="mt-6 overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-900 dark:border-neutral-700">
+            <pre className="p-6 text-sm leading-relaxed text-neutral-100">
+{`// playwright/globalSetup.ts
+import { execSync } from 'child_process';
+
+export default async function globalSetup() {
+  // Kill any orphaned Electron processes from previous runs
+  try {
+    if (process.platform === 'darwin') {
+      execSync('pkill -f "Electron" || true', { stdio: 'ignore' });
+    } else if (process.platform === 'win32') {
+      execSync('taskkill /F /IM electron.exe 2>nul || exit 0', { stdio: 'ignore' });
+    } else {
+      execSync('pkill -f electron || true', { stdio: 'ignore' });
+    }
+  } catch {
+    // Ignore errors if no processes found
+  }
+  
+  // Brief pause to ensure cleanup completes
+  await new Promise(resolve => setTimeout(resolve, 500));
+}`}
+            </pre>
+          </div>
+          <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
+            <p className="text-sm text-amber-800 dark:text-amber-200">
+              <strong>Pre-test verification:</strong> The test-flow skill runs a zombie process pre-check
+              before Electron tests. If orphaned processes are detected, they are cleaned up automatically
+              to prevent &quot;another instance already running&quot; errors.
+            </p>
           </div>
 
           <h3 className="mt-8 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
