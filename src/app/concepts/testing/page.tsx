@@ -2824,6 +2824,66 @@ export default function TestingConceptPage() {
             </div>
           </div>
 
+          {/* Execution Mode Detection */}
+          <div className="mt-12">
+            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              Execution Mode Detection
+            </h3>
+            <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+              Before running any E2E tests, the{" "}
+              <code className="rounded bg-indigo-100 px-1.5 py-0.5 font-mono text-sm text-indigo-900 dark:bg-indigo-900 dark:text-indigo-100">
+                test-e2e-flow
+              </code>{" "}
+              skill automatically detects whether the project uses Electron
+              desktop testing or standard browser testing, and routes to the
+              correct test runner.
+            </p>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-950">
+                <h4 className="font-semibold text-blue-900 dark:text-blue-100">
+                  🌐 Browser Mode
+                </h4>
+                <ul className="mt-3 space-y-2 text-sm text-blue-800 dark:text-blue-200">
+                  <li>• Resolves test base URL</li>
+                  <li>• Checks dev server is running</li>
+                  <li>• Uses standard Playwright config</li>
+                  <li>• Parallel workers supported</li>
+                </ul>
+              </div>
+              <div className="rounded-xl border border-purple-200 bg-purple-50 p-5 dark:border-purple-800 dark:bg-purple-950">
+                <h4 className="font-semibold text-purple-900 dark:text-purple-100">
+                  🖥️ Electron Mode
+                </h4>
+                <ul className="mt-3 space-y-2 text-sm text-purple-800 dark:text-purple-200">
+                  <li>• Skips base URL resolution</li>
+                  <li>• Skips dev server checks</li>
+                  <li>• Routes to{" "}
+                    <code className="rounded bg-purple-100 px-1 text-xs dark:bg-purple-900">playwright-electron</code>
+                  </li>
+                  <li>• Single worker only (<code className="rounded bg-purple-100 px-1 text-xs dark:bg-purple-900">--workers=1</code>)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-sm text-neutral-700 dark:text-neutral-300">
+                <strong className="text-neutral-900 dark:text-neutral-100">Detection logic:</strong>{" "}
+                The skill checks{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">architecture.deployment</code>{" "}
+                and{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">apps.*.framework</code>{" "}
+                in your{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">project.json</code>.{" "}
+                If either indicates Electron, the skill loads the{" "}
+                <Link href="#electron-desktop-testing" className="text-indigo-600 hover:underline dark:text-indigo-400">
+                  e2e-electron skill
+                </Link>{" "}
+                and skips browser-specific setup steps entirely.
+              </p>
+            </div>
+          </div>
+
           {/* E2E Agent Cards */}
           <div className="mt-12 space-y-6">
             <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
@@ -5562,8 +5622,10 @@ export default async function globalSetup() {
                   Skill is loaded automatically
                 </p>
                 <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                  When <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">type: &quot;electron&quot;</code>{" "}
-                  is detected in your project config, the e2e-electron skill activates.
+                  The <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">test-e2e-flow</code> skill
+                  detects Electron projects via <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">architecture.deployment</code>{" "}
+                  or <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">apps.*.framework</code> and
+                  automatically routes to the e2e-electron skill, skipping browser-specific setup.
                 </p>
               </div>
             </div>

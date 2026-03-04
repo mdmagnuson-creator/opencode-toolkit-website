@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-04T00:00:00Z",
-  "syncedAt": "2026-03-03T20:53:13.559Z",
-  "toolkitCommit": "pending",
+  "generatedAt": "2026-03-04T18:45:00Z",
+  "syncedAt": "2026-03-04T16:40:11.387Z",
+  "toolkitCommit": "d03dd95",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -700,6 +700,30 @@
       "content": ""
     },
     {
+      "slug": "builder-cli",
+      "name": "Builder Cli",
+      "description": "CLI tool detection and proactive usage for Builder. Triggers on: cli command, project cli, use cli tools.",
+      "triggers": [
+        "cli command",
+        "project cli",
+        "use cli tools"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "builder-delegation",
+      "name": "Builder Delegation",
+      "description": "Sub-agent delegation patterns for Builder orchestration. Triggers on: delegate to, call subagent, orchestration patterns.",
+      "triggers": [
+        "delegate to",
+        "call subagent",
+        "orchestration patterns"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "builder-state",
       "name": "Builder State",
       "description": "Manage builder session state for resumability. Use when reading/writing builder-state.json, updating heartbeat, or resuming sessions. Triggers on: session state, builder state, heartbeat, resume session.",
@@ -1136,37 +1160,13 @@
       "content": ""
     },
     {
-      "slug": "builder-cli",
-      "name": "Builder Cli",
-      "description": "CLI tool detection and proactive usage. Detects authenticated CLIs and uses them instead of manual instructions. Triggers on: cli detection, use cli, proactive cli.",
-      "triggers": [
-        "cli detection",
-        "use cli",
-        "proactive cli"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
-      "slug": "builder-delegation",
-      "name": "Builder Delegation",
-      "description": "Sub-agent delegation patterns. Context block generation, verification contracts, and semantic search context. Triggers on: delegate task, context block, sub-agent delegation.",
-      "triggers": [
-        "delegate task",
-        "context block",
-        "sub-agent delegation"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
       "slug": "test-activity-resolution",
       "name": "Test Activity Resolution",
-      "description": "Resolves test activity from project.json commands. Maps file patterns and code signals to specific test activities (unit, e2e, visual-verify). Triggers on: test activity, resolve test type, which tests to run.",
+      "description": "Resolves test activity from project.json commands. Triggers on: which tests to run, test commands, resolve test activity.",
       "triggers": [
-        "test activity",
-        "resolve test type",
-        "which tests to run"
+        "which tests to run",
+        "test commands",
+        "resolve test activity"
       ],
       "isMeta": false,
       "content": ""
@@ -1174,11 +1174,11 @@
     {
       "slug": "test-doc-sync",
       "name": "Test Doc Sync",
-      "description": "Test documentation sync workflow. Ensures test comments and docstrings stay current when code changes. Triggers on: test doc sync, stale test docs, sync test documentation.",
+      "description": "Test documentation sync workflow for keeping test files and docs aligned. Triggers on: test doc sync, sync test docs, update test documentation.",
       "triggers": [
         "test doc sync",
-        "stale test docs",
-        "sync test documentation"
+        "sync test docs",
+        "update test documentation"
       ],
       "isMeta": false,
       "content": ""
@@ -1186,12 +1186,12 @@
     {
       "slug": "test-e2e-flow",
       "name": "Test E2e Flow",
-      "description": "E2E test generation and execution workflow. Manages deferred E2E tests and post-PRD test runs. Triggers on: e2e tests, generate e2e, deferred e2e, run e2e.",
+      "description": "E2E test generation and execution workflow. Triggers on: run e2e, generate e2e, deferred e2e, e2e flow.",
       "triggers": [
-        "e2e tests",
+        "run e2e",
         "generate e2e",
         "deferred e2e",
-        "run e2e"
+        "e2e flow"
       ],
       "isMeta": false,
       "content": ""
@@ -1199,12 +1199,12 @@
     {
       "slug": "test-failure-handling",
       "name": "Test Failure Handling",
-      "description": "Test failure logging, manual fallback, and skip flows. Handles verification failures and blocker tracking. Triggers on: test failure, skip test, manual fallback, test debt.",
+      "description": "Test failure logging, manual fallback, and skip flows. Triggers on: test failed, skip test, abandon feature, manual fallback.",
       "triggers": [
-        "test failure",
+        "test failed",
         "skip test",
-        "manual fallback",
-        "test debt"
+        "abandon feature",
+        "manual fallback"
       ],
       "isMeta": false,
       "content": ""
@@ -1212,7 +1212,7 @@
     {
       "slug": "test-flow",
       "name": "Test Flow",
-      "description": "Slim orchestrator for test workflows. Routes to specialized sub-skills (test-activity-resolution, test-verification-loop, test-prerequisite-detection, test-e2e-flow, test-ui-verification, test-quality-checks, test-failure-handling). Triggers on: generate tests, run tests, test failures, E2E deferral, test flow.",
+      "description": "Test orchestrator skill that routes to specialized test sub-skills. Triggers on: generate tests, run tests, test failures, E2E deferral, test flow.",
       "triggers": [
         "generate tests",
         "run tests",
@@ -1226,11 +1226,11 @@
     {
       "slug": "test-prerequisite-detection",
       "name": "Test Prerequisite Detection",
-      "description": "Detect and classify test prerequisites and blockers. Identifies prerequisite vs feature vs environment failures. Triggers on: prerequisite failure, test blocker, classify failure.",
+      "description": "Detect and classify test prerequisites and blockers. Triggers on: prerequisite failure, blocker detection, test dependencies.",
       "triggers": [
         "prerequisite failure",
-        "test blocker",
-        "classify failure"
+        "blocker detection",
+        "test dependencies"
       ],
       "isMeta": false,
       "content": ""
@@ -1238,12 +1238,12 @@
     {
       "slug": "test-quality-checks",
       "name": "Test Quality Checks",
-      "description": "Quality checks beyond tests — lint, type-check, build verification. Runs quality gates before and after implementation. Triggers on: quality checks, lint check, typecheck, build verify.",
+      "description": "Quality checks beyond tests - lint, type-check, build. Triggers on: quality checks, lint errors, type errors, build fails.",
       "triggers": [
         "quality checks",
-        "lint check",
-        "typecheck",
-        "build verify"
+        "lint errors",
+        "type errors",
+        "build fails"
       ],
       "isMeta": false,
       "content": ""
@@ -1251,24 +1251,11 @@
     {
       "slug": "test-ui-verification",
       "name": "Test Ui Verification",
-      "description": "UI verification test patterns and flaky test handling. Manages browser-based verification and quarantine. Triggers on: ui verify, flaky test, visual verification, browser test.",
+      "description": "UI verification test patterns and flaky test handling. Triggers on: ui verification, flaky test, visual verification.",
       "triggers": [
-        "ui verify",
+        "ui verification",
         "flaky test",
-        "visual verification",
-        "browser test"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
-      "slug": "test-verification-loop",
-      "name": "Test Verification Loop",
-      "description": "3-pass stability verification and automated fix loop. Ensures tests pass consistently before declaring verified. Triggers on: stability check, verification loop, 3-pass verify.",
-      "triggers": [
-        "stability check",
-        "verification loop",
-        "3-pass verify"
+        "visual verification"
       ],
       "isMeta": false,
       "content": ""
@@ -1295,6 +1282,19 @@
         "cleanup test users",
         "delete test accounts",
         "test-user-cleanup"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-verification-loop",
+      "name": "Test Verification Loop",
+      "description": "3-pass stability verification and automated fix loop. Triggers on: stability check, verification loop, fix loop, 3-pass.",
+      "triggers": [
+        "stability check",
+        "verification loop",
+        "fix loop",
+        "3-pass"
       ],
       "isMeta": false,
       "content": ""
@@ -1492,19 +1492,89 @@
       "displayDate": "March 4, 2026",
       "changes": [
         {
-          "type": "refactor",
-          "description": "split monolithic test-flow skill (133KB) into slim orchestrator (5.6KB) plus 7 focused sub-skills",
+          "type": "feat",
+          "description": "add Electron execution path detection and routing to test-e2e-flow skill",
+          "scope": "skill"
+        },
+        {
+          "type": "feat",
+          "description": "add Electron E2E execution path update template to update registry",
+          "scope": "registry"
+        },
+        {
+          "type": "feat",
+          "description": "add webContent and remoteUrl fields to apps schema for desktop app architecture detection",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add desktop app detection and webContent questions to project-bootstrap skill",
           "scope": "skills"
         },
         {
           "type": "feat",
-          "description": "add 7 test sub-skills: test-activity-resolution, test-verification-loop, test-prerequisite-detection, test-e2e-flow, test-ui-verification, test-quality-checks, test-failure-handling",
+          "description": "add architecture-aware verification strategy to test-flow skill",
           "scope": "skills"
         },
         {
           "type": "feat",
-          "description": "add 3 Builder utility skills: builder-cli, builder-delegation, test-doc-sync",
+          "description": "add Step 0.0a pre-analysis screenshot to adhoc-workflow skill",
           "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add desktop app startup support to start-dev-server skill",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add zombie process cleanup patterns to e2e-electron skill",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add zombie process pre-check to test-flow skill",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add test documentation sync section for pre-commit stale reference detection",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add test documentation sync step 6 before commit in Phase 3",
+          "scope": "developer"
+        },
+        {
+          "type": "fix",
+          "description": "add CORS/headers/security file patterns to test-activity-rules.json for e2e: immediate",
+          "scope": "builder"
+        },
+        {
+          "type": "fix",
+          "description": "add 'Never Use curl/wget for Browser Verification' section prohibiting curl for CORS verification",
+          "scope": "builder"
+        },
+        {
+          "type": "fix",
+          "description": "add 'User Summary Detection' section clarifying summaries accelerate analysis but don't skip verification",
+          "scope": "adhoc-workflow"
+        },
+        {
+          "type": "fix",
+          "description": "clarify PR creation to protected branches is allowed, only auto-merge is blocked",
+          "scope": "guardrails"
+        },
+        {
+          "type": "fix",
+          "description": "add explicit git.agentWorkflow enforcement to Phase 2: Ship with PR prompt",
+          "scope": "adhoc-workflow"
+        },
+        {
+          "type": "fix",
+          "description": "make Analysis Gate compaction-resilient with mandatory state checkpoint before @developer delegation",
+          "scope": "builder"
         },
         {
           "type": "feat",
@@ -1537,6 +1607,96 @@
       "date": "2026-03-03",
       "displayDate": "March 3, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add canonical Git Completion Workflow to AGENTS.md for unified PRD and ad-hoc git behavior",
+          "scope": "guardrails"
+        },
+        {
+          "type": "fix",
+          "description": "update prd-workflow Phase 3: Ship to use git.agentWorkflow and reference canonical workflow",
+          "scope": "skills"
+        },
+        {
+          "type": "fix",
+          "description": "update adhoc-workflow to reference canonical Git Completion Workflow in AGENTS.md",
+          "scope": "skills"
+        },
+        {
+          "type": "fix",
+          "description": "clarify requiresHumanApproval allows PRs but blocks auto-merge",
+          "scope": "schema"
+        },
+        {
+          "type": "docs",
+          "description": "implement PRD for unified git completion workflow (moved to docs/prds/)",
+          "scope": "prd"
+        },
+        {
+          "type": "fix",
+          "description": "clarify PR creation allowed to protected branches, only auto-merge blocked",
+          "scope": "guardrails"
+        },
+        {
+          "type": "fix",
+          "description": "add explicit git.agentWorkflow enforcement to adhoc-workflow Phase 2: Ship",
+          "scope": "skills"
+        },
+        {
+          "type": "docs",
+          "description": "add PRD for consistent git workflow completion behavior",
+          "scope": "prd"
+        },
+        {
+          "type": "feat",
+          "description": "remove deprecated agents.gitWorkflow, trunkMode, autoCommit, autoPush from project.schema.json (US-001)",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add git.agentWorkflow for branch targeting configuration (US-002)",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add Git Workflow Enforcement section to AGENTS.md (US-007)",
+          "scope": "guardrails"
+        },
+        {
+          "type": "feat",
+          "description": "add Option C central registry instructions for schema migrations (US-008)",
+          "scope": "toolkit"
+        },
+        {
+          "type": "feat",
+          "description": "add project context loading and git workflow validation (US-003)",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add project context loading and git workflow enforcement (US-004)",
+          "scope": "planner"
+        },
+        {
+          "type": "feat",
+          "description": "add git workflow extraction and enforcement (US-005)",
+          "scope": "developer"
+        },
+        {
+          "type": "feat",
+          "description": "enforce relatedProjects lookup - no name-based guessing (US-006)",
+          "scope": "toolkit"
+        },
+        {
+          "type": "feat",
+          "description": "add interactive git config migration to central registry (US-009)",
+          "scope": "updates"
+        },
+        {
+          "type": "docs",
+          "description": "add PRD for project context awareness and git workflow enforcement",
+          "scope": "prd"
+        },
         {
           "type": "feat",
           "description": "add examples to 41 agents for improved few-shot prompting (20 critics, 2 testers, 7 operational, 3 E2E/review, 9 implementation)",
