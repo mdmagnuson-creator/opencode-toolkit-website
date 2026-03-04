@@ -87,10 +87,17 @@
       "commit"
     ]
   },
-  "agents": {
-    "gitWorkflow": "trunk",
+  "git": {
+    "defaultBranch": "main",
     "autoCommit": true,
-    "autoPush": true,
+    "agentWorkflow": {
+      "workBranch": "main",
+      "pushTo": "main",
+      "createPrTo": "main",
+      "requiresHumanApproval": []
+    }
+  },
+  "agents": {
     "browserVerification": true,
     "prReviewRequired": false
   },

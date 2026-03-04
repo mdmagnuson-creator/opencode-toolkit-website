@@ -150,6 +150,18 @@
       "appliedAt": "2026-03-03T20:53:00Z",
       "appliedBy": "builder",
       "updateType": "sync"
+    },
+    {
+      "id": "2026-03-04-analysis-gate-compaction",
+      "appliedAt": "2026-03-03T21:15:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
+    },
+    {
+      "id": "2026-03-04-migrate-git-config",
+      "appliedAt": "2026-03-03T21:16:00Z",
+      "appliedBy": "builder",
+      "updateType": "migration"
     }
   ]
 }
