@@ -1300,10 +1300,10 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                         </code>
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                        133KB / ~33K tokens
+                        5.6KB / ~1.4K tokens
                       </td>
                       <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                        First test execution
+                        First test execution (loads sub-skills as needed)
                       </td>
                     </tr>
                     <tr>
@@ -1348,6 +1348,18 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                   </tbody>
                 </table>
               </div>
+            </div>
+
+            {/* Test Flow Architecture Note */}
+            <div className="mt-6 rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <strong className="text-neutral-900 dark:text-neutral-100">Note:</strong>{" "}
+                The <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">test-flow</code> skill
+                was refactored from a monolithic 133KB skill into a slim 5.6KB orchestrator that routes to 7
+                specialized sub-skills (test-activity-resolution, test-verification-loop, test-prerequisite-detection,
+                test-e2e-flow, test-ui-verification, test-quality-checks, test-failure-handling). This reduces
+                initial token overhead by 96% while preserving full functionality through on-demand loading.
+              </p>
             </div>
 
             {/* Key Rule */}

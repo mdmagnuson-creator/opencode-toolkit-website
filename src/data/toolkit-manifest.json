@@ -7,7 +7,7 @@
     "agents": 64,
     "primaryAgents": 4,
     "subagents": 60,
-    "skills": 54,
+    "skills": 64,
     "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -1136,15 +1136,139 @@
       "content": ""
     },
     {
+      "slug": "builder-cli",
+      "name": "Builder Cli",
+      "description": "CLI tool detection and proactive usage. Detects authenticated CLIs and uses them instead of manual instructions. Triggers on: cli detection, use cli, proactive cli.",
+      "triggers": [
+        "cli detection",
+        "use cli",
+        "proactive cli"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "builder-delegation",
+      "name": "Builder Delegation",
+      "description": "Sub-agent delegation patterns. Context block generation, verification contracts, and semantic search context. Triggers on: delegate task, context block, sub-agent delegation.",
+      "triggers": [
+        "delegate task",
+        "context block",
+        "sub-agent delegation"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-activity-resolution",
+      "name": "Test Activity Resolution",
+      "description": "Resolves test activity from project.json commands. Maps file patterns and code signals to specific test activities (unit, e2e, visual-verify). Triggers on: test activity, resolve test type, which tests to run.",
+      "triggers": [
+        "test activity",
+        "resolve test type",
+        "which tests to run"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-doc-sync",
+      "name": "Test Doc Sync",
+      "description": "Test documentation sync workflow. Ensures test comments and docstrings stay current when code changes. Triggers on: test doc sync, stale test docs, sync test documentation.",
+      "triggers": [
+        "test doc sync",
+        "stale test docs",
+        "sync test documentation"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-e2e-flow",
+      "name": "Test E2e Flow",
+      "description": "E2E test generation and execution workflow. Manages deferred E2E tests and post-PRD test runs. Triggers on: e2e tests, generate e2e, deferred e2e, run e2e.",
+      "triggers": [
+        "e2e tests",
+        "generate e2e",
+        "deferred e2e",
+        "run e2e"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-failure-handling",
+      "name": "Test Failure Handling",
+      "description": "Test failure logging, manual fallback, and skip flows. Handles verification failures and blocker tracking. Triggers on: test failure, skip test, manual fallback, test debt.",
+      "triggers": [
+        "test failure",
+        "skip test",
+        "manual fallback",
+        "test debt"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "test-flow",
       "name": "Test Flow",
-      "description": "Automatic test generation and execution flows for Builder. Use when generating unit/E2E tests, handling test failures, or managing E2E deferral. Triggers on: generate tests, run tests, test failures, E2E deferral, test flow.",
+      "description": "Slim orchestrator for test workflows. Routes to specialized sub-skills (test-activity-resolution, test-verification-loop, test-prerequisite-detection, test-e2e-flow, test-ui-verification, test-quality-checks, test-failure-handling). Triggers on: generate tests, run tests, test failures, E2E deferral, test flow.",
       "triggers": [
         "generate tests",
         "run tests",
         "test failures",
         "E2E deferral",
         "test flow"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-prerequisite-detection",
+      "name": "Test Prerequisite Detection",
+      "description": "Detect and classify test prerequisites and blockers. Identifies prerequisite vs feature vs environment failures. Triggers on: prerequisite failure, test blocker, classify failure.",
+      "triggers": [
+        "prerequisite failure",
+        "test blocker",
+        "classify failure"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-quality-checks",
+      "name": "Test Quality Checks",
+      "description": "Quality checks beyond tests — lint, type-check, build verification. Runs quality gates before and after implementation. Triggers on: quality checks, lint check, typecheck, build verify.",
+      "triggers": [
+        "quality checks",
+        "lint check",
+        "typecheck",
+        "build verify"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-ui-verification",
+      "name": "Test Ui Verification",
+      "description": "UI verification test patterns and flaky test handling. Manages browser-based verification and quarantine. Triggers on: ui verify, flaky test, visual verification, browser test.",
+      "triggers": [
+        "ui verify",
+        "flaky test",
+        "visual verification",
+        "browser test"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "test-verification-loop",
+      "name": "Test Verification Loop",
+      "description": "3-pass stability verification and automated fix loop. Ensures tests pass consistently before declaring verified. Triggers on: stability check, verification loop, 3-pass verify.",
+      "triggers": [
+        "stability check",
+        "verification loop",
+        "3-pass verify"
       ],
       "isMeta": false,
       "content": ""
@@ -1367,6 +1491,21 @@
       "date": "2026-03-04",
       "displayDate": "March 4, 2026",
       "changes": [
+        {
+          "type": "refactor",
+          "description": "split monolithic test-flow skill (133KB) into slim orchestrator (5.6KB) plus 7 focused sub-skills",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add 7 test sub-skills: test-activity-resolution, test-verification-loop, test-prerequisite-detection, test-e2e-flow, test-ui-verification, test-quality-checks, test-failure-handling",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add 3 Builder utility skills: builder-cli, builder-delegation, test-doc-sync",
+          "scope": "skills"
+        },
         {
           "type": "feat",
           "description": "add CLI state persistence and proactive CLI usage triggers for compaction resilience",

@@ -354,7 +354,7 @@
     }
   },
   "skills": {
-    "total": 54,
+    "total": 64,
     "categories": {
       "workflow": {
         "description": "Workflow and lifecycle skills",
@@ -407,7 +407,57 @@
           {
             "name": "test-flow",
             "path": "skills/test-flow/SKILL.md",
-            "description": "Automatic test generation and execution flows for Builder. Use when generating unit/E2E tests, handling test failures, or managing E2E deferral. Triggers on: generate tests, run tests, test failures, E2E deferral, test flow."
+            "description": "Slim orchestrator that routes to specialized test sub-skills. Use when generating unit/E2E tests, handling test failures, or managing E2E deferral. Triggers on: generate tests, run tests, test failures, E2E deferral, test flow."
+          },
+          {
+            "name": "test-activity-resolution",
+            "path": "skills/test-activity-resolution/SKILL.md",
+            "description": "Resolves which test activities are needed based on file changes and code patterns. Uses signal-based rules from test-activity-rules.json. Triggers on: determine test activities, what tests to run, test selection."
+          },
+          {
+            "name": "test-doc-sync",
+            "path": "skills/test-doc-sync/SKILL.md",
+            "description": "Synchronizes test documentation after code changes. Updates comments and docstrings when source identifiers change. Triggers on: sync test docs, update test comments, test documentation."
+          },
+          {
+            "name": "test-e2e-flow",
+            "path": "skills/test-e2e-flow/SKILL.md",
+            "description": "E2E test generation and execution flow. Handles Playwright test creation, URL resolution, and auth setup. Triggers on: e2e tests, playwright tests, generate e2e, run e2e."
+          },
+          {
+            "name": "test-failure-handling",
+            "path": "skills/test-failure-handling/SKILL.md",
+            "description": "Handles test failures with classification and fix loops. Distinguishes prerequisite, feature, and environment failures. Triggers on: test failed, fix test, test failure, debug test."
+          },
+          {
+            "name": "test-prerequisite-detection",
+            "path": "skills/test-prerequisite-detection/SKILL.md",
+            "description": "Detects and validates test prerequisites before execution. Checks database, auth, dev server, and environment requirements. Triggers on: check prerequisites, test setup, validate environment."
+          },
+          {
+            "name": "test-quality-checks",
+            "path": "skills/test-quality-checks/SKILL.md",
+            "description": "Quality checks beyond correctness - visual regression, CLS, accessibility, performance budgets. Triggers on: quality checks, visual stability, performance test, accessibility test."
+          },
+          {
+            "name": "test-ui-verification",
+            "path": "skills/test-ui-verification/SKILL.md",
+            "description": "UI verification with screenshot capture and visual comparison. Handles dark mode, responsive views, and completion messages. Triggers on: verify ui, take screenshot, visual verification."
+          },
+          {
+            "name": "test-verification-loop",
+            "path": "skills/test-verification-loop/SKILL.md",
+            "description": "Multi-pass verification loop for test stability. Requires N consecutive passes before marking complete. Triggers on: stability check, verify passes, multi-pass verification."
+          },
+          {
+            "name": "builder-cli",
+            "path": "skills/builder-cli/SKILL.md",
+            "description": "CLI state persistence and proactive usage for Builder. Tracks available CLIs and triggers usage on compaction. Triggers on: cli state, available clis, persist cli."
+          },
+          {
+            "name": "builder-delegation",
+            "path": "skills/builder-delegation/SKILL.md",
+            "description": "Task delegation patterns for Builder. Routes to specialists based on file types and provides context injection. Triggers on: delegate task, route to specialist, context injection."
           },
           {
             "name": "session-state",
@@ -941,6 +991,24 @@
       {
         "date": "2026-03-04",
         "changes": [
+          {
+            "type": "refactor",
+            "scope": "skills",
+            "description": "split monolithic test-flow skill (133KB) into slim orchestrator (5.6KB) plus 7 focused sub-skills",
+            "hash": "pending"
+          },
+          {
+            "type": "feat",
+            "scope": "skills",
+            "description": "add 7 test sub-skills: test-activity-resolution, test-verification-loop, test-prerequisite-detection, test-e2e-flow, test-ui-verification, test-quality-checks, test-failure-handling",
+            "hash": "pending"
+          },
+          {
+            "type": "feat",
+            "scope": "skills",
+            "description": "add 3 Builder utility skills: builder-cli, builder-delegation, test-doc-sync",
+            "hash": "pending"
+          },
           {
             "type": "feat",
             "scope": "builder",
