@@ -226,7 +226,8 @@ export default function AuthenticationConceptPage() {
             </h3>
             <p className="mt-2 text-sm text-green-800 dark:text-green-200">
               When possible, use <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">auth-headless</code>{" "}
-              for fastest test execution. It authenticates via direct API calls and injects session
+              for fastest test execution. It authenticates via direct API calls (method: <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">api</code>)
+              or CLI commands (method: <code className="rounded bg-green-100 px-1 text-xs dark:bg-green-900">cli</code>) and injects session
               cookies, skipping the UI login flow entirely. This is especially useful for large
               test suites.
             </p>
@@ -252,7 +253,12 @@ export default function AuthenticationConceptPage() {
     "provider": "supabase",      // supabase | nextauth | custom
     "method": "email-password",  // provider-specific method
     "loginUrl": "/login",        // URL to the login page
-    "headless": true,            // Enable headless auth if supported
+    
+    // Headless auth configuration
+    "headless": {
+      "enabled": true,           // Enable headless auth if supported
+      "method": "api"            // api | cli
+    },
     
     "credentials": {
       "email": "test@example.com",
@@ -278,6 +284,130 @@ export default function AuthenticationConceptPage() {
                 Never hardcode passwords in <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">project.json</code>.
                 Use the <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">env:</code> prefix to reference
                 environment variables. The agent reads the value from your environment at runtime.
+              </p>
+            </div>
+          </div>
+
+          {/* CLI Authentication Method */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              CLI Authentication Method
+            </h3>
+            <p className="mt-3 text-neutral-700 dark:text-neutral-400">
+              For projects with CLI tools that generate auth tokens (admin APIs, custom scripts),
+              use the <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">cli</code> method:
+            </p>
+
+            <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-900 dark:border-neutral-700">
+              <pre className="p-6 text-sm leading-relaxed text-neutral-100">
+{`{
+  "authentication": {
+    "headless": {
+      "enabled": true,
+      "method": "cli",
+      "command": "pnpm cli auth:test-token --email $TEST_EMAIL",
+      "responseFormat": "json",
+      "tokenPath": "accessToken",
+      "refreshTokenPath": "refreshToken",
+      "sessionStorage": "localStorage"
+    }
+  }
+}`}
+              </pre>
+            </div>
+
+            <div className="mt-6 overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50">
+                    <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Field</th>
+                    <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Required</th>
+                    <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                  <tr>
+                    <td className="px-4 py-3 font-mono text-xs text-neutral-900 dark:text-neutral-100">command</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Yes</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Shell command to run. Supports <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">$ENV_VAR</code> expansion.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-mono text-xs text-neutral-900 dark:text-neutral-100">responseFormat</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">No</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Output format: <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">json</code> (default),{" "}
+                      <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">text</code>, or{" "}
+                      <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">env</code> (KEY=VALUE lines)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-mono text-xs text-neutral-900 dark:text-neutral-100">tokenPath</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">No</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Dot-path to access token in JSON response (default: <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">accessToken</code>)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-mono text-xs text-neutral-900 dark:text-neutral-100">refreshTokenPath</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">No</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Dot-path to refresh token in JSON response (optional)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-mono text-xs text-neutral-900 dark:text-neutral-100">sessionStorage</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">No</td>
+                    <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                      Injection target: <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">cookies</code>,{" "}
+                      <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">localStorage</code>, or{" "}
+                      <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">both</code> (default: <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">cookies</code>)
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Acquisition Steps */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Acquisition Steps
+            </h3>
+            <p className="mt-3 text-neutral-700 dark:text-neutral-400">
+              The <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">acquisition</code> block
+              documents how agents should obtain an authenticated session. This serves as both documentation
+              and a fallback when automated auth fails:
+            </p>
+
+            <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-900 dark:border-neutral-700">
+              <pre className="p-6 text-sm leading-relaxed text-neutral-100">
+{`{
+  "authentication": {
+    "acquisition": {
+      "description": "Use CLI to get a test token, inject into localStorage",
+      "steps": [
+        "Ensure SUPABASE_SERVICE_ROLE_KEY is set in .env.local",
+        "Run: pnpm cli auth:test-token --email $TEST_EMAIL",
+        "Parse JSON output for accessToken and refreshToken",
+        "Inject tokens into browser localStorage",
+        "Navigate to /dashboard — session should be active"
+      ],
+      "fallbackToUI": true,
+      "notes": "The CLI command requires the service role key. Token expires after 1 hour."
+    }
+  }
+}`}
+              </pre>
+            </div>
+
+            <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
+              <p className="text-sm text-blue-800 dark:text-blue-200">
+                <strong>Tip:</strong> Even if you use headless auth, define acquisition steps as a fallback.
+                When <code className="rounded bg-blue-100 px-1 text-xs dark:bg-blue-900">fallbackToUI</code> is{" "}
+                <code className="rounded bg-blue-100 px-1 text-xs dark:bg-blue-900">true</code>, agents will
+                automatically try UI-based login if the automated method fails.
               </p>
             </div>
           </div>

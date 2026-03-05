@@ -20,6 +20,7 @@ const PAGE_SECTIONS = [
   { id: "update-queues", label: "Update Queues" },
   { id: "integration-provisioning", label: "Integration Provisioning" },
   { id: "builder-startup", label: "Builder Startup Behavior" },
+  { id: "verification-pipeline", label: "Verification Pipeline Resolution" },
   { id: "token-budget", label: "Token Budget Management" },
   { id: "todo-synchronization", label: "Todo Synchronization" },
   { id: "escalation-to-prd", label: "Escalation to PRD" },
@@ -1435,6 +1436,192 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                 <strong>&lt;10KB</strong>. Skills are loaded on-demand, never eagerly at session start.
                 This preserves context capacity for the actual implementation work.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Verification Pipeline Resolution */}
+      <section id="verification-pipeline" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Verification Pipeline Resolution
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Before committing any code change, Builder must resolve and execute the correct verification pipeline.
+            This ensures desktop apps are rebuilt and relaunched, while web apps rely on HMR — all verified using
+            the appropriate Playwright variant.
+          </p>
+
+          {/* 4-Step Flow */}
+          <div className="mt-10 space-y-8">
+            {/* Step 1 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                1
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Check for postChangeWorkflow Override
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  If <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">project.json</code> defines
+                  a <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">postChangeWorkflow</code>,
+                  its <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">steps</code> array
+                  is executed in order. If any <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">required: true</code> step
+                  fails, the commit is blocked. Auto-inference (Step 2) is skipped entirely.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                2
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Auto-Infer from apps[] Configuration
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  When no override exists, Builder reads{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">apps[]</code> from{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">project.json</code> and
+                  selects the pipeline based on app type, framework, and web content strategy.
+                </p>
+
+                {/* Inference Table */}
+                <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50">
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">App Type</th>
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Framework</th>
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">webContent</th>
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Pipeline</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">desktop</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">electron</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">bundled</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          typecheck → test → <strong className="text-neutral-900 dark:text-neutral-100">build</strong> → <strong className="text-neutral-900 dark:text-neutral-100">relaunch Electron</strong> → verify-with-playwright-electron
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">desktop</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">electron</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">remote</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          typecheck → test → <strong className="text-neutral-900 dark:text-neutral-100">ensure Electron running</strong> → verify-with-playwright-electron
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">desktop</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">electron</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">hybrid</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          typecheck → test → <strong className="text-neutral-900 dark:text-neutral-100">build</strong> → <strong className="text-neutral-900 dark:text-neutral-100">relaunch Electron</strong> → verify-with-playwright-electron
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">web</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">any</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">n/a</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          typecheck → test → verify-with-playwright (dev server + HMR)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">mobile</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">react-native</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">n/a</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          typecheck → test → <span className="italic text-neutral-500 dark:text-neutral-500">(no automated UI verify yet)</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">No apps[]</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">—</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">—</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          Fall back to existing quality checks (typecheck/lint/test)
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Critical Rule */}
+                <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+                  <p className="text-sm text-red-800 dark:text-red-200">
+                    <strong>Critical:</strong> Desktop apps <strong>always</strong> use{" "}
+                    <code className="rounded bg-red-100 px-1 text-xs dark:bg-red-900">playwright-electron</code>,{" "}
+                    <strong>never</strong> browser-based verification. Even{" "}
+                    <code className="rounded bg-red-100 px-1 text-xs dark:bg-red-900">webContent: &quot;remote&quot;</code>{" "}
+                    requires connecting Playwright to the Electron process, not opening localhost in a browser.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                3
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Execute the Resolved Pipeline
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  Run each step in order. If any required step fails, block the commit,
+                  fix the issue, and re-run from the failed step.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                4
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Skip Conditions
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  The verification pipeline can be skipped when <strong>all</strong> changed files match one of these patterns:
+                </p>
+                <ul className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 text-neutral-400">•</span>
+                    <span>Docs-only changes (<code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">*.md</code> files only)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 text-neutral-400">•</span>
+                    <span>Config-only changes (<code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">project.json</code> or similar)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 text-neutral-400">•</span>
+                    <span>Test-only changes (<code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">*.test.ts</code>, <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">*.spec.ts</code>, <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">__tests__/</code>)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 text-neutral-400">•</span>
+                    <span>CI/build config changes (<code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">.github/</code>, <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">Dockerfile</code>)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 text-neutral-400">•</span>
+                    <span>Lockfile-only changes (<code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">pnpm-lock.yaml</code>, <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">package-lock.json</code>)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 text-neutral-400">•</span>
+                    <span>User explicitly says &quot;skip verification&quot;</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

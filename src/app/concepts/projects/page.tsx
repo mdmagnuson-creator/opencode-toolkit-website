@@ -147,9 +147,39 @@ export default function ProjectsConceptPage() {
     "provider": "supabase",   // supabase | nextauth | custom
     "method": "email-password",
     "loginUrl": "/login",
+    "headless": {
+      "enabled": true,
+      "method": "cli",          // api | cli
+      "command": "pnpm cli auth:test-token --email $TEST_EMAIL",
+      "responseFormat": "json", // json | text | env
+      "tokenPath": "accessToken",
+      "refreshTokenPath": "refreshToken",
+      "sessionStorage": "localStorage"  // cookies | localStorage | both
+    },
+    "acquisition": {            // Human-readable auth flow description
+      "description": "Use CLI to get a test token, inject into localStorage",
+      "steps": [
+        "1. Ensure SUPABASE_SERVICE_ROLE_KEY is set in .env.local",
+        "2. Run: pnpm cli auth:test-token --email $TEST_EMAIL",
+        "3. Parse JSON output for accessToken and refreshToken",
+        "4. Inject tokens into browser localStorage"
+      ],
+      "fallbackToUI": true,
+      "notes": "CLI command requires the service role key. Token expires after 1 hour."
+    },
     "credentials": {
       "email": "test@example.com",
       "password": "env:TEST_PASSWORD"  // Use env: prefix for secrets
+    }
+  },
+
+  // Post-change workflow for verification
+  "postChangeWorkflow": {
+    "strategy": "auto",       // auto | rebuild-then-launch-app | ensure-electron-running
+    "skip": ["*.md", "*.txt", "docs/**"],  // Skip verification for these patterns
+    "rebuild": {
+      "command": "npm run build",
+      "timeout": 120000
     }
   },
   

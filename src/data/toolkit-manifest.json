@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-05T23:45:00Z",
-  "syncedAt": "2026-03-05T19:19:53.191Z",
-  "toolkitCommit": "8f4642a",
+  "generatedAt": "2026-03-05T23:00:00Z",
+  "syncedAt": "2026-03-05T19:45:05.118Z",
+  "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1523,6 +1523,31 @@
       "date": "2026-03-05",
       "displayDate": "March 5, 2026",
       "changes": [
+        {
+          "type": "feat",
+          "description": "add postChangeWorkflow, headless CLI auth, and acquisition block to project.schema.json (PRD architecture-aware-verification US-001)",
+          "scope": "schema"
+        },
+        {
+          "type": "feat",
+          "description": "add Verification Pipeline Resolution section for auto-inferring rebuild/relaunch vs HMR (PRD architecture-aware-verification US-002)",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "add rebuild-then-launch-app and ensure-electron-running strategies to test-ui-verification, adhoc-workflow step 3.5, and test-quality-checks (PRD architecture-aware-verification US-003)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add CLI auth method to auth-headless, acquisition validation to auth-config-check, CLI wizard to setup-auth (PRD architecture-aware-verification US-004)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add architecture-aware-verification update template and registry entry for interactive project rollout (PRD architecture-aware-verification US-005)",
+          "scope": "registry"
+        },
         {
           "type": "fix",
           "description": "add Temporary Files Policy to all implementation subagents (developer, hammer, overlord, go-dev, react-dev, java-dev, python-dev, playwright-dev) to prevent /tmp/ usage",
