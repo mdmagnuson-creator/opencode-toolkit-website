@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-05T22:30:00Z",
-  "syncedAt": "2026-03-05T15:39:58.850Z",
-  "toolkitCommit": "67323ab",
+  "generatedAt": "2026-03-05T23:45:00Z",
+  "syncedAt": "2026-03-05T19:19:53.191Z",
+  "toolkitCommit": "8f4642a",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1523,6 +1523,21 @@
       "date": "2026-03-05",
       "displayDate": "March 5, 2026",
       "changes": [
+        {
+          "type": "fix",
+          "description": "add Temporary Files Policy to all implementation subagents (developer, hammer, overlord, go-dev, react-dev, java-dev, python-dev, playwright-dev) to prevent /tmp/ usage",
+          "scope": "agents"
+        },
+        {
+          "type": "fix",
+          "description": "strengthen AGENTS.md Temporary Files section with rationale (module resolution, permissions, macOS /private/tmp mapping)",
+          "scope": "guardrails"
+        },
+        {
+          "type": "fix",
+          "description": "clarify Safe alternatives to reference project-local .tmp/ instead of ambiguous .tmp/",
+          "scope": "guardrails"
+        },
         {
           "type": "fix",
           "description": "require probing actual target pages with autonomous auth resolution",

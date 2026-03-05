@@ -20,6 +20,7 @@ const PAGE_SECTIONS = [
   { id: "delegation-pattern", label: "The Delegation Pattern" },
   { id: "agent-communication", label: "How Agents Communicate" },
   { id: "test-doc-sync", label: "Test Documentation Sync" },
+  { id: "temporary-files-policy", label: "Temporary Files Policy" },
   { id: "agent-categories", label: "Agent Categories" },
 ];
 
@@ -437,6 +438,121 @@ export default function AgentsConceptPage() {
                 files, or renaming function calls to match current implementations.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Temporary Files Policy */}
+      <section id="temporary-files-policy" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Temporary Files Policy
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            All implementation agents enforce a strict rule: never write temporary files to system paths
+            like <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">/tmp/</code>.
+            Instead, agents use the project-local{" "}
+            <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">.tmp/</code> directory.
+            This is enforced in AGENTS.md and in each agent&apos;s individual instructions.
+          </p>
+
+          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-950/60">
+            <h3 className="flex items-center gap-2 font-semibold text-amber-900 dark:text-amber-100">
+              <span>⚠️</span>
+              Why not /tmp/?
+            </h3>
+            <ul className="mt-4 space-y-3 text-sm text-amber-800 dark:text-amber-200">
+              <li className="flex items-start gap-2">
+                <span className="font-semibold text-amber-900 dark:text-amber-100">Module resolution failures</span>
+                <span>—</span>
+                <span>Scripts in <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">/tmp/</code> can&apos;t resolve project dependencies. <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">require(&apos;../../src/utils&apos;)</code> breaks when the script runs from a different filesystem root.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="font-semibold text-amber-900 dark:text-amber-100">macOS /private/tmp/ mapping</span>
+                <span>—</span>
+                <span>macOS maps <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">/tmp/</code> to <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">/private/tmp/</code>, causing path comparison mismatches and confusing debug output.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="font-semibold text-amber-900 dark:text-amber-100">Permission prompts</span>
+                <span>—</span>
+                <span>Some environments restrict <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">/tmp/</code> access, causing unexpected permission dialogs mid-automation.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Affected Agents
+            </h3>
+            <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+              This policy is enforced across all 8 implementation sub-agents:
+            </p>
+
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">developer</code>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Added Temporary Files section with AGENTS.md anchor and developer-specific rules
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">hammer</code>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Added Temporary Files section with AGENTS.md anchor
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">overlord</code>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Added Temporary Files section with AGENTS.md anchor
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">go-dev</code>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Added /tmp/ restriction to Scope Restrictions
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">react-dev</code>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Added /tmp/ restriction to Scope Restrictions
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">java-dev</code>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Added /tmp/ restriction to Scope Restrictions
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">python-dev</code>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Added /tmp/ restriction to Scope Restrictions
+                </p>
+              </div>
+              <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">playwright-dev</code>
+                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  Added /tmp/ restriction to Important Notes
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Correct Pattern
+            </h3>
+            <pre className="mt-4 overflow-x-auto rounded-lg bg-neutral-900 p-4 text-sm font-mono text-neutral-100">
+              <code>{`# ❌ Don't do this
+/tmp/debug-output.log
+/tmp/test-script.sh
+
+# ✅ Do this instead
+<project>/.tmp/debug-output.log
+<project>/.tmp/test-script.sh`}</code>
+            </pre>
           </div>
         </div>
       </section>
