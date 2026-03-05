@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-05T23:00:00Z",
-  "syncedAt": "2026-03-05T19:45:05.118Z",
+  "generatedAt": "2026-03-06T01:00:00Z",
+  "syncedAt": "2026-03-05T20:26:12.881Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
@@ -1523,6 +1523,21 @@
       "date": "2026-03-05",
       "displayDate": "March 5, 2026",
       "changes": [
+        {
+          "type": "refactor",
+          "description": "rewrite architecture-aware-verification update template from step-by-step interactive to analyze-first pattern with single comprehensive dashboard",
+          "scope": "templates"
+        },
+        {
+          "type": "fix",
+          "description": "add Canonical Source Fidelity rule to prevent plausible fabrication of field names and config schemas",
+          "scope": "developer"
+        },
+        {
+          "type": "fix",
+          "description": "add Canonical Content for Documentation Tasks section to builder-delegation skill for inline source embedding",
+          "scope": "skills"
+        },
         {
           "type": "feat",
           "description": "add postChangeWorkflow, headless CLI auth, and acquisition block to project.schema.json (PRD architecture-aware-verification US-001)",

@@ -18,6 +18,7 @@ const PAGE_SECTIONS = [
   { id: "primary-vs-sub-agents", label: "Primary vs Sub-Agents" },
   { id: "how-agents-are-invoked", label: "How Agents Are Invoked" },
   { id: "delegation-pattern", label: "The Delegation Pattern" },
+  { id: "canonical-source-fidelity", label: "Canonical Source Fidelity" },
   { id: "agent-communication", label: "How Agents Communicate" },
   { id: "test-doc-sync", label: "Test Documentation Sync" },
   { id: "temporary-files-policy", label: "Temporary Files Policy" },
@@ -311,6 +312,132 @@ export default function AgentsConceptPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Canonical Source Fidelity */}
+      <section id="canonical-source-fidelity" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Canonical Source Fidelity
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            When tasks reference specific source files — config schemas, multi-step flows, field names —
+            implementation agents must <strong>read and reproduce</strong> the source faithfully rather than generating
+            content from conceptual understanding. LLMs produce plausible-but-wrong field names that pass
+            automated checks but are semantically incorrect.
+          </p>
+
+          {/* Warning callout */}
+          <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
+            <div className="flex items-start gap-3">
+              <span className="mt-0.5 text-lg">⚠️</span>
+              <div>
+                <p className="font-medium text-amber-900 dark:text-amber-100">
+                  The &ldquo;Plausible Fabrication&rdquo; Anti-Pattern
+                </p>
+                <p className="mt-1 text-sm text-amber-800 dark:text-amber-200">
+                  When told &ldquo;document the CLI auth fields from auth-headless&rdquo;, an agent may write{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">strategy</code>,{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">tokenOutput</code>,{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">sessionCookie</code>{" "}
+                  instead of the actual fields{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">command</code>,{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">responseFormat</code>,{" "}
+                  <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">tokenPath</code>.
+                  The fabricated content is structurally valid — it passes typecheck and lint — but the field names are wrong.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Required Steps */}
+          <h3 className="mt-10 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+            Required Steps for @developer
+          </h3>
+          <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+            When a task references specific files, line ranges, schemas, or says &ldquo;match X&rdquo; / &ldquo;reproduce Y&rdquo;:
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">1</span>
+                <span className="font-medium text-neutral-900 dark:text-neutral-50">READ</span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Read every referenced source file before writing anything
+              </p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">2</span>
+                <span className="font-medium text-neutral-900 dark:text-neutral-50">EXTRACT</span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Extract exact field names, column headers, and structure from the source
+              </p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">3</span>
+                <span className="font-medium text-neutral-900 dark:text-neutral-50">REPRODUCE</span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Reproduce faithfully — do not rename fields, reorder columns, or &ldquo;improve&rdquo; the structure
+              </p>
+            </div>
+            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">4</span>
+                <span className="font-medium text-neutral-900 dark:text-neutral-50">VERIFY</span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Re-read the source after writing and diff against your output for mismatches
+              </p>
+            </div>
+          </div>
+
+          {/* Inline Canonical Source */}
+          <h3 className="mt-10 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+            Inline Canonical Source in Delegation
+          </h3>
+          <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+            For documentation tasks, <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">@builder</code>{" "}
+            embeds the canonical content directly in the delegation context block using a{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">canonicalSource</code>{" "}
+            field. This ensures the agent has the exact text in its context window and doesn&apos;t need to read external files:
+          </p>
+
+          <div className="mt-4 overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-950 p-4 dark:border-neutral-700">
+            <pre className="text-sm leading-relaxed text-neutral-300">
+              <code>{`<context>
+version: 1
+project:
+  path: /Users/dev/code/website
+canonicalSource:
+  description: "Exact content to reproduce"
+  sources:
+    - file: skills/auth-headless/SKILL.md
+      lines: "331-359"
+      content: |
+        headless:
+          method: cli
+          command: "pnpm cli auth:test-token"
+          responseFormat: json
+          tokenPath: accessToken
+          sessionStorage: localStorage
+</context>
+
+Field names and structure MUST match
+canonicalSource exactly.`}</code>
+            </pre>
+          </div>
+
+          <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+            This belt-and-suspenders approach combines the developer&apos;s READ-EXTRACT-REPRODUCE-VERIFY rule
+            with Builder embedding the source content inline, ensuring faithful reproduction even when
+            the agent skips reading referenced files.
+          </p>
         </div>
       </section>
 
