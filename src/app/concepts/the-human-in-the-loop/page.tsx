@@ -3333,10 +3333,14 @@ export default function HumanWorkModesPage() {
                   <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
                   <span>Analysis gate status — whether you already approved the task for implementation</span>
                 </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                  <span>Playwright probe status — whether live DOM checks confirmed or contradicted the code analysis</span>
+                </li>
               </ul>
             </div>
             <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-              The analysis gate checkpoint (<code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">analysisCompleted</code>) is particularly important: it survives context compaction, ensuring Builder never starts implementing without your prior approval — even in very long sessions where earlier conversation history has been summarized.
+              The analysis gate checkpoint (<code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">analysisCompleted</code>) and probe status (<code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">probeStatus</code>) are particularly important: they survive context compaction, ensuring Builder never starts implementing without your prior approval and live DOM confirmation — even in very long sessions where earlier conversation history has been summarized.
             </p>
           </div>
 

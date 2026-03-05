@@ -1533,6 +1533,10 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                     <span className="text-violet-600 dark:text-violet-400">•</span>
                     Pre-analysis screenshot captured before code analysis (Step 0.0a)
                   </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-violet-600 dark:text-violet-400">•</span>
+                    Playwright analysis probe confirms DOM state before implementation (Step 0.1b)
+                  </li>
                 </ul>
               </div>
 
@@ -1566,6 +1570,43 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                     Reference ID: E2E file path
                   </li>
                 </ul>
+              </div>
+            </div>
+
+            {/* Playwright Analysis Probe */}
+            <div className="mt-6 rounded-xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-800 dark:bg-indigo-950">
+              <h4 className="font-semibold text-indigo-900 dark:text-indigo-100">
+                Playwright Analysis Probe (Step 0.1b)
+              </h4>
+              <p className="mt-2 text-sm text-indigo-800 dark:text-indigo-200">
+                Before showing the ANALYSIS COMPLETE dashboard, Builder runs a lightweight Playwright probe
+                against the live app to confirm code analysis conclusions. This catches discrepancies between
+                what the code <em>says</em> and what <em>actually renders</em> — such as elements hidden by
+                CSS, gated by feature flags, or rendered differently at runtime.
+              </p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-lg bg-white p-3 dark:bg-neutral-900">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">
+                    6 Assertion Types
+                  </p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">visible</code>,{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">absent</code>,{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">enabled</code>,{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">disabled</code>,{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">text-contains</code>,{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">exists</code>
+                  </p>
+                </div>
+                <div className="rounded-lg bg-white p-3 dark:bg-neutral-900">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">
+                    Probe Outcomes
+                  </p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    <strong className="text-green-700 dark:text-green-400">Confirmed</strong> → proceed with badge ·{" "}
+                    <strong className="text-amber-700 dark:text-amber-400">Contradicted</strong> → re-analyze with lower confidence
+                  </p>
+                </div>
               </div>
             </div>
           </div>
