@@ -2203,9 +2203,9 @@ export default function HumanWorkModesPage() {
 
           {/* Description */}
           <p className="mt-8 text-neutral-700 dark:text-neutral-400">
-            Running multiple AI sessions in parallel accelerates large projects, but requires
-            you to make a few decisions and monitor progress. Here&apos;s what you need to know
-            as the human operator.
+            Session coordination is now always-on. The toolkit automatically detects when you&apos;re running
+            multiple sessions and activates full coordination. In solo sessions, it uses a lightweight
+            &quot;lazy heartbeat&quot; (local-only, no git ops). Here&apos;s what you need to know as the human operator.
           </p>
 
           {/* Decision Points */}
@@ -2217,13 +2217,9 @@ export default function HumanWorkModesPage() {
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet-500" />
                 <span>
-                  <strong>Enable multi-session:</strong> Set{" "}
-                  <code className="rounded bg-violet-200 px-1.5 py-0.5 text-xs dark:bg-violet-800">
-                    agents.multiSession: true
-                  </code>{" "}
-                  in <code className="rounded bg-violet-200 px-1.5 py-0.5 text-xs dark:bg-violet-800">
-                    project.json
-                  </code>. Only enable this if you plan to run concurrent sessions.
+                  <strong>Session coordination is automatic:</strong> The toolkit detects multiple
+                  sessions and coordinates them. No flag to enable—just start your sessions and
+                  the system handles locks and heartbeats.
                 </span>
               </li>
               <li className="flex items-start gap-2">

@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-05T12:00:00Z",
-  "syncedAt": "2026-03-05T13:08:27.156Z",
-  "toolkitCommit": "pending",
+  "generatedAt": "2026-03-05T18:00:00Z",
+  "syncedAt": "2026-03-05T15:08:02.590Z",
+  "toolkitCommit": "58e0a0a",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
     "subagents": 60,
-    "skills": 64,
+    "skills": 68,
     "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -712,6 +712,14 @@
       "content": ""
     },
     {
+      "slug": "builder-dashboard",
+      "name": "Builder Dashboard",
+      "description": "Dashboard templates for Builder session startup. Provides fresh and resume dashboard formats with session state, PRD progress, and vectorization status.",
+      "triggers": [],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "builder-delegation",
       "name": "Builder Delegation",
       "description": "Sub-agent delegation patterns for Builder orchestration. Triggers on: delegate to, call subagent, orchestration patterns.",
@@ -720,6 +728,14 @@
         "call subagent",
         "orchestration patterns"
       ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "builder-error-recovery",
+      "name": "Builder Error Recovery",
+      "description": "Error recovery patterns for Builder sessions. Covers transient error handling, sub-agent failure recovery, unexpected error prompts, and loop detection with bulk fix strategies.",
+      "triggers": [],
       "isMeta": false,
       "content": ""
     },
@@ -733,6 +749,14 @@
         "heartbeat",
         "resume session"
       ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "builder-verification",
+      "name": "Builder Verification",
+      "description": "Verification handling for Builder sessions. Covers as-user verification, prerequisite/environment failures, verification-failures.json logging, and manual fallback options.",
+      "triggers": [],
       "isMeta": false,
       "content": ""
     },
@@ -915,7 +939,7 @@
     {
       "slug": "multi-session",
       "name": "Multi Session",
-      "description": "Multi-session coordination for parallel AI sessions. Provides session locks, heartbeat, and merge queue management. Only active when agents.multiSession: true in project.json.",
+      "description": "Multi-session coordination for parallel AI sessions. Provides session locks, lazy heartbeat, and merge queue management. Loaded conditionally when multiple sessions are detected.",
       "triggers": [],
       "isMeta": false,
       "content": ""
@@ -1064,6 +1088,14 @@
         "self correction",
         "retry failed tests"
       ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "session-setup",
+      "name": "Session Setup",
+      "description": "Always-on session initialization for Builder. Handles session ID, lock file, heartbeat setup, and multi-session detection. Loaded at every session start.",
+      "triggers": [],
       "isMeta": false,
       "content": ""
     },
@@ -1492,18 +1524,68 @@
       "displayDate": "March 5, 2026",
       "changes": [
         {
-          "type": "feat",
-          "description": "add analysis-probe mode to test-ui-verification skill for pre-implementation DOM assertions",
-          "scope": "skills"
+          "type": "refactor",
+          "description": "extract error recovery to builder-error-recovery skill (-89 lines)",
+          "scope": "builder"
+        },
+        {
+          "type": "refactor",
+          "description": "extract dashboard templates to builder-dashboard skill (-126 lines)",
+          "scope": "builder"
+        },
+        {
+          "type": "refactor",
+          "description": "trim skill reference stubs to single-line references (-52 lines)",
+          "scope": "builder"
+        },
+        {
+          "type": "refactor",
+          "description": "extract verification handling to builder-verification skill (-335 lines)",
+          "scope": "builder"
+        },
+        {
+          "type": "refactor",
+          "description": "replace solo/multi section with always-on session coordination",
+          "scope": "builder-state"
         },
         {
           "type": "feat",
-          "description": "add Step 0.1b Playwright Analysis Confirmation to adhoc-workflow skill",
-          "scope": "skills"
+          "description": "deprecate agents.multiSession, register central update for all projects",
+          "scope": "schema"
+        },
+        {
+          "type": "refactor",
+          "description": "make session coordination always-on, remove solo/multi branching",
+          "scope": "developer"
         },
         {
           "type": "feat",
-          "description": "update Analysis Gate guardrail to require Playwright probe before implementation",
+          "description": "implement lazy heartbeat for solo sessions (local-only when solo, full git round-trip when multi)",
+          "scope": "multi-session"
+        },
+        {
+          "type": "refactor",
+          "description": "remove solo/multi branching, add session-setup skill reference",
+          "scope": "builder"
+        },
+        {
+          "type": "feat",
+          "description": "create session-setup skill and trim multi-session skill",
+          "scope": "session-unification"
+        },
+        {
+          "type": "docs",
+          "description": "promote prd-session-unification to ready status",
+          "scope": "prd"
+        },
+        {
+          "type": "docs",
+          "description": "add session-unification and builder-skill-extraction PRDs",
+          "scope": "prd"
+        },
+        {
+          "type": "feat",
+          "description": "add mandatory Playwright analysis probe to ad-hoc Analysis Gate",
           "scope": "builder"
         }
       ]

@@ -180,7 +180,7 @@ export default function ProjectsConceptPage() {
   
   // Agent behavior configuration
   "agents": {
-    "multiSession": false    // Enable multi-session coordination
+    "multiSession": false    // Deprecated — coordination is now always-on
   },
   
   // Planning considerations passed through to PRDs

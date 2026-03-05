@@ -774,9 +774,9 @@ export default function WorkflowConceptPage() {
             Multi-Session Coordination
           </h2>
           <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-            When multiple agents or sessions work on the same codebase, the toolkit uses
-            <strong> locks</strong>, <strong>heartbeats</strong>, and <strong>PRD claiming</strong> to
-            prevent conflicts and enable seamless resumption.
+            Session coordination is now always-on. The toolkit automatically detects when multiple sessions
+            are active and uses <strong>locks</strong>, <strong>lazy heartbeats</strong>, and{" "}
+            <strong>PRD claiming</strong> to prevent conflicts and enable seamless resumption.
           </p>
 
           {/* Mechanics */}
@@ -800,8 +800,9 @@ export default function WorkflowConceptPage() {
                   2
                 </div>
                 <p>
-                  <strong>Heartbeat:</strong> Active sessions update their heartbeat timestamp every few minutes.
-                  If a session crashes or is abandoned, the stale heartbeat (10+ min old) signals that the lock can be reclaimed.
+                  <strong>Lazy Heartbeat:</strong> In solo sessions, heartbeat is local-only (no git operations).
+                  When multiple sessions are detected, it switches to full git round-trip for coordination.
+                  If a session crashes, the stale heartbeat (10+ min old) signals that the lock can be reclaimed.
                 </p>
               </div>
               <div className="flex items-start gap-3">

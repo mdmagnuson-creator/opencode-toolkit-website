@@ -8,10 +8,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "yo, go — AI Agents for Software Development",
-  description: "64 specialized AI agents working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code. An agent system for opencode.",
+  description: "68 specialized AI agents working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code. An agent system for opencode.",
   openGraph: {
     title: "yo, go — AI Agents for Software Development",
-    description: "64 specialized AI agents working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code.",
+    description: "68 specialized AI agents working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code.",
     images: ["/og/home.png"],
   },
 };

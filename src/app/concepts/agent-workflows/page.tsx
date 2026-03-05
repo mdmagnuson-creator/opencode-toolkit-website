@@ -1345,6 +1345,58 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                         Reference in-line, rarely need full skill
                       </td>
                     </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                          builder-dashboard
+                        </code>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        5KB / ~1.3K tokens
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Rendering status dashboards
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                          builder-error-recovery
+                        </code>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        4KB / ~1K tokens
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Error recovery escalation
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                          builder-verification
+                        </code>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        14KB / ~3.5K tokens
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Verification loops and quality gates
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+                          session-setup
+                        </code>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        3KB / ~750 tokens
+                      </td>
+                      <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        Session startup sequence
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -1359,6 +1411,20 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                 specialized sub-skills (test-activity-resolution, test-verification-loop, test-prerequisite-detection,
                 test-e2e-flow, test-ui-verification, test-quality-checks, test-failure-handling). This reduces
                 initial token overhead by 96% while preserving full functionality through on-demand loading.
+              </p>
+            </div>
+
+            {/* Builder Extraction Note */}
+            <div className="mt-4 rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <strong className="text-neutral-900 dark:text-neutral-100">Builder Extraction (Phase 2):</strong>{" "}
+                Following the same pattern, <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">builder.md</code>{" "}
+                had three large sections extracted into dedicated skills: <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">builder-dashboard</code>,{" "}
+                <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">builder-error-recovery</code>, and{" "}
+                <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">builder-verification</code>. This reduced
+                the base agent file by ~30% while making these capabilities available on-demand. The new{" "}
+                <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">session-setup</code> skill handles
+                session initialization with the always-on coordination model.
               </p>
             </div>
 
