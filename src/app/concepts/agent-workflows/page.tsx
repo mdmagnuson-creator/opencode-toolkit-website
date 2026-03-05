@@ -1674,6 +1674,102 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                   </p>
                 </div>
               </div>
+
+              {/* No-Bypass Rule */}
+              <div className="mt-4 rounded-lg border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-950">
+                <p className="text-sm font-semibold text-rose-900 dark:text-rose-100">
+                  ⛔ No-Bypass Rule
+                </p>
+                <p className="mt-1 text-sm text-rose-800 dark:text-rose-200">
+                  The probe cannot be skipped through rationalization. Common invalid excuses:
+                </p>
+                <div className="mt-3 overflow-x-auto">
+                  <table className="min-w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-rose-200 dark:border-rose-800">
+                        <th className="py-1.5 pr-4 text-left font-medium text-rose-900 dark:text-rose-100">Invalid Rationalization</th>
+                        <th className="py-1.5 text-left font-medium text-rose-900 dark:text-rose-100">Why It&apos;s Wrong</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-rose-800 dark:text-rose-200">
+                      <tr className="border-b border-rose-100 dark:border-rose-900">
+                        <td className="py-1.5 pr-4">&quot;This is an Electron/desktop app&quot;</td>
+                        <td className="py-1.5">Electron apps have web content — probe the web UI</td>
+                      </tr>
+                      <tr className="border-b border-rose-100 dark:border-rose-900">
+                        <td className="py-1.5 pr-4">&quot;The analysis is clear from code&quot;</td>
+                        <td className="py-1.5">Code analysis misses runtime state, CSS, route guards</td>
+                      </tr>
+                      <tr className="border-b border-rose-100 dark:border-rose-900">
+                        <td className="py-1.5 pr-4">&quot;This is a UX flow restructuring&quot;</td>
+                        <td className="py-1.5">UX changes affect visible elements — probe them</td>
+                      </tr>
+                      <tr className="border-b border-rose-100 dark:border-rose-900">
+                        <td className="py-1.5 pr-4">&quot;The user described it clearly&quot;</td>
+                        <td className="py-1.5">User descriptions are input, not verification</td>
+                      </tr>
+                      <tr>
+                        <td className="py-1.5 pr-4">&quot;I already took a screenshot&quot;</td>
+                        <td className="py-1.5">Screenshots show current state; probes verify specific assertions</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mt-3 text-sm text-rose-800 dark:text-rose-200">
+                  <strong>Only valid skip conditions:</strong>{" "}
+                  <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">no-ui</code> mode,
+                  dev server unreachable, no page assertions generated, or{" "}
+                  <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">analysisProbe: false</code> in project.json.
+                </p>
+              </div>
+
+              {/* Page Targeting Rule */}
+              <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
+                <p className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+                  ⚠️ Page Targeting Rule
+                </p>
+                <p className="mt-1 text-sm text-amber-800 dark:text-amber-200">
+                  Probes must target the actual pages being modified — not just whatever public pages are accessible. If the analysis identifies changes to{" "}
+                  <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">/dashboard</code> and{" "}
+                  <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">/settings</code>,
+                  assertions must be generated for those pages — not only{" "}
+                  <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">/login</code> because it&apos;s public.
+                </p>
+                <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+                  If target pages require authentication, Builder follows the autonomous auth resolution protocol to authenticate before probing.
+                  A probe that only checked public pages when the actual changes target authenticated pages is{" "}
+                  <strong>not &quot;partially confirmed&quot; — it&apos;s not probed at all.</strong>
+                </p>
+              </div>
+
+              {/* Autonomous Auth Resolution */}
+              <div className="mt-3 rounded-lg border border-teal-200 bg-teal-50 p-4 dark:border-teal-800 dark:bg-teal-950">
+                <p className="text-sm font-semibold text-teal-900 dark:text-teal-100">
+                  🔐 Autonomous Auth Resolution
+                </p>
+                <p className="mt-1 text-sm text-teal-800 dark:text-teal-200">
+                  When probing authenticated pages, Builder resolves authentication autonomously — it never asks the user for credentials.
+                  The escalation ladder:
+                </p>
+                <ol className="mt-2 space-y-1.5 text-sm text-teal-800 dark:text-teal-200">
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-200 text-xs font-bold text-teal-800 dark:bg-teal-800 dark:text-teal-200">1</span>
+                    <span>Check <code className="rounded bg-teal-100 px-1 text-xs dark:bg-teal-900">project.json → authentication</code> for existing config</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-200 text-xs font-bold text-teal-800 dark:bg-teal-800 dark:text-teal-200">2</span>
+                    <span>If configured — load the matching auth skill (Supabase OTP, NextAuth credentials, headless, etc.)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-200 text-xs font-bold text-teal-800 dark:bg-teal-800 dark:text-teal-200">3</span>
+                    <span>If not configured — load <code className="rounded bg-teal-100 px-1 text-xs dark:bg-teal-900">setup-auth</code> skill to auto-detect and configure</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-200 text-xs font-bold text-teal-800 dark:bg-teal-800 dark:text-teal-200">4</span>
+                    <span>Only if all approaches fail — degrade to public-page-only probing with <code className="rounded bg-teal-100 px-1 text-xs dark:bg-teal-900">degraded-no-auth</code> status</span>
+                  </li>
+                </ol>
+              </div>
             </div>
           </div>
 

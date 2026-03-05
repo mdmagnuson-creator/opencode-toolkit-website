@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-05T18:00:00Z",
-  "syncedAt": "2026-03-05T15:08:02.590Z",
-  "toolkitCommit": "58e0a0a",
+  "generatedAt": "2026-03-05T22:30:00Z",
+  "syncedAt": "2026-03-05T15:23:35.943Z",
+  "toolkitCommit": "67323ab",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1523,6 +1523,16 @@
       "date": "2026-03-05",
       "displayDate": "March 5, 2026",
       "changes": [
+        {
+          "type": "fix",
+          "description": "require probing actual target pages with autonomous auth resolution",
+          "scope": "analysis-probe"
+        },
+        {
+          "type": "fix",
+          "description": "make Playwright probe mandatory with no bypass rationalizations",
+          "scope": "analysis-gate"
+        },
         {
           "type": "refactor",
           "description": "extract error recovery to builder-error-recovery skill (-89 lines)",

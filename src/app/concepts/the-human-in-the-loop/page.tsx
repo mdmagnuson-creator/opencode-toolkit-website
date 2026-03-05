@@ -3331,7 +3331,7 @@ export default function HumanWorkModesPage() {
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                  <span>Playwright probe status — whether live DOM checks confirmed or contradicted the code analysis</span>
+                  <span>Playwright probe status — whether live DOM checks confirmed or contradicted the code analysis (includes auth degradation states like <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">degraded-no-auth</code> when authenticated pages couldn&apos;t be probed)</span>
                 </li>
               </ul>
             </div>
