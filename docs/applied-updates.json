@@ -241,6 +241,12 @@
       "appliedBy": "builder",
       "updateType": "schema",
       "notes": "N/A — agents.multiSession field not present in this project"
+    },
+    {
+      "id": "2026-03-05-toolkit-sync-mandatory-playwright-between-stories",
+      "appliedAt": "2026-03-06T12:15:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
     }
   ]
 }

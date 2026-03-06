@@ -5,15 +5,18 @@ priority: normal
 updateType: sync
 ---
 
-# Sync Toolkit Documentation — Ops-Only Task Verification
+# Sync Toolkit Documentation — Ops-Only Task Verification + Dashboard Layout Fix
 
 ## Summary
 
 Builder now classifies ad-hoc tasks into three types (source-change, ops-with-runtime-impact, ops-only) and requires Playwright verification for ops-only tasks that fix browser-visible issues, closing a gap where deploys/secrets fixes were declared "done" without browser-level verification.
 
+Additionally, the ANALYSIS COMPLETE dashboard now separates the recommended approach into its own `✅ RECOMMENDED APPROACH` section instead of listing it as Alternative #1 with a "← RECOMMENDED" tag. The `🔀 ALTERNATIVES` section now only shows non-recommended options.
+
 ## Changes
 
 - Modified: `skills/adhoc-workflow/SKILL.md` — Added Step 0.1a (Task Type Classification), VERIFICATION PLAN section to ANALYSIS COMPLETE dashboard with ops-only example, Step 1.2a (Post-Ops Verification Checkpoint)
+- Modified: `skills/adhoc-workflow/SKILL.md` — Split Alternatives section into separate `✅ RECOMMENDED APPROACH` and `🔀 ALTERNATIVES` sections in dashboard example and rules
 - Modified: `agents/builder.md` — Added Step 7 (Ops-only task verification) to Verification Pipeline Resolution section, updated section header trigger description
 
 ## Key Concepts for Documentation
