@@ -1480,7 +1480,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
             </p>
           </div>
 
-          {/* 6-Step Flow */}
+          {/* 7-Step Flow */}
           <div className="mt-10 space-y-8">
             {/* Step 1 */}
             <div className="flex gap-4">
@@ -1777,7 +1777,159 @@ Scoped run: 3 test files`}
                     <strong>Differs from ad-hoc mode:</strong> The general verification loop uses 3 attempts
                     then stops and asks the user. In PRD per-story mode, the goal is <strong>momentum</strong> —
                     log the failure, continue to the next story. Skips are recorded in{" "}
-                    <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">builder-state.json → activePrd.playwrightSkips[]</code>.
+                     <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">builder-state.json → activePrd.playwrightSkips[]</code>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 7 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                7
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Ops-Only Task Verification <span className="ml-2 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900 dark:text-amber-300">ad-hoc mode</span>
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  When <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">taskType</code> is{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">ops-with-runtime-impact</code>,
+                  the standard pipeline (typecheck → build → test) is skipped because no source files changed.
+                  Instead, Builder runs <strong>Playwright verification against the affected runtime behavior</strong> directly
+                  after ops commands complete.
+                </p>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  This closes the gap where ops-only fixes to browser-visible issues (CORS errors, auth failures,
+                  missing deployments) were declared &quot;done&quot; without browser-level verification.
+                </p>
+
+                {/* Task Type Classification */}
+                <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50">
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Task Type</th>
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">When</th>
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Verification Pipeline</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">
+                          <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">source-change</code>
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          Modifying source files (<code className="text-xs">.ts</code>, <code className="text-xs">.tsx</code>, <code className="text-xs">.go</code>, etc.)
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          Standard: typecheck → test → build → Playwright
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">
+                          <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-800">ops-with-runtime-impact</code>
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          CLI/ops commands only AND original issue is <strong>browser-visible</strong> (CORS, auth, API errors)
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          Reduced: skip typecheck/build, <strong className="text-neutral-900 dark:text-neutral-100">run Playwright</strong> against affected behavior
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">
+                          <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">ops-only</code>
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          CLI/ops commands only AND <strong>no browser-visible impact</strong> (CI config, log rotation)
+                        </td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">
+                          None: mark complete after ops commands succeed
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Post-Ops Verification Flow */}
+                <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-50">Post-Ops Verification Flow</h4>
+                  <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    After ops commands complete, Builder reads{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">taskType</code> from{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">builder-state.json</code> and
+                    branches:
+                  </p>
+                  <ol className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-xs text-violet-600 dark:text-violet-400">1.</span>
+                      <span>Read <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">verificationTarget</code> from state (what behavior to verify)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-xs text-violet-600 dark:text-violet-400">2.</span>
+                      <span>Write or identify existing Playwright test for the target behavior</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-xs text-violet-600 dark:text-violet-400">3.</span>
+                      <span>Execute Playwright — retry up to 3 times with fix attempts on failure</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-xs text-violet-600 dark:text-violet-400">4.</span>
+                      <span>If test passes → mark verified and proceed to completion</span>
+                    </li>
+                  </ol>
+                </div>
+
+                {/* Runtime Impact Examples */}
+                <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50">
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Ops Task</th>
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Test Target</th>
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Example Assertion</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                      <tr>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Deploy edge functions</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Function endpoint responds</td>
+                        <td className="px-4 py-3 font-mono text-xs text-neutral-600 dark:text-neutral-400">
+                          expect(response.status()).toBe(200)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Set secrets / env vars</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Feature that uses the secret</td>
+                        <td className="px-4 py-3 font-mono text-xs text-neutral-600 dark:text-neutral-400">
+                          Navigate to feature → verify no error
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Deploy infrastructure</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Dependent app behavior</td>
+                        <td className="px-4 py-3 font-mono text-xs text-neutral-600 dark:text-neutral-400">
+                          Feature using infra is functional
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Database migration (remote)</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">App reads migrated data</td>
+                        <td className="px-4 py-3 font-mono text-xs text-neutral-600 dark:text-neutral-400">
+                          Navigate to page → verify data renders
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950">
+                  <p className="text-sm text-amber-800 dark:text-amber-200">
+                    <strong>Browser verification required:</strong> The Playwright test must verify the{" "}
+                    <strong>user-visible behavior</strong> that was broken, not just that the ops command
+                    succeeded. A <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">curl 200</code> is
+                    NOT sufficient when the original issue was browser-visible.
                   </p>
                 </div>
               </div>
@@ -1947,7 +2099,17 @@ Scoped run: 3 test files`}
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-violet-600 dark:text-violet-400">•</span>
+                    Task type classified: <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">source-change</code>,{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">ops-with-runtime-impact</code>, or{" "}
+                    <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">ops-only</code> (Step 0.1a)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-violet-600 dark:text-violet-400">•</span>
                     Playwright analysis probe confirms DOM state before implementation (Step 0.1b)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-violet-600 dark:text-violet-400">•</span>
+                    Mandatory verification plan in every ANALYSIS COMPLETE dashboard
                   </li>
                 </ul>
               </div>
@@ -2115,6 +2277,84 @@ Scoped run: 3 test files`}
                     <span>Only if all approaches fail — degrade to public-page-only probing with <code className="rounded bg-teal-100 px-1 text-xs dark:bg-teal-900">degraded-no-auth</code> status</span>
                   </li>
                 </ol>
+              </div>
+            </div>
+
+            {/* Verification Plan in Dashboard */}
+            <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-6 dark:border-emerald-800 dark:bg-emerald-950">
+              <h4 className="font-semibold text-emerald-900 dark:text-emerald-100">
+                Mandatory Verification Plan
+              </h4>
+              <p className="mt-2 text-sm text-emerald-800 dark:text-emerald-200">
+                Every ANALYSIS COMPLETE dashboard includes a{" "}
+                <code className="rounded bg-emerald-100 px-1 text-xs dark:bg-emerald-900">🔧 VERIFICATION PLAN</code>{" "}
+                section making explicit what verification will run and why. This prevents Builder from
+                &quot;forgetting&quot; verification after ops commands complete.
+              </p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="rounded-lg bg-white p-3 dark:bg-neutral-900">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">
+                    Source Changes
+                  </p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    Whether any source files will be modified
+                  </p>
+                </div>
+                <div className="rounded-lg bg-white p-3 dark:bg-neutral-900">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">
+                    Pipeline
+                  </p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    Exact verification steps that will execute
+                  </p>
+                </div>
+                <div className="rounded-lg bg-white p-3 dark:bg-neutral-900">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">
+                    Playwright Scope
+                  </p>
+                  <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    What behavior will be browser-verified
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Dashboard Layout */}
+            <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                Dashboard Layout
+              </h4>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                The ANALYSIS COMPLETE dashboard organizes its recommendations into distinct sections:
+              </p>
+              <div className="mt-4 space-y-3">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 shrink-0 text-green-600 dark:text-green-400">✅</span>
+                  <div>
+                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">RECOMMENDED APPROACH</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      Always shown as its own section — never listed inside alternatives
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 shrink-0 text-blue-600 dark:text-blue-400">🔀</span>
+                  <div>
+                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">ALTERNATIVES</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      Non-recommended options only; collapsed if no alternatives exist
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400">🔧</span>
+                  <div>
+                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">VERIFICATION PLAN</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      Mandatory — shows task type, source changes, pipeline, and Playwright scope
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

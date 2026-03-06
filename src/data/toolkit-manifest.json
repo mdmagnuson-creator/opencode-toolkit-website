@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-06T12:00:00Z",
-  "syncedAt": "2026-03-06T12:22:26.684Z",
+  "generatedAt": "2026-03-06T18:00:00Z",
+  "syncedAt": "2026-03-06T13:00:54.340Z",
   "toolkitCommit": "pending",
   "counts": {
     "agents": 64,
@@ -1523,6 +1523,11 @@
       "date": "2026-03-06",
       "displayDate": "March 6, 2026",
       "changes": [
+        {
+          "type": "fix",
+          "description": "split ANALYSIS COMPLETE dashboard into separate Recommended Approach and Alternatives sections in adhoc-workflow",
+          "scope": "skills"
+        },
         {
           "type": "feat",
           "description": "add ops-only task classification (source-change / ops-with-runtime-impact / ops-only) to adhoc-workflow analysis phase",
