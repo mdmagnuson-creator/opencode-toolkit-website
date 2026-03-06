@@ -1692,6 +1692,16 @@ export default function TestingConceptPage() {
                     All deferred E2E tests run before final PR
                   </p>
                 </div>
+                <div className="mt-3 rounded-lg border border-violet-200 bg-violet-50 p-3 dark:border-violet-800 dark:bg-violet-950">
+                  <p className="text-xs text-violet-800 dark:text-violet-200">
+                    <strong>UI project override:</strong> For projects automatically detected as UI projects
+                    (via <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">postChangeWorkflow</code>,{" "}
+                    <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">apps.*.testing.framework</code>, or{" "}
+                    <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">apps.*.type</code>),
+                    E2E deferral is overridden — Playwright runs <strong>immediately per-story</strong>,
+                    scoped to changed files and their 1-hop import consumers.
+                  </p>
+                </div>
               </div>
             </div>
 

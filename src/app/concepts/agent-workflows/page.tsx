@@ -1453,7 +1453,34 @@ Rename the \`features\` field to \`capabilities\` in project.json.
             the appropriate Playwright variant.
           </p>
 
-          {/* 4-Step Flow */}
+          {/* UI Project Auto-Detection */}
+          <div className="mt-6 rounded-xl border border-violet-200 bg-violet-50 p-5 dark:border-violet-800 dark:bg-violet-950">
+            <h3 className="text-sm font-semibold text-violet-900 dark:text-violet-100">Automatic UI Project Detection</h3>
+            <p className="mt-2 text-sm text-violet-800 dark:text-violet-200">
+              No configuration is required for Playwright verification. Projects are automatically detected
+              as UI projects when any of:
+            </p>
+            <ul className="mt-2 space-y-1 text-sm text-violet-700 dark:text-violet-300">
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-violet-400">•</span>
+                <span><code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">postChangeWorkflow.steps[]</code> contains a step with &quot;playwright&quot; in its name or command</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-violet-400">•</span>
+                <span><code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">apps.*.testing.framework</code> contains &quot;playwright&quot;</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-violet-400">•</span>
+                <span><code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">apps.*.type</code> is &quot;frontend&quot; or &quot;desktop&quot;</span>
+              </li>
+            </ul>
+            <p className="mt-2 text-xs text-violet-600 dark:text-violet-400">
+              The legacy <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">agents.verification.mode: &quot;playwright-required&quot;</code> is
+              still respected but no longer required. Use <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">&quot;no-ui&quot;</code> to explicitly opt out.
+            </p>
+          </div>
+
+          {/* 6-Step Flow */}
           <div className="mt-10 space-y-8">
             {/* Step 1 */}
             <div className="flex gap-4">
@@ -1621,6 +1648,138 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                     <span>User explicitly says &quot;skip verification&quot;</span>
                   </li>
                 </ul>
+              </div>
+            </div>
+
+            {/* Step 5 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                5
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Story-Scoped Playwright <span className="ml-2 rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-medium text-violet-700 dark:bg-violet-900 dark:text-violet-300">PRD mode</span>
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  In PRD mode, Playwright runs are <strong>story-scoped</strong>: only tests covering
+                  changed files and their 1-hop import consumers are executed. The full suite is never
+                  auto-run per-story.
+                </p>
+
+                {/* Scoping Algorithm */}
+                <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-900">
+                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-50">Scoping Algorithm</h4>
+                  <ol className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-xs text-violet-600 dark:text-violet-400">1.</span>
+                      <span>Find direct test files for each changed source file (path overlap, route overlap, explicit mapping)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-xs text-violet-600 dark:text-violet-400">2.</span>
+                      <span>Follow import graph <strong>1 hop</strong> to find direct consumers of each changed file</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-xs text-violet-600 dark:text-violet-400">3.</span>
+                      <span>Find test files for those consumers too</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-xs text-violet-600 dark:text-violet-400">4.</span>
+                      <span>Union all scoped tests — if empty, fall back to full Playwright command from{" "}
+                        <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">postChangeWorkflow</code>
+                      </span>
+                    </li>
+                  </ol>
+                </div>
+
+                {/* 1-Hop Example */}
+                <div className="mt-4 rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
+                  <p className="mb-2 text-xs font-medium text-neutral-500 dark:text-neutral-400">Example: 1-hop dependency scoping</p>
+                  <pre className="overflow-x-auto text-sm">
+                    <code className="text-neutral-700 dark:text-neutral-300">
+{`Story changes: calculateLineItem() in src/invoices/line-items.ts
+
+Direct tests:
+  → e2e/invoices/line-items.spec.ts
+
+1-hop consumers (files that import line-items.ts):
+  → src/invoices/invoice-total.ts
+  → src/components/InvoiceEditor.tsx
+
+Consumer tests:
+  → e2e/invoices/totals.spec.ts
+  → e2e/desktop/invoice-editor.spec.ts
+
+Scoped run: 3 test files`}
+                    </code>
+                  </pre>
+                </div>
+
+                <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-800 dark:bg-blue-950">
+                  <p className="text-sm text-blue-800 dark:text-blue-200">
+                    <strong>Full suite is user-initiated only.</strong> Builder does not auto-run the
+                    full Playwright suite. Users can request it at any time.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 6 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                6
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Playwright Retry Strategy <span className="ml-2 rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-medium text-violet-700 dark:bg-violet-900 dark:text-violet-300">PRD mode</span>
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  In PRD mode, Playwright failures use a <strong>5-attempt retry</strong> with fix
+                  attempts between each retry. After 5 failures, the Playwright step is{" "}
+                  <strong>skipped and logged</strong> — Builder continues to the next story.
+                </p>
+
+                {/* Retry Table */}
+                <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50">
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Attempt</th>
+                        <th className="px-4 py-3 text-left font-medium text-neutral-700 dark:text-neutral-300">Context Given to @developer</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">1</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Error message + test file</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">2</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Previous error + what attempt 1 tried</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">3</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">Full history + stack trace + DOM snapshot</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">4</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">All prior context + alternative approach suggestion</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">5</td>
+                        <td className="px-4 py-3 text-neutral-600 dark:text-neutral-400">All prior context + &quot;last attempt before skip&quot; flag</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950">
+                  <p className="text-sm text-amber-800 dark:text-amber-200">
+                    <strong>Differs from ad-hoc mode:</strong> The general verification loop uses 3 attempts
+                    then stops and asks the user. In PRD per-story mode, the goal is <strong>momentum</strong> —
+                    log the failure, continue to the next story. Skips are recorded in{" "}
+                    <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">builder-state.json → activePrd.playwrightSkips[]</code>.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

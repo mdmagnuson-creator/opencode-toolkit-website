@@ -228,6 +228,19 @@
       "appliedAt": "2026-03-05T18:30:00Z",
       "appliedBy": "builder",
       "updateType": "sync"
+    },
+    {
+      "id": "2026-03-05-toolkit-sync-canonical-source-fidelity",
+      "appliedAt": "2026-03-06T01:30:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
+    },
+    {
+      "id": "2026-03-05-deprecate-multi-session",
+      "appliedAt": "2026-03-06T01:35:00Z",
+      "appliedBy": "builder",
+      "updateType": "schema",
+      "notes": "N/A — agents.multiSession field not present in this project"
     }
   ]
 }
