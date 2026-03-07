@@ -299,8 +299,10 @@ function isPrimaryAgent(structureCategory: string): boolean {
  * Extract commit SHA from changelog (use the most recent commit's hash)
  */
 function extractCommitSha(changelog: StructureChangelogDay[]): string {
-  if (changelog.length > 0 && changelog[0].changes.length > 0) {
-    return changelog[0].changes[0].hash || 'unknown';
+  for (const day of changelog) {
+    if (Array.isArray(day.changes) && day.changes.length > 0 && day.changes[0].hash) {
+      return day.changes[0].hash;
+    }
   }
   return 'unknown';
 }
@@ -411,7 +413,9 @@ function transformChangelog(structure: ToolkitStructure): ChangelogDay[] {
     return [];
   }
 
-  return structure.changelog.entries.map((day) => ({
+  return structure.changelog.entries
+    .filter((day) => day.date != null && day.date !== '' && Array.isArray(day.changes) && day.changes.length > 0)
+    .map((day) => ({
     date: day.date,
     displayDate: formatDate(day.date),
     changes: day.changes.map((change) => ({

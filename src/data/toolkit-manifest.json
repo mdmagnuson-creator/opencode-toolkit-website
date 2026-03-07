@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-07T04:00:00Z",
-  "syncedAt": "2026-03-07T02:27:30.074Z",
-  "toolkitCommit": "61b8c05",
+  "generatedAt": "2026-03-07T03:25:00Z",
+  "syncedAt": "2026-03-07T03:07:16.676Z",
+  "toolkitCommit": "c56851f",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
@@ -1498,6 +1498,26 @@
       "date": "2026-03-06",
       "displayDate": "March 6, 2026",
       "changes": [
+        {
+          "type": "fix",
+          "description": "add probe-inapplicability rationalizations to NO-BYPASS RULE — close IPC/main-process/code-analysis-is-definitive bypass paths in adhoc-workflow",
+          "scope": "skills"
+        },
+        {
+          "type": "fix",
+          "description": "add ops-only guard — source file modifications can never be classified as ops-only to avoid probe in adhoc-workflow",
+          "scope": "skills"
+        },
+        {
+          "type": "fix",
+          "description": "add probe-inapplicability and ops-only misclassification prohibitions to builder.md gate",
+          "scope": "agents"
+        },
+        {
+          "type": "fix",
+          "description": "fix stale Autonomous Auth Resolution reference to Auth Resolution Escalation in adhoc-workflow",
+          "scope": "skills"
+        },
         {
           "type": "feat",
           "description": "add design decision detection (Step 0.1c) with planning considerations integration to adhoc-workflow (PRD adhoc-design-decisions US-001/US-003)",

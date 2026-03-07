@@ -1854,6 +1854,41 @@ Scoped run: 3 test files`}
                   </table>
                 </div>
 
+                {/* ops-only Guard */}
+                <div className="mt-4 rounded-lg border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-950">
+                  <p className="text-sm font-semibold text-rose-900 dark:text-rose-100">
+                    ⛔ ops-only Guard
+                  </p>
+                  <p className="mt-1 text-sm text-rose-800 dark:text-rose-200">
+                    If the implementation modifies <strong>any source file</strong>, the task is NOT{" "}
+                    <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">ops-only</code>.
+                    Source files (<code className="text-xs">.ts</code>, <code className="text-xs">.tsx</code>,{" "}
+                    <code className="text-xs">.go</code>, <code className="text-xs">.py</code>, etc.) always require
+                    the standard verification pipeline — even if the change is to &quot;infrastructure&quot; code like
+                    IPC handlers, main process files, build config, or native API wrappers.
+                  </p>
+                  <div className="mt-3 space-y-1 text-sm text-rose-800 dark:text-rose-200">
+                    <p className="font-medium">Common misclassification attempts:</p>
+                    <ul className="ml-4 list-disc space-y-1">
+                      <li>&quot;This is an IPC handler change, it&apos;s infrastructure&quot; → It&apos;s a source file →{" "}
+                        <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">source-change</code>
+                      </li>
+                      <li>&quot;This is a main process change, not web content&quot; → It&apos;s a source file →{" "}
+                        <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">source-change</code>
+                      </li>
+                      <li>&quot;This is a build/config change&quot; → If it modifies a source file →{" "}
+                        <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">source-change</code>
+                      </li>
+                    </ul>
+                    <p className="mt-2">
+                      ✅ Valid <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">ops-only</code> examples:{" "}
+                      <code className="text-xs">supabase secrets set</code>,{" "}
+                      <code className="text-xs">vercel env add</code>,{" "}
+                      <code className="text-xs">gh secret set</code>, restarting a service
+                    </p>
+                  </div>
+                </div>
+
                 {/* Post-Ops Verification Flow */}
                 <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-900">
                   <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-50">Post-Ops Verification Flow</h4>
@@ -2238,14 +2273,34 @@ Scoped run: 3 test files`}
                         <td className="py-1.5 pr-4">&quot;I already took a screenshot&quot;</td>
                         <td className="py-1.5">Screenshots show current state; probes verify specific assertions</td>
                       </tr>
+                      <tr className="border-b border-rose-100 dark:border-rose-900">
+                        <td className="py-1.5 pr-4">&quot;This is a backend/config change&quot;</td>
+                        <td className="py-1.5">If the change has any runtime UI impact, probe the affected pages</td>
+                      </tr>
+                      <tr className="border-b border-rose-100 dark:border-rose-900">
+                        <td className="py-1.5 pr-4">&quot;This change cannot be verified via Playwright&quot;</td>
+                        <td className="py-1.5">Every source code change has observable effects — re-analyze what the change affects in the rendered UI</td>
+                      </tr>
+                      <tr className="border-b border-rose-100 dark:border-rose-900">
+                        <td className="py-1.5 pr-4">&quot;This is a main process / IPC / native API change&quot;</td>
+                        <td className="py-1.5">Main process changes affect what the renderer shows — IPC handlers serve data to web content</td>
+                      </tr>
+                      <tr className="border-b border-rose-100 dark:border-rose-900">
+                        <td className="py-1.5 pr-4">&quot;Code analysis is definitive&quot;</td>
+                        <td className="py-1.5">Code analysis is <em>input</em> to the probe, not a replacement — runtime behavior diverges from source</td>
+                      </tr>
+                      <tr>
+                        <td className="py-1.5 pr-4">&quot;The critical path cannot be verified in a browser&quot;</td>
+                        <td className="py-1.5">If the app has any web content, there are browser-observable effects of every code change</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
                 <p className="mt-3 text-sm text-rose-800 dark:text-rose-200">
-                  <strong>Only valid skip conditions:</strong>{" "}
-                  <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">no-ui</code> mode,
-                  dev server unreachable, no page assertions generated, or{" "}
-                  <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">analysisProbe: false</code> in project.json.
+                  <strong>The ONLY way a probe can be skipped</strong> is if the user explicitly accepts a skip
+                  after Builder has exhausted all options and asked for assistance. This sets{" "}
+                  <code className="rounded bg-rose-100 px-1 text-xs dark:bg-rose-900">probeStatus: &quot;user-skipped&quot;</code> —
+                  Builder cannot set this status autonomously.
                 </p>
               </div>
 
@@ -2268,10 +2323,10 @@ Scoped run: 3 test files`}
                 </p>
               </div>
 
-              {/* Autonomous Auth Resolution */}
+              {/* Auth Resolution Escalation */}
               <div className="mt-3 rounded-lg border border-teal-200 bg-teal-50 p-4 dark:border-teal-800 dark:bg-teal-950">
                 <p className="text-sm font-semibold text-teal-900 dark:text-teal-100">
-                  🔐 Autonomous Auth Resolution
+                  🔐 Auth Resolution Escalation
                 </p>
                 <p className="mt-1 text-sm text-teal-800 dark:text-teal-200">
                   When probing authenticated pages, Builder resolves authentication autonomously — it never asks the user for credentials.
