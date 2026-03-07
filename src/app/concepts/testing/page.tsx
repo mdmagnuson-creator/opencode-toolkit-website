@@ -28,6 +28,7 @@ const PAGE_SECTIONS = [
   { id: "electron-desktop-testing", label: "Electron Desktop Testing" },
   { id: "qa-adversarial", label: "QA & Adversarial Testing" },
   { id: "mutation-testing", label: "Mutation Testing" },
+  { id: "test-verify-settings", label: "Test Verify Settings" },
   { id: "cors-browser-verification", label: "CORS & Browser Verification" },
 ];
 
@@ -258,11 +259,10 @@ export default function TestingConceptPage() {
                   E2E Testing Layer
                 </p>
                  <div className="flex flex-wrap justify-center gap-3">
-                   {[
-                      { name: "e2e-playwright", desc: "Writes E2E tests" },
-                      { name: "e2e-reviewer", desc: "Identifies test gaps" },
-                      { name: "playwright-dev", desc: "Automation tasks" },
-                      { name: "e2e-auditor", desc: "Full app audits" },
+                     {[
+                      { name: "ui-tester-playwright", desc: "Writes E2E tests" },
+                      { name: "ui-test-reviewer", desc: "Identifies test gaps" },
+                      { name: "ui-test-full-app-auditor", desc: "Full app audits" },
                     ].map((agent) => (
                     <div
                       key={agent.name}
@@ -720,7 +720,7 @@ export default function TestingConceptPage() {
                 "jest-tester", 
                 "react-tester",
                 "go-tester",
-                "e2e-playwright",
+                "ui-tester-playwright",
                 "qa-browser-tester",
               ].map((agent) => (
                 <Link
@@ -1064,7 +1064,7 @@ export default function TestingConceptPage() {
                       <span className="text-green-600 dark:text-green-400 text-sm font-medium">true</span>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      E2E tests written and run via <code className="rounded bg-purple-100 px-1 py-0.5 text-xs dark:bg-purple-900">e2e-playwright</code>
+                      E2E tests written and run via <code className="rounded bg-purple-100 px-1 py-0.5 text-xs dark:bg-purple-900">ui-tester-playwright</code>
                     </td>
                   </tr>
                   <tr>
@@ -2103,10 +2103,10 @@ export default function TestingConceptPage() {
                   End-to-end testing using Playwright. Tests complete user flows
                   through the browser.
                 </p>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
                     <code className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                      e2e-playwright
+                      ui-tester-playwright
                     </code>
                     <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
                       Writes Playwright E2E tests for user flows, forms, and
@@ -2115,7 +2115,7 @@ export default function TestingConceptPage() {
                   </div>
                   <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
                     <code className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                      e2e-reviewer
+                      ui-test-reviewer
                     </code>
                     <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
                       Reviews UI changes and identifies areas needing E2E
@@ -2124,16 +2124,7 @@ export default function TestingConceptPage() {
                   </div>
                   <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
                     <code className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                      playwright-dev
-                    </code>
-                    <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
-                      Implements Playwright automation tasks, fixtures, and
-                      utilities.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
-                    <code className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                      e2e-auditor
+                      ui-test-full-app-auditor
                     </code>
                     <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
                       Comprehensive E2E test audits with 5-retry resilience.
@@ -2759,7 +2750,7 @@ export default function TestingConceptPage() {
                 </svg>
               </div>
 
-              {/* Step 2: e2e-reviewer */}
+              {/* Step 2: ui-test-reviewer */}
               <div className="flex items-center gap-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-sm font-semibold text-amber-700 dark:bg-amber-900 dark:text-amber-300">
                   2
@@ -2767,7 +2758,7 @@ export default function TestingConceptPage() {
                 <div className="flex-1 rounded-lg border-2 border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-700 dark:bg-amber-950">
                   <div className="flex items-center gap-2">
                     <code className="text-sm font-semibold text-amber-900 dark:text-amber-100">
-                      e2e-reviewer
+                      ui-test-reviewer
                     </code>
                     <span className="rounded bg-amber-200 px-1.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-800 dark:text-amber-200">
                       analyzes
@@ -2801,7 +2792,7 @@ export default function TestingConceptPage() {
                 </div>
               </div>
 
-              {/* Step 3: e2e-playwright */}
+              {/* Step 3: ui-tester-playwright */}
               <div className="flex items-center gap-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-100 text-sm font-semibold text-purple-700 dark:bg-purple-900 dark:text-purple-300">
                   3
@@ -2809,7 +2800,7 @@ export default function TestingConceptPage() {
                 <div className="flex-1 rounded-lg border-2 border-purple-300 bg-purple-50 px-4 py-3 dark:border-purple-700 dark:bg-purple-950">
                   <div className="flex items-center gap-2">
                     <code className="text-sm font-semibold text-purple-900 dark:text-purple-100">
-                      e2e-playwright
+                      ui-tester-playwright
                     </code>
                     <span className="rounded bg-purple-200 px-1.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-800 dark:text-purple-200">
                       writes
@@ -2892,7 +2883,7 @@ export default function TestingConceptPage() {
             <p className="mt-4 text-neutral-700 dark:text-neutral-400">
               Before running any E2E tests, the{" "}
               <code className="rounded bg-indigo-100 px-1.5 py-0.5 font-mono text-sm text-indigo-900 dark:bg-indigo-900 dark:text-indigo-100">
-                test-e2e-flow
+                ui-test-flow
               </code>{" "}
               skill automatically detects whether the project uses Electron
               desktop testing or standard browser testing, and routes to the
@@ -2937,7 +2928,7 @@ export default function TestingConceptPage() {
                 <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">project.json</code>.{" "}
                 If either indicates Electron, the skill loads the{" "}
                 <Link href="#electron-desktop-testing" className="text-indigo-600 hover:underline dark:text-indigo-400">
-                  e2e-electron skill
+                  ui-test-electron skill
                 </Link>{" "}
                 and skips browser-specific setup steps entirely.
               </p>
@@ -2950,7 +2941,7 @@ export default function TestingConceptPage() {
               E2E Testing Agents
             </h3>
 
-            {/* e2e-reviewer */}
+            {/* ui-test-reviewer */}
             <div className="rounded-xl border border-amber-200 bg-white p-6 dark:border-amber-800 dark:bg-neutral-900">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1">
@@ -2972,7 +2963,7 @@ export default function TestingConceptPage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                        e2e-reviewer
+                        ui-test-reviewer
                       </h4>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400">
                         Test Gap Analyzer
@@ -3048,7 +3039,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/sub/e2e-reviewer"
+                  href="/reference/agents/sub/ui-test-reviewer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300"
                 >
                   View full agent documentation
@@ -3069,7 +3060,7 @@ export default function TestingConceptPage() {
               </div>
             </div>
 
-            {/* e2e-playwright */}
+            {/* ui-tester-playwright */}
             <div className="rounded-xl border border-purple-200 bg-white p-6 dark:border-purple-800 dark:bg-neutral-900">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1">
@@ -3091,7 +3082,7 @@ export default function TestingConceptPage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                        e2e-playwright
+                        ui-tester-playwright
                       </h4>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400">
                         E2E Test Writer
@@ -3170,7 +3161,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/sub/e2e-playwright"
+                  href="/reference/agents/sub/ui-tester-playwright"
                   className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
                 >
                   View full agent documentation
@@ -3191,132 +3182,7 @@ export default function TestingConceptPage() {
               </div>
             </div>
 
-            {/* playwright-dev */}
-            <div className="rounded-xl border border-indigo-200 bg-white p-6 dark:border-indigo-800 dark:bg-neutral-900">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 text-white">
-                      <svg
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                        playwright-dev
-                      </h4>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        Playwright Automation Specialist
-                      </p>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-                    General-purpose Playwright implementation agent for custom
-                    automation tasks, fixtures, and utilities. Can be invoked
-                    directly for Playwright-specific work outside the standard
-                    E2E workflow.
-                  </p>
-                </div>
-              </div>
-
-              {/* Details Grid */}
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                {/* Use Cases */}
-                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Common Use Cases
-                  </p>
-                  <ul className="mt-2 space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
-                    <li>Custom test fixtures</li>
-                    <li>Shared page objects</li>
-                    <li>Helper utilities</li>
-                  </ul>
-                </div>
-
-                {/* Direct Invocation */}
-                <div className="rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Invocation
-                  </p>
-                  <div className="mt-2">
-                    <code className="rounded bg-indigo-100 px-2 py-1 text-sm font-medium text-indigo-900 dark:bg-indigo-900 dark:text-indigo-100">
-                      @playwright-dev
-                    </code>
-                  </div>
-                  <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-                    Can be invoked directly for Playwright tasks
-                  </p>
-                </div>
-
-                {/* Capabilities */}
-                <div className="rounded-lg bg-neutral-50 p-4 sm:col-span-2 dark:bg-neutral-800">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                    Key Capabilities
-                  </p>
-                  <ul className="mt-2 grid gap-2 text-sm text-neutral-700 sm:grid-cols-2 dark:text-neutral-300">
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                      Custom fixture development
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                      Reusable page object classes
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                      Test data factories
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                      API mocking and interception
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                      Browser context configuration
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-                      Parallel test orchestration
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Link */}
-              <div className="mt-6">
-                <Link
-                  href="/reference/agents/sub/playwright-dev"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
-                >
-                  View full agent documentation
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* e2e-auditor */}
+            {/* ui-test-full-app-auditor */}
             <div className="rounded-xl border border-teal-200 bg-white p-6 dark:border-teal-800 dark:bg-neutral-900">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1">
@@ -3338,7 +3204,7 @@ export default function TestingConceptPage() {
                     </div>
                     <div>
                       <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                        e2e-auditor
+                        ui-test-full-app-auditor
                       </h4>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400">
                         Comprehensive E2E Test Auditor
@@ -3363,7 +3229,7 @@ export default function TestingConceptPage() {
                   </p>
                   <div className="mt-2">
                     <code className="rounded bg-teal-100 px-2 py-1 text-sm font-medium text-teal-900 dark:bg-teal-900 dark:text-teal-100">
-                      e2e-audit-manifest.json
+                      ui-test-audit-manifest.json
                     </code>
                   </div>
                 </div>
@@ -3421,7 +3287,7 @@ export default function TestingConceptPage() {
               {/* Link */}
               <div className="mt-6">
                 <Link
-                  href="/reference/agents/sub/e2e-auditor"
+                  href="/reference/agents/sub/ui-test-full-app-auditor"
                   className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
                 >
                   View full agent documentation
@@ -3475,13 +3341,13 @@ export default function TestingConceptPage() {
                     </h4>
                     <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                       A structured JSON file that describes which UI areas need
-                      E2E test coverage. Created by{" "}
+                      E2E test coverage.                       Created by{" "}
                       <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">
-                        e2e-reviewer
+                        ui-test-reviewer
                       </code>{" "}
                       and consumed by{" "}
                       <code className="rounded bg-purple-100 px-1 py-0.5 text-xs dark:bg-purple-900">
-                        e2e-playwright
+                        ui-tester-playwright
                       </code>
                       .
                     </p>
@@ -3536,7 +3402,7 @@ export default function TestingConceptPage() {
                     <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                       When E2E tests fail, the{" "}
                       <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">
-                        e2e-reviewer
+                        ui-test-reviewer
                       </code>{" "}
                       automatically generates a draft PRD describing the issue.
                       This ensures failures are tracked and queued for
@@ -4486,7 +4352,7 @@ test.beforeAll(async ({ browser }) => {
           <p className="mt-4 text-neutral-700 dark:text-neutral-400">
             Quality testing goes beyond basic assertions. The{" "}
             <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
-              e2e-quality
+              ui-test-ux-quality
             </code>{" "}
             skill provides specialized patterns for catching visual glitches,
             performance issues, layout shifts, and intermediate bad states that
@@ -4887,20 +4753,20 @@ await expectMutualExclusivity(
                 <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
                   The{" "}
                   <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
-                    e2e-quality
+                    ui-test-ux-quality
                   </code>{" "}
                   skill includes implementation details, helper functions, and
                   integration guidance. Load it with{" "}
                   <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
-                    Loading skill: e2e-quality
+                    Loading skill: ui-test-ux-quality
                   </code>{" "}
                   or see the full documentation.
                 </p>
                 <Link
-                  href="/reference/skills/e2e-quality"
+                  href="/reference/skills/ui-test-ux-quality"
                   className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-pink-600 hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300"
                 >
-                  View e2e-quality skill documentation
+                  View ui-test-ux-quality skill documentation
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -5496,7 +5362,7 @@ await expectMutualExclusivity(
                   </p>
                   <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
                     <code className="rounded bg-purple-100 px-1 py-0.5 text-xs text-purple-900 dark:bg-purple-900 dark:text-purple-100">
-                      e2e-playwright
+                      ui-tester-playwright
                     </code>{" "}
                     runs full browser tests for complete coverage
                   </p>
@@ -5516,7 +5382,7 @@ await expectMutualExclusivity(
           <p className="mt-4 text-neutral-700 dark:text-neutral-400">
             For Electron desktop apps, the toolkit uses Playwright&apos;s Electron API instead of
             browser-based testing. The{" "}
-            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">e2e-electron</code>{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">ui-test-electron</code>{" "}
             skill is automatically loaded when your project includes an Electron app entry.
           </p>
 
@@ -5633,7 +5499,7 @@ await expectMutualExclusivity(
             Zombie Process Cleanup
           </h3>
           <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-            Electron apps can leave zombie processes if tests fail or are interrupted. The e2e-electron skill
+            Electron apps can leave zombie processes if tests fail or are interrupted. The ui-test-electron skill
             includes a <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">globalSetup.ts</code>{" "}
             pattern that cleans up orphaned processes before each test run:
           </p>
@@ -5670,7 +5536,7 @@ export default async function globalSetup() {
           </div>
 
           <h3 className="mt-8 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
-            How the e2e-electron Skill Works
+            How the ui-test-electron Skill Works
           </h3>
           <div className="mt-6 space-y-4">
             <div className="flex items-start gap-4">
@@ -5682,10 +5548,10 @@ export default async function globalSetup() {
                   Skill is loaded automatically
                 </p>
                 <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                  The <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">test-e2e-flow</code> skill
+                  The <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">ui-test-flow</code> skill
                   detects Electron projects via <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">architecture.deployment</code>{" "}
                   or <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">apps.*.framework</code> and
-                  automatically routes to the e2e-electron skill, skipping browser-specific setup.
+                  automatically routes to the ui-test-electron skill, skipping browser-specific setup.
                 </p>
               </div>
             </div>
@@ -5731,6 +5597,159 @@ export default async function globalSetup() {
                 Multi-Platform Apps
               </Link>{" "}
               section for configuration details.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Test Verify Settings */}
+      <section
+        id="test-verify-settings"
+        className="scroll-mt-8 border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Test Verify Settings
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-300">
+            The <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">testVerifySettings</code> object
+            in <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">project.json</code> controls
+            which automated Playwright invocation points are enabled. All settings default
+            to <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">true</code> when
+            absent, so the system runs all verification steps unless you explicitly opt out.
+          </p>
+
+          <div className="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-6 dark:border-blue-800 dark:bg-blue-950">
+            <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+              What These Settings Control
+            </h3>
+            <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
+              These settings gate <strong>automated</strong> Playwright invocations triggered during the build
+              workflow. They do <strong>not</strong> gate user-invoked workflows
+              like <code className="rounded bg-blue-100 px-1 text-xs dark:bg-blue-900">@qa</code> or{" "}
+              <code className="rounded bg-blue-100 px-1 text-xs dark:bg-blue-900">@ui-test-full-app-auditor</code>,
+              nor do they affect test file creation or maintenance.
+            </p>
+          </div>
+
+          <h3 className="mt-10 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Configuration
+          </h3>
+          <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-900 dark:border-neutral-700">
+            <pre className="p-6 text-sm leading-relaxed text-neutral-100">
+{`// project.json
+{
+  "testVerifySettings": {
+    "adHocUIVerify_Analysis": true,
+    "adHocUIVerify_StoryTest": true,
+    "prdUIVerify_Analysis": true,
+    "prdUIVerify_StoryTest": true,
+    "prdUIVerify_PRDCompletionTest": true
+  }
+}`}
+            </pre>
+          </div>
+
+          <h3 className="mt-10 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Settings Reference
+          </h3>
+          <div className="mt-4 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+            <table className="w-full text-sm">
+              <thead className="bg-neutral-100 dark:bg-neutral-800">
+                <tr>
+                  <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Setting</th>
+                  <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Mode</th>
+                  <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Description</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
+                <tr className="bg-white dark:bg-neutral-900">
+                  <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">adHocUIVerify_Analysis</td>
+                  <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">Ad-hoc</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Run Playwright analysis probe after code changes (adhoc-workflow Step 0.1b)
+                  </td>
+                </tr>
+                <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                  <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">adHocUIVerify_StoryTest</td>
+                  <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">Ad-hoc</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Write and run Playwright tests for completed tasks (test-flow Step 5 ad-hoc)
+                  </td>
+                </tr>
+                <tr className="bg-white dark:bg-neutral-900">
+                  <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">prdUIVerify_Analysis</td>
+                  <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">PRD</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Run per-story Playwright verification after implementation (test-flow Step 3 PRD)
+                  </td>
+                </tr>
+                <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                  <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">prdUIVerify_StoryTest</td>
+                  <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">PRD</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Write and run per-story Playwright tests (test-flow Step 5 PRD, tester Step 7)
+                  </td>
+                </tr>
+                <tr className="bg-white dark:bg-neutral-900">
+                  <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">prdUIVerify_PRDCompletionTest</td>
+                  <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">PRD</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Generate deferred UI tests at PRD completion (prd-workflow Ship Phase &quot;G&quot; option)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 className="mt-10 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+            Common Patterns
+          </h3>
+          <div className="mt-4 space-y-4">
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-medium text-neutral-900 dark:text-neutral-50">
+                Skip analysis probes, keep test generation
+              </h4>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                Useful when analysis probes are slow but you still want Playwright tests written for each story.
+              </p>
+              <pre className="mt-3 overflow-x-auto rounded-lg bg-neutral-100 p-3 text-xs text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+{`"testVerifySettings": {
+  "adHocUIVerify_Analysis": false,
+  "prdUIVerify_Analysis": false
+}`}
+              </pre>
+            </div>
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <h4 className="font-medium text-neutral-900 dark:text-neutral-50">
+                Disable all automated Playwright
+              </h4>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                For projects that rely on manual QA or external CI for UI testing. You can still
+                invoke <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">@qa</code> or{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">@ui-test-full-app-auditor</code> directly.
+              </p>
+              <pre className="mt-3 overflow-x-auto rounded-lg bg-neutral-100 p-3 text-xs text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+{`"testVerifySettings": {
+  "adHocUIVerify_Analysis": false,
+  "adHocUIVerify_StoryTest": false,
+  "prdUIVerify_Analysis": false,
+  "prdUIVerify_StoryTest": false,
+  "prdUIVerify_PRDCompletionTest": false
+}`}
+              </pre>
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-950">
+            <h3 className="font-semibold text-amber-900 dark:text-amber-100">
+              Default Behavior
+            </h3>
+            <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+              If the <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">testVerifySettings</code> object
+              is absent from <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">project.json</code>,
+              all five settings default to <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">true</code>.
+              This means existing projects get full automated Playwright verification without any configuration changes.
             </p>
           </div>
         </div>

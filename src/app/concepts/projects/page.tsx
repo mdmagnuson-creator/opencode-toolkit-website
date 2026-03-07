@@ -190,6 +190,15 @@ export default function ProjectsConceptPage() {
     "test": "npm run test"
   },
   
+  // Controls which automated Playwright invocations are enabled (all default to true)
+  "testVerifySettings": {
+    "adHocUIVerify_Analysis": true,       // Ad-hoc: Playwright analysis probe after changes
+    "adHocUIVerify_StoryTest": true,      // Ad-hoc: write/run Playwright tests for tasks
+    "prdUIVerify_Analysis": true,         // PRD: per-story Playwright verification
+    "prdUIVerify_StoryTest": true,        // PRD: write/run per-story Playwright tests
+    "prdUIVerify_PRDCompletionTest": true // PRD: deferred UI tests at completion
+  },
+  
   // Git workflow configuration
   "git": {
     "defaultBranch": "main",

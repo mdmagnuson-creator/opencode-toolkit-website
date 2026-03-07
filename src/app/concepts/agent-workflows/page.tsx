@@ -1412,7 +1412,7 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                 <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">test-activity-resolution</code> and{" "}
                 <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">test-quality-checks</code> directly,
                 while continuing to load 5 Tier 2 sub-skills on demand (test-verification-loop, test-prerequisite-detection,
-                test-e2e-flow, test-ui-verification, test-failure-handling). The unified orchestrator owns the full
+                ui-test-flow, test-ui-verification, test-failure-handling). The unified orchestrator owns the full
                 quality cycle: skip gate → activity resolution → quality check pipeline → completion prompt.
               </p>
             </div>

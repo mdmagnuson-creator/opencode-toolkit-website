@@ -659,7 +659,7 @@ canonicalSource exactly.`}</code>
                 </p>
               </div>
               <div className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-700 dark:bg-neutral-900">
-                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">playwright-dev</code>
+                <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs text-blue-900 dark:bg-blue-900 dark:text-blue-100">ui-tester-playwright</code>
                 <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
                   Added /tmp/ restriction to Important Notes
                 </p>

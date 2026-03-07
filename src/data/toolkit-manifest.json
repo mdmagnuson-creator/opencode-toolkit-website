@@ -1,12 +1,12 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-07T03:25:00Z",
-  "syncedAt": "2026-03-07T03:07:16.676Z",
+  "generatedAt": "2026-03-07T18:00:00Z",
+  "syncedAt": "2026-03-07T14:43:14.724Z",
   "toolkitCommit": "c56851f",
   "counts": {
-    "agents": 64,
+    "agents": 63,
     "primaryAgents": 4,
-    "subagents": 60,
+    "subagents": 59,
     "skills": 66,
     "metaSkills": 11,
     "scaffolds": 3,
@@ -14,7 +14,7 @@
   },
   "categories": {
     "critics": 28,
-    "developers": 16,
+    "developers": 15,
     "testers": 9,
     "orchestrators": 3,
     "utilities": 8
@@ -172,30 +172,6 @@
       "content": ""
     },
     {
-      "slug": "e2e-auditor",
-      "name": "E2e Auditor",
-      "description": "Autonomous E2E test auditor that analyzes apps and generates comprehensive test coverage",
-      "mode": "primary",
-      "category": "developers",
-      "content": ""
-    },
-    {
-      "slug": "e2e-playwright",
-      "name": "E2e Playwright",
-      "description": "Writes Playwright E2E tests for identified UI areas",
-      "mode": "subagent",
-      "category": "testers",
-      "content": ""
-    },
-    {
-      "slug": "e2e-reviewer",
-      "name": "E2e Reviewer",
-      "description": "Reviews UI changes and identifies all modified areas for E2E testing",
-      "mode": "subagent",
-      "category": "testers",
-      "content": ""
-    },
-    {
       "slug": "exploit-critic",
       "name": "Exploit Critic",
       "description": "Adversarial review that attempts to exploit code — finds injection, auth bypass, privilege escalation, and data exfiltration paths",
@@ -308,14 +284,6 @@
       "content": ""
     },
     {
-      "slug": "playwright-dev",
-      "name": "Playwright Dev",
-      "description": "Implements Playwright test automation tasks",
-      "mode": "subagent",
-      "category": "developers",
-      "content": ""
-    },
-    {
       "slug": "policy-testability-critic",
       "name": "Policy Testability Critic",
       "description": "Flags non-testable MUST/CRITICAL/NEVER rules and suggests enforceable rewrites",
@@ -382,7 +350,7 @@
     {
       "slug": "qa-browser-tester",
       "name": "Qa Browser Tester",
-      "description": "Writes Playwright tests for QA findings by inspecting pages and delegating to playwright-dev",
+      "description": "Writes Playwright tests for QA findings by inspecting pages and delegating to ui-tester-playwright",
       "mode": "subagent",
       "category": "testers",
       "content": ""
@@ -513,6 +481,30 @@
       "description": "Creates and updates AI agent tools when features change",
       "mode": "subagent",
       "category": "utilities",
+      "content": ""
+    },
+    {
+      "slug": "ui-test-full-app-auditor",
+      "name": "Ui Test Full App Auditor",
+      "description": "Autonomous E2E test auditor that analyzes apps and generates comprehensive test coverage",
+      "mode": "primary",
+      "category": "developers",
+      "content": ""
+    },
+    {
+      "slug": "ui-test-reviewer",
+      "name": "Ui Test Reviewer",
+      "description": "Reviews UI changes and identifies all modified areas for E2E testing",
+      "mode": "subagent",
+      "category": "testers",
+      "content": ""
+    },
+    {
+      "slug": "ui-tester-playwright",
+      "name": "Ui Tester Playwright",
+      "description": "Writes Playwright E2E tests for identified UI areas",
+      "mode": "subagent",
+      "category": "testers",
       "content": ""
     },
     {
@@ -813,46 +805,6 @@
         "reassign task",
         "fallback agent",
         "escalate task"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
-      "slug": "e2e-electron",
-      "name": "E2e Electron",
-      "description": "Playwright E2E testing patterns for Electron desktop applications. Covers app launch, main/renderer process testing, IPC mocking, and native dialog handling. Triggers on: electron test, desktop app test, e2e-electron.",
-      "triggers": [
-        "electron test",
-        "desktop app test",
-        "e2e-electron"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
-      "slug": "e2e-full-audit",
-      "name": "E2e Full Audit",
-      "description": "Comprehensive E2E test auditing workflow. Analyzes apps, generates test manifests, and executes with 5-retry resilience. Triggers on: e2e audit, full coverage audit, comprehensive e2e.",
-      "triggers": [
-        "e2e audit",
-        "full coverage audit",
-        "comprehensive e2e"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
-      "slug": "e2e-quality",
-      "name": "E2e Quality",
-      "description": "Quality-beyond-correctness E2E testing patterns. Catches visual glitches, performance issues, layout shifts, and intermediate bad states. Triggers on: flicker test, visual stability, performance budget, negative assertion, CLS test, drag drop test, animation test.",
-      "triggers": [
-        "flicker test",
-        "visual stability",
-        "performance budget",
-        "negative assertion",
-        "CLS test",
-        "drag drop test",
-        "animation test"
       ],
       "isMeta": false,
       "content": ""
@@ -1204,19 +1156,6 @@
       "content": ""
     },
     {
-      "slug": "test-e2e-flow",
-      "name": "Test E2e Flow",
-      "description": "E2E test generation and execution workflow. Triggers on: run e2e, generate e2e, deferred e2e, e2e flow.",
-      "triggers": [
-        "run e2e",
-        "generate e2e",
-        "deferred e2e",
-        "e2e flow"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
       "slug": "test-failure-handling",
       "name": "Test Failure Handling",
       "description": "Test failure logging, manual fallback, and skip flows. Triggers on: test failed, skip test, abandon feature, manual fallback.",
@@ -1302,6 +1241,59 @@
         "verification loop",
         "fix loop",
         "3-pass"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "ui-test-electron",
+      "name": "Ui Test Electron",
+      "description": "Playwright E2E testing patterns for Electron desktop applications. Covers app launch, main/renderer process testing, IPC mocking, and native dialog handling. Triggers on: electron test, desktop app test, ui-test-electron.",
+      "triggers": [
+        "electron test",
+        "desktop app test",
+        "ui-test-electron"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "ui-test-flow",
+      "name": "Ui Test Flow",
+      "description": "E2E test generation and execution workflow. Triggers on: run e2e, generate e2e, deferred e2e, e2e flow.",
+      "triggers": [
+        "run e2e",
+        "generate e2e",
+        "deferred e2e",
+        "e2e flow"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "ui-test-full-app-audit",
+      "name": "Ui Test Full App Audit",
+      "description": "Comprehensive E2E test auditing workflow. Analyzes apps, generates test manifests, and executes with 5-retry resilience. Triggers on: e2e audit, full coverage audit, comprehensive e2e.",
+      "triggers": [
+        "e2e audit",
+        "full coverage audit",
+        "comprehensive e2e"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "ui-test-ux-quality",
+      "name": "Ui Test Ux Quality",
+      "description": "Quality-beyond-correctness E2E testing patterns. Catches visual glitches, performance issues, layout shifts, and intermediate bad states. Triggers on: flicker test, visual stability, performance budget, negative assertion, CLS test, drag drop test, animation test.",
+      "triggers": [
+        "flicker test",
+        "visual stability",
+        "performance budget",
+        "negative assertion",
+        "CLS test",
+        "drag drop test",
+        "animation test"
       ],
       "isMeta": false,
       "content": ""
