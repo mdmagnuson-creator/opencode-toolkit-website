@@ -299,6 +299,13 @@
       "appliedBy": "builder",
       "updateType": "sync",
       "notes": "Test mechanics cleanup — rewrote testing concepts page: removed testIntensity/storyAssessment/rigorProfile/E2E deferral sections, added Playwright gating and 6th testVerifySettings boolean, updated fix-loop to 20-attempt cap"
+    },
+    {
+      "id": "2026-03-07-toolkit-sync-verification-reset-oauth",
+      "appliedAt": "2026-03-08T00:45:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Verification state reset fix + oauth-callback-diagnostic skill — no website code changes needed, all affected pages are auto-generated from toolkit-structure.json"
     }
   ]
 }
