@@ -271,6 +271,13 @@
       "appliedAt": "2026-03-07T02:30:00Z",
       "appliedBy": "builder",
       "updateType": "sync"
+    },
+    {
+      "id": "2026-03-05-architecture-aware-verification",
+      "appliedAt": "2026-03-07T03:00:00Z",
+      "appliedBy": "builder",
+      "updateType": "schema",
+      "notes": "No auth, no desktop apps — nothing to configure"
     }
   ]
 }
