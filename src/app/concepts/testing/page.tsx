@@ -19,7 +19,6 @@ const PAGE_SECTIONS = [
   { id: "failure-output-policy", label: "Test Failure Output Policy" },
   { id: "operational-modes", label: "Operational Modes" },
   { id: "automatic-test-selection", label: "Automatic Test Activity Selection" },
-  { id: "story-intensity", label: "Per-Story Test Intensity" },
   { id: "test-flow", label: "Test Flow Automation" },
   { id: "layer-deep-dive", label: "Layer Deep Dive" },
   { id: "unit-test-specialists", label: "Unit Test Specialists" },
@@ -961,175 +960,14 @@ export default function TestingConceptPage() {
             Automatic Test Activity Selection
           </h2>
           <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
-            The toolkit automatically determines what testing to run for each user story by reading metadata signals from the PRD JSON. There is no manual rigor profile prompt — the system derives the right level of testing from story metadata.
-          </p>
-
-          {/* How it works */}
-          <div className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
-            <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
-              How Signals Drive Activity
-            </h3>
-            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Each story in the PRD JSON carries metadata flags that Builder reads automatically. No prompt, no choice — the right tests run based on what was specified when the story was written.
-            </p>
-            <div className="mt-4 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
-              <p className="text-neutral-400">{"// prd.json story metadata"}</p>
-              <p className="mt-2">{"{"}</p>
-              <p className="ml-4 text-blue-400">
-                {'"testIntensity"'}: <span className="text-amber-400">{'"high"'}</span>,
-              </p>
-              <p className="ml-4 text-blue-400">
-                {'"e2eRequired"'}: <span className="text-green-400">true</span>,
-              </p>
-              <p className="ml-4 text-blue-400">
-                {'"documentationRequired"'}: <span className="text-green-400">false</span>
-              </p>
-              <p>{"}"}</p>
-            </div>
-          </div>
-
-          {/* Signal-to-Activity Mapping Table */}
-          <div className="mt-10">
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              Signal → Activity Mapping
-            </h3>
-            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              The <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">testIntensity</code> field controls how much unit/integration testing is generated. Other boolean flags activate specific activities independently.
-            </p>
-            <div className="mt-4 overflow-x-auto">
-              <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
-                <thead className="bg-neutral-50 dark:bg-neutral-800">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Signal
-                    </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Value
-                    </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Activity Triggered
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">testIntensity</code>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-amber-100 px-1.5 py-0.5 text-sm font-medium text-amber-900 dark:bg-amber-900 dark:text-amber-100">low</code>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Smoke tests only — fast pass/fail check
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">testIntensity</code>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-blue-100 px-1.5 py-0.5 text-sm font-medium text-blue-900 dark:bg-blue-900 dark:text-blue-100">medium</code>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Unit + integration tests for changed modules
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">testIntensity</code>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-purple-100 px-1.5 py-0.5 text-sm font-medium text-purple-900 dark:bg-purple-900 dark:text-purple-100">high</code>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Full unit, integration, and edge-case tests
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">testIntensity</code>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-red-100 px-1.5 py-0.5 text-sm font-medium text-red-900 dark:bg-red-900 dark:text-red-100">critical</code>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Full tests + mutation testing + quality critic
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">e2eRequired</code>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <span className="text-green-600 dark:text-green-400 text-sm font-medium">true</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      E2E tests written and run via <code className="rounded bg-purple-100 px-1 py-0.5 text-xs dark:bg-purple-900">ui-tester-playwright</code>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">documentationRequired</code>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3">
-                      <span className="text-green-600 dark:text-green-400 text-sm font-medium">true</span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Support article generated or updated
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Why automatic */}
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-950">
-              <h4 className="font-semibold text-blue-900 dark:text-blue-100">
-                Set by Planner, Read by Builder
-              </h4>
-              <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
-                Test intensity and activity flags are set when the story is written in the PRD JSON. Builder reads them automatically — no prompt, no manual step.
-              </p>
-            </div>
-
-            <div className="rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-950">
-              <h4 className="font-semibold text-green-900 dark:text-green-100">
-                Override at Runtime
-              </h4>
-              <p className="mt-2 text-sm text-green-800 dark:text-green-200">
-                Builder can escalate intensity if it discovers complexity during implementation — for example, upgrading a <code className="rounded bg-green-100 px-1 py-0.5 text-xs dark:bg-green-900">medium</code> story to <code className="rounded bg-green-100 px-1 py-0.5 text-xs dark:bg-green-900">high</code> when touching auth logic.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Per-Story Test Intensity */}
-      <section id="story-intensity" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
-            Per-Story Test Intensity
-          </h2>
-          <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
-            Not all user stories carry the same risk. Planner assigns a{" "}
+            The toolkit automatically determines what testing to run by matching changed files against glob patterns
+            in{" "}
             <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
-              testIntensity
-            </code>{" "}
-            to each story as a risk and planning signal. Builder can reassess
-            at runtime based on what it discovers during implementation. The
-            intensity level influences escalation decisions and is tracked in
-            state &mdash; but it does not directly gate which test activities run.
-            Actual test activities (unit tests, E2E, critics) are resolved from{" "}
-            <strong>file patterns</strong> via the{" "}
-            <Link
-              href="/reference/skills/test-flow"
-              className="font-medium text-indigo-600 underline hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-            >
-              test-flow
-            </Link>{" "}
-            skill, and E2E execution is gated by{" "}
+              test-activity-rules.json
+            </code>
+            . There are no story-level metadata flags — Planner assigns zero test-related fields to stories.
+            Non-Playwright tests (typecheck, lint, unit tests, critics) run unconditionally.
+            Playwright execution is gated solely by{" "}
             <Link
               href="/concepts/testing#test-verify-settings"
               className="font-medium text-indigo-600 underline hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
@@ -1139,280 +977,187 @@ export default function TestingConceptPage() {
             .
           </p>
 
-          {/* Intensity Levels */}
-          <div className="mt-10">
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              Intensity Levels
+          {/* How it works */}
+          <div className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
+            <h3 className="font-semibold text-neutral-900 dark:text-neutral-50">
+              How File Patterns Drive Activity
             </h3>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Planner assigns intensity based on story risk. Builder uses it as a planning signal for escalation decisions:
+              When files change, the{" "}
+              <Link
+                href="/reference/skills/test-flow"
+                className="font-medium text-indigo-600 underline hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+              >
+                test-flow
+              </Link>{" "}
+              skill matches each file against glob patterns in{" "}
+              <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">test-activity-rules.json</code>{" "}
+              to collect unit testers and critics. Cross-cutting rules and code-pattern matching add additional
+              activities. The result is a set of resolved activities — no prompt, no choice.
+            </p>
+            <div className="mt-4 rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
+              <p className="text-neutral-400">{"// Resolved activity structure"}</p>
+              <p className="mt-2">{"{"}</p>
+              <p className="ml-4 text-blue-400">
+                {'"baseline"'}: <span className="text-green-400">{"[\"typecheck\", \"lint\"]"}</span>,
+              </p>
+              <p className="ml-4 text-blue-400">
+                {'"unit"'}: <span className="text-green-400">{"[\"react-tester\", \"jest-tester\"]"}</span>,
+              </p>
+              <p className="ml-4 text-blue-400">
+                {'"critics"'}: <span className="text-green-400">{"[\"frontend-critic\", \"security-critic\"]"}</span>,
+              </p>
+              <p className="ml-4 text-blue-400">
+                {'"quality"'}: <span className="text-green-400">{"[\"aesthetic-critic\"]"}</span>,
+              </p>
+              <p className="ml-4 text-blue-400">
+                {'"reasoning"'}: <span className="text-amber-400">{"[\"src/Button.tsx → *.tsx\", \"Code pattern: useAuth\"]"}</span>
+              </p>
+              <p>{"}"}</p>
+            </div>
+          </div>
+
+          {/* Resolution Pipeline Table */}
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Resolution Pipeline
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Activities are resolved in four passes. The first three collect non-Playwright work; Playwright
+              is handled separately in the execution step (gated by{" "}
+              <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">testVerifySettings</code>).
             </p>
             <div className="mt-4 overflow-x-auto">
               <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
                 <thead className="bg-neutral-50 dark:bg-neutral-800">
                   <tr>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Intensity
+                      Pass
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Story Traits
+                      Input
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Builder Behavior
+                      Activities Collected
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
                   <tr>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-green-100 px-1.5 py-0.5 text-sm font-medium text-green-900 dark:bg-green-900 dark:text-green-100">
-                        low
-                      </code>
+                      <code className="rounded bg-blue-100 px-1.5 py-0.5 text-sm font-medium text-blue-900 dark:bg-blue-900 dark:text-blue-100">File patterns</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Small copy/UI tweak, isolated refactor, low blast radius
+                      Each changed file matched against <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">filePatterns</code> globs
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Minimal escalation risk. Test activities still resolved from file patterns.
+                      Unit testers, critics, quality critics
                     </td>
                   </tr>
                   <tr>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-blue-100 px-1.5 py-0.5 text-sm font-medium text-blue-900 dark:bg-blue-900 dark:text-blue-100">
-                        medium
-                      </code>
+                      <code className="rounded bg-purple-100 px-1.5 py-0.5 text-sm font-medium text-purple-900 dark:bg-purple-900 dark:text-purple-100">Code patterns</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Typical feature/UI flow, standard CRUD, limited integrations
+                      Diff content matched against <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">codePatterns</code> regexes
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Baseline risk. Builder may escalate if cross-cutting impact discovered.
+                      Additional critics (e.g., security-critic for auth patterns)
                     </td>
                   </tr>
                   <tr>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-amber-100 px-1.5 py-0.5 text-sm font-medium text-amber-900 dark:bg-amber-900 dark:text-amber-100">
-                        high
-                      </code>
+                      <code className="rounded bg-amber-100 px-1.5 py-0.5 text-sm font-medium text-amber-900 dark:bg-amber-900 dark:text-amber-100">Cross-cutting</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Cross-cutting behavior, auth/permissions, complex state transitions
+                      Multiple directories touched, shared modules modified
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Elevated scrutiny. Builder prioritizes critic reviews and tracks regressions.
+                      oddball-critic, dx-critic
                     </td>
                   </tr>
                   <tr>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <code className="rounded bg-red-100 px-1.5 py-0.5 text-sm font-medium text-red-900 dark:bg-red-900 dark:text-red-100">
-                        critical
-                      </code>
+                      <code className="rounded bg-red-100 px-1.5 py-0.5 text-sm font-medium text-red-900 dark:bg-red-900 dark:text-red-100">Hotspots</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Payments, security-sensitive data, compliance-critical flows
+                      Files listed in <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">test-debt.json</code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Maximum scrutiny. Forces quality checks, prioritizes all resolved activities.
+                      Extra critics, forced E2E for known-fragile files
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
-            {/* How test activities actually resolve */}
-            <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
-              <p className="text-sm font-medium text-amber-900 dark:text-amber-100">
-                How test activities are actually resolved
-              </p>
-              <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
-                Test activities (unit tests, E2E, critics) are resolved from{" "}
-                <strong>file patterns</strong> in{" "}
-                <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">
-                  test-activity-rules.json
-                </code>
-                , not from the intensity level. When a file changes, its glob
-                pattern is matched against activity rules to determine which
-                testers, critics, and E2E areas apply. E2E execution is then
-                gated by{" "}
-                <Link
-                  href="/concepts/testing#test-verify-settings"
-                  className="font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-100 dark:hover:text-amber-300"
-                >
-                  testVerifySettings
-                </Link>
-                . Intensity acts as a planning and escalation signal &mdash; not
-                a direct test gate.
-              </p>
-            </div>
           </div>
 
-          {/* Assessment Sources */}
+          {/* Execution Order */}
           <div className="mt-10">
             <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              Story Assessment Sources
+              Execution Order
             </h3>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              The{" "}
-              <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">
-                testing.storyAssessment.source
-              </code>{" "}
-              setting in project.json controls who determines effective test intensity:
-            </p>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
-                <div className="flex items-center gap-2">
-                  <code className="rounded bg-violet-100 px-2 py-0.5 text-sm font-semibold text-violet-900 dark:bg-violet-900 dark:text-violet-100">
-                    planner
-                  </code>
-                </div>
-                <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                  Planner&apos;s assignment is final. Builder cannot escalate or
-                  downgrade intensity.
-                </p>
-                <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-500">
-                  Use when: Planning process is thorough and trusted.
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
-                <div className="flex items-center gap-2">
-                  <code className="rounded bg-blue-100 px-2 py-0.5 text-sm font-semibold text-blue-900 dark:bg-blue-900 dark:text-blue-100">
-                    builder
-                  </code>
-                </div>
-                <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                  Builder determines intensity at runtime based on implementation
-                  complexity discovered.
-                </p>
-                <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-500">
-                  Use when: Implementation often reveals surprises.
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-950">
-                <div className="flex items-center gap-2">
-                  <code className="rounded bg-green-100 px-2 py-0.5 text-sm font-semibold text-green-900 dark:bg-green-900 dark:text-green-100">
-                    hybrid
-                  </code>
-                  <span className="text-xs text-green-700 dark:text-green-400">
-                    (recommended)
-                  </span>
-                </div>
-                <p className="mt-3 text-sm text-green-800 dark:text-green-200">
-                  Planner sets baseline, Builder may escalate (not downgrade) based
-                  on runtime signals.
-                </p>
-                <p className="mt-2 text-xs text-green-700 dark:text-green-400">
-                  Use when: Want planning guidance with runtime flexibility.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Configuration Example */}
-          <div className="mt-10">
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              Configuration
-            </h3>
-            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Configure story assessment policy in your project.json:
-            </p>
-            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
-              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
-                docs/project.json
-              </div>
-              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
-                <code className="text-neutral-800 dark:text-neutral-200">{`{
-  "testing": {
-    "rigorProfile": "standard",
-    "storyAssessment": {
-      "source": "hybrid",
-      "allowDowngrade": false
-    }
-  }
-}`}</code>
-              </pre>
-            </div>
-            <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-              When{" "}
-              <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">
-                allowDowngrade: false
-              </code>
-              , Builder can only escalate intensity (e.g., from{" "}
-              <code className="text-xs">low</code> to{" "}
-              <code className="text-xs">medium</code>), never reduce it.
-            </p>
-          </div>
-
-          {/* State Tracking */}
-          <div className="mt-10">
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              State Tracking
-            </h3>
-            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Builder tracks both planned and effective intensity in builder-state.json:
-            </p>
-            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
-              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
-                docs/builder-state.json
-              </div>
-              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
-                <code className="text-neutral-800 dark:text-neutral-200">{`{
-  "activeWork": {
-    "mode": "prd",
-    "source": { "prdSlug": "feature-auth" },
-    "testingRigor": "standard",
-    "stories": [
-      {
-        "id": "US-001",
-        "status": "completed",
-        "testingIntensity": {
-          "planned": "low",
-          "effective": "medium",
-          "escalatedReason": "Discovered auth logic complexity"
-        }
-      },
-      {
-        "id": "US-002",
-        "status": "in_progress",
-        "testingIntensity": {
-          "planned": "high",
-          "effective": "high"
-        }
-      }
-    ],
-    "currentStoryIndex": 1
-  }
-}`}</code>
-              </pre>
-            </div>
-          </div>
-
-          {/* Link to test-flow */}
-          <div className="mt-8 rounded-lg bg-indigo-50 p-4 dark:bg-indigo-950">
-            <p className="text-sm text-indigo-800 dark:text-indigo-200">
-              <strong>Canonical Reference:</strong> Test activity resolution is
-              defined in the{" "}
-              <Link
-                href="/reference/skills/test-flow"
-                className="font-medium underline hover:text-indigo-600 dark:hover:text-indigo-400"
-              >
-                test-flow skill
-              </Link>
-              . Activities are resolved from file patterns in{" "}
-              <code className="rounded bg-indigo-100 px-1 py-0.5 text-xs dark:bg-indigo-900">
-                test-activity-rules.json
-              </code>
-              , and E2E execution is gated by{" "}
+              After resolution, activities execute in a fixed order. Steps 1–4 always run; Step 5 (Playwright) is gated by{" "}
               <Link
                 href="/concepts/testing#test-verify-settings"
-                className="font-medium underline hover:text-indigo-600 dark:hover:text-indigo-400"
+                className="font-medium text-indigo-600 underline hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
               >
                 testVerifySettings
-              </Link>
-              . Intensity is a planning/escalation signal tracked in builder-state.json.
+              </Link>.
             </p>
+            <div className="mt-4 space-y-2">
+              <div className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-200 text-xs font-bold text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300">1</span>
+                <span className="text-sm text-neutral-700 dark:text-neutral-300"><strong>Baseline:</strong> typecheck, lint (always)</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700 dark:bg-blue-900 dark:text-blue-300">2</span>
+                <span className="text-sm text-neutral-700 dark:text-neutral-300"><strong>Unit tests:</strong> resolved testers for changed file types</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-purple-700 dark:bg-purple-900 dark:text-purple-300">3</span>
+                <span className="text-sm text-neutral-700 dark:text-neutral-300"><strong>Critics:</strong> resolved critics run in parallel</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-100 text-xs font-bold text-amber-700 dark:bg-amber-900 dark:text-amber-300">4</span>
+                <span className="text-sm text-neutral-700 dark:text-neutral-300"><strong>Quality:</strong> aesthetic-critic, tailwind-critic if resolved</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 dark:border-indigo-800 dark:bg-indigo-950">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-200 text-xs font-bold text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">5</span>
+                <span className="text-sm text-indigo-700 dark:text-indigo-300"><strong>Playwright:</strong> gated by <code className="rounded bg-indigo-100 px-1 py-0.5 text-xs dark:bg-indigo-900">testVerifySettings</code> — write &amp; run E2E tests</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Why automatic */}
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-950">
+              <h4 className="font-semibold text-blue-900 dark:text-blue-100">
+                Zero Story Metadata
+              </h4>
+              <p className="mt-2 text-sm text-blue-800 dark:text-blue-200">
+                Planner assigns no test-related fields to stories. Activity resolution is driven
+                entirely by which files change — making it consistent across PRD and ad-hoc work.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-950">
+              <h4 className="font-semibold text-green-900 dark:text-green-100">
+                Playwright Gating
+              </h4>
+              <p className="mt-2 text-sm text-green-800 dark:text-green-200">
+                Playwright is the only activity that can be disabled. The six booleans
+                in{" "}
+                <Link
+                  href="/concepts/testing#test-verify-settings"
+                  className="font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300"
+                >
+                  testVerifySettings
+                </Link>{" "}
+                control exactly which invocation points run automatically.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -1629,7 +1374,7 @@ export default function TestingConceptPage() {
                     </svg>
                     <div className="rounded-lg border-2 border-amber-300 bg-amber-50 px-4 py-2 dark:border-amber-700 dark:bg-amber-950">
                       <span className="text-sm font-semibold text-amber-900 dark:text-amber-100">
-                        Attempts &lt; 3?
+                        Attempts &lt; 20?
                       </span>
                     </div>
                     <div className="mt-2 flex gap-4">
@@ -1645,9 +1390,9 @@ export default function TestingConceptPage() {
                         <span className="mb-1 text-xs font-medium text-red-600 dark:text-red-400">
                           No
                         </span>
-                        <div className="rounded-lg border-2 border-orange-300 bg-orange-50 px-3 py-1 dark:border-orange-700 dark:bg-orange-950">
-                          <span className="text-xs font-semibold text-orange-900 dark:text-orange-100">
-                            Defer
+                        <div className="rounded-lg border-2 border-red-300 bg-red-50 px-3 py-1 dark:border-red-700 dark:bg-red-950">
+                          <span className="text-xs font-semibold text-red-900 dark:text-red-100">
+                            STOP
                           </span>
                         </div>
                       </div>
@@ -1659,61 +1404,34 @@ export default function TestingConceptPage() {
               {/* Explanation callout */}
               <div className="mt-6 rounded-lg bg-white p-4 dark:bg-neutral-800">
                 <p className="text-sm text-neutral-700 dark:text-neutral-300">
-                  <strong>Why max 3 attempts?</strong> This prevents infinite
-                  loops while giving the AI enough chances to resolve common
-                  issues. Complex problems that require human insight are
-                  properly escalated rather than endlessly retried.
+                  <strong>Why 20 attempts?</strong> The fix loop allows up to 20
+                  attempts per failing test, with no escape hatches. There is no
+                  &quot;save as-is&quot; or &quot;defer&quot; option — the loop either succeeds
+                  or stops and reports the failure to the user.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* E2E Test Deferral */}
+          {/* Playwright Gating */}
           <div className="mt-12">
             <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
-              E2E Test Deferral
+              Playwright Gating
             </h3>
             <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-              Not all tests need to pass immediately. The test-flow skill uses
-              different blocking behaviors for unit vs E2E tests:
+              Playwright is the only test activity that can be disabled. The six booleans in{" "}
+              <Link
+                href="/concepts/testing#test-verify-settings"
+                className="font-medium text-indigo-600 underline hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+              >
+                testVerifySettings
+              </Link>{" "}
+              control exactly which automated invocation points run. All other test activities
+              (typecheck, lint, unit tests, critics) run unconditionally.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {/* Unit Tests - Blocking */}
-              <div className="rounded-xl border border-red-200 bg-white p-5 dark:border-red-800 dark:bg-neutral-900">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400">
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-                      />
-                    </svg>
-                  </div>
-                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
-                    Unit Tests: Blocking
-                  </h4>
-                </div>
-                <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-                  Unit tests <strong>must pass</strong> before a story can be
-                  marked complete. Failures block progress and trigger the fix
-                  loop.
-                </p>
-                <div className="mt-4 rounded-lg bg-red-50 p-3 dark:bg-red-950">
-                  <p className="text-xs text-red-800 dark:text-red-200">
-                    Story completion requires all unit tests green
-                  </p>
-                </div>
-              </div>
-
-              {/* E2E Tests - Deferrable */}
+              {/* Non-Playwright: Always Run */}
               <div className="rounded-xl border border-green-200 bg-white p-5 dark:border-green-800 dark:bg-neutral-900">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400">
@@ -1727,82 +1445,71 @@ export default function TestingConceptPage() {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
                   </div>
                   <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
-                    E2E Tests: Deferrable
+                    Non-Playwright: Always Run
                   </h4>
                 </div>
                 <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-                  E2E tests can be <strong>deferred</strong> to PRD completion.
-                  They&apos;re queued and run together before creating the PR.
+                  Typecheck, lint, unit tests, and critics <strong>always run</strong>{" "}
+                  when resolved by file patterns. There is no setting to disable them.
                 </p>
                 <div className="mt-4 rounded-lg bg-green-50 p-3 dark:bg-green-950">
                   <p className="text-xs text-green-800 dark:text-green-200">
-                    All deferred E2E tests run before final PR
+                    Baseline, unit, and critic activities are unconditional
                   </p>
                 </div>
-                <div className="mt-3 rounded-lg border border-violet-200 bg-violet-50 p-3 dark:border-violet-800 dark:bg-violet-950">
-                  <p className="text-xs text-violet-800 dark:text-violet-200">
-                    <strong>UI project override:</strong> For projects automatically detected as UI projects
-                    (via <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">postChangeWorkflow</code>,{" "}
-                    <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">apps.*.testing.framework</code>, or{" "}
-                    <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">apps.*.type</code>),
-                    E2E deferral is overridden — Playwright runs <strong>immediately per-story</strong>,
-                    scoped to changed files and their 1-hop import consumers.
+              </div>
+
+              {/* Playwright: Gated */}
+              <div className="rounded-xl border border-indigo-200 bg-white p-5 dark:border-indigo-800 dark:bg-neutral-900">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-400">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
+                      />
+                    </svg>
+                  </div>
+                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
+                    Playwright: Gated by Settings
+                  </h4>
+                </div>
+                <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+                  Each automated Playwright invocation point has a corresponding boolean
+                  in{" "}
+                  <code className="rounded bg-indigo-100 px-1 py-0.5 text-xs dark:bg-indigo-900">testVerifySettings</code>.
+                  All default to <code className="rounded bg-indigo-100 px-1 py-0.5 text-xs dark:bg-indigo-900">true</code>.
+                </p>
+                <div className="mt-4 rounded-lg bg-indigo-50 p-3 dark:bg-indigo-950">
+                  <p className="text-xs text-indigo-800 dark:text-indigo-200">
+                    6 booleans control analysis probes, story tests, and completion tests
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Tracking in builder-state.json */}
-            <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
-                  <svg
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                    />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-neutral-900 dark:text-neutral-50">
-                    Tracking in builder-state.json
-                  </h4>
-                  <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    Deferred tests are tracked in the builder state file,
-                    ensuring they&apos;re never forgotten:
-                  </p>
-                  <div className="mt-4 rounded-lg bg-neutral-50 p-4 dark:bg-neutral-800">
-                    <pre className="overflow-x-auto text-sm">
-                      <code className="text-neutral-700 dark:text-neutral-300">
-{`{
-  "pendingTests": {
-    "e2e": {
-      "generated": [
-        "e2e/login-flow.spec.ts",
-        "e2e/checkout.spec.ts"
-      ],
-      "status": "pending",
-      "deferredTo": "prd-completion"
-    }
-  }
-}`}
-                      </code>
-                    </pre>
-                  </div>
-                </div>
-              </div>
+            {/* Key difference callout */}
+            <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
+              <p className="text-sm text-amber-800 dark:text-amber-200">
+                <strong>User-invoked workflows are never gated.</strong> These settings only affect
+                automated Playwright invocations during the build workflow. You can always
+                invoke{" "}
+                <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">@qa</code> or{" "}
+                <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">@ui-test-full-app-auditor</code>{" "}
+                directly regardless of these settings.
+              </p>
             </div>
           </div>
 
@@ -5680,6 +5387,7 @@ export default async function globalSetup() {
   "testVerifySettings": {
     "adHocUIVerify_Analysis": true,
     "adHocUIVerify_StoryTest": true,
+    "adHocUIVerify_CompletionTest": true,
     "prdUIVerify_Analysis": true,
     "prdUIVerify_StoryTest": true,
     "prdUIVerify_PRDCompletionTest": true
@@ -5716,20 +5424,27 @@ export default async function globalSetup() {
                   </td>
                 </tr>
                 <tr className="bg-white dark:bg-neutral-900">
+                  <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">adHocUIVerify_CompletionTest</td>
+                  <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">Ad-hoc</td>
+                  <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
+                    Run holistic Playwright tests covering the full batch of changes at task spec completion
+                  </td>
+                </tr>
+                <tr className="bg-neutral-50 dark:bg-neutral-800/50">
                   <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">prdUIVerify_Analysis</td>
                   <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">PRD</td>
                   <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
                     Run per-story Playwright verification after implementation (test-flow Step 3 PRD)
                   </td>
                 </tr>
-                <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                <tr className="bg-white dark:bg-neutral-900">
                   <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">prdUIVerify_StoryTest</td>
                   <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">PRD</td>
                   <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
                     Write and run per-story Playwright tests (test-flow Step 5 PRD, tester Step 7)
                   </td>
                 </tr>
-                <tr className="bg-white dark:bg-neutral-900">
+                <tr className="bg-neutral-50 dark:bg-neutral-800/50">
                   <td className="px-4 py-3 font-mono text-xs text-neutral-700 dark:text-neutral-300">prdUIVerify_PRDCompletionTest</td>
                   <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">PRD</td>
                   <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
@@ -5771,6 +5486,7 @@ export default async function globalSetup() {
 {`"testVerifySettings": {
   "adHocUIVerify_Analysis": false,
   "adHocUIVerify_StoryTest": false,
+  "adHocUIVerify_CompletionTest": false,
   "prdUIVerify_Analysis": false,
   "prdUIVerify_StoryTest": false,
   "prdUIVerify_PRDCompletionTest": false
@@ -5786,7 +5502,7 @@ export default async function globalSetup() {
             <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
               If the <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">testVerifySettings</code> object
               is absent from <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">project.json</code>,
-              all five settings default to <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">true</code>.
+              all six settings default to <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">true</code>.
               This means existing projects get full automated Playwright verification without any configuration changes.
             </p>
           </div>

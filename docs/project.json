@@ -31,7 +31,15 @@
   },
   "testing": {
     "unit": "jest",
-    "e2e": "playwright"
+    "e2e": "playwright",
+    "testVerifySettings": {
+      "adHocUIVerify_Analysis": true,
+      "adHocUIVerify_StoryTest": true,
+      "adHocUIVerify_CompletionTest": true,
+      "prdUIVerify_Analysis": true,
+      "prdUIVerify_StoryTest": true,
+      "prdUIVerify_PRDCompletionTest": true
+    }
   },
   "linting": {
     "eslint": true,
