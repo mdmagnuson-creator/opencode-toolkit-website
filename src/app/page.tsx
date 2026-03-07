@@ -8,10 +8,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "yo, go — AI Agents for Software Development",
-  description: "68 specialized AI agents working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code. An agent system for opencode.",
+  description: "64 AI agents and 66 specialized skills working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code. An agent system for opencode.",
   openGraph: {
     title: "yo, go — AI Agents for Software Development",
-    description: "68 specialized AI agents working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code.",
+    description: "64 AI agents and 66 specialized skills working together to build software. Plan features with PRDs, implement with Builder, and ship production-ready code.",
     images: ["/og/home.png"],
   },
 };
@@ -69,26 +69,26 @@ export default function Home() {
               <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">Builder resolves authentication autonomously via escalation ladder — never asks for credentials.</p>
             </a>
             {/* Session Unification */}
-            <a href="/concepts/workflow#multi-session-coordination" className="rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600 dark:hover:bg-neutral-800">
+            <a href="/concepts/agent-workflows#unified-state-model" className="rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600 dark:hover:bg-neutral-800">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100 dark:bg-violet-900">
                 {/* Arrow path icon */}
                 <svg className="h-4 w-4 text-violet-700 dark:text-violet-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
                 </svg>
               </div>
-              <h3 className="mt-3 text-sm font-semibold text-neutral-900 dark:text-neutral-50">Session Unification</h3>
-              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">Always-on coordination replaces solo/multi branching — lazy heartbeat for solo, full sync for teams.</p>
+              <h3 className="mt-3 text-sm font-semibold text-neutral-900 dark:text-neutral-50">Unified State Model</h3>
+              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">Single activeWork object replaces separate PRD/ad-hoc state — stories, decisions, and resume all in one place.</p>
             </a>
-            {/* Builder Skill Extraction */}
-            <a href="/concepts/agent-workflows#skills-loading-strategy" className="rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600 dark:hover:bg-neutral-800">
+            {/* Testing Consolidation */}
+            <a href="/concepts/testing#test-flow" className="rounded-xl border border-neutral-200 bg-white p-5 transition-colors hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600 dark:hover:bg-neutral-800">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-100 dark:bg-cyan-900">
-                {/* Scissors icon */}
+                {/* Beaker icon */}
                 <svg className="h-4 w-4 text-cyan-700 dark:text-cyan-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7.848 8.25l1.536.887M7.848 8.25a3 3 0 11-5.196-3 3 3 0 015.196 3zm1.536.887a2.165 2.165 0 011.083 1.839c.005.351.054.695.14 1.024M9.384 9.137l2.077 1.199M7.848 15.75l1.536-.887m-1.536.887a3 3 0 11-5.196 3 3 3 0 015.196-3zm1.536-.887a2.165 2.165 0 001.083-1.838c.005-.352.054-.695.14-1.025m-1.223 2.863l2.077-1.199m0-3.328a4.323 4.323 0 012.068-1.379l5.325-1.628a4.5 4.5 0 012.48-.044l.803.215-7.794 4.5m-2.882-1.664A4.331 4.331 0 0010.607 12m3.736 0l7.794 4.5-.802.215a4.5 4.5 0 01-2.48-.043l-5.326-1.629a4.324 4.324 0 01-2.068-1.379M14.343 12l-2.882 1.664" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
                 </svg>
               </div>
-              <h3 className="mt-3 text-sm font-semibold text-neutral-900 dark:text-neutral-50">Builder Skill Extraction</h3>
-              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">4 new focused skills extracted from Builder agent — 602 fewer lines to load per session.</p>
+              <h3 className="mt-3 text-sm font-semibold text-neutral-900 dark:text-neutral-50">Testing Consolidation</h3>
+              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">test-flow is now a unified orchestrator with 5 on-demand sub-skills — 68→66 skills, simpler loading.</p>
             </a>
           </div>
         </div>

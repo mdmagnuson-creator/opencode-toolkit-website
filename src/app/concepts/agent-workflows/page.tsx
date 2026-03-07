@@ -1301,10 +1301,10 @@ Rename the \`features\` field to \`capabilities\` in project.json.
                         </code>
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                        5.6KB / ~1.4K tokens
+                        ~698 lines (unified)
                       </td>
                       <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                        First test execution (loads sub-skills as needed)
+                        Any story execution — unified orchestrator (skip gate → activity resolution → quality pipeline → completion)
                       </td>
                     </tr>
                     <tr>
@@ -1408,10 +1408,12 @@ Rename the \`features\` field to \`capabilities\` in project.json.
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
                 <strong className="text-neutral-900 dark:text-neutral-100">Note:</strong>{" "}
                 The <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">test-flow</code> skill
-                was refactored from a monolithic 133KB skill into a slim 5.6KB orchestrator that routes to 7
-                specialized sub-skills (test-activity-resolution, test-verification-loop, test-prerequisite-detection,
-                test-e2e-flow, test-ui-verification, test-quality-checks, test-failure-handling). This reduces
-                initial token overhead by 96% while preserving full functionality through on-demand loading.
+                was consolidated from 7 sub-skills into a unified orchestrator (~698 lines). It absorbed{" "}
+                <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">test-activity-resolution</code> and{" "}
+                <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">test-quality-checks</code> directly,
+                while continuing to load 5 Tier 2 sub-skills on demand (test-verification-loop, test-prerequisite-detection,
+                test-e2e-flow, test-ui-verification, test-failure-handling). The unified orchestrator owns the full
+                quality cycle: skip gate → activity resolution → quality check pipeline → completion prompt.
               </p>
             </div>
 
@@ -1777,7 +1779,7 @@ Scoped run: 3 test files`}
                     <strong>Differs from ad-hoc mode:</strong> The general verification loop uses 3 attempts
                     then stops and asks the user. In PRD per-story mode, the goal is <strong>momentum</strong> —
                     log the failure, continue to the next story. Skips are recorded in{" "}
-                     <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">builder-state.json → activePrd.playwrightSkips[]</code>.
+                     <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">builder-state.json → activeWork.stories[].playwrightSkips</code>.
                   </p>
                 </div>
               </div>
@@ -2109,6 +2111,22 @@ Scoped run: 3 test files`}
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-violet-600 dark:text-violet-400">•</span>
+                    Design decision detection surfaces implicit choices before coding (Step 0.1c)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-violet-600 dark:text-violet-400">•</span>
+                    Playwright analysis validation confirms visual alignment (Step 0.1d)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-violet-600 dark:text-violet-400">•</span>
+                    Task Spec generated from analysis — used as @developer delegation contract
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-violet-600 dark:text-violet-400">•</span>
+                    [F] Flow chart option shows implementation plan with per-story pipeline steps
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-violet-600 dark:text-violet-400">•</span>
                     Mandatory verification plan in every ANALYSIS COMPLETE dashboard
                   </li>
                 </ul>
@@ -2355,6 +2373,15 @@ Scoped run: 3 test files`}
                     </p>
                   </div>
                 </div>
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 shrink-0 text-orange-600 dark:text-orange-400">⚙️</span>
+                  <div>
+                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">IMPLEMENTATION DECISIONS</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      Shown when Step 0.1c detected and resolved design decisions — lists each decision with the user&apos;s choice
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -2536,6 +2563,609 @@ Scoped run: 3 test files`}
               By persisting todo state, each primary agent can restore exactly where work left off —
               including in-progress items the user was tracking.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Story Processing Pipeline */}
+      <section id="story-processing-pipeline" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Story Processing Pipeline
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Every story — whether from a PRD or an ad-hoc request — passes through the same mandatory 6-step pipeline.
+            No agent may skip steps or reorder them. The{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">adhoc-workflow</code> and{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">prd-workflow</code> skills
+            reference this pipeline — they do not define their own.
+          </p>
+
+          <div className="mt-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4 font-mono text-sm text-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
+            for each story in activeWork.stories where status == &quot;pending&quot;:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;run Pipeline Steps 1–6
+          </div>
+
+          <div className="mt-10 space-y-8">
+            {/* Step 1 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                1
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Set story status → in_progress
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  Update{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">activeWork.stories[currentStoryIndex].status</code>{" "}
+                  to <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">&quot;in_progress&quot;</code> in{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">builder-state.json</code>.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                2
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Delegate implementation → @developer
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  Delegate the story to{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">@developer</code>{" "}
+                  with full story context (story ID, description, acceptance criteria, project context block).
+                  If @developer returns an error, the story is marked{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">failed</code> and
+                  the pipeline stops.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                3
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Run test-flow → unconditional call
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  Load and execute{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">test-flow</code>{" "}
+                  unconditionally. test-flow owns the <strong>full quality cycle</strong> including skip-gate evaluation,
+                  activity resolution, quality checks (typecheck / lint / test / rebuild / critic / Playwright),
+                  fix loop (redelegation to @developer, re-check, retry), and the completion prompt.
+                  This is not a single pass — it includes the entire fix/critic/redelegation loop until pass or exhaustion.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                4
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Auto-commit → mandatory after test-flow passes
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  Auto-commit is <strong>unconditional and mandatory</strong> — it always commits after each story
+                  completes, regardless of any{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">git.autoCommit</code>{" "}
+                  setting. Per-story commits are required for resumability and audit trail.
+                </p>
+                <div className="mt-3 rounded-lg bg-neutral-900 p-3 font-mono text-sm text-neutral-100 dark:bg-neutral-950">
+                  git add -A<br />
+                  git commit -m &quot;feat: [story description] ([story-id])&quot;
+                </div>
+              </div>
+            </div>
+
+            {/* Step 5 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                5
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Update story status → completed
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  Update the story with{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">status: &quot;completed&quot;</code>,{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">committedAt</code> timestamp,{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">commitHash</code>, and{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">testFlowResult</code>.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 6 */}
+            <div className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-sm font-bold text-white">
+                6
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                  Advance to next story
+                </h3>
+                <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+                  Increment{" "}
+                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">activeWork.currentStoryIndex</code>.
+                  If more pending stories exist, the loop continues from Step 1.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Failure Handling */}
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Failure Handling
+            </h3>
+            <div className="mt-4 overflow-x-auto">
+              <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Failure Point
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Story Status
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Pipeline Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      @developer returns error (Step 2)
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                      <code className="rounded bg-red-100 px-1.5 py-0.5 text-xs text-red-800 dark:bg-red-900 dark:text-red-200">failed</code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      STOP — report to user
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      test-flow exhausts retries (Step 3)
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                      <code className="rounded bg-red-100 px-1.5 py-0.5 text-xs text-red-800 dark:bg-red-900 dark:text-red-200">failed</code>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      STOP — report to user
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Session Resume */}
+      <section id="session-resume" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Session Resume
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            When Builder starts, it checks{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">builder-state.json → activeWork</code>.
+            If any story has a non-terminal status, a Resume Dashboard is shown instead of the normal startup.
+          </p>
+
+          {/* Old-Format Detection */}
+          <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
+            <p className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+              Old-Format Field Detection
+            </p>
+            <p className="mt-1 text-sm text-amber-800 dark:text-amber-200">
+              If <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">builder-state.json</code> contains
+              legacy fields (<code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">activePrd</code>,{" "}
+              <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">activeTask</code>,{" "}
+              <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">adhocQueue</code>) without an{" "}
+              <code className="rounded bg-amber-100 px-1 text-xs dark:bg-amber-900">activeWork</code> field, they are cleared
+              entirely and the session starts fresh. No backward-compatibility migration is performed.
+            </p>
+          </div>
+
+          {/* Resume Dashboard */}
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Resume Dashboard
+            </h3>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+                Resume Dashboard
+              </div>
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`Mode:   prd (feature-auth)
+Branch: feature/auth
+
+Stories:
+  ✅ US-001  Create user model          completed
+  ✅ US-002  Add validation              completed
+  ❌ US-003  Implement auth flow         failed
+  ⏳ US-004  Add error handling          pending
+  ⏳ US-005  Write integration tests     pending
+
+Progress: 2/5 completed | 1 failed | 2 remaining
+
+[R] Resume from next pending story
+[A] Abort — mark remaining as cancelled
+[S] Start fresh — archive and begin new session`}</code>
+              </pre>
+            </div>
+            <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+              Status icons: ✅ completed · ❌ failed · 🔄 in_progress · ⏸ skipped · ⏳ pending · 🚫 cancelled
+            </p>
+          </div>
+
+          {/* Failed Story Handling */}
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Failed Story Handling
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              If any stories have <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">status: &quot;failed&quot;</code>,
+              they are listed individually before the main resume options. The user must explicitly choose for each
+              failed story — no automatic retry.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`❌ US-003: Implement auth flow
+   Error: test-flow failed — 2 unit tests failing
+   Files: src/auth/flow.ts, src/auth/middleware.ts
+
+   [R] Retry — reset to pending and re-run full pipeline
+   [S] Skip — mark as skipped, move on
+   [A] Abort — stop all work, cancel remaining stories`}</code>
+              </pre>
+            </div>
+            <div className="mt-4 overflow-x-auto">
+              <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Choice
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Behavior
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                  <tr>
+                    <td className="px-4 py-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">[R] Resume</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      Continue from first pending story. Use existing activeWork — do not re-analyze.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">[A] Abort</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      Set all pending stories to cancelled. Keep completed and skipped as-is. Clear activeWork.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">[S] Start fresh</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                      Archive current activeWork, then clear it. Start a new session from the main dashboard.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Design Decision Detection */}
+      <section id="design-decision-detection" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Design Decision Detection
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            Step 0.1c in the ad-hoc workflow surfaces implicit design and implementation decisions that the user
+            should weigh in on <em>before</em> Builder proceeds. These are decisions about <strong>how</strong> to
+            build it well — not clarifications about what to build.
+          </p>
+
+          {/* When to Skip */}
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              When to Skip (No Questions)
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Decision detection is skipped entirely when the request is clearly trivial:
+            </p>
+            <div className="mt-4 overflow-x-auto">
+              <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Skip Criterion
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                      Examples
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Bug fix with clear root cause</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">&quot;Fix the 404 on /settings&quot;</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Typo / copy correction</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">&quot;Change &apos;Submitt&apos; to &apos;Submit&apos;&quot;</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Version bump / dependency update</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">&quot;Update React to 18.3&quot;</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Config-only change</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">&quot;Change the timeout to 30s&quot;</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Ops-only task</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">&quot;Deploy the edge functions&quot;</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Single-file, single-behavior change</td>
+                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">&quot;Make the header sticky&quot;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* When to Detect */}
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              When to Detect Decisions
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Run decision detection when the request involves:
+            </p>
+            <ul className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                <strong className="text-neutral-900 dark:text-neutral-100">Multiple reasonable implementation variants</strong> — more than one experienced developer would reasonably choose a different approach
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                <strong className="text-neutral-900 dark:text-neutral-100">UX behavior choices</strong> — navigation, state persistence, validation timing, progressive disclosure
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                <strong className="text-neutral-900 dark:text-neutral-100">Data lifecycle decisions</strong> — soft vs hard delete, sync vs async, cache invalidation, retry policy
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                <strong className="text-neutral-900 dark:text-neutral-100">Component composition</strong> — modal vs page, wizard vs form, inline vs overlay, tabs vs accordion
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                <strong className="text-neutral-900 dark:text-neutral-100">Error handling strategy</strong> — toast vs inline, retry vs fail, graceful degradation approach
+              </li>
+            </ul>
+          </div>
+
+          {/* Questions UI */}
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+              Questions UI
+            </h3>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              When decisions are detected, Builder presents them as lettered multiple-choice questions:
+            </p>
+            <div className="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+                <code className="text-neutral-800 dark:text-neutral-200">{`1. Should wizard state persist so users can leave and resume?
+   A. Yes — save progress to localStorage/DB
+   B. No — reset on page leave (simpler)
+
+2. When should validation run?
+   A. Per-step — each step validates before allowing Next
+   B. Final step — validate everything at submission
+
+Reply with codes (e.g., "1A, 2B") or describe your preference.
+Type "you decide" to let me choose based on best practices.`}</code>
+              </pre>
+            </div>
+            <ul className="mt-4 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                Maximum <strong className="text-neutral-900 dark:text-neutral-100">5 questions</strong> per request (highest-impact first)
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                Each question has <strong className="text-neutral-900 dark:text-neutral-100">2–4 concrete options</strong> with brief explanations
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                Single round only — no follow-up questions after user answers
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                Decisions the user already specified in their request are omitted entirely
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-violet-600 dark:text-violet-400">•</span>
+                Supports{" "}
+                <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">planning.considerations</code>{" "}
+                from project.json — relevant consideration questions are included (up to the 5-question max)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Playwright Analysis Validation */}
+      <section id="playwright-analysis-validation" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Playwright Analysis Validation (Step 0.1d)
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            After design decisions are resolved, Builder runs a second Playwright pass to visually confirm that the
+            complete analysis — including any adjustments from decision resolution — aligns with what&apos;s actually
+            rendered. This applies to <strong>every request</strong> — all projects get full Playwright verification.
+          </p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">
+                Step 0.1b (Probe)
+              </p>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Confirms analysis findings — element existence, absence, state.
+                Tests specific assertions.
+              </p>
+            </div>
+            <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900">
+              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-400">
+                Step 0.1d (Validation)
+              </p>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                Validates overall analysis makes sense visually — right page, right components, right context.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 overflow-x-auto">
+            <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+              <thead>
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                    Validation Result
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                <tr>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Analysis aligns with visual state</td>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                    Proceed — record <code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">visualValidation: &quot;confirmed&quot;</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Minor discrepancies</td>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                    Adjust analysis, note discrepancies in dashboard, proceed
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Major contradiction</td>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
+                    Re-analyze from updated visual context, lower confidence
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Flow Chart Option */}
+      <section id="flow-chart-option" className="border-t border-neutral-200 px-6 py-16 sm:px-8 lg:px-12 dark:border-neutral-800">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+            Flow Chart Option
+          </h2>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-400">
+            When the ANALYSIS COMPLETE dashboard is shown, the{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">[F]</code> option generates
+            an ASCII flow chart showing the full implementation plan adapted to the specific stories from analysis.
+          </p>
+
+          <div className="mt-6 overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+            <div className="border-b border-neutral-200 bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400">
+              Implementation Flow Chart
+            </div>
+            <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
+              <code className="text-neutral-800 dark:text-neutral-200">{`  4 stories │ Story Processing Pipeline (per story)
+  ──────────┤
+            │
+  ┌─────────────────────────────────────────────────┐
+  │ TSK-001: Add loading state to SubmitButton       │
+  │   implement → test-flow → auto-commit            │
+  └──────────────────────┬──────────────────────────┘
+                         │
+  ┌─────────────────────────────────────────────────┐
+  │ TSK-002: Show Spinner when loading               │
+  │   implement → test-flow → auto-commit            │
+  └──────────────────────┬──────────────────────────┘
+                         │
+  ┌─────────────────────────────────────────────────┐
+  │ TSK-003: Disable button during submission        │
+  │   implement → test-flow → auto-commit            │
+  └──────────────────────┬──────────────────────────┘
+                         │
+  ┌─────────────────────────────────────────────────┐
+  │ TSK-004: Add unit tests                          │
+  │   implement → test-flow → auto-commit            │
+  └─────────────────────────────────────────────────┘
+
+  Pipeline per story:
+    1. Set status → in_progress
+    2. Delegate to @developer
+    3. Run test-flow (typecheck → lint → test → Playwright → fix loop)
+    4. Auto-commit (mandatory, unconditional)
+    5. Update status → completed
+    6. Advance to next story`}</code>
+            </pre>
+          </div>
+
+          <div className="mt-6 overflow-x-auto">
+            <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+              <thead>
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                    Scenario
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                    Flow Chart Behavior
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-200 bg-white dark:divide-neutral-700 dark:bg-neutral-900">
+                <tr>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Single story</td>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">One box, no connecting lines</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Multi-story (no deps)</td>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Vertical sequence with connectors</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Stories with dependencies</td>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Show dependency arrows</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">PRD mode</td>
+                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">Use US-XXX prefixes instead of TSK-XXX</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

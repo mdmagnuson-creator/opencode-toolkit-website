@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-06T18:00:00Z",
-  "syncedAt": "2026-03-06T13:00:54.340Z",
-  "toolkitCommit": "pending",
+  "generatedAt": "2026-03-07T04:00:00Z",
+  "syncedAt": "2026-03-07T02:27:30.074Z",
+  "toolkitCommit": "61b8c05",
   "counts": {
     "agents": 64,
     "primaryAgents": 4,
     "subagents": 60,
-    "skills": 68,
+    "skills": 66,
     "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
@@ -1192,18 +1192,6 @@
       "content": ""
     },
     {
-      "slug": "test-activity-resolution",
-      "name": "Test Activity Resolution",
-      "description": "Resolves test activity from project.json commands. Triggers on: which tests to run, test commands, resolve test activity.",
-      "triggers": [
-        "which tests to run",
-        "test commands",
-        "resolve test activity"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
       "slug": "test-doc-sync",
       "name": "Test Doc Sync",
       "description": "Test documentation sync workflow for keeping test files and docs aligned. Triggers on: test doc sync, sync test docs, update test documentation.",
@@ -1244,7 +1232,7 @@
     {
       "slug": "test-flow",
       "name": "Test Flow",
-      "description": "Test orchestrator skill that routes to specialized test sub-skills. Triggers on: generate tests, run tests, test failures, E2E deferral, test flow.",
+      "description": "Unified test orchestrator — skip gate, activity resolution, quality check pipeline, completion prompt, and tier-2 skill loading. Triggers on: generate tests, run tests, test failures, E2E deferral, test flow.",
       "triggers": [
         "generate tests",
         "run tests",
@@ -1263,19 +1251,6 @@
         "prerequisite failure",
         "blocker detection",
         "test dependencies"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
-      "slug": "test-quality-checks",
-      "name": "Test Quality Checks",
-      "description": "Quality checks beyond tests - lint, type-check, build. Triggers on: quality checks, lint errors, type errors, build fails.",
-      "triggers": [
-        "quality checks",
-        "lint errors",
-        "type errors",
-        "build fails"
       ],
       "isMeta": false,
       "content": ""
@@ -1524,8 +1499,138 @@
       "displayDate": "March 6, 2026",
       "changes": [
         {
+          "type": "feat",
+          "description": "add design decision detection (Step 0.1c) with planning considerations integration to adhoc-workflow (PRD adhoc-design-decisions US-001/US-003)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add design decision questions UI with lettered options and skip detection for trivial tasks (PRD adhoc-design-decisions US-002/US-006)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add IMPLEMENTATION DECISIONS section to ANALYSIS COMPLETE dashboard (PRD adhoc-design-decisions US-004)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add implementation decisions to Task Spec acceptance criteria and mandatory Playwright analysis confirmation (PRD adhoc-design-decisions US-005/US-007)",
+          "scope": "skills"
+        },
+        {
+          "type": "refactor",
+          "description": "merge test-quality-checks and test-activity-resolution into test-flow (~698 lines), delete merged skills (PRD adhoc-design-decisions US-008)",
+          "scope": "skills"
+        },
+        {
+          "type": "refactor",
+          "description": "replace inline quality checks in adhoc-workflow with test-flow reference, 232-line reduction (PRD adhoc-design-decisions US-009)",
+          "scope": "skills"
+        },
+        {
+          "type": "refactor",
+          "description": "replace inline quality checks in prd-workflow with skill references, 439-line reduction (PRD adhoc-design-decisions US-010)",
+          "scope": "skills"
+        },
+        {
+          "type": "refactor",
+          "description": "replace builder.md verification pipeline with single test-flow call, 43-line reduction (PRD adhoc-design-decisions US-011)",
+          "scope": "agents"
+        },
+        {
+          "type": "refactor",
+          "description": "remove isUIProject() gate — all projects get full Playwright verification across 7 files (PRD adhoc-design-decisions US-012)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add unified activeWork state model to builder-state.schema.json, remove activePrd/activeTask/adhocQueue (PRD adhoc-design-decisions US-014)",
+          "scope": "schemas"
+        },
+        {
+          "type": "feat",
+          "description": "add mandatory Story Processing Pipeline to builder.md, migrate all state references to activeWork (PRD adhoc-design-decisions US-015)",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "add [F] flow chart option to ANALYSIS COMPLETE dashboards in adhoc-workflow and prd-workflow (PRD adhoc-design-decisions US-016)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add activeWork session resume dashboard with failed/in-progress story handling to builder.md and builder-state (PRD adhoc-design-decisions US-017)",
+          "scope": "agents"
+        },
+        {
           "type": "fix",
           "description": "split ANALYSIS COMPLETE dashboard into separate Recommended Approach and Alternatives sections in adhoc-workflow",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "remove skipped from builder.md probe gate — accept only confirmed, partially-confirmed, user-skipped (PRD mandatory-probe-enforcement US-001)",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "remove Electron-specific qualifier from builder.md prohibitions — universal never-skip language (PRD mandatory-probe-enforcement US-002)",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "replace Skip Conditions with Mandatory Enforcement section in test-ui-verification (PRD mandatory-probe-enforcement US-003)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "remove skipped from probe results tables, add user-skipped in test-ui-verification (PRD mandatory-probe-enforcement US-004)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "expand NO-BYPASS RULE with invalid rationalizations table and mandatory resolutions in adhoc-workflow (PRD mandatory-probe-enforcement US-005)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "remove skipped from probe results processing, add user-skipped in adhoc-workflow (PRD mandatory-probe-enforcement US-006)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "replace probe-was-skipped dashboard handling with mandatory enforcement statement in adhoc-workflow (PRD mandatory-probe-enforcement US-007)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "remove skipped from dashboard display table, add user-skipped in adhoc-workflow (PRD mandatory-probe-enforcement US-008)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add contradicted → re-probe loop (max 2 attempts) in adhoc-workflow (PRD mandatory-probe-enforcement US-009)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add contradicted as gate-blocking status with state machine documentation in builder.md (PRD mandatory-probe-enforcement US-010)",
+          "scope": "agents"
+        },
+        {
+          "type": "feat",
+          "description": "remove agents.analysisProbe config option from test-ui-verification and adhoc-workflow, keep analysisProbeTimeoutMs (PRD mandatory-probe-enforcement US-011)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "replace Autonomous Auth Resolution with Auth Resolution Escalation with user-assisted [S]/[H]/[C] prompt in adhoc-workflow (PRD mandatory-probe-enforcement US-012)",
+          "scope": "skills"
+        },
+        {
+          "type": "feat",
+          "description": "add 6-step auth escalation ladder with user assistance to test-ui-verification (PRD mandatory-probe-enforcement US-013)",
           "scope": "skills"
         },
         {

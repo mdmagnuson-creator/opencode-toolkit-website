@@ -1331,20 +1331,30 @@ export default function TestingConceptPage() {
               </div>
               <pre className="overflow-x-auto bg-neutral-50 p-4 text-sm dark:bg-neutral-900">
                 <code className="text-neutral-800 dark:text-neutral-200">{`{
-  "activePrd": {
-    "prdSlug": "feature-auth",
+  "activeWork": {
+    "mode": "prd",
+    "source": { "prdSlug": "feature-auth" },
     "testingRigor": "standard",
-    "storyAssessments": {
-      "US-001": {
-        "planned": "low",
-        "effective": "medium",
-        "escalatedReason": "Discovered auth logic complexity"
+    "stories": [
+      {
+        "id": "US-001",
+        "status": "completed",
+        "testingIntensity": {
+          "planned": "low",
+          "effective": "medium",
+          "escalatedReason": "Discovered auth logic complexity"
+        }
       },
-      "US-002": {
-        "planned": "high",
-        "effective": "high"
+      {
+        "id": "US-002",
+        "status": "in_progress",
+        "testingIntensity": {
+          "planned": "high",
+          "effective": "high"
+        }
       }
-    }
+    ],
+    "currentStoryIndex": 1
   }
 }`}</code>
               </pre>
@@ -1380,9 +1390,13 @@ export default function TestingConceptPage() {
             <code className="rounded bg-indigo-100 px-1.5 py-0.5 font-mono text-sm text-indigo-900 dark:bg-indigo-900 dark:text-indigo-100">
               test-flow
             </code>{" "}
-            skill automates the entire test lifecycle—from generation through
-            execution to failure handling. It coordinates between the builder
-            workflow and testing agents to ensure quality gates are met.
+            skill is a unified test orchestrator (~698 lines) that manages the
+            entire test lifecycle—from activity resolution through execution to
+            failure handling. It loads 5 focused Tier 2 sub-skills on demand
+            (verification loop, prerequisite detection, E2E flow, UI
+            verification, failure handling) and coordinates between Builder and
+            testing agents to ensure quality gates are met in both PRD and
+            ad-hoc modes.
           </p>
 
           {/* Automatic Test Generation Triggers */}
@@ -1816,7 +1830,7 @@ export default function TestingConceptPage() {
                     <span className="font-medium text-neutral-900 dark:text-neutral-100">
                       1.
                     </span>{" "}
-                    Builder loads test-flow skill during PRD mode
+                    Builder loads test-flow skill in both PRD and ad-hoc modes
                   </p>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
                     <span className="font-medium text-neutral-900 dark:text-neutral-100">

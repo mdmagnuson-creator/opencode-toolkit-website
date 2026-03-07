@@ -3304,7 +3304,7 @@ export default function HumanWorkModesPage() {
               Session Resumability
             </h3>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Builder tracks a <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">currentTask</code> in <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">builder-state.json</code> throughout every session. If a session ends unexpectedly — power loss, network drop, or a browser close — the next session starts by reading this state and offering to resume exactly where work stopped.
+              Builder tracks an <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">activeWork</code> object in <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800">builder-state.json</code> throughout every session. This unified state model covers both PRD and ad-hoc work — if a session ends unexpectedly (power loss, network drop, or a browser close), the next session reads this state and offers to resume exactly where work stopped.
             </p>
             <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-700 dark:bg-neutral-900">
               <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">What is saved per task:</p>
