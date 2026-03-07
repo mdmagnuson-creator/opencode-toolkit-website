@@ -285,6 +285,20 @@
       "appliedBy": "builder",
       "updateType": "sync",
       "notes": "Playwright agent consolidation — E2E→UI renames, playwright-dev removed, testVerifySettings added"
+    },
+    {
+      "id": "2026-03-07-configure-test-verify-settings",
+      "appliedAt": "2026-03-08T00:30:00Z",
+      "appliedBy": "builder",
+      "updateType": "schema",
+      "notes": "Added all 6 testVerifySettings booleans (all true) to project.json"
+    },
+    {
+      "id": "2026-03-07-toolkit-sync-test-mechanics",
+      "appliedAt": "2026-03-08T00:30:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Test mechanics cleanup — rewrote testing concepts page: removed testIntensity/storyAssessment/rigorProfile/E2E deferral sections, added Playwright gating and 6th testVerifySettings boolean, updated fix-loop to 20-attempt cap"
     }
   ]
 }
