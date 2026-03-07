@@ -313,6 +313,13 @@
       "appliedBy": "builder",
       "updateType": "sync",
       "notes": "Electron build-deploy skill (68th) + PRD promoted to ready — no website code changes needed, auto-generated from toolkit-structure.json"
+    },
+    {
+      "id": "2026-03-08-toolkit-sync-electron-build-deploy-impl",
+      "appliedAt": "2026-03-08T01:15:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Electron build-deploy cycle implementation — buildDeploy schema, triggerPaths matching, update template — no website code changes needed"
     }
   ]
 }
