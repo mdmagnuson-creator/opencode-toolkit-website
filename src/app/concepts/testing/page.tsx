@@ -1113,13 +1113,30 @@ export default function TestingConceptPage() {
             Per-Story Test Intensity
           </h2>
           <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
-            Not all user stories need the same level of testing. Planner assigns
-            a{" "}
+            Not all user stories carry the same risk. Planner assigns a{" "}
             <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">
               testIntensity
             </code>{" "}
-            to each story, and Builder can reassess at runtime based on what it
-            discovers during implementation.
+            to each story as a risk and planning signal. Builder can reassess
+            at runtime based on what it discovers during implementation. The
+            intensity level influences escalation decisions and is tracked in
+            state &mdash; but it does not directly gate which test activities run.
+            Actual test activities (unit tests, E2E, critics) are resolved from{" "}
+            <strong>file patterns</strong> via the{" "}
+            <Link
+              href="/reference/skills/test-flow"
+              className="font-medium text-indigo-600 underline hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              test-flow
+            </Link>{" "}
+            skill, and E2E execution is gated by{" "}
+            <Link
+              href="/concepts/testing#test-verify-settings"
+              className="font-medium text-indigo-600 underline hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              testVerifySettings
+            </Link>
+            .
           </p>
 
           {/* Intensity Levels */}
@@ -1128,7 +1145,7 @@ export default function TestingConceptPage() {
               Intensity Levels
             </h3>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Each intensity level controls per-story test generation and execution:
+              Planner assigns intensity based on story risk. Builder uses it as a planning signal for escalation decisions:
             </p>
             <div className="mt-4 overflow-x-auto">
               <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -1138,13 +1155,10 @@ export default function TestingConceptPage() {
                       Intensity
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Unit Tests
+                      Story Traits
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      E2E Tests
-                    </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
-                      Quality Checks
+                      Builder Behavior
                     </th>
                   </tr>
                 </thead>
@@ -1156,13 +1170,10 @@ export default function TestingConceptPage() {
                       </code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Skip unless strict/compliance rigor
+                      Small copy/UI tweak, isolated refactor, low blast radius
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Skip
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Skip
+                      Minimal escalation risk. Test activities still resolved from file patterns.
                     </td>
                   </tr>
                   <tr>
@@ -1172,13 +1183,10 @@ export default function TestingConceptPage() {
                       </code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Generate &amp; run per story
+                      Typical feature/UI flow, standard CRUD, limited integrations
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Defer to PRD completion
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Skip
+                      Baseline risk. Builder may escalate if cross-cutting impact discovered.
                     </td>
                   </tr>
                   <tr>
@@ -1188,13 +1196,10 @@ export default function TestingConceptPage() {
                       </code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Generate &amp; run per story
+                      Cross-cutting behavior, auth/permissions, complex state transitions
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Generate &amp; queue per story
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Skip
+                      Elevated scrutiny. Builder prioritizes critic reviews and tracks regressions.
                     </td>
                   </tr>
                   <tr>
@@ -1204,17 +1209,40 @@ export default function TestingConceptPage() {
                       </code>
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Generate &amp; run per story
+                      Payments, security-sensitive data, compliance-critical flows
                     </td>
                     <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Generate &amp; queue per story
-                    </td>
-                    <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      Force quality checks
+                      Maximum scrutiny. Forces quality checks, prioritizes all resolved activities.
                     </td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            {/* How test activities actually resolve */}
+            <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
+              <p className="text-sm font-medium text-amber-900 dark:text-amber-100">
+                How test activities are actually resolved
+              </p>
+              <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">
+                Test activities (unit tests, E2E, critics) are resolved from{" "}
+                <strong>file patterns</strong> in{" "}
+                <code className="rounded bg-amber-100 px-1 py-0.5 text-xs dark:bg-amber-900">
+                  test-activity-rules.json
+                </code>
+                , not from the intensity level. When a file changes, its glob
+                pattern is matched against activity rules to determine which
+                testers, critics, and E2E areas apply. E2E execution is then
+                gated by{" "}
+                <Link
+                  href="/concepts/testing#test-verify-settings"
+                  className="font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-100 dark:hover:text-amber-300"
+                >
+                  testVerifySettings
+                </Link>
+                . Intensity acts as a planning and escalation signal &mdash; not
+                a direct test gate.
+              </p>
             </div>
           </div>
 
@@ -1364,7 +1392,7 @@ export default function TestingConceptPage() {
           {/* Link to test-flow */}
           <div className="mt-8 rounded-lg bg-indigo-50 p-4 dark:bg-indigo-950">
             <p className="text-sm text-indigo-800 dark:text-indigo-200">
-              <strong>Canonical Reference:</strong> Per-story test behavior is
+              <strong>Canonical Reference:</strong> Test activity resolution is
               defined in the{" "}
               <Link
                 href="/reference/skills/test-flow"
@@ -1372,8 +1400,18 @@ export default function TestingConceptPage() {
               >
                 test-flow skill
               </Link>
-              . The test-flow skill maps intensity levels to concrete unit/E2E
-              generation actions and handles runtime escalation.
+              . Activities are resolved from file patterns in{" "}
+              <code className="rounded bg-indigo-100 px-1 py-0.5 text-xs dark:bg-indigo-900">
+                test-activity-rules.json
+              </code>
+              , and E2E execution is gated by{" "}
+              <Link
+                href="/concepts/testing#test-verify-settings"
+                className="font-medium underline hover:text-indigo-600 dark:hover:text-indigo-400"
+              >
+                testVerifySettings
+              </Link>
+              . Intensity is a planning/escalation signal tracked in builder-state.json.
             </p>
           </div>
         </div>
