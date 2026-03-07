@@ -278,6 +278,13 @@
       "appliedBy": "builder",
       "updateType": "schema",
       "notes": "No auth, no desktop apps — nothing to configure"
+    },
+    {
+      "id": "2026-03-07-toolkit-sync",
+      "appliedAt": "2026-03-07T04:15:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Playwright agent consolidation — E2E→UI renames, playwright-dev removed, testVerifySettings added"
     }
   ]
 }
