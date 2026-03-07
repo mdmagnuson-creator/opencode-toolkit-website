@@ -259,6 +259,12 @@
       "appliedAt": "2026-03-07T01:30:00Z",
       "appliedBy": "builder",
       "updateType": "sync"
+    },
+    {
+      "id": "2026-03-06-toolkit-sync-bypass-fix",
+      "appliedAt": "2026-03-07T02:00:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync"
     }
   ]
 }
