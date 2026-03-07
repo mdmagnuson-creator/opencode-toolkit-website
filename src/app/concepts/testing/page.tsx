@@ -1862,47 +1862,83 @@ export default function TestingConceptPage() {
             </div>
           </div>
 
-          {/* Architecture-Aware Verification */}
+           {/* Architecture-Aware Verification */}
           <div className="mt-12">
             <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
               Architecture-Aware Verification
             </h3>
             <p className="mt-4 text-neutral-700 dark:text-neutral-400">
-              For desktop and multi-platform apps, test-flow automatically selects the
-              appropriate verification strategy based on the app&apos;s{" "}
+              Before running verification, test-flow detects app architecture from{" "}
+              <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">project.json</code>{" "}
+              to choose the optimal strategy. Desktop apps always use{" "}
+              <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">playwright-electron</code>{" "}
+              — never browser-based verification. The{" "}
               <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm dark:bg-neutral-800">webContent</code>{" "}
-              architecture:
+              field determines whether a rebuild is needed, not whether to use Electron.
             </p>
 
             <div className="mt-6 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
               <table className="w-full text-sm">
                 <thead className="bg-neutral-100 dark:bg-neutral-800">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Architecture</th>
-                    <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Verification Strategy</th>
+                    <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">App Type</th>
+                    <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">webContent</th>
+                    <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">Strategy</th>
+                    <th className="px-4 py-3 text-left font-semibold text-neutral-900 dark:text-neutral-100">How Verification Works</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
                   <tr className="bg-white dark:bg-neutral-900">
-                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">bundled</td>
-                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
-                      Electron-native Playwright tests with direct app launch
-                    </td>
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">frontend / fullstack</td>
+                    <td className="px-4 py-3 text-neutral-500 dark:text-neutral-500">n/a</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">browser</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">Standard Playwright against dev server (HMR)</td>
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-800/50">
-                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">remote</td>
-                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
-                      Standard browser tests against remoteUrl, then Electron shell test
-                    </td>
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">desktop</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">bundled</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">rebuild-then-launch-app</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">Build → relaunch Electron → verify with Playwright-Electron</td>
                   </tr>
                   <tr className="bg-white dark:bg-neutral-900">
-                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">hybrid</td>
-                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">
-                      Combined strategy: shell via Electron, remote content via browser
-                    </td>
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">desktop</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">remote</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">ensure-electron-running</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">Ensure Electron is running (HMR handles changes) → verify with Playwright-Electron</td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">desktop</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">hybrid</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">rebuild-then-launch-app</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">Build → relaunch Electron → verify with Playwright-Electron</td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-900">
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">mobile</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">remote</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">verify-web-url</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">Test web URL directly in browser</td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-800/50">
+                    <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">backend / cli</td>
+                    <td className="px-4 py-3 text-neutral-500 dark:text-neutral-500">n/a</td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300"><code className="rounded bg-neutral-100 px-1 text-xs dark:bg-neutral-800">not-required</code></td>
+                    <td className="px-4 py-3 text-neutral-700 dark:text-neutral-300">No UI verification</td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
+              <p className="text-sm font-semibold text-red-900 dark:text-red-100">
+                ⛔ All desktop strategies use <code className="rounded bg-red-100 px-1 text-xs dark:bg-red-900">playwright: &quot;electron&quot;</code>
+              </p>
+              <p className="mt-1 text-sm text-red-800 dark:text-red-200">
+                Never use browser-based verification for desktop apps. Even{" "}
+                <code className="rounded bg-red-100 px-1 text-xs dark:bg-red-900">webContent: &quot;remote&quot;</code>{" "}
+                (where HMR delivers changes via dev server) requires connecting Playwright to the Electron process.
+                Opening <code className="rounded bg-red-100 px-1 text-xs dark:bg-red-900">localhost</code> in a browser
+                is not the same as testing inside Electron — Electron has its own window chrome, IPC, and process model.
+              </p>
             </div>
 
             <div className="mt-4 rounded-xl border border-indigo-200 bg-indigo-50 p-4 dark:border-indigo-800 dark:bg-indigo-950">

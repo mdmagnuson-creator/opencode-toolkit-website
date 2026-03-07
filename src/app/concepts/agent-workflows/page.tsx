@@ -2236,6 +2236,97 @@ Scoped run: 3 test files`}
                 </div>
               </div>
 
+              {/* Probe Transport Detection */}
+              <div className="mt-4 rounded-lg border border-violet-200 bg-violet-50 p-4 dark:border-violet-800 dark:bg-violet-950">
+                <p className="text-sm font-semibold text-violet-900 dark:text-violet-100">
+                  🔌 Probe Transport Detection (Step 2)
+                </p>
+                <p className="mt-1 text-sm text-violet-800 dark:text-violet-200">
+                  Before building the probe spec, Builder reads{" "}
+                  <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">project.json → architecture.deployment</code>{" "}
+                  to select the correct transport:
+                </p>
+                <div className="mt-3 overflow-x-auto">
+                  <table className="min-w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-violet-200 dark:border-violet-800">
+                        <th className="py-1.5 pr-4 text-left font-medium text-violet-900 dark:text-violet-100">Deployment Type</th>
+                        <th className="py-1.5 pr-4 text-left font-medium text-violet-900 dark:text-violet-100">Transport</th>
+                        <th className="py-1.5 text-left font-medium text-violet-900 dark:text-violet-100">Spec Format</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-violet-800 dark:text-violet-200">
+                      <tr className="border-b border-violet-100 dark:border-violet-900">
+                        <td className="py-1.5 pr-4"><code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">web</code>, <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">web-*</code>, <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">serverless</code></td>
+                        <td className="py-1.5 pr-4"><code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">browser</code></td>
+                        <td className="py-1.5">Browser Probe Spec</td>
+                      </tr>
+                      <tr className="border-b border-violet-100 dark:border-violet-900">
+                        <td className="py-1.5 pr-4"><code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">electron-only</code>, <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">desktop</code>, <code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">tauri</code></td>
+                        <td className="py-1.5 pr-4"><code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">electron</code></td>
+                        <td className="py-1.5">Electron Probe Spec</td>
+                      </tr>
+                      <tr>
+                        <td className="py-1.5 pr-4"><code className="rounded bg-violet-100 px-1 text-xs dark:bg-violet-900">hybrid</code></td>
+                        <td className="py-1.5 pr-4">Both</td>
+                        <td className="py-1.5">One probe per transport</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="mt-3 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
+                  <p className="text-xs font-semibold text-red-900 dark:text-red-100">
+                    ⛔ Desktop apps have NO browser-accessible web server
+                  </p>
+                  <p className="mt-1 text-xs text-red-800 dark:text-red-200">
+                    Never use{" "}
+                    <code className="rounded bg-red-100 px-1 dark:bg-red-900">baseUrl: &quot;http://localhost:&#123;devPort&#125;&quot;</code>{" "}
+                    for desktop/Electron apps. Using browser transport against localhost will probe the wrong
+                    thing (or nothing at all). If{" "}
+                    <code className="rounded bg-red-100 px-1 dark:bg-red-900">architecture.deployment</code>{" "}
+                    is <code className="rounded bg-red-100 px-1 dark:bg-red-900">electron-only</code>, you must use{" "}
+                    <code className="rounded bg-red-100 px-1 dark:bg-red-900">transport: electron</code>{" "}
+                    with paths from{" "}
+                    <code className="rounded bg-red-100 px-1 dark:bg-red-900">apps.desktop.testing</code>.
+                  </p>
+                </div>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-lg bg-white p-3 dark:bg-neutral-900">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-violet-700 dark:text-violet-400">
+                      Browser Probe Spec
+                    </p>
+                    <pre className="mt-1 overflow-x-auto text-xs text-neutral-600 dark:text-neutral-400">
+{`transport: browser
+baseUrl: "http://localhost:{devPort}"
+assertions:
+  - page: "/checkout"
+    checks:
+      - selector: "button[type='submit']"
+        expect: "visible"`}
+                    </pre>
+                  </div>
+                  <div className="rounded-lg bg-white p-3 dark:bg-neutral-900">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-violet-700 dark:text-violet-400">
+                      Electron Probe Spec
+                    </p>
+                    <pre className="mt-1 overflow-x-auto text-xs text-neutral-600 dark:text-neutral-400">
+{`transport: electron
+launchTarget: # from project.json
+executablePath: # per-platform
+zombieCleanup: true
+assertions:
+  - window: "main"
+    checks:
+      - selector: "button[type='submit']"
+        expect: "visible"
+electronChecks:
+  - type: "ipc-response"
+    channel: # relevant IPC channel`}
+                    </pre>
+                  </div>
+                </div>
+              </div>
+
               {/* No-Bypass Rule */}
               <div className="mt-4 rounded-lg border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-950">
                 <p className="text-sm font-semibold text-rose-900 dark:text-rose-100">
