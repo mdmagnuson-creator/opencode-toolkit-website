@@ -55,5 +55,5 @@ Added mandatory Step 4.5 to the Builder's Story Processing Pipeline (and equival
 
 ## Source
 
-- Commit: pending (will update after commit)
+- Commit: b63cc1b
 - toolkit-structure.json: https://raw.githubusercontent.com/mdmagnuson-creator/yo-go/main/toolkit-structure.json
