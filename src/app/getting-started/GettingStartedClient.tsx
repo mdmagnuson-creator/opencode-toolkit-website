@@ -179,13 +179,67 @@ export function GettingStartedClient({
                 </code>
                 , and the rest of the agent system.
               </p>
+
+              <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-900/20">
+                <p className="text-sm text-amber-800 dark:text-amber-200">
+                  <strong>macOS users:</strong> The installer requires{' '}
+                  <strong>git</strong>, which needs the Xcode Command Line Tools. If you don&apos;t have them installed,
+                  macOS will prompt you to install them — this can take a few minutes. You can also install them ahead of time:
+                </p>
+                <div className="mt-2">
+                  <code className="rounded bg-amber-100 px-2 py-1 text-xs text-amber-900 dark:bg-amber-900/40 dark:text-amber-100">
+                    xcode-select --install
+                  </code>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900/50 dark:bg-blue-900/20">
+                <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
+                  Alternative: clone the toolkit manually
+                </p>
+                <p className="mt-2 text-sm text-blue-700 dark:text-blue-300">
+                  If the install script has trouble with git or you prefer more control over what gets downloaded,
+                  you can clone the toolkit yourself using{' '}
+                  <a
+                    href="https://desktop.github.com/"
+                    className="underline hover:text-blue-900 dark:hover:text-blue-100"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub Desktop
+                  </a>{' '}
+                  or the git CLI:
+                </p>
+                <div className="mt-3 space-y-2">
+                  <div>
+                    <p className="text-xs font-medium text-blue-800 dark:text-blue-200 mb-1">1. Clone the toolkit repo:</p>
+                    <CodeBlockWithCopy code="git clone https://github.com/mdmagnuson-creator/yo-go.git ~/.config/opencode" />
+                  </div>
+                  <p className="text-xs text-blue-600 dark:text-blue-400">
+                    Or in GitHub Desktop: <strong>File → Clone Repository</strong>, paste the URL above,
+                    and set the local path to{' '}
+                    <code className="rounded bg-blue-100 px-1 py-0.5 dark:bg-blue-900/40">~/.config/opencode</code>.
+                  </p>
+                  <div>
+                    <p className="text-xs font-medium text-blue-800 dark:text-blue-200 mb-1">2. Then run the install script locally:</p>
+                    <CodeBlockWithCopy code="bash ~/.config/opencode/install.sh" />
+                  </div>
+                </div>
+              </div>
+
               <div className="mt-4 rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
                 <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  <strong>Note:</strong> When piped to bash, the installer reads prompts from{' '}
-                  <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800/80">/dev/tty</code>{' '}
-                  so you can answer yes/no questions interactively. In non-interactive environments (like CI), 
-                  prompts default to <code className="rounded bg-neutral-100 px-1 py-0.5 text-xs dark:bg-neutral-800/80">n</code> (no) for safety.
+                  <strong>Tip:</strong> If you prefer to review the install script before running it, download it first
+                  and inspect it:
                 </p>
+                <div className="mt-2 space-y-1">
+                  <CodeBlockWithCopy code={`curl -fsSL ${toolkitInstallCommand.split(' ')[2]} -o install.sh && cat install.sh`} />
+                  <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-1">
+                    Then run it with{' '}
+                    <code className="rounded bg-neutral-100 px-1 py-0.5 dark:bg-neutral-800">bash install.sh</code>{' '}
+                    once you&apos;re comfortable.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

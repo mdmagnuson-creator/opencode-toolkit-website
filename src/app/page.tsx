@@ -456,7 +456,7 @@ export default function Home() {
                   A terminal-based AI coding tool. One command to install.
                 </p>
                 <CodeBlockWithCopy
-                  code="curl -fsSL https://opencode.ai/install.sh | bash"
+                  code="curl -fsSL https://opencode.ai/install | bash"
                   className="mt-3"
                 />
               </div>

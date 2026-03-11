@@ -28,7 +28,7 @@ const sections = [
 
 export default function GettingStartedPage() {
   const installCommand = getInstallCommand();
-  const opencodeInstallCommand = 'curl -fsSL https://opencode.ai/install.sh | bash';
+  const opencodeInstallCommand = 'curl -fsSL https://opencode.ai/install | bash';
 
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950">
