@@ -5,11 +5,11 @@ priority: normal
 updateType: sync
 ---
 
-# Sync Toolkit Documentation — Swift Agents, Outcome-Only Analysis, Dynamic Routing, Reduced Analysis Depth
+# Sync Toolkit Documentation — Swift Agents, Outcome-Only Analysis, Dynamic Routing, Reduced Analysis Depth, Direct Search Tools
 
 ## Summary
 
-Added two new agents for native Apple platform development (Swift/SwiftUI), made ad-hoc analysis dashboards fully outcome-only (no mechanism prescriptions across all dashboard sections), replaced hardcoded agent routing tables with dynamic discovery from the Task tool's agent list, and reduced analysis phase depth to behavior-focused exploration (specialists handle deep codebase understanding).
+Added two new agents for native Apple platform development (Swift/SwiftUI), made ad-hoc analysis dashboards fully outcome-only (no mechanism prescriptions across all dashboard sections), replaced hardcoded agent routing tables with dynamic discovery from the Task tool's agent list, reduced analysis phase depth to behavior-focused exploration (specialists handle deep codebase understanding), and added explicit directive to use direct search tools (grep/glob/semantic_search) instead of delegating to @explore during analysis.
 
 ## Changes
 
@@ -26,6 +26,7 @@ Added two new agents for native Apple platform development (Swift/SwiftUI), made
   - Dashboard rules: Added explicit rules for Understanding and Affected Files sections
   - Task spec template: Updated to match outcome-only patterns
   - Step 0.1: Renamed from "Time-Boxed Analysis" to "Behavior-Focused Analysis" — replaced deep AST/semantic/checklist methods with locate-area/side-effect-check/scope-estimate, added explicit guidance that deep exploration belongs to specialist agents not the analysis phase
+  - Step 0.1: Added directive to use direct search tools (grep/glob/semantic_search) instead of delegating to @explore for file identification during analysis
 - Modified: `toolkit-structure.json` — Added swift-dev to implementation category, swift-critic to critics category, updated total from 63 to 65. Updated changelog.
 - Modified: `README.md` — Updated agent count from 63 to 65.
 
