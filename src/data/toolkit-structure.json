@@ -1,10 +1,10 @@
 {
   "$schema": "https://opencode.ai/schemas/toolkit-structure.json",
   "version": "1.0.0",
-  "generatedAt": "2026-03-07T18:00:00Z",
+  "generatedAt": "2026-03-17T14:00:00Z",
   "repository": "https://github.com/mdmagnuson-creator/yo-go",
   "agents": {
-    "total": 63,
+    "total": 65,
     "categories": {
       "primary": {
         "description": "User-invokable primary agents",
@@ -85,6 +85,11 @@
             "description": "Implements React tasks specializing in UI consistency, Tailwind CSS, and TypeScript"
           },
           {
+            "name": "swift-dev",
+            "file": "agents/swift-dev.md",
+            "description": "Implements Swift tasks specializing in SwiftUI layout, multiplatform (macOS/iOS), native Apple patterns, and XCUITest UI test writing"
+          },
+          {
             "name": "terraform-dev",
             "file": "agents/terraform-dev.md",
             "description": "Implements Terraform infrastructure tasks"
@@ -137,7 +142,7 @@
           {
             "name": "tester",
             "file": "agents/tester.md",
-            "description": "Orchestrates test writing by routing to specialist testing agents"
+            "description": "Orchestrates test writing by routing to specialist testing agents including Swift/XCUITest via @swift-dev"
           }
         ]
       },
@@ -255,6 +260,11 @@
             "description": "Reviews public pages for SEO - meta tags, headings, structured data, page speed, and search engine best practices"
           },
           {
+            "name": "swift-critic",
+            "file": "agents/swift-critic.md",
+            "description": "Reviews Swift/SwiftUI code for layout correctness, view lifecycle, data flow, multiplatform issues, Apple platform best practices, and XCUITest quality"
+          },
+          {
             "name": "tailwind-critic",
             "file": "agents/tailwind-critic.md",
             "description": "Reviews Tailwind CSS usage for project-specific design system patterns and dark mode conventions"
@@ -349,7 +359,7 @@
     }
   },
   "skills": {
-    "total": 66,
+    "total": 69,
     "categories": {
       "workflow": {
         "description": "Workflow and lifecycle skills",
@@ -360,9 +370,9 @@
             "description": "Ad-hoc mode workflow for Builder. Use when handling direct requests without a PRD, quick fixes, or one-off tasks. Triggers on: ad-hoc mode, quick fix, direct request, one-off task."
           },
           {
-            "name": "builder-state",
-            "path": "skills/builder-state/SKILL.md",
-            "description": "Manage builder session state for resumability. Use when reading/writing builder-state.json, updating heartbeat, or resuming sessions. Triggers on: session state, builder state, heartbeat, resume session."
+            "name": "session-log",
+            "path": "skills/session-log/SKILL.md",
+            "description": "Manage persistent session logs for Builder. Use when initializing sessions, managing chunks, writing session state, or resuming sessions. Triggers on: session log, session state, chunk management, session resume, heartbeat, session init."
           },
           {
             "name": "git-sync",
@@ -377,7 +387,7 @@
           {
             "name": "post-completion",
             "path": "skills/post-completion/SKILL.md",
-            "description": "Post-completion polish steps for Developer. Use when all PRD stories pass but before declaring COMPLETE. Triggers on: post-completion, polish, aesthetic review, support articles, final checks."
+            "description": "Post-completion polish steps for Developer. Use when all PRD stories pass but before declaring COMPLETE. Triggers on: post-completion, polish, aesthetic review, post-change actions, final checks."
           },
           {
             "name": "prd",
@@ -650,6 +660,11 @@
             "description": "Playwright E2E testing patterns for Electron desktop applications. Covers app launch, main/renderer process testing, IPC mocking, and native dialog handling. Triggers on: electron test, desktop app test, ui-test-electron."
           },
           {
+            "name": "ui-test-xcuitest",
+            "path": "skills/ui-test-xcuitest/SKILL.md",
+            "description": "XCUITest patterns for native macOS and iOS apps. Covers element queries for SwiftUI/AppKit/UIKit, accessibility identifiers, page objects, platform-specific patterns, and CI integration for GitHub Actions and Xcode Cloud. Triggers on: xcuitest, ui test swift, xcode test, native app test."
+          },
+          {
             "name": "ui-test-full-app-audit",
             "path": "skills/ui-test-full-app-audit/SKILL.md",
             "description": "Comprehensive E2E test auditing workflow. Analyzes apps, generates test manifests, and executes with 5-retry resilience. Triggers on: e2e audit, full coverage audit, comprehensive e2e."
@@ -703,13 +718,23 @@
             "name": "vercel-supabase-alignment",
             "path": "skills/vercel-supabase-alignment/SKILL.md",
             "description": "Diagnose Vercel environment to Supabase project alignment issues. Helps identify which database is being targeted in multi-environment setups. Triggers on: database error, environment mismatch, wrong database, Vercel Supabase alignment."
+          },
+          {
+            "name": "oauth-callback-diagnostic",
+            "path": "skills/oauth-callback-diagnostic/SKILL.md",
+            "description": "Diagnose OAuth callback URL mismatches for desktop and web apps authenticating to third-party services (GitHub, Google, Azure AD, etc.). Triggers on: redirect_uri error, callback URL mismatch, OAuth callback not associated, OAuth redirect failed."
+          },
+          {
+            "name": "electron-build-deploy",
+            "path": "skills/electron-build-deploy/SKILL.md",
+            "description": "Build, deploy, and relaunch Electron desktop apps before Playwright verification. Provides explicit kill → copy → relaunch command sequence. Triggers on: test-flow Step 3.5 with apps.desktop.buildDeploy configured."
           }
         ]
       }
     }
   },
   "schemas": {
-    "total": 16,
+    "total": 18,
     "items": [
       {
         "name": "applied-updates.schema",
@@ -717,9 +742,14 @@
         "description": "Tracks updates that have been applied to a project, enabling cross-machine sync and audit trail"
       },
       {
-        "name": "builder-state.schema",
-        "file": "schemas/builder-state.schema.json",
-        "description": "Tracks Builder session state for resumability. Lives at docs/builder-state.json in each project."
+        "name": "builder-config.schema",
+        "file": "schemas/builder-config.schema.json",
+        "description": "Builder configuration schema for session log system — lean execution thresholds, context budgets, and chunk settings"
+      },
+      {
+        "name": "chunk.schema",
+        "file": "schemas/chunk.schema.json",
+        "description": "Schema for session log chunks — story/task execution records with carry-forward context"
       },
       {
         "name": "ui-test-audit-manifest.schema",
@@ -750,6 +780,11 @@
         "name": "requirements.schema",
         "file": "schemas/requirements.schema.json",
         "description": "Structured requirements extracted from a project spec or PRD for stack recommendation and scaffolding"
+      },
+      {
+        "name": "session.schema",
+        "file": "schemas/session.schema.json",
+        "description": "Schema for persistent session logs — session metadata, chunk references, and git integration"
       },
       {
         "name": "skill-mapping.schema",
@@ -993,6 +1028,270 @@
   "changelog": {
     "generatedFrom": "git log --since=30 days",
     "entries": [
+      {
+        "type": "feat",
+        "scope": "agents,data",
+        "description": "add XCUITest/Swift routing to tester agent — native Apple platform detection (swiftui/appkit/uikit), .swift file delegation to @swift-dev, XCUITest delegation prompt template, xcodebuild test execution guidance; fix skill-mapping.json xcuitest skill reference and add native Apple platform/routing/suggestion entries",
+        "hash": "5f88788"
+      },
+      {
+        "type": "feat",
+        "scope": "agents,skills,schemas",
+        "description": "add XCUITest support — new ui-test-xcuitest skill for native macOS/iOS testing, update swift-dev with XCUITest test writing capability, update swift-critic with XCUITest review criteria (Section 8), add swift/kotlin/dart to project schema language enum",
+        "hash": "c87e9e8"
+      },
+      {
+        "type": "refactor",
+        "scope": "skills",
+        "description": "reduce analysis depth in adhoc-workflow Step 0.1 — rename to Behavior-Focused Analysis, use direct search tools (grep/glob/semantic_search) instead of @explore delegation, replace deep AST/semantic/checklist methods with locate-area/side-effect-check/scope-estimate, add explicit NOT-do list to prevent deep exploration during analysis phase",
+        "hash": "4ccf342"
+      },
+      {
+        "type": "fix",
+        "scope": "skills",
+        "description": "extend outcome-only analysis to UNDERSTANDING section, AFFECTED FILES, and Step 0.1 presentation rule — closes gap where mechanisms leaked through dashboard sections not covered by initial edit",
+        "hash": "37bef0d"
+      },
+      {
+        "type": "feat",
+        "scope": "agents",
+        "description": "outcome-only analysis dashboards, dynamic agent routing in developer.md and critic.md, plus swift-dev and swift-critic agents for native Apple platform development",
+        "hash": "d91138e"
+      },
+      {
+        "type": "feat",
+        "scope": "agents",
+        "description": "enforce mandatory delegation in Builder — all source code reading to @explore, all code writing to @developer, with identity lock, write scope restrictions, and investigation protocol",
+        "hash": "839eaa7"
+      },
+      {
+        "type": "feat",
+        "scope": "agents",
+        "description": "add soul personality layer to Builder and Planner — tone, voice, communication style directives with read-at-startup pattern",
+        "hash": "23d9c0c"
+      },
+      {
+        "type": "refactor",
+        "scope": "agents",
+        "description": "revert desktop mode detection and postChangeActions removal — restore builder postChangeActions pipeline (Step 4.5) and skill references across adhoc-workflow, builder-delegation, post-completion, prd-workflow, test-flow",
+        "hash": "5bac879"
+      },
+      {
+        "type": "feat",
+        "scope": "agents",
+        "description": "add Step 4.5 (postChangeActions) to builder Story Processing Pipeline — mandatory post-commit execution with trigger evaluation and failure modes",
+        "hash": "b63cc1b"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "add Step 1.5 (postChangeActions) to adhoc-workflow Phase 2 Ship — mirrors Pipeline Step 4.5 for ad-hoc commit flow",
+        "hash": "b63cc1b"
+      },
+      {
+        "type": "refactor",
+        "scope": "skills",
+        "description": "strengthen test-flow Section 5.5 with MANDATORY gate, pipeline step reference, and all-commit-paths applicability",
+        "hash": "b63cc1b"
+      },
+      {
+        "type": "refactor",
+        "scope": "skills",
+        "description": "update prd-workflow pipeline summary and postChangeActions reference to use canonical Step 4.5",
+        "hash": "b63cc1b"
+      },
+      {
+        "type": "feat",
+        "scope": "schemas",
+        "description": "add postChangeActions configuration to project.schema.json — pending-update, agent, command, notify action types with trigger conditions (always, files-changed-in, feature-change, user-facing-change)",
+        "hash": "37faa43"
+      },
+      {
+        "type": "refactor",
+        "scope": "schemas",
+        "description": "remove support-article, tools, marketing from workflow step enums in project.schema.json and workflow-defaults.schema.json — replaced by postChangeActions",
+        "hash": "37faa43"
+      },
+      {
+        "type": "refactor",
+        "scope": "data",
+        "description": "remove support-article/tools/marketing conditionalSteps and stepReference entries from workflow-defaults.json — replaced by postChangeActions",
+        "hash": "37faa43"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "add Section 5.5 Post-Change Actions (After Commit) to test-flow — trigger evaluation, action execution, and error handling",
+        "hash": "37faa43"
+      },
+      {
+        "type": "refactor",
+        "scope": "skills",
+        "description": "replace hardcoded supportArticleRequired/toolsRequired/marketingRequired story flags with postChangeActions reference in prd-workflow",
+        "hash": "37faa43"
+      },
+      {
+        "type": "refactor",
+        "scope": "skills",
+        "description": "replace Step B (support articles) and Step D (copy review) with postChangeActions verification in post-completion",
+        "hash": "37faa43"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "add Post-Change Actions section to canonical source example in builder-delegation",
+        "hash": "37faa43"
+      },
+      {
+        "type": "feat",
+        "scope": "data",
+        "description": "add 2026-03-08-migrate-to-post-change-actions entry to update-registry.json with all-projects affinity",
+        "hash": "37faa43"
+      },
+      {
+        "type": "feat",
+        "scope": "templates",
+        "description": "create migrate-to-post-change-actions.md interactive migration template for all projects",
+        "hash": "37faa43"
+      },
+      {
+        "type": "refactor",
+        "scope": "schemas",
+        "description": "fix toolkit-structure.json schema entries — replace deleted builder-state.schema with session.schema, chunk.schema, builder-config.schema (total 16→18)",
+        "hash": "37faa43"
+      },
+      {
+        "type": "feat",
+        "scope": "agents",
+        "description": "add session log git integration section to builder — cross-machine resume, active session housekeeping, commit strategy (US-005)",
+        "hash": "ff6cfd3"
+      },
+      {
+        "type": "feat",
+        "scope": "agents",
+        "description": "add unified compaction recovery protocol to builder — single protocol for compaction + resume, session discovery (US-004)",
+        "hash": "e3deacc"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "add compaction recovery section to session-log skill — targeted file reads, recovery message format (US-004)",
+        "hash": "e3deacc"
+      },
+      {
+        "type": "feat",
+        "scope": "agents",
+        "description": "add lean execution mode to builder — automatic context shedding, chunk transitions, carry-forward rules (US-003)",
+        "hash": "23577f7"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "add chunk transition protocol and context shedding to session-log skill — max context budget, multi-task grouping (US-003)",
+        "hash": "23577f7"
+      },
+      {
+        "type": "feat",
+        "scope": "schemas",
+        "description": "create session.schema.json, chunk.schema.json, builder-config.schema.json for session log system (US-001)",
+        "hash": "d931c4e"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "create session-log skill — replaces builder-state with persistent session logs, commit ordering, heartbeat, branchless trunk semantics (US-002)",
+        "hash": "d931c4e"
+      },
+      {
+        "type": "refactor",
+        "scope": "agents",
+        "description": "migrate builder, developer, toolkit from builder-state to session-log — delete builder-state schema and skill (US-002)",
+        "hash": "d931c4e"
+      },
+      {
+        "type": "feat",
+        "scope": "schemas",
+        "description": "add buildDeploy configuration to project.schema.json — buildCommand, buildOutputApp, testApp, triggerPaths, autoDeployAfterStory, buildTimeoutMs",
+        "hash": "37fb22b"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "add triggerPaths glob matching algorithm to test-flow Step 3.5 and build-deploy completion report section",
+        "hash": "37fb22b"
+      },
+      {
+        "type": "feat",
+        "scope": "data",
+        "description": "add configure-electron-build-deploy update template and registry entry with electron-apps affinity",
+        "hash": "37fb22b"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "create electron-build-deploy skill — explicit kill → copy → relaunch command sequence for Electron apps before Playwright verification",
+        "hash": "c905a17"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "update test-flow Step 3.5 to load electron-build-deploy skill as first priority when buildDeploy is configured",
+        "hash": "c905a17"
+      },
+      {
+        "type": "docs",
+        "scope": "prds",
+        "description": "promote prd-electron-build-deploy from draft to ready — 6 stories, all open questions resolved, macOS only v1",
+        "hash": "c905a17"
+      },
+      {
+        "type": "feat",
+        "scope": "skills",
+        "description": "add oauth-callback-diagnostic skill — generalized OAuth redirect_uri mismatch diagnostic for any provider/app type",
+        "hash": "f7bf6ab"
+      },
+      {
+        "type": "docs",
+        "scope": "prds",
+        "description": "add draft PRD prd-electron-build-deploy — automate Electron build-deploy cycle in test-flow",
+        "hash": "f7bf6ab"
+      },
+      {
+        "type": "fix",
+        "scope": "skills",
+        "description": "reset top-level verificationContract/verificationResults/pendingTests at all task boundaries — prevents stale verification state from causing test-flow skips",
+        "hash": "e942c76"
+      },
+      {
+        "type": "fix",
+        "scope": "agents",
+        "description": "add per-story verification state reset to Story Processing Pipeline Step 1 in builder.md",
+        "hash": "e942c76"
+      },
+      {
+        "type": "fix",
+        "scope": "skills",
+        "description": "add staleness check to test-flow Verification Contract Integration — contracts predating current story are discarded",
+        "hash": "e942c76"
+      },
+      {
+        "type": "refactor",
+        "scope": "skills",
+        "description": "remove all competing Playwright gate mechanisms — testVerifySettings is now sole gate (US-001 through US-013)",
+        "hash": "e1c442f"
+      },
+      {
+        "type": "refactor",
+        "scope": "schemas",
+        "description": "remove rigorProfile, storyAssessment, e2e/e2eScope from project and test-activity-rules schemas",
+        "hash": "e1c442f"
+      },
+      {
+        "type": "feat",
+        "scope": "data",
+        "description": "add configure-test-verify-settings update template and registry entry for all-projects migration",
+        "hash": "e1c442f"
+      },
       {
         "type": "fix",
         "scope": "skills",

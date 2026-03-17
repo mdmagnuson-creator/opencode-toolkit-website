@@ -1,20 +1,20 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-03-07T18:00:00Z",
-  "syncedAt": "2026-03-07T15:09:39.424Z",
+  "generatedAt": "2026-03-17T14:00:00Z",
+  "syncedAt": "2026-03-17T12:46:56.997Z",
   "toolkitCommit": "c56851f",
   "counts": {
-    "agents": 63,
+    "agents": 65,
     "primaryAgents": 4,
-    "subagents": 59,
-    "skills": 66,
+    "subagents": 61,
+    "skills": 69,
     "metaSkills": 11,
     "scaffolds": 3,
     "agentTemplates": 14
   },
   "categories": {
-    "critics": 28,
-    "developers": 15,
+    "critics": 29,
+    "developers": 16,
     "testers": 9,
     "orchestrators": 3,
     "utilities": 8
@@ -444,6 +444,22 @@
       "content": ""
     },
     {
+      "slug": "swift-critic",
+      "name": "Swift Critic",
+      "description": "Reviews Swift/SwiftUI code for layout correctness, view lifecycle, data flow, multiplatform issues, Apple platform best practices, and XCUITest quality",
+      "mode": "subagent",
+      "category": "critics",
+      "content": ""
+    },
+    {
+      "slug": "swift-dev",
+      "name": "Swift Dev",
+      "description": "Implements Swift tasks specializing in SwiftUI layout, multiplatform (macOS/iOS), native Apple patterns, and XCUITest UI test writing",
+      "mode": "subagent",
+      "category": "developers",
+      "content": ""
+    },
+    {
       "slug": "tailwind-critic",
       "name": "Tailwind Critic",
       "description": "Reviews Tailwind CSS usage for project-specific design system patterns and dark mode conventions",
@@ -462,7 +478,7 @@
     {
       "slug": "tester",
       "name": "Tester",
-      "description": "Orchestrates test writing by routing to specialist testing agents",
+      "description": "Orchestrates test writing by routing to specialist testing agents including Swift/XCUITest via @swift-dev",
       "mode": "subagent",
       "category": "testers",
       "content": ""
@@ -732,19 +748,6 @@
       "content": ""
     },
     {
-      "slug": "builder-state",
-      "name": "Builder State",
-      "description": "Manage builder session state for resumability. Use when reading/writing builder-state.json, updating heartbeat, or resuming sessions. Triggers on: session state, builder state, heartbeat, resume session.",
-      "triggers": [
-        "session state",
-        "builder state",
-        "heartbeat",
-        "resume session"
-      ],
-      "isMeta": false,
-      "content": ""
-    },
-    {
       "slug": "builder-verification",
       "name": "Builder Verification",
       "description": "Verification handling for Builder sessions. Covers as-user verification, prerequisite/environment failures, verification-failures.json logging, and manual fallback options.",
@@ -805,6 +808,16 @@
         "reassign task",
         "fallback agent",
         "escalate task"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "electron-build-deploy",
+      "name": "Electron Build Deploy",
+      "description": "Build, deploy, and relaunch Electron desktop apps before Playwright verification. Provides explicit kill → copy → relaunch command sequence. Triggers on: test-flow Step 3.5 with apps.desktop.buildDeploy configured.",
+      "triggers": [
+        "test-flow Step 3.5 with apps.desktop.buildDeploy configured"
       ],
       "isMeta": false,
       "content": ""
@@ -909,14 +922,27 @@
       "content": ""
     },
     {
+      "slug": "oauth-callback-diagnostic",
+      "name": "Oauth Callback Diagnostic",
+      "description": "Diagnose OAuth callback URL mismatches for desktop and web apps authenticating to third-party services (GitHub, Google, Azure AD, etc.). Triggers on: redirect_uri error, callback URL mismatch, OAuth callback not associated, OAuth redirect failed.",
+      "triggers": [
+        "redirect_uri error",
+        "callback URL mismatch",
+        "OAuth callback not associated",
+        "OAuth redirect failed"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
       "slug": "post-completion",
       "name": "Post Completion",
-      "description": "Post-completion polish steps for Developer. Use when all PRD stories pass but before declaring COMPLETE. Triggers on: post-completion, polish, aesthetic review, support articles, final checks.",
+      "description": "Post-completion polish steps for Developer. Use when all PRD stories pass but before declaring COMPLETE. Triggers on: post-completion, polish, aesthetic review, post-change actions, final checks.",
       "triggers": [
         "post-completion",
         "polish",
         "aesthetic review",
-        "support articles",
+        "post-change actions",
         "final checks"
       ],
       "isMeta": false,
@@ -1039,6 +1065,21 @@
         "fix loop",
         "self correction",
         "retry failed tests"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "session-log",
+      "name": "Session Log",
+      "description": "Manage persistent session logs for Builder. Use when initializing sessions, managing chunks, writing session state, or resuming sessions. Triggers on: session log, session state, chunk management, session resume, heartbeat, session init.",
+      "triggers": [
+        "session log",
+        "session state",
+        "chunk management",
+        "session resume",
+        "heartbeat",
+        "session init"
       ],
       "isMeta": false,
       "content": ""
@@ -1294,6 +1335,19 @@
         "CLS test",
         "drag drop test",
         "animation test"
+      ],
+      "isMeta": false,
+      "content": ""
+    },
+    {
+      "slug": "ui-test-xcuitest",
+      "name": "Ui Test Xcuitest",
+      "description": "XCUITest patterns for native macOS and iOS apps. Covers element queries for SwiftUI/AppKit/UIKit, accessibility identifiers, page objects, platform-specific patterns, and CI integration for GitHub Actions and Xcode Cloud. Triggers on: xcuitest, ui test swift, xcode test, native app test.",
+      "triggers": [
+        "xcuitest",
+        "ui test swift",
+        "xcode test",
+        "native app test"
       ],
       "isMeta": false,
       "content": ""

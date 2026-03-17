@@ -2,6 +2,17 @@
   "$schema": "https://opencode.ai/schemas/project.json",
   "name": "Toolkit Website",
   "description": "Website explaining the AI toolkit system - primary agents, sub-agents, skills categorized with descriptions and counts, plus getting started instructions",
+  "environments": {
+    "development": {
+      "host": "local",
+      "port": 4006
+    },
+    "production": {
+      "host": "github-pages",
+      "url": "https://opencode.ai"
+    }
+  },
+
   "stack": {
     "languages": [
       "typescript"
@@ -95,6 +106,7 @@
       "commit"
     ]
   },
+  "postChangeActions": [],
   "git": {
     "defaultBranch": "main",
     "autoCommit": true,

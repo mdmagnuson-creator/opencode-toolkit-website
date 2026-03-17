@@ -320,6 +320,83 @@
       "appliedBy": "builder",
       "updateType": "sync",
       "notes": "Electron build-deploy cycle implementation — buildDeploy schema, triggerPaths matching, update template — no website code changes needed"
+    },
+    {
+      "id": "2026-03-08-toolkit-sync-session-log",
+      "appliedAt": "2026-03-17T12:50:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Session log system replacing builder-state — fetched latest toolkit-structure.json, session-log skill now in manifest, builder-state removed"
+    },
+    {
+      "id": "2026-03-08-toolkit-sync",
+      "appliedAt": "2026-03-17T12:50:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "postChangeActions config + pipeline Step 4.5 — fetched latest toolkit-structure.json with updated skill descriptions and schema entries"
+    },
+    {
+      "id": "2026-03-13-toolkit-sync",
+      "appliedAt": "2026-03-17T12:50:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Soul personality layer — builder.soul.md and planner.soul.md added to toolkit, reflected in updated toolkit-structure.json"
+    },
+    {
+      "id": "2026-03-15-toolkit-sync",
+      "appliedAt": "2026-03-17T12:50:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Revert Helm ADE desktop mode — premature desktop mode detection reverted in toolkit, no website impact"
+    },
+    {
+      "id": "2026-03-15-builder-mandatory-delegation-sync",
+      "appliedAt": "2026-03-17T12:50:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Builder mandatory delegation rules — @explore for code reading, @developer for code writing, reflected in updated toolkit-structure.json"
+    },
+    {
+      "id": "2026-03-16-toolkit-sync",
+      "appliedAt": "2026-03-17T12:50:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Swift agents (swift-dev, swift-critic) + outcome-only analysis + dynamic routing — 63→65 agents, fetched latest toolkit-structure.json"
+    },
+    {
+      "id": "2026-03-17-toolkit-sync",
+      "appliedAt": "2026-03-17T12:50:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "XCUITest support — new ui-test-xcuitest skill, tester routing, skill-mapping fixes — 66→69 skills, fetched latest toolkit-structure.json"
+    },
+    {
+      "id": "2026-02-23-add-environments",
+      "appliedAt": "2026-03-17T12:55:00Z",
+      "appliedBy": "builder",
+      "updateType": "migration",
+      "notes": "Added environments section to project.json — development (localhost:4006) and production (github-pages, opencode.ai)"
+    },
+    {
+      "id": "2026-02-23-add-multi-service-dev",
+      "appliedAt": "2026-03-17T12:55:00Z",
+      "appliedBy": "builder",
+      "updateType": "migration",
+      "notes": "Skipped — single-service project (Next.js only), no multi-service config needed. Port already in environments.development."
+    },
+    {
+      "id": "2026-02-23-toolkit-dev-server-persist",
+      "appliedAt": "2026-03-17T12:55:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "Dev server persistence behavior — toolkit docs sync only, no website code changes needed"
+    },
+    {
+      "id": "2026-03-08-migrate-to-post-change-actions",
+      "appliedAt": "2026-03-17T13:05:00Z",
+      "appliedBy": "builder",
+      "updateType": "schema",
+      "notes": "Added empty postChangeActions array — this is the downstream documentation site (no upstream propagation needed). Old workflow steps and conditionalSteps were already absent. Existing PRD story-level flags (marketingRequired, toolsRequired, supportArticleRequired) left in place as harmlessly ignored."
     }
   ]
 }
