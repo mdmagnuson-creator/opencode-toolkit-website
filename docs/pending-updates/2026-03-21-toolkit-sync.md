@@ -27,5 +27,5 @@ Updated XCUITest testing infrastructure: added 3 new gotchas to the xcuitest ski
 
 ## Source
 
-- Commit: pending
-- toolkit-structure.json: https://raw.githubusercontent.com/mdmagnuson/helm-ade-toolkit/main/toolkit-structure.json
+- Commit (yo-go): pending
+- toolkit-structure.json: https://raw.githubusercontent.com/mdmagnuson-creator/yo-go/main/toolkit-structure.json
