@@ -397,6 +397,13 @@
       "appliedBy": "builder",
       "updateType": "schema",
       "notes": "Added empty postChangeActions array — this is the downstream documentation site (no upstream propagation needed). Old workflow steps and conditionalSteps were already absent. Existing PRD story-level flags (marketingRequired, toolsRequired, supportArticleRequired) left in place as harmlessly ignored."
+    },
+    {
+      "id": "2026-03-21-toolkit-sync",
+      "appliedAt": "2026-03-21T20:00:00Z",
+      "appliedBy": "builder",
+      "updateType": "sync",
+      "notes": "XCUITest gotchas #6-#8, context.testing awareness across agents/skills, native Apple app routing in test-ui-verification — fetched latest toolkit-structure.json"
     }
   ]
 }
