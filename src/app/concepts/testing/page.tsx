@@ -166,13 +166,51 @@ export default function TestingConceptPage() {
             Testing Agent Hierarchy
           </h2>
           <p className="mt-4 text-base leading-7 text-neutral-700 sm:text-lg dark:text-neutral-400">
-            The testing system is organized into four layers, each handling
-            different aspects of quality assurance.
+            The testing system is organized into four specialized layers,
+            coordinated by Builder — the agent you interact with. Builder
+            automatically delegates to the tester orchestrator, which routes to
+            specialists based on file patterns.
           </p>
 
           {/* Architecture Diagram */}
           <div className="mt-10 rounded-xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 dark:border-neutral-700 dark:bg-neutral-900">
             <div className="space-y-6">
+              {/* User-Facing Layer: Builder */}
+              <div>
+                <p className="mb-3 text-center text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-500">
+                  User-Facing Layer
+                </p>
+                <div className="flex justify-center">
+                  <div className="rounded-lg border-2 border-amber-300 bg-amber-50 px-6 py-3 dark:border-amber-700 dark:bg-amber-950">
+                    <div className="text-center">
+                      <code className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+                        builder
+                      </code>
+                      <p className="mt-1 text-xs text-amber-700 dark:text-amber-400">
+                        You interact with Builder — it delegates testing automatically
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div className="flex justify-center">
+                <svg
+                  className="h-8 w-8 text-neutral-400 dark:text-neutral-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"
+                  />
+                </svg>
+              </div>
+
               {/* Layer 1: Orchestrator */}
               <div>
                 <p className="mb-3 text-center text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-500">
