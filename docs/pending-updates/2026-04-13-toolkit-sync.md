@@ -9,7 +9,7 @@ updateType: sync
 
 ## Summary
 
-Added YAML frontmatter to 13 skills that were missing it, making them discoverable by the OpenCode skill loader.
+Added YAML frontmatter to 13 skills for discoverability. Added deep-investigation skill for hypothesis-driven bug analysis, updated adhoc-workflow to route bug tasks to it, and added state hygiene + structured question format rules to Planner.
 
 ## Changes
 
@@ -26,10 +26,16 @@ Added YAML frontmatter to 13 skills that were missing it, making them discoverab
 - Fixed: `skills/ui-test-full-app-audit/SKILL.md` — Added YAML frontmatter
 - Fixed: `skills/vercel-supabase-alignment/SKILL.md` — Added YAML frontmatter
 - Fixed: `skills/verification-contracts/SKILL.md` — Added YAML frontmatter
+- Added: `skills/deep-investigation/SKILL.md` — New skill for multi-track bug investigation with evidence classification (CONFIRMED/INFERRED/ASSUMED), parallel investigation tracks, hypothesis scoring, and investigation dashboard
+- Modified: `skills/adhoc-workflow/SKILL.md` — Added `bug-investigation` task type to Step 0.1a; routes unknown-root-cause bugs to deep-investigation skill
+- Modified: `agents/builder.md` — Added deep-investigation to Skills Reference table and loading scenarios
+- Modified: `agents/planner.md` — Added state hygiene (incremental decision persistence, lockedDecisions, resumePrompt) and structured question format (numbered questions, lettered options, recommendations)
 
 ## Affected Website Pages
 
-- [ ] Skills documentation page (13 skills now discoverable that weren't before)
+- [ ] Skills documentation page (13 skills now discoverable + 1 new skill: deep-investigation)
+- [ ] Agent documentation page (builder skills table, planner state hygiene + question format)
+- [ ] Workflow documentation (adhoc-workflow bug investigation routing)
 
 ## Source
 
