@@ -22,7 +22,12 @@ Added a new primary agent `@agent-unleashed` — an unrestricted general-purpose
   - Inherits all `AGENTS.md` global guardrails (toolkit protection, git workflow, protected resources, etc.)
   - One-paragraph trust-the-LLM operating principle
 - Updated: `toolkit-structure.json` — agent count 65 → 66, new entry under `primary` category, changelog refreshed
-- Updated: `README.md` — agent count 65 → 66
+- Updated: `agents/agent-unleashed.md` — reframed Core Operating Principle to default toward delegation
+  - Three explicit benefits of delegation: quality, context preservation, multiple eyes
+  - "When to delegate" / "When to do it yourself" tables
+  - Honest self-check questions (will I run a critic? is context heavily used? many turns in same area?)
+  - **Auto-announce delegation decisions** before non-trivial implementation work (one-line statement of delegate-or-not + why)
+  - **Default to running a critic before declaring done** — even if tests pass, even if you're confident
 
 ## Affected Website Pages
 
