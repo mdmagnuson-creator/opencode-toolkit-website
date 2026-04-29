@@ -16,6 +16,8 @@ Added a new primary agent `@agent-unleashed` — an unrestricted general-purpose
 - Added: `agents/agent-unleashed.md` — new primary agent
   - `mode: primary`, `tools: "*": true`, `temperature: 0.2`
   - No identity lock, no PRD lifecycle, no session logging requirements
+  - Lightweight project selection on session start (reads `~/.config/opencode/projects.json`, asks user to pick when ambiguous, skips entirely for non-project work)
+  - Loads `docs/project.json` and `docs/CONVENTIONS.md` once a project is picked; treats `CONVENTIONS.md` as source of truth for project coding standards
   - Capability menu listing sub-agents (by category) and skills (by category)
   - Inherits all `AGENTS.md` global guardrails (toolkit protection, git workflow, protected resources, etc.)
   - One-paragraph trust-the-LLM operating principle
